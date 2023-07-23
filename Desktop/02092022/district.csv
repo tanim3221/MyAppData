@@ -1,0 +1,8 @@
+"id";"name";"name_bn";"division";"date_upated";"person_update"
+<br />
+<b>Fatal error</b>:  Uncaught TypeError: Return value of PhpMyAdmin\Encoding::convertString() must be of the type string, bool returned in C:\Users\asaklayen\Documents\App\Server\xampp\phpMyAdmin\libraries\classes\Encoding.php:200
+Stack trace:
+#0 C:\Users\asaklayen\Documents\App\Server\xampp\phpMyAdmin\libraries\classes\Export.php(154): PhpMyAdmin\Encoding::convertString('utf-8', 'windows-1252', '&quot;1&quot;;&quot;Bagerhat&quot;;...')
+#1 C:\Users\asaklayen\Documents\App\Server\xampp\phpMyAdmin\libraries\classes\Plugins\Export\ExportCsv.php(339): PhpMyAdmin\Export-&gt;outputHandler('&quot;1&quot;;&quot;Bagerhat&quot;;...')
+#2 C:\Users\asaklayen\Documents\App\Server\xampp\phpMyAdmin\libraries\classes\Export.php(998): PhpMyAdmin\Plugins\Export\ExportCsv-&gt;exportData('ais', 'district', '\r\n', 'tbl_export.php?...', 'SELECT `id`, `n...', Array)
+#3 C:\Users\asaklayen\Documents\App\Server\xampp\phpMyAdmin\export.php(581): PhpMyAdmin\Export-&gt;exportTable('ais', 'district', 'data', Object(PhpMyAdmin\Plugins\Export\ExportExcel), '\r\n', 'tbl_export.php?...', 'table', false, false,  in <b>C:\Users\asaklayen\Documents\App\Server\xampp\phpMyAdmin\libraries\classes\Encoding.php</b> on line <b>200</b><br />

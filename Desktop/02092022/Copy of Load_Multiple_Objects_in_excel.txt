@@ -1,0 +1,52 @@
+Sub Insert_Objects()
+'
+' Insert_Objects Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+O
+'
+    Dim objFSO As Object
+    Dim objFolder As Object
+    Dim objFile As Object
+    Dim ws As Worksheet
+    Dim MyRow As Integer
+    Dim MyCol As Integer
+    Dim CurrentFile As String
+     
+    Set objFSO = CreateObject("Scripting.FileSystemObject")
+    Set ws = ThisWorkbook.ActiveSheet
+     
+     'Get the folder object associated with the directory
+    
+Set objFolder = Application.FileDialog(msoFileDialogFolderPicker)
+With objFolder
+.Title = "Select a Folder"
+.AllowMultiSelect = False
+.InitialFileName = strPath
+If .Show <> -1 Then GoTo NextCode
+sItem = .SelectedItems(1)
+End With
+NextCode:
+GetFolder = sItem
+    
+    
+    Set objFolder = objFSO.GetFolder(sItem)
+     'Loop through the Files collection
+    MyRow = ActiveCell.Row
+    MyCol = ActiveCell.Column
+    For Each objFile In objFolder.Files
+    ws.Cells(MyRow, MyCol).Value = objFolder & "\" & objFile.Name
+       
+    CurrentFile = ws.Cells(MyRow, MyCol).Value
+    ActiveSheet.OLEObjects.Add(Filename:= _
+    CurrentFile, Link:= _
+    False, DisplayAsIcon:=True, IconFileName:= _
+    "C:\WINDOWS\system32\packager.dll", IconIndex:=0, IconLabel:="").Select
+    Range(ActiveCell.Offset(1, 0), ActiveCell.Offset(1, 0)).Select
+                    
+    Next
+     
+     'Clean up!
+    Set objFolder = Nothing
+    Set objFile = Nothing
+    Set objFSO = Nothing
+End Sub

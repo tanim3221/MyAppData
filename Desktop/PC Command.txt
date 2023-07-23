@@ -1,0 +1,23 @@
+Shutdown:
+--------
+Shutdown.exe /s /t 00
+
+
+Restart:
+--------
+Shutdown.exe /r /t 00
+
+
+Sleep:
+------
+rundll32.exe powrprof.dll,SetSuspendState 0,1,0
+
+
+Hibernate:
+----------
+rundll32.exe PowrProf.dll,SetSuspendState
+
+
+Lock:
+-----
+Rundll32.exe User32.dll,LockWorkStation

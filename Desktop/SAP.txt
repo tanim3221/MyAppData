@@ -1,0 +1,177 @@
+SAP Module:
+SAP FICO
+
+
+Tresary - BRS 
+
+stock - raw material other system ( epic oms) managing ther inventory - OMS (Raw material Inventry Frebic, Poruction) , PCS(), FGIMs(fininsh goods)
+
+Salary Data (PMS) Absence,  after approval entry in SAP, Autumation is reviewing process, still verifiying, SAP and PMS go for Autumated next financila year. 
+
+GRM (OMS v2) theri updloaed direct SAP, GRM comming automatic, MOnth end entry mannual entry in the GRM (INventry)
+
+Revenue - Epic oms ( CIMS) inlcueds all the details, AUtomatic pass the entry invoicewise to SAP. Push the the data CIMS to SAP. First entry as parking entry (Draft) and after appprove and hit in the SAP.
+
+after raising the BILL of ladding revenue recongnise. Epic Dubai and HK main customer. 
+
+
+Utility bill, overhead , direct post to SAP.  
+
+PIMS -  now comming from template, Export Incentive direct to SAP, Base data comming from CIMS .
+
+Provision ( CISM ) Background Data. 
+
+Sales and distribute comming from SAP Based on Draft data.
+
+
+Exchange rate comming from SAP
+
+SAP guide how much provision need to take.
+
+
+192.168.10.67/10
+
+
+PPE - SAP - Drepreciation, Intangible assets, 
+
+first parking the CWIP. Tracking Item level. go through code. mapping the code.
+
+
+Raw Materials:
+JOB Code - Cost are booking in this job Code. call files" 
+Epic assets - raw material. 
+Buying monitor the raw materials.
+Buy based oo the files. (Uniqie No), Uniques digits. very specific as files code. maintain in the OMS v2 and going to SAP ( Automating Prcess), System will Manuually push it from . Every month GRM ref as files name. based on the GRN no. they track. Push data to SAP 
+
+OMS Inhouse built Software.
+
+GRN from the file record. when Receiving the goods and system give the generated Barcode when input GRN. paste in roll.
+
+BARCODE ( File Ref, Q)
+
+100 Q. OMS Requisition from PMS - ( PO to Issue ) Issue after approved. Approval Authority - Merchant Head. Warehouse allocate the team. 
+
+Cost values calculated in system.
+
+
+Consumption:
+===========
+
+Receive The goods: (Purchase)
+==================
+RM Inv Dr.
+AP Cr.
+
+Issuance:
+==========
+No entry.
+
+No Opening BL. 0
+100 Q Value 100
+
+Month end Inventry value. 
+Available Stock - closing balance 90.
+
+100-90 = 10 recorded as 
+
+WIP Dr 10 (SAP) 
+RM Inv Cr. 10 
+
+
+In excel sheet calculated the balance (Just Value). other details in OMS v2. 
+
+This part added as WIP: PCS v2. Report from PCS v2. Q and Values is available.
+
+WIP:
+=====
+
+WIP opening 0
+Additional Febric 10 Q V 10. 
+Closing BL 5
+
+10 Roll - 500 Pcs - 50 Bundle.
+
+10 pcs means 01 Bundle. ( Karmal System.) Tracing the WIP.
+
+20 Bundle have completed day end (FG). 30 Bundle inside the line ( Part of WIP)
+
+Cutting - Sweing ( Division Of Labour, Multiple work station) -  Checking point (Sweing Check-QC) - Goes to wash (If Required) - If wash not Required, go to Finishing line ( Button, Iron, Tread Remover) - Ready to Packaging - Customer how they want the packaging system. Cartoon Size (Ranging 1 to 48 Pcs) - How buyer place his reqsuitions - Finish goods done, warehouse started thier works.
+
+Month end report generate from PCS, every hour scanning and update the status in different section.
+On an average epic mark as 50% done of the task.
+
+Download Month end quantity Sheet to check from PCS v2. 
+
+Febric plus CMW ( Cutting Making Wash) -- sales price Per unit.
+FG Considered 95% of FOB, Febric value 100%, convertion value 50%.
+
+Finished Goods dr.
+WIP cr.
+
+
+Finished Goods Sold:
+
+COGS dr.
+FG cr.
+
+===== Example ======
+
+FOB 100
+--------
+FNT 70 - 100%
+CMW 30 (Included All cost, wages) - 50%
+
+70+15 = 85 
+
+==============
+F&T 70
+Wages 15
+OH 10
+-----------
+Subtotal 95
+Add : Margin 5
+--------------
+FOB 100
+==============
+
+RM Inventory Dr. 140
+Accounts Payable Cr. 140
+
+WIP Inventory Dr. 165 (140 + (30+20)*0.5) Cost of Material Consumed
+RM Inventory Cr. 165
+
+Direct Expense Dr. 30
+Factory Overhead Dr. 20
+Accounts Payable Cr. 50
+
+FG Inventory Dr.  190 (140+30+20) Cost of Material Consumed
+WIP Inventory  Cr. 190
+
+COGS Dr. 45
+FG Inventory Cr. 45
+
+COGS Dr. 95  (30+20+45)
+Inventory Cr. 95 (140+165-165+190-190-45)
+ 
+
+RM 140-165 = (25)
+WIP (25)
+FG 190-45 = 145
+-------------------
+Total 95
+===================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

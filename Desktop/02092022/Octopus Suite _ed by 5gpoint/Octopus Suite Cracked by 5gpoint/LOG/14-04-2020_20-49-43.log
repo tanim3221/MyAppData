@@ -1,0 +1,48 @@
+Log file "C:\Program Files (x86)\Octoplus\Octoplus_Suite\LOG\14-04-2020_20-49-43.log" created.
+14/04/2020 8:49:50 PM > Welcome to Octoplus Suite version 1.5.8
+14/04/2020 8:50:19 PM > --------------------------------------------------------------------------------------------------
+14/04/2020 8:50:19 PM > Connecting to server...14/04/2020 8:50:21 PM > OK
+14/04/2020 8:50:21 PM > Username: Default_user
+14/04/2020 8:50:21 PM > Authorizing...14/04/2020 8:50:21 PM > OK
+14/04/2020 8:50:21 PM > Checking balance...14/04/2020 8:50:22 PM > OK
+14/04/2020 8:50:22 PM > Your balance: 8 credits.
+14/04/2020 8:50:22 PM > Octopus smart card is not present.
+14/04/2020 8:50:26 PM > --------------------------------------------------------------------------------------------------
+14/04/2020 8:50:26 PM > Connecting to server...14/04/2020 8:50:28 PM > OK
+14/04/2020 8:50:28 PM > Username: Default_user
+14/04/2020 8:50:28 PM > Authorizing...14/04/2020 8:50:28 PM > OK
+14/04/2020 8:50:28 PM > Checking smart card...14/04/2020 8:50:28 PM > Failed!
+14/04/2020 8:51:02 PM > --------------------------------------------------------------------------------------------------
+14/04/2020 8:51:05 PM > Devices with Unlock App (branded to T-Mobile, MetroPCS, etc.) are not supported!Make sure device requests to enter unlock code and only then perform “Read Codes” operation!
+14/04/2020 8:51:05 PM > Initializing Android Debug Bridge...14/04/2020 8:51:05 PM > OK
+14/04/2020 8:51:05 PM > Searching for a phone. Please wait...
+14/04/2020 8:51:05 PM > No Android devices found
+14/04/2020 8:51:16 PM > --------------------------------------------------------------------------------------------------
+14/04/2020 8:51:16 PM > Platform: SONY Qualcomm
+14/04/2020 8:51:16 PM > Selected model: C1904
+14/04/2020 8:51:16 PM > Octopus smart card is not present.
+14/04/2020 8:51:16 PM > Initializing Android Debug Bridge...14/04/2020 8:51:18 PM > OK
+14/04/2020 8:51:18 PM > Disconnect USB cable and power on the phone. Select menu "Settings"->"Developer options"->"Enable USB debugging" and connect USB cable...14/04/2020 8:51:20 PM > Canceled.
+14/04/2020 8:51:29 PM > --------------------------------------------------------------------------------------------------
+14/04/2020 8:51:29 PM > Connecting to server...14/04/2020 8:51:31 PM > OK
+14/04/2020 8:51:31 PM > Octopus smart card is not present.
+14/04/2020 8:51:31 PM > Username: Default_user
+14/04/2020 8:51:31 PM > Authorizing...14/04/2020 8:51:32 PM > OK
+14/04/2020 8:51:32 PM > Checking balance...14/04/2020 8:51:32 PM > OK
+14/04/2020 8:51:32 PM > Checking operation...14/04/2020 8:51:33 PM > OK
+14/04/2020 8:51:33 PM > Getting orders history from server..14/04/2020 8:51:34 PM > OK
+14/04/2020 8:51:34 PM > History data has successfuly obtained!
+14/04/2020 8:51:34 PM > Received records: 1
+14/04/2020 8:52:07 PM > --------------------------------------------------------------------------------------------------
+14/04/2020 8:52:07 PM > Connecting to server...14/04/2020 8:52:09 PM > OK
+14/04/2020 8:52:09 PM > Username: Default_user
+14/04/2020 8:52:09 PM > Authorizing...14/04/2020 8:52:09 PM > OK
+14/04/2020 8:52:09 PM > Checking smart card...14/04/2020 8:52:09 PM > Failed!
+14/04/2020 8:52:36 PM > --------------------------------------------------------------------------------------------------
+14/04/2020 8:52:36 PM > Selected Vendor: 14/04/2020 8:52:36 PM > Samsung Reactivation Lock Removal Service
+14/04/2020 8:52:36 PM > Model: 14/04/2020 8:52:36 PM > Samsung Reactivation Lock Removal Service
+14/04/2020 8:52:36 PM > Delivery time: 14/04/2020 8:52:36 PM > from 1 Hour to 12 Hour
+14/04/2020 8:52:36 PM > Getting additional info... 14/04/2020 8:52:40 PM > OK
+14/04/2020 8:52:40 PM > Need credits: 14/04/2020 8:52:40 PM > 70
+14/04/2020 8:52:40 PM > Your balance: 14/04/2020 8:52:40 PM > 8
+14/04/2020 8:52:41 PM > To get more info about this service, please use "Information" button.

@@ -1,0 +1,3 @@
+C:\Users\asaklayen>wmic bios get serialnumber
+SerialNumber
+5CG9052SX9

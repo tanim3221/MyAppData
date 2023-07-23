@@ -1,0 +1,11 @@
+Here is an example of a formula that uses XLOOKUP, INDEX, MATCH, and IFERROR to get data from multiple sheets and return it to a predetermined sheet:
+
+Assuming that you have a sheet named "Lookup" where you want to return the data, and the sheets you want to pull data from are named "Sheet1", "Sheet2", and "Sheet3".
+
+In the "Lookup" sheet, in cell B2, you can use the following formula:
+
+=IFERROR(XLOOKUP(A2, INDEX('Sheet1'!A:D, MATCH(A2, 'Sheet1'!A:A, 0), 0:3), INDEX('Sheet2'!A:D, MATCH(A2, 'Sheet2'!A:A, 0), 0:3), INDEX('Sheet3'!A:D, MATCH(A2, 'Sheet3'!A:A, 0), 0:3)),"Not Found")
+
+This formula will look for the value in cell A2 in column A of the "Sheet1", "Sheet2", and "Sheet3", if it finds the value it will return the value in the same row but in the columns B,C and D of those sheets. If the value is not found in any of the sheets, it will return "Not Found".
+
+It's important to note that this is just an example and you may need to adjust the formula depending on your specific requirements and data, such as the sheet names, the lookup column, and the return columns.

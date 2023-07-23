@@ -1,0 +1,8 @@
+Instructions for use:
+
+1.The port could set to USB or correct serial port.
+2.Choose IMEI mode, 'IMEI1&IMEI2' means input and write two diffrent IMEI,
+  'IMEI1=IMEI2' means input one IMEI and write two same IMEI.
+3.Make sure the mode switch of Download cable is off, connect the cabel to phone, press the start button.
+4.Install the battery to phone, the program will write IMEI after the phone was connected
+

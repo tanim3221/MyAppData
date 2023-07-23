@@ -1,0 +1,106 @@
+BODY
+{
+	background: #333333;
+        background-image:url('bg_afterburner.gif');
+	background-repeat: repeat;
+	borderStyle: none;
+	color: #FFFFFF;
+	text-align: justify;
+	font-family: Verdana;
+}
+
+P
+{
+	color: #FFFFFF;
+	font-size: 10pt;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+P.cl1
+{
+	color: #FFFFFF;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+OL
+{
+	color: #FFFFFF;
+	font-size: 10pt;
+	margin-top: 2px;
+	margin-bottom: 3px;
+}
+
+H1{
+	color: #FFFFFF;
+	font-family: Verdana;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	font-size: 20pt;
+	margin-top: 3px;
+	margin-bottom: 5px;
+}
+
+H2{
+	color: #FFFFFF;
+	font-family: Verdana;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	font-size: 16pt;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+table.cabletable {
+	color: #FFFFFF;
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+
+}
+
+table.cabletable td {
+	color: #FFFFFF;
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+}
+
+B 
+{
+	color: #FFFFFF;
+}
+
+UL 
+{
+	color: #FFFFFF;
+}
+
+
+A
+{
+	color: #FFFF55;
+}
+A:link
+{
+	color: #FFFF55;
+}
+A:active
+{
+	color: #FFFF55;
+}
+A:hover
+{
+	color: #55FFFF;
+}
+A:visited
+{
+	color: #FFFF55;
+}

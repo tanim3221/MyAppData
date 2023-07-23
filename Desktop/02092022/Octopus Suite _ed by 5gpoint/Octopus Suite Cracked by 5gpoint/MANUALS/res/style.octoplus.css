@@ -1,0 +1,87 @@
+BODY
+{
+	background: #C0C0C0;
+        background-image:url('bg_pulsar.gif');
+	background-repeat: repeat;
+	borderStyle: none;
+	text-align: justify;
+	font-family: Verdana;
+}
+
+P
+{
+	font-size: 10pt;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+P.cl1
+{
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+OL
+{
+	font-size: 10pt;
+	margin-top: 2px;
+	margin-bottom: 3px;
+}
+
+H1{
+	font-family: Verdana;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	font-size: 20pt;
+	margin-top: 3px;
+	margin-bottom: 5px;
+}
+
+H2{
+	font-family: Verdana;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	font-size: 16pt;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+table.cabletable {
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+
+}
+
+table.cabletable td {
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+}
+
+A
+{
+	color: #0000AA;
+}
+A:link
+{
+	color: #0000AA;
+}
+A:active
+{
+	color: #0000AA;
+}
+A:hover
+{
+	color: #AA0000;
+}
+A:visited
+{
+	color: #0000AA;
+}

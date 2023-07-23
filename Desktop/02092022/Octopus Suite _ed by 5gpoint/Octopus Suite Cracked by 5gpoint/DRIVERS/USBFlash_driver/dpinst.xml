@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<dpInst>
+    <legacyMode/>
+
+        <dpinstTitle>Usb Device Installer</dpinstTitle>
+
+        <welcomeTitle>Welcome to the Usb Driver Installer!</welcomeTitle>
+        <welcomeIntro>This wizard will walk you through updating the drivers for your Usb device.</welcomeIntro>
+
+        <eulaHeaderTitle>End User License Agreement</eulaHeaderTitle>
+        <installHeaderTitle>Installing the software for your Usb device...</installHeaderTitle>
+
+        <finishTitle>Congratulations! You are finished installing your Usb device.</finishTitle>
+        <finishText>Enjoy using the Usb.</finishText>
+</dpInst>

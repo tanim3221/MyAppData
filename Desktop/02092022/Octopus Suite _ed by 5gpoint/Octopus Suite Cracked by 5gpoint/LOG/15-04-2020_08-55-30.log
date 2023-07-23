@@ -1,0 +1,13 @@
+Log file "C:\Program Files (x86)\Octoplus\Octoplus_Suite\LOG\15-04-2020_08-55-30.log" created.
+15/04/2020 8:55:38 AM > Welcome to Octoplus Suite version 1.5.8
+15/04/2020 8:56:13 AM > --------------------------------------------------------------------------------------------------
+15/04/2020 8:56:13 AM > Platform: Huawei Qualcomm
+15/04/2020 8:56:13 AM > Selected model: E5838
+15/04/2020 8:56:13 AM > Selected diagnostic port: COM1
+15/04/2020 8:56:14 AM > Selected modem port: COM1
+15/04/2020 8:56:14 AM > Warning! Modem port search failed!
+15/04/2020 8:56:14 AM > Warning! Diagnostic port search failed!
+15/04/2020 8:56:14 AM > Failed!
+15/04/2020 8:56:14 AM > Modem's port not found!
+15/04/2020 8:56:44 AM > --------------------------------------------------------------------------------------------------
+15/04/2020 8:56:45 AM > Searching for USB diagnostic port...

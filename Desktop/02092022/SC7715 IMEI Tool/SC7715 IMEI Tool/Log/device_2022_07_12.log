@@ -1,0 +1,60 @@
+[2022-07-12 12:45:40:551] StartDevNtfThread
+[2022-07-12 12:45:40:551] Compare Driver Count: 4
+[2022-07-12 12:45:40:552]    1: USB2Serial
+[2022-07-12 12:45:40:552]    2: ZTE Extension
+[2022-07-12 12:45:40:552]    3: SPRD U2S Diag
+[2022-07-12 12:45:40:552]    4: Spreadtrum Extension
+[2022-07-12 12:45:40:562] Handle = 0x36698, MsgID = 0x62B, bThread = 1
+[2022-07-12 12:45:40:562] EnumProc() is started.
+[2022-07-12 12:45:40:563] DevHound is started, ID = 222872
+[2022-07-12 12:45:40:564] HoundThreadProc start!
+[2022-07-12 12:46:52:232] SendToUpLayer port = 4 Removed
+[2022-07-12 12:46:52:232] USB port 4 removed out.
+[2022-07-12 12:46:52:232] [hDiagPhone = 0x28A0048] Port = 4, Set Remove Event!
+[2022-07-12 12:46:53:757] SendToUpLayer port = 4 PlugIn
+[2022-07-12 12:46:53:757] [Port: 4] Driver Name: USB Serial Device
+[2022-07-12 12:51:45:233] RegDiagEvent()
+[2022-07-12 12:51:45:233] Register Event, [hDiagPhone = 0x28A0048] Compare (0, Port: 0)
+[2022-07-12 12:51:45:233] DiagPhone found, replaced.
+[2022-07-12 12:51:47:866] SendToUpLayer port = 4 Removed
+[2022-07-12 12:51:47:866] USB port 4 removed out.
+[2022-07-12 12:51:47:867] [hDiagPhone = 0x28A0048] Port = 4, Set Remove Event!
+[2022-07-12 12:51:49:442] SendToUpLayer port = 4 PlugIn
+[2022-07-12 12:51:49:442] [Port: 4] Driver Name: USB Serial Device
+[2022-07-12 12:51:51:439] SendToUpLayer port = 4 Removed
+[2022-07-12 12:51:51:439] USB port 4 removed out.
+[2022-07-12 12:51:51:439] [hDiagPhone = 0x28A0048] Port = 4, Set Remove Event!
+[2022-07-12 12:51:53:914] SendToUpLayer port = 4 PlugIn
+[2022-07-12 12:51:53:914] [Port: 4] Driver Name: USB Serial Device
+[2022-07-12 12:52:06:875] SendToUpLayer port = 4 Removed
+[2022-07-12 12:52:06:875] USB port 4 removed out.
+[2022-07-12 12:52:06:875] [hDiagPhone = 0x28A0048] Port = 4, Set Remove Event!
+[2022-07-12 12:52:13:665] RegDiagEvent()
+[2022-07-12 12:52:13:665] Register Event, [hDiagPhone = 0x28A0048] Compare (0, Port: 0)
+[2022-07-12 12:52:13:665] DiagPhone found, replaced.
+[2022-07-12 12:52:18:234] RegDiagEvent()
+[2022-07-12 12:52:18:234] UnRegister, hDiagPhone = 0x028A0048
+[2022-07-12 12:52:18:234] DiagPhone Found, erased.
+[2022-07-12 12:52:18:234] StopDevNtfThread()
+[2022-07-12 12:52:18:239] HoundThreadProc stopped!
+[2022-07-12 12:52:18:241] DevHound stopped!
+[2022-07-12 12:52:18:241] DevHound is stopped
+[2022-07-12 12:52:18:242] EnumProc() is stopped.
+[2022-07-12 13:11:34:209] StartDevNtfThread
+[2022-07-12 13:11:34:209] Compare Driver Count: 4
+[2022-07-12 13:11:34:209]    1: USB2Serial
+[2022-07-12 13:11:34:209]    2: ZTE Extension
+[2022-07-12 13:11:34:209]    3: SPRD U2S Diag
+[2022-07-12 13:11:34:209]    4: Spreadtrum Extension
+[2022-07-12 13:11:34:210] EnumProc() is started.
+[2022-07-12 13:11:34:210] Handle = 0x2C7D4, MsgID = 0x62B, bThread = 1
+[2022-07-12 13:11:34:210] DevHound is started, ID = 182228
+[2022-07-12 13:11:34:210] HoundThreadProc start!
+[2022-07-12 13:11:51:258] RegDiagEvent()
+[2022-07-12 13:11:51:258] UnRegister, hDiagPhone = 0x026E0048
+[2022-07-12 13:11:51:258] DiagPhone Found, erased.
+[2022-07-12 13:11:51:258] StopDevNtfThread()
+[2022-07-12 13:11:51:266] HoundThreadProc stopped!
+[2022-07-12 13:11:51:267] DevHound stopped!
+[2022-07-12 13:11:51:267] DevHound is stopped
+[2022-07-12 13:11:51:267] EnumProc() is stopped.
