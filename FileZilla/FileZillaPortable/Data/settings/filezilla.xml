@@ -150,9 +150,9 @@
 					<EncodingType>Auto</EncodingType>
 					<BypassProxy>0</BypassProxy>
 					<Name>New site</Name>
-					<Site>0/New site</Site>
+					<Site></Site>
 					<RemotePath></RemotePath>
-					<LocalPath>C:\Users\asaklayen\Documents\App\Server\xampp\htdocs\nufhas\</LocalPath>
+					<LocalPath>C:\Users\asaklayen\</LocalPath>
 				</Tab>
 			</Tabs>
 		</Setting>
