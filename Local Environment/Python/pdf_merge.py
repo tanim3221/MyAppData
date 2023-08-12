@@ -1,6 +1,8 @@
 import os
-from PyPDF2 import PdfMerger
 from datetime import datetime
+
+from PyPDF2 import PdfMerger
+
 curr_time = datetime.now().strftime("%Y%m%d%H%M%S")
 # Specify the directory containing the PDF files
 pdf_directory = input("\n\nEnter the directory containing the PDF files:\n\n")
