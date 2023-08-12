@@ -18,7 +18,7 @@ def initial():
         '''4. Filter with keyword and Merge excel files\n'''
         '''5. Merge excel sheets\n'''
         '''6. Multiple PDF Merge\n'''
-        '''7. Split PDF defined pages\n'''
+        '''7. Split PDF Defined pages\n'''
         '''8. Split PDF all pages\n'''
         '''\nEnter your option (1/2/3/4/5/6/7/8): '''
         )
@@ -54,7 +54,7 @@ def initial():
         print(intext)
         mergePDF()
     elif intinput =="7":
-        intext = "\nSplit PDF defined pages\n"
+        intext = "\nSplit PDF Defined pages\n"
         intext = Back.GREEN + intext + Style.RESET_ALL
         print(intext)
         pdfSplitDefined()
@@ -62,11 +62,68 @@ def initial():
         intext = "\nSplit PDF all pages\n"
         intext = Back.GREEN + intext + Style.RESET_ALL
         print(intext)
-    elif not intinput:
-        intext = "\nSorry ! You have to select any option here. Executing again..."
-        intext = Back.YELLOW + intext + Style.RESET_ALL
+        pdfSplitAll()
+    elif not intinput.isdigit() or not (1 <= int(intinput) <= 8):
+        if not intinput.isdigit():
+            intext = "\nSorry! You have to select any option here. Executing again..."
+        else:
+            intext = "\nTo select any option, you have to enter a number between 1 and 8. Executing again..."
+        intext = Back.RED + intext + Style.RESET_ALL
         print(intext)
         initial()
+
+
+def pdfSplitAll():
+    curr_time = datetime.now().strftime("%Y%m%d%H%M%S")
+    
+    def split_pdf(input_path, output_folder, pages):
+        pdf = PyPDF2.PdfReader(input_path)
+        
+        for page_num in range(len(pdf.pages)):
+            output_pdf_name = f"Page_{page_num + 1}_{curr_time}.pdf"
+            output_pdf_path = os.path.join(output_folder, output_pdf_name)
+            
+            with open(output_pdf_path, "wb") as output_file:
+                writer = PyPDF2.PdfWriter()
+                writer.add_page(pdf.pages[page_num])
+                writer.write(output_file)
+
+    folder_path = input("\nEnter folder path containing the PDF files:\n")
+    pdf_files = [pdf_file for pdf_file in os.listdir(folder_path) if pdf_file.endswith('.pdf')]
+    pdf_files.sort()
+
+    if not pdf_files:
+        print("No PDF files found in the folder.")
+        return
+
+    print("\nPDF files found in the folder:\n")
+    for index, pdf_file in enumerate(pdf_files, start=1):
+        print(f"{index}. {pdf_file}")
+
+    pdf_choice = input("\nEnter the number of the PDF to split or type 'cancel': ")
+    if pdf_choice.lower() == "no":
+        print("\nPDF splitting canceled. Thank you!")
+        return
+
+    try:
+        pdf_index = int(pdf_choice) - 1
+        if pdf_index < 0 or pdf_index >= len(pdf_files):
+            print("Invalid PDF number.")
+            return
+
+        selected_pdf = pdf_files[pdf_index]
+        input_pdf_path = os.path.join(folder_path, selected_pdf)
+        output_folder = os.path.join(folder_path, f"{os.path.splitext(selected_pdf)[0]}_{curr_time}")
+        os.makedirs(output_folder, exist_ok=True)
+        
+        pages_to_split = input("\nDo you want to split these PDFs? (yes/no): ")
+
+        if pages_to_split.lower() == "yes":
+            split_pdf(input_pdf_path, output_folder, pages_to_split)
+            print(f"\nPDF split into individual pages and saved to {output_folder}")
+
+    except ValueError:
+        print("Invalid input.")
 
 def pdfSplitDefined():
     curr_time = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -116,8 +173,9 @@ def pdfSplitDefined():
 
         pages_to_split = input("\nEnter page numbers or ranges (e.g., 1-3, 5, 7-9):\n")
 
-        # Generate the output PDF path based on the current timestamp
-        output_pdf_path = os.path.join(folder_path, "Split_" + curr_time + ".pdf")
+        # Generate the output PDF path based on the input PDF file name
+        output_pdf_name = f"Split_{os.path.splitext(selected_pdf)[0]}_{curr_time}.pdf"
+        output_pdf_path = os.path.join(folder_path, output_pdf_name)
 
         split_pdf(input_pdf_path, output_pdf_path, pages_to_split)
         print(f"\nPDF pages split and saved to {output_pdf_path}")
