@@ -1,21 +1,19 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import { Box, Drawer, Typography } from '@mui/material';
-// mock
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // components
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
-//
 import Navlist from './Navlist';
 
 // ----------------------------------------------------------------------
 
 const NAV_WIDTH = 280;
 
-// ----------------------------------------------------------------------
 
 Nav.propTypes = {
   openNav: PropTypes.bool,
@@ -35,22 +33,17 @@ export default function Nav({ openNav, onCloseNav }) {
   }, [pathname]);
 
   const renderContent = (
-    <Scrollbar
-      sx={{
-        height: 1,
-        '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
-      }}
-    >
-      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Typography variant="h4" sx={{ color: 'text.primary' }}>
-          Saklayen Ahmed
-        </Typography>
-      </Box>
+    <Box sx={{ height: 1, display: 'flex', flexDirection: 'column' }}>
+     <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
+      <Typography variant="h4" sx={{ color: 'text.primary' }}>
+        Saklayen Ahmed
+      </Typography>
+    </Box>
 
+    <Scrollbar sx={{ flexGrow: 1 }}>
       <NavSection data={Navlist} />
-
-      <Box sx={{ flexGrow: 1 }} />
     </Scrollbar>
+  </Box>
   );
 
   return (

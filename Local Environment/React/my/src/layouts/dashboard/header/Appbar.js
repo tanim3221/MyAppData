@@ -1,5 +1,8 @@
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
+import { useLocation } from 'react-router-dom'; 
+
 import { bgBlur } from '../../../utils/cssStyles';
 
 
@@ -25,13 +28,25 @@ const StyledAppbar = styled('div')(({ theme }) => ({
 }));
 
 
-export default function Appbar() {
+function toProperCase(text) {
+  return text
+    .toLowerCase()
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+function Appbar() {
+  const location = useLocation();
+  const path = location.pathname.split('/')[1];
   return (
     <StyledAppbar>
       <Typography variant="h4">
-        Hi, Welcome back
+        {toProperCase(path)}
       </Typography>
     </StyledAppbar>
 
   );
 }
+
+export default Appbar;

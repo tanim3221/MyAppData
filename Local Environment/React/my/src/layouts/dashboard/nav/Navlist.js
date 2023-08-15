@@ -1,17 +1,17 @@
 // component
 import React from 'react';
-import { AddHome, AccountCircle, School, Work, CardMembership, ModeStandby, FolderSpecial, NavigateNext } from '@mui/icons-material';
+import { Home, Public,Interests,Message,SupportAgent,GTranslate,HistoryEdu,Celebration, ConnectWithoutContact, InsertEmoticon, School, Work, CardMembership, FolderSpecial, CastForEducation } from '@mui/icons-material';
 // ----------------------------------------------------------------------
 const navConfig = [
   {
     title: 'Home',
     path: '/',
-    icon: <AddHome />,
+    icon: <Home />,
   },
   {
     title: 'About Me',
-    path: '/about',
-    icon: <AccountCircle />,
+    path: '/about-me',
+    icon: <InsertEmoticon />,
   },
   {
     title: 'Education',
@@ -20,28 +20,61 @@ const navConfig = [
   },
   {
     title: 'Experiance',
-    path: '/experience',
+    path: '/experiences',
     icon: <Work />,
   },
   {
     title: 'Certifications',
-    path: '/certificate',
+    path: '/certifications',
     icon: <CardMembership />,
   },
   {
     title: 'Skills',
-    path: '/skill',
-    icon: <ModeStandby />,
+    path: '/skills',
+    icon: <CastForEducation />,
   },
 {
     title: 'Portfolio',
-    path: '/portfolio',
+    path: '/portfolios',
     icon: <FolderSpecial />,
   },
 {
-    title: 'Others',
-    path: '/others',
-    icon: <NavigateNext />,
+    title: 'Attributes',
+    path: '/attributes',
+    icon: <HistoryEdu/>,
+  },
+ {
+    title: 'Interests',
+    path: '/interests',
+    icon: <Interests />,
+  },
+  {
+    title: 'Funfacts',
+    path: '/funfacts',
+    icon: <Celebration />,
+  },
+{
+    title: 'Services',
+    path: '/services',
+    icon: <SupportAgent />,
+  },
+{
+    title: 'Languages',
+    path: '/languages',
+    icon: <GTranslate />,
+  },{
+    title: 'Social Link',
+    path: '/social',
+    icon: <ConnectWithoutContact />,
+  },{
+    title: 'Contact Message',
+    path: '/messages',
+    icon: < Message />,
+  }
+,{
+    title: 'Web Visitors',
+    path: '/visitors',
+    icon: < Public />,
   },
 ];
 

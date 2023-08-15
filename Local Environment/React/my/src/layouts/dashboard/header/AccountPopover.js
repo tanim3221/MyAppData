@@ -1,26 +1,31 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-import account from '../../../_mock/account';
+import { fetchData } from '../../../components/conn/api';
 
-
-const MENU_OPTIONS = [
-  {
-    label: 'Home',
-    icon: 'eva:home-fill',
-  },
-  {
-    label: 'Profile',
-    icon: 'eva:person-fill',
-  },
-];
-
+import navConfig from '../nav/Navlist';
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
 
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetchData()
+      .then(responseData => {
+        setData(responseData.saklayen.personalinfo[0]);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const navigate = useNavigate();
+  const handleUrl = (url) => {
+    navigate(url);
+  };
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
@@ -48,7 +53,8 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src={`http://localhost:8080/saklayen/assets/img/${data.photo}`} alt="photoURL" />
+
       </IconButton>
 
       <Popover
@@ -72,19 +78,16 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {data.name}
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Stack sx={{ p: 1 }}>
-          {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
-              {option.label}
+          {navConfig.map((option) => (
+            <MenuItem key={option.title} onClick={() => handleUrl(option.path)}>
+              {option.title}
             </MenuItem>
           ))}
         </Stack>

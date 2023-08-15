@@ -11,8 +11,15 @@ import Experience from './pages/Experience';
 import Portfolio from './pages/Portfolio';
 import Skill from './pages/Skill';
 import Certificate from './pages/Certificate';
-import Others from './pages/Others';
-import DashboardAppPage from './pages/DashboardAppPage';
+import Attributes from './pages/Attributes';
+import Interests from './pages/Interests';
+import Funfacts from './pages/Funfacts';
+import Languages from './pages/Languages';
+import Contact from './pages/Contact';
+import Serivces from './pages/Services';
+import Social from './pages/Social';
+import DashboardAppPage from './pages/Home';
+import Visitors from './pages/Visitors';
 
 // ----------------------------------------------------------------------
 
@@ -22,15 +29,22 @@ export default function Router() {
       path: '/',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/my" />, index: true },
-        { path: 'my', element: <DashboardAppPage /> },
-        { path: 'about', element: <About /> },
+        { element: <Navigate to="/home" />, index: true },
+        { path: 'home', element: <DashboardAppPage /> },
+        { path: 'about-me', element: <About /> },
         { path: 'education', element: <Education /> },
-        { path: 'experience', element: <Experience /> },
-        { path: 'certificate', element: <Certificate /> },
-        { path: 'skill', element: <Skill /> },
-        { path: 'others', element: <Others /> },
-        { path: 'portfolio', element: <Portfolio /> },
+        { path: 'experiences', element: <Experience /> },
+        { path: 'certifications', element: <Certificate /> },
+        { path: 'skills', element: <Skill /> },
+        { path: 'portfolios', element: <Portfolio /> },
+        { path: 'interests', element: <Interests /> },
+        { path: 'funfacts', element: <Funfacts /> },
+        { path: 'attributes', element: <Attributes /> },
+        { path: 'services', element: <Serivces /> },
+        { path: 'languages', element: <Languages /> },
+        { path: 'messages', element: <Contact /> },
+        { path: 'social', element: <Social /> },
+        { path: 'visitors', element: <Visitors /> },
       ],
     },
     {
@@ -40,7 +54,7 @@ export default function Router() {
     {
       element: <SimpleLayout />,
       children: [
-        { element: <Navigate to="/my" />, index: true },
+        { element: <Navigate to="/home" />, index: true },
         { path: '404', element: <Page404 /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],
