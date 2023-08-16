@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Container, Button, Dialog, DialogTitle, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
 import { Edit } from '@mui/icons-material'
-import { fetchData } from '../components/conn/api';
+import { fetchData, updateData, addData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
-
-function Education({ education, onClose, onChange }) {
+function Education() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [edu, setEducation] = useState({});
+  const [mainData, setMainData] = useState({});
   const [open, setOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
     fetchData()
@@ -26,97 +25,142 @@ function Education({ education, onClose, onChange }) {
       });
   }, []);
 
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleSave = () => {
-    axios.post('http://localhost:8080/saklayen/assets/api/update.php', edu)
-    .then(response => {
-      setSnackbarMessage('Changes saved successfully!');
-      setSnackbarOpen(true);
-      const updatedData = data.map(item => {
-        if (item.id === edu.id) {
-          return { ...item, ...edu };
-        }
-        return item;
-      });
-
-      setData(updatedData);
-      setOpen(false);
-    })
-    .catch(error => {
-      console.error(error);
-      setSnackbarMessage('Something went wrong!');
-      setSnackbarOpen(true);
-    });
+  const resetEducationState = () => {
+    setMainData({});
   }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const TABLE_NAME = 'education';
 
+  const handleAdd = () => {
+    const requestData = {
+      table: TABLE_NAME,
+      data: mainData
+    };
+
+    addData(requestData)
+      .then(response => {
+        setSnackbarMessage(response.message);
+        setSnackbarOpen(true);
+        const addData = [...data, mainData];
+        setData(addData);
+        setOpen(false);
+        setIsAdding(false);
+      })
+      .catch(error => {
+        console.error(error);
+        setSnackbarMessage(error);
+        setSnackbarOpen(true);
+      });
+  }
+
+  const handleSave = () => {
+
+    const existingData = data.find(item => item.id === mainData.id);
+    const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
+
+    if (!isDataChanged) {
+      setSnackbarMessage("No changes to save.");
+      setSnackbarOpen(true);
+      setOpen(false);
+      return;
+    }
+    const requestData = {
+      table: TABLE_NAME,
+      data: mainData
+    };
+
+    updateData(requestData)
+      .then(response => {
+        setSnackbarMessage(response.message);
+        setSnackbarOpen(true);
+        const updatedData = data.map(item => {
+          if (item.id === mainData.id) {
+            return { ...item, ...mainData };
+          }
+          return item;
+        });
+
+        setData(updatedData);
+        setOpen(false);
+      })
+      .catch(error => {
+        console.error(error);
+        setSnackbarMessage(error);
+        setSnackbarOpen(true);
+      });
+  }
+
+  const handleClose = () => setOpen(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setEducation((prevEdu) => ({
+    setMainData((prevEdu) => ({
       ...prevEdu,
       [name]: value
     }));
   };
 
   const renderDialog = () => {
-
     return (
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{edu.title}</DialogTitle>
+        <DialogTitle>{isAdding ? 'Add New Education' : mainData.title}</DialogTitle>
         <DialogContent>
           <Box
             component="form"
             sx={{
-              '& .MuiTextField-root': { my: 1, mr: 2, width: '25ch' }
+              marginTop: '16px',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr', // Create a two-column layout
+              gap: '16px', // Adjust the gap between columns
             }}
           >
             <TextField
               label="Rank"
               name='rank'
-              value={edu.rank}
+              value={mainData.rank}
               onChange={handleChange}
             />
             <TextField
               label="Degree"
               name='title'
-              value={edu.title}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Time-Period"
-              name='period'
-              value={edu.period}
+              value={mainData.title}
               onChange={handleChange}
             />
             <TextField
               label="Institution"
               name='institution'
-              value={edu.institution}
+              value={mainData.institution}
+              onChange={handleChange}
+              sx={{ gridColumn: 'span 2' }}
+            />
+            <TextField
+              label="Time-Period"
+              name='period'
+              value={mainData.period}
               onChange={handleChange}
             />
+
             <TextField
               label="Department"
               name='department'
-              value={edu.department || ''}
+              value={mainData.department || ''}
               onChange={handleChange}
             />
             <TextField
               label="Grade"
               name='grade'
-              value={edu.grade || ''}
+              value={mainData.grade || ''}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Group"
+              name='stream'
+              value={mainData.stream || ''}
               onChange={handleChange}
             />
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button variant="contained" onClick={handleSave}>Save</Button>
+              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : 'Save'}</Button>
             </Stack>
           </Box>
 
@@ -127,8 +171,18 @@ function Education({ education, onClose, onChange }) {
   };
 
   return (
-    <Container maxWidth="lg" style={{ marginTop: '2rem' }}>
-      <TableContainer component={Paper}>
+    <Container maxWidth="lg" style={{ marginTop: '.6rem' }}>
+      <Button
+        variant="contained"
+        onClick={() => {
+          resetEducationState();
+          setIsAdding(true);
+          setOpen(true);
+        }}
+      >
+        Add New
+      </Button>
+      <TableContainer style={{marginTop: '1.4rem'}} component={Paper}>
         {loading ? (
           <div className={extStyles.spinnerarea}>
             <CircularProgress />
@@ -158,7 +212,7 @@ function Education({ education, onClose, onChange }) {
                   <TableCell>
                     <Button
                       onClick={() => {
-                        setEducation(item);
+                        setMainData(item);
                         setOpen(true);
                       }}
                     >
