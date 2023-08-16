@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, Dialog, DialogTitle, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
-import { Edit } from '@mui/icons-material'
-import { fetchData, updateData, addData } from '../components/conn/api';
+import { Edit, Delete } from '@mui/icons-material'
+import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
 function Education() {
@@ -12,6 +12,7 @@ function Education() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
+  const [dataChanged, setDataChanged] = useState(false);
 
   useEffect(() => {
     fetchData()
@@ -23,7 +24,7 @@ function Education() {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, []);
+  }, [dataChanged]);
 
   const resetEducationState = () => {
     setMainData({});
@@ -36,7 +37,6 @@ function Education() {
       table: TABLE_NAME,
       data: mainData
     };
-
     addData(requestData)
       .then(response => {
         setSnackbarMessage(response.message);
@@ -45,6 +45,30 @@ function Education() {
         setData(addData);
         setOpen(false);
         setIsAdding(false);
+        setMainData({});
+        setDataChanged(!dataChanged);
+      })
+      .catch(error => {
+        console.error(error);
+        setSnackbarMessage(error);
+        setSnackbarOpen(true);
+      });
+  }
+
+  const handleDelete = (id) => {
+    const requestData = {
+      table: TABLE_NAME,
+      id,
+      action: 'delete',
+    };
+
+    deleteData(requestData)
+      .then(response => {
+        setSnackbarMessage(response.message);
+        setSnackbarOpen(true);
+        const deletedData = data.filter(item => item.id !== id);
+        setData(deletedData);
+        setOpen(false);
       })
       .catch(error => {
         console.error(error);
@@ -90,7 +114,11 @@ function Education() {
       });
   }
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false)
+    resetEducationState();
+    setIsAdding(false);
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -159,6 +187,7 @@ function Education() {
               onChange={handleChange}
             />
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
+              {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} startIcon={<Delete />}>Delete</Button>}
               <Button variant="outlined" onClick={handleClose}>Close</Button>
               <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : 'Save'}</Button>
             </Stack>
@@ -182,7 +211,7 @@ function Education() {
       >
         Add New
       </Button>
-      <TableContainer style={{marginTop: '1.4rem'}} component={Paper}>
+      <TableContainer style={{ marginTop: '1.4rem' }} component={Paper}>
         {loading ? (
           <div className={extStyles.spinnerarea}>
             <CircularProgress />
@@ -218,6 +247,14 @@ function Education() {
                     >
                       <Edit />
                     </Button>
+                    {/* <Button style={{ color: 'maroon'}}
+                      onClick={() => {
+                        setMainData(item);
+                        setOpen(true);
+                      }}
+                    >
+                      <Delete />
+                    </Button> */}
 
                   </TableCell>
                 </TableRow>
