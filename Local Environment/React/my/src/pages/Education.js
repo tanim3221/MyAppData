@@ -34,7 +34,6 @@ function Education({ education, onClose, onChange }) {
   const handleSave = () => {
     axios.post('http://localhost:8080/saklayen/assets/api/update.php', edu)
     .then(response => {
-      console.log(response.data);
       setSnackbarMessage('Changes saved successfully!');
       setSnackbarOpen(true);
       const updatedData = data.map(item => {
