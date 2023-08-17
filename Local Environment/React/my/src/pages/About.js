@@ -22,7 +22,7 @@ function About() {
 
   const textStyles = {
     textAlign: 'left',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'normal',
   };
 
 
@@ -44,8 +44,8 @@ function About() {
     <Container maxWidth="lg" className={extStyles.container}>
 
       <Grid container spacing={2}>
-        <Grid item xs={4} md={6} lg={4} sm={12}>
-          <Paper elevation={3} style={paperStyle}>
+        <Grid item xs={12} md={6} lg={4} sm={12}>
+          <Paper elevation={1} style={paperStyle}>
             <Button size="small" style={buttonStyle}>
               <Edit />
             </Button>
@@ -55,7 +55,7 @@ function About() {
             <Typography style={textStyles}>{personal.name}</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={4} md={6} lg={4} sm={12}>
+        <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
             <Button size="small" style={buttonStyle}>
               <Edit />
@@ -66,7 +66,7 @@ function About() {
             <Typography style={textStyles}>{personal.mobile}</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={4} md={6} lg={4} sm={12}>
+        <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
             <Button size="small" style={buttonStyle}>
               <Edit />
@@ -77,7 +77,7 @@ function About() {
             <Typography style={textStyles}>{personal.email}</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={4} md={6} lg={4} sm={12}>
+        <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
             <Button size="small" style={buttonStyle}>
               <Edit />
@@ -88,7 +88,7 @@ function About() {
             <Typography style={textStyles}>{personal.birthday}</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={4} md={6} lg={4} sm={12}>
+        <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
             <Button size="small" style={buttonStyle}>
               <Edit />
@@ -99,7 +99,7 @@ function About() {
             <Typography style={textStyles}>{personal.religion}</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={4} md={6} lg={4} sm={12}>
+        <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
             <Button size="small" style={buttonStyle}>
               <Edit />
