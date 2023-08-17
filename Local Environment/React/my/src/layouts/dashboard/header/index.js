@@ -1,21 +1,14 @@
 import PropTypes from 'prop-types';
-
 import { styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 
 import { bgBlur } from '../../../utils/cssStyles';
-
 import Iconify from '../../../components/iconify';
-
 import AccountPopover from './AccountPopover';
 import Appbar from './Appbar';
 
-
-
 const NAV_WIDTH = 280;
-
 const HEADER_MOBILE = 64;
-
 const HEADER_DESKTOP = 92;
 
 const StyledRoot = styled(AppBar)(({ theme }) => ({

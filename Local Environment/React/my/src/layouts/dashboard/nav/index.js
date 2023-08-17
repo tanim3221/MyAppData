@@ -1,19 +1,14 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-
 import { Box, Drawer, Typography } from '@mui/material';
-// hooks
+
 import useResponsive from '../../../hooks/useResponsive';
-// components
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
 import Navlist from './Navlist';
 
-// ----------------------------------------------------------------------
-
 const NAV_WIDTH = 280;
-
 
 Nav.propTypes = {
   openNav: PropTypes.bool,

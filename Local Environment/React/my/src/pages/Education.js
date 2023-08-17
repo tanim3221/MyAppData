@@ -128,6 +128,7 @@ function Education() {
     }));
   };
 
+  // eslint-disable-next-line
   const renderDialog = () => {
     return (
       <Dialog open={open} onClose={handleClose}>

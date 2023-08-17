@@ -14,3 +14,15 @@
 .container{
     margin-top: 2rem;
 }
+
+@media (max-width: 768px) {
+    .some-class {
+      left: 50%;
+    }
+  }
+  
+  @media (max-width: 1200px) {
+    .spinnerarea {
+        left: 50%;
+    }
+  }

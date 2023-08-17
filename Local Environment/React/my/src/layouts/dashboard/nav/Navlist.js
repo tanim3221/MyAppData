@@ -1,7 +1,7 @@
-// component
 import React from 'react';
 import { Home, Public,Interests,Message,SupportAgent,GTranslate,HistoryEdu,Celebration, ConnectWithoutContact, InsertEmoticon, School, Work, CardMembership, FolderSpecial, CastForEducation } from '@mui/icons-material';
-// ----------------------------------------------------------------------
+
+
 const navConfig = [
   {
     title: 'Home',
