@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { styled } from '@mui/material/styles';
 import { Container, Typography } from '@mui/material';
 import { LoginForm } from '../sections/auth/login';

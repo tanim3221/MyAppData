@@ -40,9 +40,20 @@ export const addData = async (requestData) => {
     throw error;
   }
 };
+
 export const deleteData = async (requestData) => {
   try {
     const response = await api.post('/delete.php', requestData);
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
+
+export const userLogin = async (requestData) => {
+  try {
+    const response = await api.post('/login.php', requestData);
     return response.data;
   } catch (error) {
     console.error('API request error:', error);
