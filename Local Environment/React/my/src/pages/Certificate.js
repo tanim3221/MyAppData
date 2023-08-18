@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, Dialog, DialogTitle, Link, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, Select, FormControl, MenuItem, InputLabel, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
 import { Edit, Delete, Check } from '@mui/icons-material'
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
+// import moment from 'moment';
+
+
 import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
@@ -39,6 +47,7 @@ function Certificate() {
       table: TABLE_NAME,
       data: mainData
     };
+
     addData(requestData)
       .then(response => {
         setSnackbarMessage(response.message);
@@ -81,39 +90,46 @@ function Certificate() {
 
   const handleSave = () => {
 
-    const existingData = data.find(item => item.id === mainData.id);
-    const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
-
-    if (!isDataChanged) {
-      setSnackbarMessage("No changes to save.");
-      setSnackbarOpen(true);
-      setOpen(false);
-      return;
-    }
-    const requestData = {
-      table: TABLE_NAME,
-      data: mainData
-    };
-
-    updateData(requestData)
-      .then(response => {
-        setSnackbarMessage(response.message);
+    try {
+      const existingData = data.find(item => item.id === mainData.id);
+      const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
+  
+  
+      if (!isDataChanged) {
+        setSnackbarMessage("No changes to save.");
         setSnackbarOpen(true);
-        const updatedData = data.map(item => {
-          if (item.id === mainData.id) {
-            return { ...item, ...mainData };
-          }
-          return item;
-        });
-
-        setData(updatedData);
         setOpen(false);
-      })
-      .catch(error => {
-        console.error(error);
-        setSnackbarMessage(error);
-        setSnackbarOpen(true);
-      });
+        return;
+      }
+      const requestData = {
+        table: TABLE_NAME,
+        data: mainData
+      };
+  
+      updateData(requestData)
+        .then(response => {
+          setSnackbarMessage(response.message);
+          setSnackbarOpen(true);
+          const updatedData = data.map(item => {
+            if (item.id === mainData.id) {
+              return { ...item, ...mainData };
+            }
+            return item;
+          });
+  
+          setData(updatedData);
+          setOpen(false);
+        })
+        .catch(error => {
+          console.error(error);
+          setSnackbarMessage(error);
+          setSnackbarOpen(true);
+        });
+    } catch (error) {
+      console.error(error);
+      setSnackbarMessage(error);
+      setSnackbarOpen(true);
+    }
   }
 
   const handleClose = () => {
@@ -126,6 +142,13 @@ function Certificate() {
     setMainData((prevData) => ({
       ...prevData,
       [name]: value
+    }));
+  };
+
+  const handleDateSelect = (newDate) => {
+    setMainData((prevData) => ({
+      ...prevData,
+      date: dayjs(newDate).format('YYYY-MM-DD'),
     }));
   };
 
@@ -150,7 +173,7 @@ function Certificate() {
               value={mainData.rank}
               onChange={handleChange}
             />
-            <FormControl sx={{minWidth: 120 }}>
+            <FormControl sx={{ minWidth: 120 }}>
               <InputLabel id="issuer_label">Issued By</InputLabel>
               <Select
                 labelId="issuer_label"
@@ -182,14 +205,17 @@ function Certificate() {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Date Issued"
+                name='date'
+                value={dayjs(mainData.date)}
+                renderInput={(params) => <TextField {...params} />} 
+                sx={{ gridColumn: 'span 2' }}
+                onChange={handleDateSelect}
+              />
+            </LocalizationProvider>
 
-            <TextField
-              label="Date Issued"
-              name='date'
-              value={(!mainData.date) ? new Date() : mainData.date}
-              sx={{ gridColumn: 'span 2' }}
-              onChange={handleChange}
-            />
 
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
               {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
@@ -245,16 +271,16 @@ function Certificate() {
                   <TableCell>{item.issuer}</TableCell>
                   <TableCell>{item.date}</TableCell>
                   <TableCell><Link href={item.link} target="_blank" underline="none">Certificate</Link></TableCell>
-                  <TableCell>                    
+                  <TableCell>
                     <Button
-                    onClick={() => {
-                      setMainData(item);
-                      setOpen(true);
-                      setIsAdding(false)
-                    }}
-                  >
-                    <Edit />
-                  </Button></TableCell>
+                      onClick={() => {
+                        setMainData(item);
+                        setOpen(true);
+                        setIsAdding(false)
+                      }}
+                    >
+                      <Edit />
+                    </Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
