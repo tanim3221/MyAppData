@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Stack, IconButton, Container, Typography, InputAdornment, TextField, Snackbar } from '@mui/material';
+import { Stack, IconButton, Container, Typography, Box, InputAdornment, TextField, Snackbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
@@ -47,6 +47,15 @@ function LoginForm({
 }) {
 
   return (
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: '1rem',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
     <Stack spacing={3}>
       <TextField
         name="username"
@@ -78,6 +87,8 @@ function LoginForm({
         </LoadingButton>
       </ButtonStyle>
     </Stack>
+    </Box>
+    </Container>
   );
 }
 
@@ -116,10 +127,12 @@ export default function LoginPage() {
         localStorage.setItem('authToken', data.token);
         const intendedPath = localStorage.getItem('intendedPath');
         setTimeout(() => {
-          // navigate('/home');
-          navigate(intendedPath, { replace: true });
-
-        }, 3000)
+          if (intendedPath) {
+            navigate(intendedPath, { replace: true });
+          } else {
+            navigate('/home', { replace: true });
+          }
+        }, 3000);
         setSnackbarOpen(true);
         setSnackbarMessage(data.message);
       } else {
@@ -137,8 +150,11 @@ export default function LoginPage() {
         <Container maxWidth="sm">
           <StyledContent>
             <HeadStyle>
-              <Typography variant="h4" gutterBottom>
-                Login | Saklayen Ahmed
+              <Typography variant="h4">
+                Login
+              </Typography>
+              <Typography variant="h3">
+                Saklayen Ahmed
               </Typography>
             </HeadStyle>
             <LoginForm handleLogin={handleLogin} showPassword={showPassword} setPassword={setPassword} setUsername={setUsername} setShowPassword={setShowPassword} />
