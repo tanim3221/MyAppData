@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stack, IconButton, Container, Typography, Box, InputAdornment, TextField, Snackbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { userLogin } from '../components/conn/api';
 import Iconify from '../components/iconify';
@@ -13,7 +14,6 @@ const StyledRoot = styled('div')(({ theme }) => ({
   },
 }));
 
-
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: 480,
   margin: 'auto',
@@ -23,7 +23,7 @@ const StyledContent = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   padding: theme.spacing(12, 0),
 }));
-const HeadStyle = styled('div')(({ theme }) => ({
+const HeadStyle = styled('div')(() => ({
   textAlign: 'center',
   fontSize: '4rem',
   fontWeight: 'bold',
@@ -31,7 +31,7 @@ const HeadStyle = styled('div')(({ theme }) => ({
 }));
 
 // eslint-disable-next-line
-const ButtonStyle = styled('div')(({ theme }) => ({
+const ButtonStyle = styled('div')(() => ({
   marginTop: '2rem',
 }));
 
@@ -50,7 +50,7 @@ function LoginForm({
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: '1rem',
+          marginTop: '.5rem',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -99,12 +99,21 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+  LoginForm.propTypes = {
+    handleLogin: PropTypes.func.isRequired,
+    username: PropTypes.string.isRequired,
+    setUsername: PropTypes.func.isRequired,
+    password: PropTypes.string.isRequired,
+    setPassword: PropTypes.func.isRequired,
+    showPassword: PropTypes.bool.isRequired,
+    setShowPassword: PropTypes.func.isRequired,
+  };
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('authToken');
     if (loggedIn) {
-      setIsLoggedIn(true)
       navigate('/home');
     }
     const loginMsg = localStorage.getItem('LoginMsg');
@@ -112,7 +121,7 @@ export default function LoginPage() {
       setSnackbarOpen(true);
       setSnackbarMessage(loginMsg);
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = async () => {
     try {

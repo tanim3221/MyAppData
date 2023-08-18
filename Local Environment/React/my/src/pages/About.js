@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, TableContainer, Dialog, DialogTitle, DialogContent, Box, TextField, Stack, Snackbar, Typography, Paper, Grid, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Divider } from '@mui/material';
-import { Edit } from '@mui/icons-material'
-import { fetchData, updateData } from '../components/conn/api';
+import { Edit, Delete, Check } from '@mui/icons-material'
+import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
 function About() {
@@ -12,6 +12,9 @@ function About() {
   const [open, setOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [isAdding, setIsAdding] = useState(false);
+  const [dataChanged, setDataChanged] = useState(false);
+
 
   useEffect(() => {
     fetchData()
@@ -25,7 +28,7 @@ function About() {
         setLoading(false);
 
       });
-  }, []);
+  }, [dataChanged]);
 
   const paperStyle = {
     padding: '20px',
@@ -49,10 +52,55 @@ function About() {
     setMainData({});
   }
 
+  const handleDelete = (id) => {
+    const requestData = {
+      table: TABLE_NAME_ABOUT,
+      id,
+      action: 'delete',
+    };
+
+    deleteData(requestData)
+      .then(response => {
+        setSnackbarMessage(response.message);
+        setSnackbarOpen(true);
+        const deletedData = about.filter(item => item.id !== id);
+        setAbout(deletedData);
+        setOpen(false);
+      })
+      .catch(error => {
+        console.error(error);
+        setSnackbarMessage(error);
+        setSnackbarOpen(true);
+      });
+  }
+
   const handleClose = () => {
     setOpen(false)
     resetMainDataState();
   };
+
+  const handleAdd = () => {
+    const requestData = {
+      table: TABLE_NAME_ABOUT,
+      data: mainData
+    };
+    addData(requestData)
+      .then(response => {
+        setSnackbarMessage(response.message);
+        setSnackbarOpen(true);
+        const addData = [...about, mainData];
+        setAbout(addData);
+        setOpen(false);
+        setIsAdding(false);
+        setMainData({});
+        setDataChanged(!dataChanged);
+      })
+      .catch(error => {
+        console.error(error);
+        setSnackbarMessage(error);
+        setSnackbarOpen(true);
+      });
+  }
 
   const handleSave = () => {
 
@@ -99,10 +147,11 @@ function About() {
     }));
   };
 
+  // eslint-disable-next-line
   const renderDialog = () => {
     return (
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{mainData.title}</DialogTitle>
+        <DialogTitle>{isAdding ? 'Add About Info' : mainData.title}</DialogTitle>
         <DialogContent>
           <Box
             component="form"
@@ -135,8 +184,11 @@ function About() {
               onChange={handleChange}
             />
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
+            {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
+            </Stack>
+            <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button variant="contained" onClick={handleSave}>Save</Button>
+              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check/> }</Button>
             </Stack>
           </Box>
 
@@ -254,12 +306,23 @@ function About() {
       <Divider style={{ margin: '2rem' }} />
 
       <TableContainer component={Paper}>
+      <Button
+        variant="contained"
+        onClick={() => {
+          resetMainDataState();
+          setIsAdding(true);
+          setOpen(true);
+        }}
+      >
+        Add About Info
+      </Button>
         {loading ? (
+
           <div className={extStyles.spinnerarea}>
             <CircularProgress />
           </div>
         ) : (
-          <Table>
+          <Table style={{ marginTop: '1.4rem' }}>
             <TableHead>
               <TableRow>
                 <TableCell>SL</TableCell>

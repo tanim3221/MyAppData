@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, Dialog, DialogTitle, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material'
+import { Edit, Delete, Check } from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
@@ -14,10 +14,12 @@ function Education() {
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
 
+  const TABLE_NAME = 'education';
+
   useEffect(() => {
     fetchData()
       .then(responseData => {
-        setData(responseData.saklayen.education);
+        setData(responseData.saklayen[TABLE_NAME]);
         setLoading(false);
       })
       .catch(error => {
@@ -26,11 +28,9 @@ function Education() {
       });
   }, [dataChanged]);
 
-  const resetEducationState = () => {
+  const resetMainDataState = () => {
     setMainData({});
   }
-
-  const TABLE_NAME = 'education';
 
   const handleAdd = () => {
     const requestData = {
@@ -116,13 +116,13 @@ function Education() {
 
   const handleClose = () => {
     setOpen(false)
-    resetEducationState();
+    resetMainDataState();
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setMainData((prevEdu) => ({
-      ...prevEdu,
+    setMainData((prevData) => ({
+      ...prevData,
       [name]: value
     }));
   };
@@ -187,9 +187,11 @@ function Education() {
               onChange={handleChange}
             />
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
-              {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} startIcon={<Delete />}>Delete</Button>}
+            {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
+            </Stack>
+            <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : 'Save'}</Button>
+              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check/> }</Button>
             </Stack>
           </Box>
 
@@ -200,18 +202,19 @@ function Education() {
   };
 
   return (
-    <Container maxWidth="lg" style={{ marginTop: '.6rem' }}>
+    <Container maxWidth="lg" style={{ marginTop: '.3rem' }}>
       <Button
         variant="contained"
         onClick={() => {
-          resetEducationState();
+          resetMainDataState();
           setIsAdding(true);
           setOpen(true);
         }}
+        style={{ marginBottom: '1.3rem' }}
       >
         Add New
       </Button>
-      <TableContainer style={{ marginTop: '1.4rem' }} component={Paper}>
+      <TableContainer component={Paper}>
         {loading ? (
           <div className={extStyles.spinnerarea}>
             <CircularProgress />
@@ -248,14 +251,6 @@ function Education() {
                     >
                       <Edit />
                     </Button>
-                    {/* <Button style={{ color: 'maroon'}}
-                      onClick={() => {
-                        setMainData(item);
-                        setOpen(true);
-                      }}
-                    >
-                      <Delete />
-                    </Button> */}
 
                   </TableCell>
                 </TableRow>
