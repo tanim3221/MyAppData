@@ -20,27 +20,28 @@ import Languages from './pages/Languages';
 import Contact from './pages/Contact';
 import Social from './pages/Social';
 import Visitors from './pages/Visitors';
+import ProtectedMainLayout from './sections/auth/ProtectedMainLayout';
 
 export default function Router() {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+      <Route path="/" element={<ProtectedMainLayout />}>
         <Route index element={<Navigate to="/login" />} />
-        <Route path="home" element={<ProtectedLogin Component={Home} path="/home" />} />
-        <Route path="about-me" element={<ProtectedLogin Component={About} path="/about-me" />} />
-        <Route path="education" element={<ProtectedLogin Component={Education} path="/education" />} />
-        <Route path="experiences" element={<ProtectedLogin Component={Experience} path="/experiences" />} />
-        <Route path="certifications" element={<ProtectedLogin Component={Certificate} path="/certifications" />} />
-        <Route path="skills" element={<ProtectedLogin Component={Skill} path="/skills" />} />
-        <Route path="portfolios" element={<ProtectedLogin Component={Portfolio} path="/portfolios" />} />
-        <Route path="interests" element={<ProtectedLogin Component={Interests} path="/interests" />} />
-        <Route path="funfacts" element={<ProtectedLogin Component={Funfacts} path="/funfacts" />} />
-        <Route path="attributes" element={<ProtectedLogin Component={Attributes} path="/attributes" />} />
-        <Route path="services" element={<ProtectedLogin Component={Services} path="/services" />} />
-        <Route path="languages" element={<ProtectedLogin Component={Languages} path="/languages" />} />
-        <Route path="messages" element={<ProtectedLogin Component={Contact} path="/messages" />} />
-        <Route path="social" element={<ProtectedLogin Component={Social} path="/social" />} />
-        <Route path="visitors" element={<ProtectedLogin Component={Visitors} path="/visitors" />} />
+        <Route path="home" element={<Home/>} />
+        <Route path="about-me" element={<About />} />
+        <Route path="education" element={<Education/>} />
+        <Route path="experiences" element={<Experience />} />
+        <Route path="certifications" element={<Certificate />} />
+        <Route path="skills" element={<Skill />} />
+        <Route path="portfolios" element={<Portfolio/>} />
+        <Route path="interests" element={<Interests/>} />
+        <Route path="funfacts" element={<Funfacts />} />
+        <Route path="attributes" element={<Attributes />} />
+        <Route path="services" element={<Services/>} />
+        <Route path="languages" element={<Languages />} />
+        <Route path="messages" element={<Contact />} />
+        <Route path="social" element={<Social />} />
+        <Route path="visitors" element={<Visitors />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route path="404" element={<Page404 />} />
@@ -80,8 +81,8 @@ export default function Router() {
 //       element: <MainLayout />,
 //       children: [
 //         { element: <Navigate to="/login" />, index: true },
-//         { path: 'home', element: <ProtectedLogin Component={Home} /> },
-//         { path: 'about-me', element: <ProtectedLogin Component={About} /> },
+//         { path: 'home', element: <Home} /> },
+//         { path: 'about-me', element: <About} /> },
 //         { path: 'education', element: <Education /> },
 //         { path: 'experiences', element: <Experience /> },
 //         { path: 'certifications', element: <Certificate /> },

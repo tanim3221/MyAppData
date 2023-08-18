@@ -1,5 +1,5 @@
-import { useState,useEffect } from 'react';
-import { Stack, IconButton,Container, Typography, InputAdornment, TextField, Snackbar } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Stack, IconButton, Container, Typography, InputAdornment, TextField, Snackbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
@@ -36,57 +36,15 @@ const ButtonStyle = styled('div')(({ theme }) => ({
 }));
 
 
-function LoginForm() {
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-
-  useEffect(() => {
-    const loggedIn = localStorage.getItem('authToken');
-    if (loggedIn) {
-      navigate('/home');
-    }
-    const loginMsg = localStorage.getItem('LoginMsg');
-    if (loginMsg) {
-      setSnackbarOpen(true);
-      setSnackbarMessage(loginMsg);
-      setTimeout(() => {
-        localStorage.clear();
-        // window.location.reload();
-      }, 3000);
-    }
-  }, []);
-
-  const handleLogin = async () => {
-    try {
-      const requestData = {
-        user: username,
-        pass: password,
-      };
-
-      const data = await userLogin(requestData);
-
-      if (data.token) {
-        localStorage.setItem('authToken', data.token);
-        setTimeout(() => {
-          navigate('/home');
-        }, 3000)
-        setSnackbarOpen(true);
-        setSnackbarMessage('Login successful.');
-        console.log('Login successful:', data.token);
-      } else {
-        // Handle error response
-        console.error('Login failed:', data.error);
-        setSnackbarOpen(true);
-        setSnackbarMessage('Error from PHP server. Please check console log');
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
-    }
-  };
+function LoginForm({
+  handleLogin,
+  username,
+  setUsername,
+  password,
+  setPassword,
+  showPassword,
+  setShowPassword
+}) {
 
   return (
     <Stack spacing={3}>
@@ -119,18 +77,62 @@ function LoginForm() {
           Login
         </LoadingButton>
       </ButtonStyle>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={() => setSnackbarOpen(false)}
-        message={snackbarMessage}
-      />
     </Stack>
   );
 }
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = async () => {
+    try {
+      const requestData = {
+        user: username,
+        pass: password,
+      };
+
+      const data = await userLogin(requestData);
+
+      if (data.token) {
+        localStorage.setItem('authToken', data.token);
+        setTimeout(() => {
+          navigate('/home');
+        }, 3000)
+        setSnackbarOpen(true);
+        setSnackbarMessage('Login successful.');
+        console.log('Login successful:', data.token);
+      } else {
+        console.error('Login failed:', data.error);
+        setSnackbarOpen(true);
+        setSnackbarMessage('Error from PHP server. Please check console log');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('authToken');
+    if (loggedIn) {
+      setIsLoggedIn(true)
+      navigate('/home');
+    }
+    const loginMsg = localStorage.getItem('LoginMsg');
+    if (loginMsg) {
+      setSnackbarOpen(true);
+      setSnackbarMessage(loginMsg);
+      setTimeout(() => {
+        localStorage.clear();
+        window.location.reload();
+      }, 3000);
+    }
+  }, []);
 
   return (
     <>
@@ -138,13 +140,20 @@ export default function LoginPage() {
         <Container maxWidth="sm">
           <StyledContent>
             <HeadStyle>
-            <Typography variant="h4" gutterBottom>
-              Login | Saklayen Ahmed
-            </Typography>
+              <Typography variant="h4" gutterBottom>
+                Login | Saklayen Ahmed
+              </Typography>
             </HeadStyle>
-            <LoginForm />
+            <LoginForm handleLogin={handleLogin} showPassword={showPassword} setPassword={setPassword} setUsername={setUsername} setShowPassword={setShowPassword} />
           </StyledContent>
         </Container>
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          onClose={() => setSnackbarOpen(false)}
+          message={snackbarMessage}
+        />
       </StyledRoot>
     </>
   );
