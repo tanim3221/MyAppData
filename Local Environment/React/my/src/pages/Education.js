@@ -251,7 +251,6 @@ function Education() {
                     >
                       <Edit />
                     </Button>
-
                   </TableCell>
                 </TableRow>
               ))}
