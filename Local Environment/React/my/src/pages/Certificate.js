@@ -244,8 +244,9 @@ function Certificate() {
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{item.issuer}</TableCell>
                   <TableCell>{item.date}</TableCell>
-                  <TableCell><Link /></TableCell>
-                  <TableCell>                    <Button
+                  <TableCell><Link href={item.link} target="_blank" underline="none">Certificate</Link></TableCell>
+                  <TableCell>                    
+                    <Button
                     onClick={() => {
                       setMainData(item);
                       setOpen(true);
