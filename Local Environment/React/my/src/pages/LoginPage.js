@@ -90,36 +90,6 @@ export default function LoginPage() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = async () => {
-    try {
-      const requestData = {
-        user: username,
-        pass: password,
-      };
-
-      const data = await userLogin(requestData);
-
-      if (data.token) {
-        localStorage.setItem('authToken', data.token);
-        const intendedPath = localStorage.getItem('intendedPath');
-        setTimeout(() => {
-          // navigate('/home');
-          navigate(intendedPath, { replace: true });
-
-        }, 3000)
-        setSnackbarOpen(true);
-        setSnackbarMessage('Login successful.');
-        console.log('Login successful:', data.token);
-      } else {
-        console.error('Login failed:', data.error);
-        setSnackbarOpen(true);
-        setSnackbarMessage('Error from PHP server. Please check console log');
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
-    }
-  };
-
   useEffect(() => {
     const loggedIn = localStorage.getItem('authToken');
     if (loggedIn) {
@@ -130,12 +100,36 @@ export default function LoginPage() {
     if (loginMsg) {
       setSnackbarOpen(true);
       setSnackbarMessage(loginMsg);
-      // setTimeout(() => {
-      //   localStorage.clear();
-        // window.location.reload();
-      // }, 3000);
     }
   }, []);
+
+  const handleLogin = async () => {
+    try {
+      const requestData = {
+        user: username,
+        pass: password,
+      };
+
+      const data = await userLogin(requestData);
+
+      if (data.error===false) {
+        localStorage.setItem('authToken', data.token);
+        const intendedPath = localStorage.getItem('intendedPath');
+        setTimeout(() => {
+          // navigate('/home');
+          navigate(intendedPath, { replace: true });
+
+        }, 3000)
+        setSnackbarOpen(true);
+        setSnackbarMessage(data.message);
+      } else {
+        setSnackbarOpen(true);
+        setSnackbarMessage(data.message);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
 
   return (
     <>
