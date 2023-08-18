@@ -117,7 +117,6 @@ function Education() {
   const handleClose = () => {
     setOpen(false)
     resetEducationState();
-    setIsAdding(false);
   };
 
   const handleChange = (event) => {
@@ -244,6 +243,7 @@ function Education() {
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
+                        setIsAdding(false)
                       }}
                     >
                       <Edit />
