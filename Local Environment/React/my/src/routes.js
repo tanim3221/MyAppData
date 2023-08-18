@@ -1,10 +1,8 @@
 
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import MainLayout from './layouts/main';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
-import ProtectedLogin from './sections/auth/ProtectedLogin';
 import Home from './pages/Home';
 import About from './pages/About';
 import Education from './pages/Education';

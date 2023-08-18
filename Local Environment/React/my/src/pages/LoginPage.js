@@ -101,8 +101,11 @@ export default function LoginPage() {
 
       if (data.token) {
         localStorage.setItem('authToken', data.token);
+        const intendedPath = localStorage.getItem('intendedPath');
         setTimeout(() => {
-          navigate('/home');
+          // navigate('/home');
+          navigate(intendedPath, { replace: true });
+
         }, 3000)
         setSnackbarOpen(true);
         setSnackbarMessage('Login successful.');
@@ -127,10 +130,10 @@ export default function LoginPage() {
     if (loginMsg) {
       setSnackbarOpen(true);
       setSnackbarMessage(loginMsg);
-      setTimeout(() => {
-        localStorage.clear();
-        window.location.reload();
-      }, 3000);
+      // setTimeout(() => {
+      //   localStorage.clear();
+        // window.location.reload();
+      // }, 3000);
     }
   }, []);
 
