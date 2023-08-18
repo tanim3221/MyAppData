@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom'; 
 
-import { bgBlur } from '../../../utils/cssStyles';
+import { bgBlur } from '../../utils/cssStyles';
 
 
 const HEADER_MOBILE = 64;

@@ -8,10 +8,12 @@ import { fToNow } from '../utils/formatTime';
 
 import {
   AppWidgetSummary,
-} from '../sections/@dashboard/app';
+} from '../sections/home';
 
 
-export default function DashboardAppPage() {
+export default function Home() {
+
+  
   // const theme = useTheme();
 
   const [visitor, setVisit] = useState([]);

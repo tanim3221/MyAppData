@@ -1,8 +1,6 @@
 import { Navigate, useRoutes } from 'react-router-dom';
-// layouts
-import DashboardLayout from './layouts/dashboard';
-import SimpleLayout from './layouts/simple';
-//
+
+import MainLayout from './layouts/main';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import About from './pages/About';
@@ -18,20 +16,20 @@ import Languages from './pages/Languages';
 import Contact from './pages/Contact';
 import Serivces from './pages/Services';
 import Social from './pages/Social';
-import DashboardAppPage from './pages/Home';
 import Visitors from './pages/Visitors';
+import Home from './pages/Home';
+import ProtectedLogin from './sections/auth/ProtectedLogin';
 
-// ----------------------------------------------------------------------
 
 export default function Router() {
   const routes = useRoutes([
     {
       path: '/',
-      element: <DashboardLayout />,
+      element: <MainLayout />,
       children: [
         { element: <Navigate to="/login" />, index: true },
-        { path: 'home', element: <DashboardAppPage /> },
-        { path: 'about-me', element: <About /> },
+        { path: 'home', element: <ProtectedLogin Component={Home} /> },
+        { path: 'about-me', element: <ProtectedLogin Component={About} /> },
         { path: 'education', element: <Education /> },
         { path: 'experiences', element: <Experience /> },
         { path: 'certifications', element: <Certificate /> },
@@ -52,7 +50,7 @@ export default function Router() {
       element: <LoginPage />,
     },
     {
-      element: <SimpleLayout />,
+      
       children: [
         { element: <Navigate to="/login" />, index: true },
         { path: '404', element: <Page404 /> },

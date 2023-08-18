@@ -3,9 +3,9 @@ import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { fetchData } from '../../../components/conn/api';
+import { fetchData } from '../../components/conn/api';
 
-import navConfig from '../nav/Navlist';
+import navConfig from '../nav/Navitem';
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
@@ -33,6 +33,12 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(null);
   };
+
+  const userLogout = () => {
+    localStorage.setItem('authToken', '');
+    localStorage.setItem('LoginMsg', 'Logged out susccessfully.');
+    navigate('/login');
+  }
 
   return (
     <>
@@ -94,7 +100,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={userLogout} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>

@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Box, Drawer, Typography } from '@mui/material';
 
-import useResponsive from '../../../hooks/useResponsive';
-import Scrollbar from '../../../components/scrollbar';
-import NavSection from '../../../components/nav-section';
-import Navlist from './Navlist';
+import useResponsive from '../../hooks/useResponsive';
+import Scrollbar from '../../components/scrollbar';
+import NavSection from '../../components/nav-section';
+import Navlist from './Navitem';
 
 const NAV_WIDTH = 280;
 
