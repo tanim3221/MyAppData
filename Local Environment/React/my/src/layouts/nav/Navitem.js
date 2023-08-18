@@ -5,7 +5,7 @@ import { Home, Public,Interests,Message,SupportAgent,GTranslate,HistoryEdu,Celeb
 const navConfig = [
   {
     title: 'Home',
-    path: '/',
+    path: '/home',
     icon: <Home />,
   },
   {

@@ -12,7 +12,6 @@ import {
 
 
 export default function Home() {
-
   
   // const theme = useTheme();
 
