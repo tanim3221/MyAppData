@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle, Snackbar, Link, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, FormControl, Select, InputLabel, MenuItem, Checkbox, ListItemText, OutlinedInput, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle, Snackbar, Link, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, FormControl, Select, InputLabel, MenuItem, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
 import { Edit, Delete, Check } from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
 function Portfolio() {
   const [data, setData] = useState([]);
-  const [portGroup, setPortGroup] = useState([]);
+  const [portCategory, setPortCategory] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [mainData, setMainData] = useState({ group: [] });
+  const [mainData, setMainData] = useState({});
   const [open, setOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const TABLE_NAME = 'portfolio';
 
@@ -21,14 +22,17 @@ function Portfolio() {
     fetchData()
       .then(responseData => {
         setData(responseData.saklayen[TABLE_NAME]);
-        setPortGroup(responseData.saklayen.portfolio_filter);
+        setPortCategory(responseData.saklayen.portfolio_filter);
         setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, [dataChanged]);
+      if (!isAdding) {
+        setSelectedCategory(mainData.category);
+      }
+  }, [dataChanged,isAdding, mainData]);
 
   const resetMainDataState = () => {
     setMainData({});
@@ -118,7 +122,16 @@ function Portfolio() {
 
   const handleClose = () => {
     setOpen(false)
-    resetMainDataState();
+    // resetMainDataState();
+  };
+
+  const handleCategoryChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      category: selectedValue,
+    }));
+    setSelectedCategory(selectedValue);
   };
 
   const handleChange = (event) => {
@@ -129,23 +142,16 @@ function Portfolio() {
     }));
   };
 
-  const portCategory = [
-    { id: 1, name: 'None', value: '', group: 'category_all' },
-    { id: 1, name: 'Website', value: 'Website', group: 'category_web' },
-    { id: 2, name: 'Mobile App', value: 'Mobile App', group: 'category_app' },
-    { id: 3, name: 'Desktop App', value: 'Desktop App', group: 'category_desktop' },
-  ]
-
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
+  // const ITEM_HEIGHT = 48;
+  // const ITEM_PADDING_TOP = 8;
+  // const MenuProps = {
+  //   PaperProps: {
+  //     style: {
+  //       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+  //       width: 250,
+  //     },
+  //   },
+  // };
 
 
   // eslint-disable-next-line
@@ -174,13 +180,15 @@ function Portfolio() {
               <Select
                 labelId="category"
                 label="Category"
-                value={mainData.category}
-                onChange={handleChange}
+                // value={isAdding ? selectedCategory : mainData.category}
+                // onChange={handleChange}
+                value={selectedCategory}
+                onChange={handleCategoryChange}
                 name='category'
               >
                 {
                   portCategory.map(item => (
-                    <MenuItem key={item.id} value={item.value}>{item.name}</MenuItem>
+                    <MenuItem key={item.id} value={item.category}>{item.text}</MenuItem>
                   ))
                 }
               </Select>
@@ -190,25 +198,9 @@ function Portfolio() {
               name='name'
               value={mainData.name}
               onChange={handleChange}
-              // sx={{ gridColumn: 'span 2' }}
+              sx={{ gridColumn: 'span 2' }}
             />
             
-            <FormControl>
-              <InputLabel id="Group">Group</InputLabel>
-              <Select
-                labelId="Group"
-                label="Group"
-                value={mainData.port_group}
-                onChange={handleChange}
-                name='port_group'
-              >
-                {
-                  portGroup.map(item => (
-                    <MenuItem key={item.id} value={item.group_name}>{item.text}</MenuItem>
-                  ))
-                }
-              </Select>
-            </FormControl>
             <TextField
               label="Link"
               name='link'
