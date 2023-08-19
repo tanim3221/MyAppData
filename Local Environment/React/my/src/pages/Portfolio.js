@@ -3,6 +3,7 @@ import { Container, Button, Dialog, DialogTitle, Snackbar, Link, Box, DialogCont
 import { Edit, Delete, Check } from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
+import { properCase } from '../utils/commonFunction';
 
 function Portfolio() {
   const [data, setData] = useState([]);
@@ -15,6 +16,8 @@ function Portfolio() {
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [mediaList, setMediaList] = useState([]);
 
   const TABLE_NAME = 'portfolio';
 
@@ -23,6 +26,7 @@ function Portfolio() {
       .then(responseData => {
         setData(responseData.saklayen[TABLE_NAME]);
         setPortCategory(responseData.saklayen.portfolio_filter);
+        setMediaList(responseData.saklayen.media);
         setLoading(false);
       })
       .catch(error => {
@@ -131,6 +135,15 @@ function Portfolio() {
     setSelectedCategory(selectedValue);
   };
 
+  const handleFileChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      imageLink: selectedValue,
+    }));
+    setSelectedFile(selectedValue);
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setMainData((prevData) => ({
@@ -201,8 +214,24 @@ function Portfolio() {
               name='link'
               value={mainData.link}
               onChange={handleChange}
-              sx={{ gridColumn: 'span 2' }}
+              // sx={{ gridColumn: 'span 2' }}
             />
+            <FormControl sx={{ minWidth: 120 }}>
+              <InputLabel id="issuer_label">Logo</InputLabel>
+              <Select
+                labelId="issuer_label"
+                label="Logo"
+                value={selectedFile}
+                onChange={handleFileChange}
+                name='imageLink'
+              >
+                {
+                  mediaList.map(item => (
+                    <MenuItem key={item.id} value={item.file_name}>{item.file_text}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
               {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
             </Stack>
@@ -253,7 +282,7 @@ function Portfolio() {
                 <TableRow key={item.id}>
                   <TableCell>{item.rank}</TableCell>
                   <TableCell>{item.name}</TableCell>
-                  <TableCell>{item.category}</TableCell>
+                  <TableCell>{properCase(item.category)}</TableCell>
                   <TableCell><Link target={'_blank'} href={item.link}>URL</Link></TableCell>
                   <TableCell>
                     <Button
@@ -261,6 +290,7 @@ function Portfolio() {
                         setMainData(item);
                         setOpen(true);
                         setSelectedCategory(item.category);
+                        setSelectedFile(item.imageLink);
                         setIsAdding(false)
                       }}
                     >

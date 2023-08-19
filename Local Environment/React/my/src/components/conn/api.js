@@ -23,7 +23,17 @@ export const fetchData = async () => {
 
 export const updateData = async (requestData) => {
   try {
-    const response = await api.post('/update.php', requestData);
+    const response = await api.post('/update.php?type=text', requestData);
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
+
+export const fileUpload = async (requestData) => {
+  try {
+    const response = await api.post('/update.php?type=file', requestData);
     return response.data;
   } catch (error) {
     console.error('API request error:', error);

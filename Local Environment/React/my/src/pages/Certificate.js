@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle, Link, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, Select, FormControl, MenuItem, InputLabel, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle, Link, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, Select, FormControl, MenuItem, InputLabel,  TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
 import { Edit, Delete, Check } from '@mui/icons-material'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -7,7 +7,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 // import moment from 'moment';
-
 
 import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
@@ -18,11 +17,15 @@ function Certificate() {
   const [loading, setLoading] = useState(true);
   const [mainData, setMainData] = useState({});
   const [open, setOpen] = useState(false);
+  // const [imageOpen, setImageOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [mediaList, setMediaList] = useState([]);
+
 
 
   const TABLE_NAME = 'certifications';
@@ -32,6 +35,7 @@ function Certificate() {
       .then(responseData => {
         setData(responseData.saklayen[TABLE_NAME]);
         setIssuerList(responseData.saklayen.issuer_list);
+        setMediaList(responseData.saklayen.media);
         setLoading(false);
       })
       .catch(error => {
@@ -95,8 +99,8 @@ function Certificate() {
     try {
       const existingData = data.find(item => item.id === mainData.id);
       const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
-  
-  
+
+
       if (!isDataChanged) {
         setSnackbarMessage("No changes to save.");
         setSnackbarOpen(true);
@@ -107,7 +111,7 @@ function Certificate() {
         table: TABLE_NAME,
         data: mainData
       };
-  
+
       updateData(requestData)
         .then(response => {
           setSnackbarMessage(response.message);
@@ -118,7 +122,7 @@ function Certificate() {
             }
             return item;
           });
-  
+
           setData(updatedData);
           setOpen(false);
         })
@@ -136,6 +140,7 @@ function Certificate() {
 
   const handleClose = () => {
     setOpen(false)
+    // setImageOpen(false);
     // resetMainDataState();
   };
 
@@ -147,6 +152,27 @@ function Certificate() {
     }));
     setSelectedCategory(selectedValue);
   };
+
+  const handleFileChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      icon: selectedValue,
+    }));
+    setSelectedFile(selectedValue);
+  };
+
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   setSelectedFile(file);
+  // };
+
+  // const handleFileUpload = () => {
+  //   if (selectedFile) {
+  //     console.log('Uploading:', selectedFile);
+  //   }
+  // };
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -205,6 +231,8 @@ function Certificate() {
               label="Certificate Title"
               name='title'
               value={mainData.title}
+              multiline
+              rows={3}
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
@@ -213,6 +241,8 @@ function Certificate() {
               name='link'
               value={mainData.link}
               type='url'
+              multiline
+              rows={3}
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
@@ -221,12 +251,28 @@ function Certificate() {
                 label="Date Issued"
                 name='date'
                 value={dayjs(mainData.date)}
-                renderInput={(params) => <TextField {...params} />} 
-                sx={{ gridColumn: 'span 2' }}
+                renderInput={(params) => <TextField {...params} />}
+                // sx={{ gridColumn: 'span 2' }}
                 onChange={handleDateSelect}
               />
             </LocalizationProvider>
-
+            
+            <FormControl sx={{ minWidth: 120 }}>
+              <InputLabel id="issuer_label">Issuer Logo</InputLabel>
+              <Select
+                labelId="issuer_label"
+                label="Issuer Logo"
+                value={selectedFile}
+                onChange={handleFileChange}
+                name='icon'
+              >
+                {
+                  mediaList.map(item => (
+                    <MenuItem key={item.id} value={item.file_name}>{item.file_text}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
 
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
               {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
@@ -243,6 +289,37 @@ function Certificate() {
       </Dialog>
     );
   };
+
+
+  // const imageDialog = () => {
+  //   return (
+  //     <Dialog open={imageOpen} onClose={handleClose}>
+  //       <DialogTitle>{mainData.issuer}</DialogTitle>
+  //       <DialogContent>
+  //         <Box
+  //           component="form"
+  //           sx={{
+  //             marginTop: '1rem',
+  //             display: 'grid',
+  //             // gridTemplateColumns: '1fr 1fr', // Create a two-column layout
+  //             gap: '1rem', // Adjust the gap between columns
+  //           }}
+  //         >
+  //           <Input
+  //             type='file'
+  //             onChange={handleFileChange}
+  //           />
+
+  //           <Stack spacing={2} direction="row" style={{ marginTop: '1rem' }} justifyContent="flex-end">
+  //             <Button variant="outlined" onClick={handleClose}>Close</Button>
+  //             <Button variant="contained" onClick={handleFileUpload}><Check /></Button>
+  //           </Stack>
+  //         </Box>
+
+  //       </DialogContent>
+  //     </Dialog>
+  //   );
+  // }
 
   return (
     <Container maxWidth="lg" style={{ marginTop: '.3rem' }}>
@@ -283,16 +360,32 @@ function Certificate() {
                   <TableCell>{item.date}</TableCell>
                   <TableCell><Link href={item.link} target="_blank" underline="none">Certificate</Link></TableCell>
                   <TableCell>
-                    <Button
-                      onClick={() => {
-                        setMainData(item);
-                        setOpen(true);
-                        setSelectedCategory(item.issuer);
-                        setIsAdding(false)
-                      }}
-                    >
-                      <Edit />
-                    </Button></TableCell>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          setMainData(item);
+                          setOpen(true);
+                          setSelectedCategory(item.issuer);
+                          setSelectedFile(item.icon);
+                          setIsAdding(false)
+                        }}
+                      >
+                        <Edit />
+                      </Button>
+
+                      {/* <Button
+                        variant="outlined"
+                        onClick={() => {
+                          setMainData(item);
+                          setImageOpen(true);
+                        }}
+                      >
+                        <Image />
+                      </Button> */}
+                    </div>
+
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -307,6 +400,7 @@ function Certificate() {
         message={snackbarMessage}
       />
       {renderDialog()}
+      {/* {imageDialog()} */}
     </Container>
   );
 }

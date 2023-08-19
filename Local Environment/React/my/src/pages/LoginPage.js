@@ -14,14 +14,57 @@ const StyledRoot = styled('div')(({ theme }) => ({
   },
 }));
 
+const BackgroundOverlay = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundImage: `url("http://localhost:8080/saklayen/assets/img/bg-05.svg")`,
+  backgroundSize: 'cover',
+  zIndex: -1, // Move the background behind the content
+}));
+
+const ContentOverlay = styled('div')(({ theme }) => ({
+  padding: theme.spacing(1),
+  borderRadius: theme.spacing(1),
+  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '80%',
+
+  [theme.breakpoints.up('xs')]: {
+    width: '85%',
+    padding: theme.spacing(3),
+  },
+
+  [theme.breakpoints.up('sm')]: {
+    width: '60%',
+    padding: theme.spacing(2),
+  },
+
+  [theme.breakpoints.up('md')]: {
+    width: '45%',
+    padding: theme.spacing(3),
+  },
+
+  [theme.breakpoints.up('lg')]: {
+    width: '30%',
+    padding: theme.spacing(3),
+  },
+
+}));
+
 const StyledContent = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+  maxWidth: '400px',
   margin: 'auto',
-  minHeight: '100vh',
+  // minHeight: '100vh',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  padding: theme.spacing(12, 0),
+  // padding: theme.spacing(3, 3),
 }));
 const HeadStyle = styled('div')(() => ({
   textAlign: 'center',
@@ -47,7 +90,7 @@ function LoginForm({
 }) {
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth='sm'>
       <Box
         sx={{
           marginTop: '.5rem',
@@ -56,38 +99,38 @@ function LoginForm({
           alignItems: 'center',
         }}
       >
-    <Stack spacing={3}>
-      <TextField
-        name="username"
-        label="User Name"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+        <Stack spacing={3}>
+          <TextField
+            name="username"
+            label="User Name"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-      <TextField
-        name="password"
-        label="Password"
-        type={showPassword ? 'text' : 'password'}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
+          <TextField
+            name="password"
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
 
-      <ButtonStyle>
-        <LoadingButton fullWidth size="large" variant="contained" onClick={handleLogin}>
-          Login
-        </LoadingButton>
-      </ButtonStyle>
-    </Stack>
-    </Box>
+          <ButtonStyle>
+            <LoadingButton fullWidth size="large" variant="contained" onClick={handleLogin}>
+              Login
+            </LoadingButton>
+          </ButtonStyle>
+        </Stack>
+      </Box>
     </Container>
   );
 }
@@ -132,7 +175,7 @@ export default function LoginPage() {
 
       const data = await userLogin(requestData);
 
-      if (data.error===false) {
+      if (data.error === false) {
         localStorage.setItem('authToken', data.token);
         const intendedPath = localStorage.getItem('intendedPath');
         setTimeout(() => {
@@ -155,19 +198,22 @@ export default function LoginPage() {
 
   return (
     <>
+      <BackgroundOverlay />
       <StyledRoot>
-        <Container maxWidth="sm">
-          <StyledContent>
-            <HeadStyle>
-              <Typography variant="h4">
-                Login
-              </Typography>
-              <Typography variant="h3">
-                Saklayen Ahmed
-              </Typography>
-            </HeadStyle>
-            <LoginForm handleLogin={handleLogin} showPassword={showPassword} setPassword={setPassword} setUsername={setUsername} setShowPassword={setShowPassword} />
-          </StyledContent>
+        <Container maxWidth="xs">
+          <ContentOverlay>
+            <StyledContent>
+              <HeadStyle>
+                <Typography variant="h4">
+                  Login
+                </Typography>
+                <Typography variant="h3">
+                  Saklayen Ahmed
+                </Typography>
+              </HeadStyle>
+              <LoginForm handleLogin={handleLogin} showPassword={showPassword} setPassword={setPassword} setUsername={setUsername} setShowPassword={setShowPassword} />
+            </StyledContent>
+          </ContentOverlay>
         </Container>
         <Snackbar
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}

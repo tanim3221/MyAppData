@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress} from '@mui/material';
-import { Edit } from '@mui/icons-material'
+import { Container, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress} from '@mui/material';
+// import { Edit } from '@mui/icons-material'
 import { fetchData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
@@ -37,18 +37,18 @@ function Visitors() {
                 <TableCell>ISP</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Country</TableCell>
-                <TableCell>Action</TableCell>
+                {/* <TableCell>Action</TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
-              {visitor.map(item => (
+              {visitor.map((item, index) => (
                 <TableRow key={item.id}>
-                  <TableCell>{item.rank}</TableCell>
+                  <TableCell>{index+1}</TableCell>
                   <TableCell>{item.ip}</TableCell>
                   <TableCell>{item.isp}</TableCell>
                   <TableCell>{item.visit_date}</TableCell>
                   <TableCell>{item.country}</TableCell>
-                  <TableCell><Button><Edit /></Button></TableCell>
+                  {/* <TableCell><Button><Edit /></Button></TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
