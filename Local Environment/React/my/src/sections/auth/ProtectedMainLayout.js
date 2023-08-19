@@ -48,7 +48,6 @@ const ProtectedMainLayout = ({ children }) => {
           sessionStorage.removeItem('authToken');
           sessionStorage.setItem('intendedPath', location.pathname);
           setIsTokenValid(false);
-          // console.log(data);
         }
       } catch (error) {
         console.error('An error occurred:', error);

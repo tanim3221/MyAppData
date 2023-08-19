@@ -144,6 +144,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const loggedIn = sessionStorage.getItem('authToken');
 
 
   LoginForm.propTypes = {
@@ -157,7 +158,6 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    const loggedIn = sessionStorage.getItem('authToken');
     if (loggedIn) {
       navigate('/home');
     }
@@ -165,7 +165,9 @@ export default function LoginPage() {
     if (loginMsg) {
       setSnackbarOpen(true);
       setSnackbarMessage(loginMsg);
+      sessionStorage.clear();
     }
+    // eslint-disable-next-line
   }, [navigate]);
 
   const handleLogin = async () => {
@@ -197,6 +199,10 @@ export default function LoginPage() {
       console.error('An error occurred:', error);
     }
   };
+
+  if (loggedIn) {
+    return null;
+  }
 
   return (
     <>
