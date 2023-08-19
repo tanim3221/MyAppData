@@ -165,7 +165,7 @@ export default function LoginPage() {
     if (loginMsg) {
       setSnackbarOpen(true);
       setSnackbarMessage(loginMsg);
-      sessionStorage.clear();
+      // sessionStorage.clear();
     }
     // eslint-disable-next-line
   }, [navigate]);
