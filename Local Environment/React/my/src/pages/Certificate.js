@@ -22,6 +22,8 @@ function Certificate() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
 
   const TABLE_NAME = 'certifications';
 
@@ -134,7 +136,16 @@ function Certificate() {
 
   const handleClose = () => {
     setOpen(false)
-    resetMainDataState();
+    // resetMainDataState();
+  };
+
+  const handleCategoryChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      issuer: selectedValue,
+    }));
+    setSelectedCategory(selectedValue);
   };
 
   const handleChange = (event) => {
@@ -178,8 +189,8 @@ function Certificate() {
               <Select
                 labelId="issuer_label"
                 label="Issued By"
-                value={mainData.issuer}
-                onChange={handleChange}
+                value={selectedCategory}
+                onChange={handleCategoryChange}
                 name='issuer'
               >
                 {
@@ -276,6 +287,7 @@ function Certificate() {
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
+                        setSelectedCategory(item.issuer);
                         setIsAdding(false)
                       }}
                     >

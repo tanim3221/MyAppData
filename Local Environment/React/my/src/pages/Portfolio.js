@@ -29,10 +29,7 @@ function Portfolio() {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-      if (!isAdding) {
-        setSelectedCategory(mainData.category);
-      }
-  }, [dataChanged,isAdding, mainData]);
+  }, [dataChanged]);
 
   const resetMainDataState = () => {
     setMainData({});
@@ -180,8 +177,6 @@ function Portfolio() {
               <Select
                 labelId="category"
                 label="Category"
-                // value={isAdding ? selectedCategory : mainData.category}
-                // onChange={handleChange}
                 value={selectedCategory}
                 onChange={handleCategoryChange}
                 name='category'
@@ -265,6 +260,7 @@ function Portfolio() {
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
+                        setSelectedCategory(item.category);
                         setIsAdding(false)
                       }}
                     >

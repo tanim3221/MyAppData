@@ -16,6 +16,7 @@ function Skill() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const TABLE_NAME = 'skills';
 
@@ -119,7 +120,16 @@ function Skill() {
 
   const handleClose = () => {
     setOpen(false)
-    resetMainDataState();
+    // resetMainDataState();
+  };
+
+  const handleCategoryChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      category: selectedValue,
+    }));
+    setSelectedCategory(selectedValue);
   };
 
   const handleChange = (event) => {
@@ -166,8 +176,10 @@ function Skill() {
               <Select
                 labelId="Skill_Category"
                 label="Skill Category"
-                value={mainData.category}
-                onChange={handleChange}
+                // value={mainData.category}
+                // onChange={handleChange}
+                value={selectedCategory}
+                onChange={handleCategoryChange}
                 name='category'
               >
                 {
@@ -248,6 +260,7 @@ function Skill() {
                         setMainData(item);
                         setOpen(true);
                         setIsAdding(false)
+                        setSelectedCategory(item.category);
                       }}
                     >
                       <Edit />
