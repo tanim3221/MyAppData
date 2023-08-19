@@ -35,8 +35,8 @@ export default function AccountPopover() {
   };
 
   const userLogout = () => {
-    localStorage.setItem('authToken', '');
-    localStorage.setItem('LoginMsg', 'Goodbye for now! You\'ve been logged out.');
+    sessionStorage.removeItem('authToken');
+    sessionStorage.setItem('LoginMsg', 'Goodbye for now! You\'ve been logged out.');
     navigate('/login');
   }
 

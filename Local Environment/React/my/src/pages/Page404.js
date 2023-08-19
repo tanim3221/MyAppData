@@ -12,6 +12,7 @@ const StyledContent = styled('div')(({ theme }) => ({
   padding: theme.spacing(12, 0),
 }));
 
+// eslint-disable-next-line 
 const BackgroundOverlay = styled('div')(({ theme }) => ({
   position: 'absolute',
   top: 0,

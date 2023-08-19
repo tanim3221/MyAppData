@@ -14,6 +14,7 @@ const StyledRoot = styled('div')(({ theme }) => ({
   },
 }));
 
+// eslint-disable-next-line 
 const BackgroundOverlay = styled('div')(({ theme }) => ({
   position: 'absolute',
   top: 0,
@@ -57,6 +58,7 @@ const ContentOverlay = styled('div')(({ theme }) => ({
 
 }));
 
+// eslint-disable-next-line 
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: '400px',
   margin: 'auto',
@@ -155,11 +157,11 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem('authToken');
+    const loggedIn = sessionStorage.getItem('authToken');
     if (loggedIn) {
       navigate('/home');
     }
-    const loginMsg = localStorage.getItem('LoginMsg');
+    const loginMsg = sessionStorage.getItem('LoginMsg');
     if (loginMsg) {
       setSnackbarOpen(true);
       setSnackbarMessage(loginMsg);
@@ -176,8 +178,8 @@ export default function LoginPage() {
       const data = await userLogin(requestData);
 
       if (data.error === false) {
-        localStorage.setItem('authToken', data.token);
-        const intendedPath = localStorage.getItem('intendedPath');
+        sessionStorage.setItem('authToken', data.token);
+        const intendedPath = sessionStorage.getItem('intendedPath');
         setTimeout(() => {
           if (intendedPath) {
             navigate(intendedPath, { replace: true });

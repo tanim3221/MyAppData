@@ -70,3 +70,13 @@ export const userLogin = async (requestData) => {
     throw error;
   }
 };
+
+export const tokenVerify = async (requestData) => {
+  try {
+    const response = await api.post('/token_verify.php', requestData);
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
