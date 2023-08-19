@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
+import { Container, Button, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, Autocomplete, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
 import { Edit, Delete, Check} from '@mui/icons-material'
 import { fetchData, addData, deleteData, updateData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
@@ -13,13 +13,17 @@ function Interests() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
+  const [lnrIcon, setLnrIcon] = useState([]);
+  const [selectedIcon, setSelectedIcon] = useState(null);
 
   const TABLE_NAME = "interests";
+  const ICON_TABLE_NAME = "lnr_icon";
 
   useEffect(() => {
     fetchData()
       .then(responseData => {
         setData(responseData.saklayen[TABLE_NAME]);
+        setLnrIcon(responseData.saklayen[ICON_TABLE_NAME]);
         setLoading(false);
       })
       .catch(error => {
@@ -117,7 +121,7 @@ function Interests() {
 
   const handleClose = () => {
     setOpen(false)
-    resetMainDataState();
+    // resetMainDataState();
   };
 
   const handleChange = (event) => {
@@ -128,11 +132,19 @@ function Interests() {
     }));
   }
 
+  const handleIconChange = (event, newValue) => {
+    const selectedValue = newValue ? newValue.icon_code : ''; // Extract icon_code
+    setMainData((prevData) => ({
+      ...prevData,
+      icon: selectedValue,
+    }));
+    setSelectedIcon(selectedValue);
+  };
   // eslint-disable-next-line
   const renderDialog = () => {
     return (
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>{isAdding ? 'Add New Attribute' : mainData.title}</DialogTitle>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{isAdding ? 'Add New Interest' : mainData.title}</DialogTitle>
         <DialogContent>
           <Box 
             component="form"
@@ -149,10 +161,21 @@ function Interests() {
             value={mainData.rank}
             onChange={handleChange}
             />
+            <Autocomplete
+              options={lnrIcon}
+              name="icon"
+              value={lnrIcon.find((icon) => icon.icon_code === selectedIcon)} // Find option by icon_code
+              onChange={handleIconChange}
+              getOptionLabel={(icon) => icon.icon_code}
+              renderInput={(params) => (
+                <TextField {...params} label="Icon" variant="outlined" />
+              )}
+            />
              <TextField
             label="Title"
             name="title"
             value={mainData.title}
+            sx={{ gridColumn: 'span 2' }}
             onChange={handleChange}
             />
              <TextField
@@ -213,6 +236,7 @@ function Interests() {
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
+                        setSelectedIcon(item.icon);
                         setIsAdding(false)
                       }}
                     >

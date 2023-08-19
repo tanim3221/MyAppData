@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
-import { Edit, Delete, Check} from '@mui/icons-material'
+import { Container, Button, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, Autocomplete, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
+import { Edit, Delete, Check } from '@mui/icons-material'
 import { fetchData, addData, deleteData, updateData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
@@ -13,14 +13,18 @@ function Fun() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
+  const [lnrIcon, setLnrIcon] = useState([]);
+  const [selectedIcon, setSelectedIcon] = useState(null);
 
   const TABLE_NAME = "funfacts";
+  const ICON_TABLE_NAME = "lnr_icon";
 
 
   useEffect(() => {
     fetchData()
       .then(responseData => {
         setData(responseData.saklayen[TABLE_NAME]);
+        setLnrIcon(responseData.saklayen[ICON_TABLE_NAME]);
         setLoading(false);
       })
       .catch(error => {
@@ -118,7 +122,7 @@ function Fun() {
 
   const handleClose = () => {
     setOpen(false)
-    resetMainDataState();
+    // resetMainDataState();
   };
 
   const handleChange = (event) => {
@@ -129,13 +133,23 @@ function Fun() {
     }));
   }
 
+  const handleIconChange = (event, newValue) => {
+    const selectedValue = newValue ? newValue.icon_code : ''; // Extract icon_code
+    setMainData((prevData) => ({
+      ...prevData,
+      icon: selectedValue,
+    }));
+    setSelectedIcon(selectedValue);
+  };
+
+
   // eslint-disable-next-line
   const renderDialog = () => {
     return (
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{isAdding ? 'Add New Funfacts' : mainData.title}</DialogTitle>
         <DialogContent>
-          <Box 
+          <Box
             component="form"
             sx={{
               marginTop: '1rem',
@@ -145,41 +159,57 @@ function Fun() {
             }}
           >
             <TextField
-            label="Rank"
-            name="rank"
-            value={mainData.rank}
-            onChange={handleChange}
+              label="Rank"
+              name="rank"
+              value={mainData.rank}
+              onChange={handleChange}
             />
-               <TextField
-            label="Count"
-            name="value"
-            value={mainData.value}
-            onChange={handleChange}
+            <TextField
+              label="Count"
+              name="value"
+              value={mainData.value}
+              onChange={handleChange}
             />
-             <TextField
-            label="Title"
-            name="title"
-            value={mainData.title}
-            sx={{ gridColumn: 'span 2' }}
-            onChange={handleChange}
+            <TextField
+              label="Title"
+              name="title"
+              value={mainData.title}
+              onChange={handleChange}
             />
-             <TextField
-            label="Description"
-            name="description"
-            multiline
-            rows={10}
-            value={mainData.description}
+            {/* <TextField
+            label="Icon"
+            name="icon"
+            value={mainData.icon}
             onChange={handleChange}
-            sx={{ gridColumn: 'span 2' }}
+            /> */}
+
+            <Autocomplete
+              options={lnrIcon}
+              name="icon"
+              value={lnrIcon.find((icon) => icon.icon_code === selectedIcon)} // Find option by icon_code
+              onChange={handleIconChange}
+              getOptionLabel={(icon) => icon.icon_code}
+              renderInput={(params) => (
+                <TextField {...params} label="Icon" variant="outlined" />
+              )}
+            />
+            <TextField
+              label="Description"
+              name="description"
+              multiline
+              rows={10}
+              value={mainData.description}
+              onChange={handleChange}
+              sx={{ gridColumn: 'span 2' }}
             />
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
-            {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
+              {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
             </Stack>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check/> }</Button>
+              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check />}</Button>
             </Stack>
-            </Box>
+          </Box>
         </DialogContent>
       </Dialog>
     );
@@ -223,6 +253,7 @@ function Fun() {
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
+                        setSelectedIcon(item.icon);
                         setIsAdding(false)
                       }}
                     >
