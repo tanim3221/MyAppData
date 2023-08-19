@@ -40,6 +40,7 @@ const ProtectedMainLayout = ({ children }) => {
         if (data.response === 200) {
           setIsTokenValid(true);
           setSharedState({ userData: data});
+          // console.log(data);
         } else {
           sessionStorage.setItem(
             'LoginMsg',

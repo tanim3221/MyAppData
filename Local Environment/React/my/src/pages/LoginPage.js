@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Stack, IconButton, Container, Typography, Box, InputAdornment, TextField, Snackbar } from '@mui/material';
+import { Stack, IconButton, Container, CircularProgress, Typography, Box, InputAdornment, TextField, Snackbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
@@ -182,15 +182,16 @@ export default function LoginPage() {
       if (data.error === false) {
         sessionStorage.setItem('authToken', data.token);
         const intendedPath = sessionStorage.getItem('intendedPath');
+        setSnackbarOpen(true);
+        setSnackbarMessage(data.message);
         setTimeout(() => {
           if (intendedPath) {
             navigate(intendedPath, { replace: true });
           } else {
             navigate('/home', { replace: true });
           }
-        }, 3000);
-        setSnackbarOpen(true);
-        setSnackbarMessage(data.message);
+        }, 2000);
+
       } else {
         setSnackbarOpen(true);
         setSnackbarMessage(data.message);
@@ -201,7 +202,22 @@ export default function LoginPage() {
   };
 
   if (loggedIn) {
-    return null;
+    return (
+      <>      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress />
+      </div>
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          onClose={() => setSnackbarOpen(false)}
+          message={snackbarMessage}
+        />
+      </>
+
+
+    )
+
   }
 
   return (
