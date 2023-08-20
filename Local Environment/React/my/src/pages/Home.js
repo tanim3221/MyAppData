@@ -6,7 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line
-import { DatePicker, DateTimePicker} from '@mui/x-date-pickers';
+import { DatePicker, DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 import { fetchData, updateData } from '../components/conn/api';
@@ -222,39 +222,39 @@ export default function Home() {
   return (
     <>
       <Container maxWidth="xl">
+        {loading ? (
+          <div className={extStyles.spinnerarea}>
+            <CircularProgress />
+          </div>
+        ) : (
+          <Grid container spacing={3}>
 
-        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={3}>
+              <AppWidgetSummary
+                title="Maintenance"
+                style={gridCardStyle}
+                onClick={() => {
+                  setOpen(true);
+                  setMainData(personal)
+                  setSelectedStatus(personal.shutdown);
+                }}
+                total={((personal.shutdown === '1') ? "Activated" : "Deactivated").toString()}
+                color="info"
+                icon={'ant-design:check-circle-outlined'}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <AppWidgetSummary style={gridCardStyle} onClick={showContactPage} title="Contact Messages" total={message.length} icon={'ant-design:message'} />
+            </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary
-              title="Maintenance"
-              style={gridCardStyle}
-              onClick={() => {
-                setOpen(true);
-                setMainData(personal)
-                setSelectedStatus(personal.shutdown);
-              }}
-              total={((personal.shutdown === '1') ? "Activated" : "Deactivated").toString()}
-              color="info"
-              icon={'ant-design:check-circle-outlined'}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary style={gridCardStyle} onClick={showContactPage} title="Contact Messages" total={message.length} icon={'ant-design:message'} />
-          </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <AppWidgetSummary style={gridCardStyle} onClick={showVisitorPage} title="Website Visitors" total={visitor.length} color="info" icon={'ant-design:global-outlined'} />
+            </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary style={gridCardStyle} onClick={showVisitorPage} title="Website Visitors" total={visitor.length} color="info" icon={'ant-design:global-outlined'} />
-          </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <AppWidgetSummary style={gridCardStyle} onClick={showPortfolioPage} title="Portfolio" total={portfolio.length} color="info" icon={'ant-design:rise-outlined'} />
+            </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary style={gridCardStyle} onClick={showPortfolioPage} title="Portfolio" total={portfolio.length} color="info" icon={'ant-design:rise-outlined'} />
-          </Grid>
-          {loading ? (
-            <div className={extStyles.spinnerarea}>
-              <CircularProgress />
-            </div>
-          ) : (
             <Grid item xs={12} md={12} lg={12}>
               <Card>
                 <CardHeader title="Contact Messages" style={HeaderStyle} />
@@ -282,15 +282,16 @@ export default function Home() {
                 ))}
               </Card>
             </Grid>
-          )}
-        </Grid>
+          </Grid>
+        )}
+
         <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={() => setSnackbarOpen(false)}
-        message={snackbarMessage.toString()}
-      />
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          onClose={() => setSnackbarOpen(false)}
+          message={snackbarMessage.toString()}
+        />
         {renderDialog()}
       </Container>
     </>
