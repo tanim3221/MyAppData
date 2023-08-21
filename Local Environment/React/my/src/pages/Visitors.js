@@ -103,7 +103,7 @@ function Visitors() {
     {
       field: 'visit_time',
       headerName: 'Time & Date',
-      width: 150,
+      width: 170,
       editable: false,
     }, {
       field: 'country',

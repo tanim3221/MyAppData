@@ -22,8 +22,8 @@ function Contact() {
         setLoading(false);
       });
   }, []);
-  const handleReply = () => {
-  }
+  // const handleReply = () => {
+  // }
   const handleClose = () => {
     setOpen(false);
     setMainData({});
@@ -50,7 +50,7 @@ function Contact() {
           <Typography variant="body1" style={{ marginTop: '1rem' }} ><strong>Date Send:</strong> {mainData.date_added}</Typography>
           <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
             <Button variant="outlined" onClick={handleClose}>Close</Button>
-            <Button variant="contained" onClick={handleReply}>Reply</Button>
+            {/* <Button variant="contained" onClick={handleReply}>Reply</Button> */}
           </Stack>
         </DialogContent>
       </Dialog>

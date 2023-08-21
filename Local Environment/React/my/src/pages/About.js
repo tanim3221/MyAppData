@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Dialog, DialogTitle, DialogContent, Box, TextField, Stack, Snackbar, Typography, Paper, Grid, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Divider } from '@mui/material';
-import { Edit, Delete, Check } from '@mui/icons-material'
+// eslint-disable-next-line
+import { Container, Button, TableContainer, Dialog, InputAdornment, DialogTitle, DialogContent, Box, TextField, Stack, Snackbar, Typography, Paper, Grid, IconButton, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Edit, Delete, Check, Clear } from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
@@ -8,19 +9,25 @@ function About() {
   const [about, setAbout] = useState([]);
   const [personal, setPersonal] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [mainData, setMainData] = useState({});
+  const [mainData, setMainData] = useState({tag:[]});
   const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
-
+  const [mediaList, setMediaList] = useState([]);
+  const [tagList, setTagList] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   useEffect(() => {
     fetchData()
       .then(responseData => {
         setAbout(responseData.saklayen.aboutme);
         setPersonal(responseData.saklayen.personalinfo[0]);
+        setMediaList(responseData.saklayen.media);
+        setTagList(responseData.saklayen.my_tags);
         setLoading(false);
       })
       .catch(error => {
@@ -35,6 +42,7 @@ function About() {
     position: 'relative',
   };
 
+  // eslint-disable-next-line
   const buttonStyle = {
     position: 'absolute',
     top: '5px',
@@ -76,6 +84,7 @@ function About() {
 
   const handleClose = () => {
     setOpen(false)
+    setEditOpen(false);
     resetMainDataState();
   };
 
@@ -102,7 +111,7 @@ function About() {
       });
   }
 
-  const handleSave = () => {
+  const handleSave = (TABLE_NAME) => {
 
     const existingData = about.find(item => item.id === mainData.id);
     const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
@@ -114,7 +123,7 @@ function About() {
       return;
     }
     const requestData = {
-      table: TABLE_NAME_ABOUT,
+      table: TABLE_NAME,
       data: mainData
     };
 
@@ -130,6 +139,7 @@ function About() {
         });
 
         setAbout(updatedData);
+        setPersonal(updatedData[0]);
         setOpen(false);
       })
       .catch(error => {
@@ -139,6 +149,23 @@ function About() {
       });
   }
 
+  const handleFileChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      photo: selectedValue,
+    }));
+    setSelectedFile(selectedValue);
+  };
+  const handleTagChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      tag: JSON.stringify(selectedValue),
+    }));
+    setSelectedTags(selectedValue);
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setMainData((prevEdu) => ({
@@ -146,6 +173,118 @@ function About() {
       [name]: value
     }));
   };
+
+
+  console.log('mainData', mainData);
+
+  // eslint-disable-next-line
+  const renderEditDialog = () => {
+    return (
+      <Dialog open={editOpen} onClose={handleClose}>
+        <DialogTitle>Personal Info</DialogTitle>
+        <DialogContent>
+          <Box
+            component="form"
+            sx={{
+              marginTop: '16px',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr', // Create a two-column layout
+              gap: '1.5rem', // Adjust the gap between columns
+            }}
+          >
+            <TextField
+              label="Name"
+              name='name'
+              value={mainData.name}
+              sx={{ gridColumn: 'span 2' }}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Birthday"
+              name='birthday'
+              value={mainData.birthday}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Nationality"
+              name='nationality'
+              value={mainData.nationality}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Religion"
+              name='religion'
+              value={mainData.religion}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Mobile"
+              name='mobile'
+              value={mainData.mobile}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Email"
+              name='email'
+              value={mainData.email}
+              onChange={handleChange}
+            />
+            <FormControl sx={{ minWidth: 120 }}>
+              <InputLabel id="issuer_label">Profile Photo</InputLabel>
+              <Select
+                labelId="issuer_label"
+                label="Profile Photo"
+                value={selectedFile}
+                onChange={handleFileChange}
+                name='photo'
+              >
+                {
+                  mediaList.map(item => (
+                    <MenuItem key={item.id} value={item.file_name}>{item.file_text}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+            <FormControl sx={{minWidth: 120, gridColumn: 'span 2' }}>
+              <InputLabel id="tag_id">My Tags</InputLabel>
+              <Select
+                lebelId="tag_id"
+                lebel="My Tags"
+                multiple
+                name='tag'
+                value={selectedTags}
+                onChange={handleTagChange}
+                renderValue={(selected) => selected.join(', ')}
+              >
+                
+                {
+                  tagList.map(item => (
+                    <MenuItem key={item.id} value={item.tag_name}>{item.tag_name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+            <TextField
+              label="Permanent Address"
+              name='permanent_address'
+              multiline
+              rows={6}
+              value={mainData.permanent_address}
+              sx={{ gridColumn: 'span 2' }}
+              onChange={handleChange}
+            />
+
+
+            <Stack sx={{ gridColumn: 'span 2' }} spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
+              <Button variant="outlined" onClick={handleClose}>Close</Button>
+              <Button variant="contained" onClick={() => handleSave('personalinfo')}><Check /></Button>
+            </Stack>
+          </Box>
+        </DialogContent>
+      </Dialog>
+    );
+  };
+
 
   // eslint-disable-next-line
   const renderDialog = () => {
@@ -184,11 +323,11 @@ function About() {
               onChange={handleChange}
             />
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
-            {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
+              {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
             </Stack>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check/> }</Button>
+              <Button variant="contained" onClick={isAdding ? handleAdd : () => handleSave('aboutme')}>{isAdding ? 'Add' : <Check />}</Button>
             </Stack>
           </Box>
 
@@ -204,9 +343,9 @@ function About() {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={1} style={paperStyle}>
-            <Button size="small" style={buttonStyle}>
+            {/* <Button size="small" style={buttonStyle}>
               <Edit />
-            </Button>
+            </Button> */}
             <Typography variant="h6" gutterBottom style={textStyles}>
               Name
             </Typography>
@@ -215,9 +354,9 @@ function About() {
         </Grid>
         <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
-            <Button size="small" style={buttonStyle}>
+            {/* <Button size="small" style={buttonStyle}>
               <Edit />
-            </Button>
+            </Button> */}
             <Typography variant="h6" gutterBottom style={textStyles}>
               Mobile
             </Typography>
@@ -226,9 +365,9 @@ function About() {
         </Grid>
         <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
-            <Button size="small" style={buttonStyle}>
+            {/* <Button size="small" style={buttonStyle}>
               <Edit />
-            </Button>
+            </Button> */}
             <Typography variant="h6" gutterBottom style={textStyles}>
               Email
             </Typography>
@@ -237,9 +376,9 @@ function About() {
         </Grid>
         <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
-            <Button size="small" style={buttonStyle}>
+            {/* <Button size="small" style={buttonStyle}>
               <Edit />
-            </Button>
+            </Button> */}
             <Typography variant="h6" gutterBottom style={textStyles}>
               Birthday
             </Typography>
@@ -248,9 +387,9 @@ function About() {
         </Grid>
         <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
-            <Button size="small" style={buttonStyle}>
+            {/* <Button size="small" style={buttonStyle}>
               <Edit />
-            </Button>
+            </Button> */}
             <Typography variant="h6" gutterBottom style={textStyles}>
               Religion
             </Typography>
@@ -259,9 +398,9 @@ function About() {
         </Grid>
         <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={3} style={paperStyle}>
-            <Button size="small" style={buttonStyle}>
+            {/* <Button size="small" style={buttonStyle}>
               <Edit />
-            </Button>
+            </Button> */}
             <Typography variant="h6" gutterBottom style={textStyles}>
               Nationality
             </Typography>
@@ -270,9 +409,9 @@ function About() {
         </Grid>
         <Grid item xs={12} md={12} lg={12} sm={12}>
           <Paper elevation={3} style={paperStyle}>
-            <Button size="small" style={buttonStyle}>
+            {/* <Button size="small" style={buttonStyle}>
               <Edit />
-            </Button>
+            </Button> */}
             <Typography variant="h6" gutterBottom style={textStyles}>
               Address
             </Typography>
@@ -281,9 +420,9 @@ function About() {
         </Grid>
         <Grid item xs={12} md={12} lg={12} sm={12}>
           <Paper elevation={3} style={paperStyle}>
-            <Button size="small" style={buttonStyle}>
+            {/* <Button size="small" style={buttonStyle}>
               <Edit />
-            </Button>
+            </Button> */}
             <Typography variant="h6" gutterBottom style={textStyles}>
               Tags
             </Typography>
@@ -292,9 +431,9 @@ function About() {
         </Grid>
         <Grid item xs={12} md={12} lg={12} sm={12}>
           <Paper elevation={3} style={paperStyle}>
-            <Button size="small" style={buttonStyle}>
+            {/* <Button size="small" style={buttonStyle}>
               <Edit />
-            </Button>
+            </Button> */}
             <Typography variant="h6" gutterBottom style={textStyles}>
               Social Links
             </Typography>
@@ -303,19 +442,37 @@ function About() {
         </Grid>
       </Grid>
 
-      <Divider style={{ margin: '2rem' }} />
 
-      <TableContainer component={Paper}>
-      <Button
-        variant="contained"
-        onClick={() => {
-          resetMainDataState();
-          setIsAdding(true);
-          setOpen(true);
-        }}
-      >
-        Add About Info
-      </Button>
+      <TableContainer sx={{ marginTop: '2rem' }} component={Paper}>
+        <Stack
+          spacing={2}
+          direction="row"
+          justifyContent="space-between"
+          sx={{ marginTop: '16px', padding: '0 16px', paddingBottom: '16px' }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => {
+              resetMainDataState();
+              setIsAdding(true);
+              setOpen(true);
+            }}
+          >
+            Add About Info
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setEditOpen(true);
+              resetMainDataState();
+              setMainData(personal);
+              setSelectedFile(personal.photo);
+              setSelectedTags(JSON.parse(personal.tag));
+            }}>
+            Edit Personal Info
+          </Button>
+        </Stack>
+
         {loading ? (
 
           <div className={extStyles.spinnerarea}>
@@ -355,6 +512,7 @@ function About() {
         message={snackbarMessage}
       />
       {renderDialog()}
+      {renderEditDialog()}
     </Container>
   );
 }
