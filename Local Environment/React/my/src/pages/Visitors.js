@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line
-import { Container, TableContainer, Box, Paper, Grid, Table, Dialog, DialogTitle, DialogContent, TableHead, Button, TableRow, TableCell, TableBody, CircularProgress, Typography } from '@mui/material';
+import { Container, TableContainer, Stack, Box, Paper, Grid, Table, Dialog, DialogTitle, DialogContent, TableHead, Button, TableRow, TableCell, Divider, TableBody, CircularProgress, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+
+import JSONTree from 'react-json-view';
 
 // import { Edit } from '@mui/icons-material'
 import { fetchData } from '../components/conn/api';
@@ -32,39 +34,58 @@ function Visitors() {
     setMainData(visitData);
   }
 
+  const handleClose = () => {
+    setOpen(false);
+    setMainData({});
+  }
+
   // eslint-disable-next-line
   const renderDialog = () => {
+    if (Object.keys(mainData).length === 0) {
+      return null;
+    }
     return (
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>View for {mainData.ip}</DialogTitle>
         <DialogContent>
           <Box
-            component="form"
+            component={Grid}
             sx={{
-              marginTop: '16px',
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '16px',
+              display: 'column',
             }}
           >
+            <Divider sx={{ gridColumn: 'span 2', margin: '.5rem .5rem' }} />
+
             <Typography><strong>IP Address:</strong> {mainData.ip}</Typography>
             <Typography><strong>Time Zone:</strong> {mainData.timezone}</Typography>
             <Typography><strong>Country:</strong> {mainData.country}</Typography>
             <Typography><strong>Visit Date:</strong> {mainData.visit_date}</Typography>
-            <Typography sx={{ gridColumn: 'span 2' }}><strong>ISP:</strong> {mainData.isp}</Typography>
-            <Typography sx={{ gridColumn: 'span 2' }}><strong>User Agent:</strong> {mainData.agent}</Typography>
+            <Divider sx={{ gridColumn: 'span 2', margin: '.5rem .5rem' }} />
 
+            <Typography sx={{ gridColumn: 'span 2' }}><strong>ISP:</strong> {mainData.isp}</Typography>
+            <Divider sx={{ gridColumn: 'span 2', margin: '.5rem .5rem' }} />
+
+            <Typography sx={{ gridColumn: 'span 2' }}><strong>User Agent:</strong> {mainData.agent}</Typography>
+            <Divider sx={{ gridColumn: 'span 2', margin: '.5rem .5rem' }} />
+            <Typography sx={{ whiteSpace: 'pre-wrap' }}>
+              <JSONTree
+                src={JSON.parse(mainData.combined_array)}
+                shouldExpandNode={() => true}
+              />
+            </Typography>
           </Box>
+          <Stack
+            spacing={2}
+            direction="row"
+            justifyContent="flex-end"
+            sx={{ marginTop: '16px', position: 'absolute', bottom: '2rem', right: '2rem' }}
+          >
+            <Button variant="contained" onClick={handleClose}>Close</Button>
+          </Stack>
         </DialogContent>
       </Dialog>
     );
   };
-
-
-  const handleClose = () => {
-    setOpen(false);
-    setMainData({});
-  }
 
   const columns = [
     {
@@ -96,7 +117,11 @@ function Visitors() {
       width: 120,
       renderCell: (param) => (
         <Button variant="contained" color="primary" size="small"
-          onClick={() => handleDialogView(param.row)}
+          onClick={() => {
+            handleDialogView(param.row);
+          }
+
+          }
         >
           View
         </Button>
