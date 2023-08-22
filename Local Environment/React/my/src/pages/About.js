@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line
 import { Container, Button, TableContainer, Dialog, InputAdornment, DialogTitle, DialogContent, Box, TextField, Stack, Snackbar, Typography, Paper, Grid, IconButton, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { Edit, Delete, Check, Clear } from '@mui/icons-material'
+import { Edit, Delete, Check } from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
@@ -18,8 +18,10 @@ function About() {
   const [dataChanged, setDataChanged] = useState(false);
   const [mediaList, setMediaList] = useState([]);
   const [tagList, setTagList] = useState([]);
+  const [socialMedia, setSocialMedia] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedSocial, setSelectedSocial] = useState([]);
 
   useEffect(() => {
     fetchData()
@@ -28,6 +30,7 @@ function About() {
         setPersonal(responseData.saklayen.personalinfo[0]);
         setMediaList(responseData.saklayen.media);
         setTagList(responseData.saklayen.my_tags);
+        setSocialMedia(responseData.saklayen.social_links);
         setLoading(false);
       })
       .catch(error => {
@@ -165,6 +168,14 @@ function About() {
     }));
     setSelectedTags(selectedValue);
   };
+  const handleSocialChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      linkedin_profile: JSON.stringify(selectedValue),
+    }));
+    setSelectedSocial(selectedValue);
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -264,6 +275,26 @@ function About() {
                 }
               </Select>
             </FormControl>
+            <FormControl sx={{minWidth: 120, gridColumn: 'span 2' }}>
+              <InputLabel id="social_id">Social Media Link</InputLabel>
+              <Select
+                lebelId="social_id"
+                lebel="Social Media Link"
+                multiple
+                name='social_links'
+                value={selectedSocial}
+                onChange={handleSocialChange}
+                renderValue={(selected) => selected.join(', ')}
+              >
+                
+                {
+                  socialMedia.map(item => (
+                    <MenuItem key={item.id} value={item.link}>{item.name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+            
             <TextField
               label="Permanent Address"
               name='permanent_address'
@@ -468,6 +499,7 @@ function About() {
               setMainData(personal);
               setSelectedFile(personal.photo);
               setSelectedTags(JSON.parse(personal.tag));
+              setSelectedSocial(JSON.parse(personal.linkedin_profile));
             }}>
             Edit Personal Info
           </Button>
