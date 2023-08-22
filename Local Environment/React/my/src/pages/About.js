@@ -473,13 +473,11 @@ function About() {
         </Grid>
       </Grid>
 
-
-      <TableContainer sx={{ marginTop: '2rem' }} component={Paper}>
-        <Stack
+      <Stack
           spacing={2}
           direction="row"
           justifyContent="space-between"
-          sx={{ marginTop: '16px', padding: '0 16px', paddingBottom: '16px' }}
+          sx={{ margin: '2rem 0' }}
         >
           <Button
             variant="contained"
@@ -505,13 +503,15 @@ function About() {
           </Button>
         </Stack>
 
+
+      <TableContainer component={Paper}>
         {loading ? (
 
           <div className={extStyles.spinnerarea}>
             <CircularProgress />
           </div>
         ) : (
-          <Table style={{ marginTop: '1.4rem' }}>
+          <Table>
             <TableHead>
               <TableRow>
                 <TableCell>SL</TableCell>
