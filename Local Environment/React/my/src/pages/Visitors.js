@@ -91,24 +91,24 @@ function Visitors() {
     {
       field: 'ip',
       headerName: 'IP Address',
-      width: 150,
+      width: 200,
       editable: false,
     },
     {
       field: 'isp',
       headerName: 'ISP',
-      width: 250,
+      width: 350,
       editable: false,
     },
     {
       field: 'visit_time',
       headerName: 'Time & Date',
-      width: 170,
+      width: 200,
       editable: false,
     }, {
       field: 'country',
       headerName: 'Country',
-      width: 150,
+      width: 200,
       editable: false,
     },
     {
