@@ -19,6 +19,7 @@ import Contact from './pages/Contact';
 import Social from './pages/Social';
 import Visitors from './pages/Visitors';
 import ProtectedMainLayout from './sections/auth/ProtectedMainLayout';
+import Media from './pages/Media';
 
 export default function Router() {
   return (
@@ -40,6 +41,7 @@ export default function Router() {
         <Route path="messages" element={<Contact />} />
         <Route path="social" element={<Social />} />
         <Route path="visitors" element={<Visitors />} />
+        <Route path="media-list" element={<Media />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route path="404" element={<Page404 />} />

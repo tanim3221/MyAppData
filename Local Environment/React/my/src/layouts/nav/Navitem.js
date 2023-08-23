@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Public,Interests,Message,SupportAgent,GTranslate,HistoryEdu,Celebration, ConnectWithoutContact, InsertEmoticon, School, Work, CardMembership, FolderSpecial, CastForEducation } from '@mui/icons-material';
+import { Home, Public,Interests,Message,SupportAgent,GTranslate,HistoryEdu,Celebration, ConnectWithoutContact, InsertEmoticon, School, Image, Work, CardMembership, FolderSpecial, CastForEducation } from '@mui/icons-material';
 
 
 const navConfig = [
@@ -17,6 +17,11 @@ const navConfig = [
     title: 'Education',
     path: '/education',
     icon: <School />,
+  },
+  {
+    title: 'Media',
+    path: '/media-list',
+    icon: <Image />,
   },
   {
     title: 'Experiance',
