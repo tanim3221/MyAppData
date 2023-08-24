@@ -1,9 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import { Button, Typography, Container } from '@mui/material';
+import { Button, Typography, Container, Divider } from '@mui/material';
 
 const StyledContent = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+  maxWidth: '100%',
   margin: 'auto',
   minHeight: '100vh',
   display: 'flex',
@@ -42,20 +42,24 @@ export default function Page404() {
       <BackgroundOverlay />
       <StyledContent>
         <Container>
-          <ContentOverlay>
-            <Typography variant="h3" paragraph>
-              Not Found
+          {/* <ContentOverlay> */}
+            <Typography style={{marginBottom: '2rem'}} variant="h2">
+              404 ERROR
             </Typography>
+            <Divider sx={{ marginBottom: '2rem' }} />
 
-            <Typography sx={{ color: 'text.secondary' }}>
-              The requested page could not be found due to a 404 error. Please check the URL for typos or misspellings. If the URL is correct, the page may have been moved or deleted. You can contact the website administrator for assistance.
+            <Typography>
+              The requested page could not be found due to a 404 error. Please check the URL for typos or misspellings.
             </Typography>
-            <ButtonStyle>
-              <Button to="/" size="large" variant="contained" component={RouterLink}>
+            <Typography>
+            If the URL is correct, the page may have been moved or deleted. You can contact the website administrator for assistance.
+            </Typography>
+            <ButtonStyle style={{marginTop: '2rem'}}>
+              <Button to="/" size="small" variant="contained" component={RouterLink}>
                 Go to Home
               </Button>
             </ButtonStyle>
-          </ContentOverlay>
+          {/* </ContentOverlay> */}
         </Container>
       </StyledContent>
     </>
