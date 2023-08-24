@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, Dialog, DialogTitle, Link, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, Select, FormControl, MenuItem, InputLabel,  TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
-import { Edit, Delete, Check } from '@mui/icons-material'
+import { Edit, Delete, Check, Image} from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom';
+
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -26,6 +28,7 @@ function Certificate() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [mediaList, setMediaList] = useState([]);
 
+  const navigate = useNavigate();
 
 
   const TABLE_NAME = 'certifications';
@@ -189,6 +192,10 @@ function Certificate() {
     }));
   };
 
+  const navigatePage = (url) => {
+    navigate(url, { replace: true });
+  }
+
   // eslint-disable-next-line
   const renderDialog = () => {
     return (
@@ -278,6 +285,7 @@ function Certificate() {
               {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
             </Stack>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
+              <Button variant="outlined" onClick={() =>navigatePage('/media-list')}><Image/></Button>
               <Button variant="outlined" onClick={handleClose}>Close</Button>
               <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check />}</Button>
             </Stack>

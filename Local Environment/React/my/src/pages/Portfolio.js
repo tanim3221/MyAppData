@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, Dialog, DialogTitle, Snackbar, Link, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, FormControl, Select, InputLabel, MenuItem, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
-import { Edit, Delete, Check } from '@mui/icons-material'
+import { Edit, Delete, Check, Image } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom';
+
 import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 import { properCase } from '../utils/commonFunction';
@@ -18,6 +20,9 @@ function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [mediaList, setMediaList] = useState([]);
+
+  const navigate = useNavigate();
+
 
   const TABLE_NAME = 'portfolio';
 
@@ -152,6 +157,10 @@ function Portfolio() {
     }));
   };
 
+  const navigatePage = (url) => {
+    navigate(url, { replace: true });
+  }
+
   // const ITEM_HEIGHT = 48;
   // const ITEM_PADDING_TOP = 8;
   // const MenuProps = {
@@ -236,6 +245,7 @@ function Portfolio() {
               {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
             </Stack>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
+            <Button variant="outlined" onClick={() =>navigatePage('/media-list')}><Image/></Button>
               <Button variant="outlined" onClick={handleClose}>Close</Button>
               <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check />}</Button>
             </Stack>

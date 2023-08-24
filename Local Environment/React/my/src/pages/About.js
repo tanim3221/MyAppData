@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line
 import { Container, Button, TableContainer, Dialog, InputAdornment, DialogTitle, DialogContent, Box, TextField, Stack, Snackbar, Typography, Paper, Grid, IconButton, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { Edit, Delete, Check } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom';
+
+import { Edit, Delete, Check, Image } from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
 import extStyles from '../components/ext/styles.module.css';
 
@@ -22,6 +24,8 @@ function About() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedSocial, setSelectedSocial] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     fetchData()
@@ -185,6 +189,9 @@ function About() {
     }));
   };
 
+  const navigatePage = (url) => {
+    navigate(url, { replace: true });
+  }
 
   console.log('mainData', mainData);
 
@@ -307,6 +314,8 @@ function About() {
 
 
             <Stack sx={{ gridColumn: 'span 2' }} spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
+            <Button variant="outlined" onClick={() =>navigatePage('/media-list')}><Image/></Button>
+
               <Button variant="outlined" onClick={handleClose}>Close</Button>
               <Button variant="contained" onClick={() => handleSave('personalinfo')}><Check /></Button>
             </Stack>
