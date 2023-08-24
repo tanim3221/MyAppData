@@ -148,6 +148,10 @@ function About() {
         setAbout(updatedData);
         setPersonal(updatedData[0]);
         setOpen(false);
+        setEditOpen(false);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       })
       .catch(error => {
         console.error(error);
@@ -193,7 +197,6 @@ function About() {
     navigate(url, { replace: true });
   }
 
-  console.log('mainData', mainData);
 
   // eslint-disable-next-line
   const renderEditDialog = () => {
@@ -266,8 +269,8 @@ function About() {
             <FormControl sx={{minWidth: 120, gridColumn: 'span 2' }}>
               <InputLabel id="tag_id">My Tags</InputLabel>
               <Select
-                lebelId="tag_id"
-                lebel="My Tags"
+                labelId='tag_id'
+                label="My Tags"
                 multiple
                 name='tag'
                 value={selectedTags}
@@ -285,8 +288,8 @@ function About() {
             <FormControl sx={{minWidth: 120, gridColumn: 'span 2' }}>
               <InputLabel id="social_id">Social Media Link</InputLabel>
               <Select
-                lebelId="social_id"
-                lebel="Social Media Link"
+                labelId="social_id"
+                label="Social Media Link"
                 multiple
                 name='social_links'
                 value={selectedSocial}

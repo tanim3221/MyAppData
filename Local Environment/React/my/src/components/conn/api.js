@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { getProdDevUrl } from '../../utils/commonFunction';
 
-const apiUrl = "http://localhost:8080/saklayen/assets/api";
+const apiUrl = `${getProdDevUrl()}/assets/api`;
 
 const api = axios.create({
   baseURL: apiUrl,

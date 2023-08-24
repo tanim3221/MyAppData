@@ -3,6 +3,8 @@ import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+import { getProdDevUrl } from '../../utils/commonFunction';
+
 import { fetchData } from '../../components/conn/api';
 
 import navConfig from '../nav/Navitem';
@@ -59,7 +61,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={`http://localhost:8080/saklayen/assets/img/${data.photo}`} alt="photoURL" />
+        <Avatar src={`${getProdDevUrl()}/assets/img/${data.photo}`} alt="photoURL" />
 
       </IconButton>
 

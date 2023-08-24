@@ -7,7 +7,7 @@ import useResponsive from '../../hooks/useResponsive';
 import Scrollbar from '../../components/scrollbar';
 import NavSection from '../../components/nav-section';
 import Navlist from './Navitem';
-// import { useStateContext } from '../../sections/auth/StateProvider';
+import { useStateContext } from '../../sections/auth/StateProvider';
 
 const NAV_WIDTH = 280;
 
@@ -19,7 +19,7 @@ Nav.propTypes = {
 
 export default function Nav({ openNav, onCloseNav }) {
   const { pathname } = useLocation();
-  // const {sharedState} = useStateContext();
+  const {sharedState} = useStateContext();
 
 
   const isDesktop = useResponsive('up', 'lg');
@@ -35,8 +35,8 @@ export default function Nav({ openNav, onCloseNav }) {
     <Box sx={{ height: 1, display: 'flex', flexDirection: 'column' }}>
      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
       <Typography variant="h4" sx={{ color: 'text.primary' }}>
-        Saklayen Ahmed
-        {/* {sharedState.userData.username} */}
+        {/* Saklayen Ahmed */}
+        {sharedState.userData.name}
       </Typography>
     </Box>
 

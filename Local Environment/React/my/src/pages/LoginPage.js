@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { userLogin } from '../components/conn/api';
 import Iconify from '../components/iconify';
 
+import { getProdDevUrl } from '../utils/commonFunction';
+
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'flex',
@@ -21,7 +23,8 @@ const BackgroundOverlay = styled('div')(({ theme }) => ({
   left: 0,
   width: '100%',
   height: '100%',
-  backgroundImage: `url("http://localhost:8080/saklayen/assets/img/bg-05.svg")`,
+
+  backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-05.svg")`,
   backgroundSize: 'cover',
   zIndex: -1, // Move the background behind the content
 }));

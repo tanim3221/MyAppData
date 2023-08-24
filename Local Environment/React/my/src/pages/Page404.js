@@ -1,6 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Button, Typography, Container, Divider } from '@mui/material';
+import { getProdDevUrl } from '../utils/commonFunction';
 
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: '100%',
@@ -19,7 +20,7 @@ const BackgroundOverlay = styled('div')(({ theme }) => ({
   left: 0,
   width: '100%',
   height: '100%',
-  backgroundImage: `url("http://localhost:8080/saklayen/assets/img/bg-03.svg")`,
+  backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-03.svg")`,
   backgroundSize: 'cover',
   zIndex: -1, // Move the background behind the content
 }));
