@@ -500,6 +500,11 @@ function About() {
           </Button>
           <Button
             variant="outlined"
+            onClick={() => {navigatePage('/profile-role')}}>
+            Profile Role
+          </Button>
+        <Button
+            variant="outlined"
             onClick={() => {
               setEditOpen(true);
               resetMainDataState();

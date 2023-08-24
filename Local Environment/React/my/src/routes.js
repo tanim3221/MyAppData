@@ -20,6 +20,7 @@ import Social from './pages/Social';
 import Visitors from './pages/Visitors';
 import ProtectedMainLayout from './sections/auth/ProtectedMainLayout';
 import Media from './pages/Media';
+import TagList from './pages/TagList';
 
 export default function Router() {
   return (
@@ -42,6 +43,7 @@ export default function Router() {
         <Route path="social" element={<Social />} />
         <Route path="visitors" element={<Visitors />} />
         <Route path="media-list" element={<Media />} />
+        <Route path="profile-role" element={<TagList />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route path="404" element={<Page404 />} />
