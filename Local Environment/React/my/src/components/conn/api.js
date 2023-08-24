@@ -41,9 +41,13 @@ export const addData = async (requestData) => {
   }
 };
 
+const headers = {
+  'Content-Type': 'multipart/form-data'
+}
+
 export const addMedia = async (requestData) => {
   try {
-    const response = await api.post('/media.php', requestData);
+    const response = await api.post('/media.php', requestData, { headers });
     return response.data;
   } catch (error) {
     console.error('API request error:', error);
