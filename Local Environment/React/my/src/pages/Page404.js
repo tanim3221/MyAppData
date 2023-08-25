@@ -15,14 +15,17 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 // eslint-disable-next-line 
 const BackgroundOverlay = styled('div')(({ theme }) => ({
-  position: 'absolute',
+  position: 'fixed',
   top: 0,
   left: 0,
   width: '100%',
   height: '100%',
-  backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-03.svg")`,
-  backgroundSize: 'cover',
-  zIndex: -1, // Move the background behind the content
+  backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-06.svg")`,
+  backgroundSize: '60%',
+  backgroundPosition: 'right',
+  backgroundRepeat: 'no-repeat',
+  filter: "blur(.5rem)",
+  zIndex: -1,
 }));
 
 const ButtonStyle = styled('div')(({ theme }) => ({
@@ -31,6 +34,7 @@ const ButtonStyle = styled('div')(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
+// eslint-disable-next-line
 const ContentOverlay = styled('div')(({ theme }) => ({
   padding: theme.spacing(3),
   borderRadius: theme.spacing(1),
@@ -45,7 +49,7 @@ export default function Page404() {
         <Container>
           {/* <ContentOverlay> */}
             <Typography style={{marginBottom: '2rem'}} variant="h2">
-              404 ERROR
+              NOT FOUND
             </Typography>
             <Divider sx={{ marginBottom: '2rem' }} />
 
