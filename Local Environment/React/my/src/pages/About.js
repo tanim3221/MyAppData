@@ -149,9 +149,9 @@ function About() {
         setPersonal(updatedData[0]);
         setOpen(false);
         setEditOpen(false);
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
       })
       .catch(error => {
         console.error(error);

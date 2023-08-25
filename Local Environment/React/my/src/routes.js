@@ -26,7 +26,7 @@ export default function Router() {
   return (
     <Routes>
       <Route path="/" element={<ProtectedMainLayout />}>
-        <Route index element={<Navigate to="/login" />} />
+        <Route index element={<Navigate to="/admin" />} />
         <Route path="home" element={<Home/>} />
         <Route path="about-me" element={<About />} />
         <Route path="education" element={<Education/>} />
