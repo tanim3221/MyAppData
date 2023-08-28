@@ -7,14 +7,14 @@ const api = axios.create({
   baseURL: apiUrl,
 });
 
-const postData = {
-  user: 'saklayen',
-  pass: 'SDKJFHSIURWEJFGWEYGJRCWSEIURFGWEU'
-};
+// const postData = {
+//   token: loggedinToken,
+// };
 
-export const fetchData = async () => {
+export const fetchData = async (requestData) => {
   try {
-    const response = await api.post('/end_api.php', postData)
+    const loggedinToken = sessionStorage.getItem('authToken');
+    const response = await api.post('/end_api.php', { ...requestData, token: loggedinToken });
     return response.data;
   } catch (error) {
     console.error('API request error:', error);
