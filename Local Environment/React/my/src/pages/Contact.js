@@ -3,8 +3,8 @@ import { Container, Button, TableContainer, Paper, Box, Stack, Typography, Dialo
 import { Visibility } from '@mui/icons-material'
 import { styled } from '@mui/material/styles';
 
-import { fetchData } from '../components/conn/api';
-import extStyles from '../components/ext/styles.module.css';
+import { fetchData } from '../auth/api';
+import extStyles from '../utils/styles.module.css';
 
 function Contact() {
   const [contact, setData] = useState([]);

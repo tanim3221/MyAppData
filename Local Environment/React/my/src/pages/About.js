@@ -4,8 +4,8 @@ import { Container, Button, TableContainer, Dialog, InputAdornment, DialogTitle,
 import { useNavigate } from 'react-router-dom';
 
 import { Edit, Delete, Check, Image } from '@mui/icons-material'
-import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
-import extStyles from '../components/ext/styles.module.css';
+import { fetchData, updateData, addData, deleteData } from '../auth/api';
+import extStyles from '../utils/styles.module.css';
 
 function About() {
   const [about, setAbout] = useState([]);

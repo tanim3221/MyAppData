@@ -3,8 +3,8 @@ import { Container, Button, Dialog, DialogTitle, Snackbar, Link, Box, DialogCont
 import { Edit, Delete, Check, Image } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom';
 
-import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
-import extStyles from '../components/ext/styles.module.css';
+import { fetchData, updateData, addData, deleteData } from '../auth/api';
+import extStyles from '../utils/styles.module.css';
 import { properCase } from '../utils/commonFunction';
 
 function Portfolio() {

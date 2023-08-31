@@ -7,7 +7,7 @@ import ThemeProvider from './theme';
 
 import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
-import { StateProvider } from './sections/auth/StateProvider';
+import { StateProvider } from './auth/StateProvider';
 
 export default function App() {
   return (

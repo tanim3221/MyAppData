@@ -6,8 +6,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import JSONTree from 'react-json-view';
 
 // import { Edit } from '@mui/icons-material'
-import { fetchData } from '../components/conn/api';
-import extStyles from '../components/ext/styles.module.css';
+import { fetchData } from '../auth/api';
+import extStyles from '../utils/styles.module.css';
 
 
 function Visitors() {

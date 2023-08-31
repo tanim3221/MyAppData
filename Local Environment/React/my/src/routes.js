@@ -18,7 +18,7 @@ import Languages from './pages/Languages';
 import Contact from './pages/Contact';
 import Social from './pages/Social';
 import Visitors from './pages/Visitors';
-import ProtectedMainLayout from './sections/auth/ProtectedMainLayout';
+import ProtectedMainLayout from './auth/ProtectedMainLayout';
 import Media from './pages/Media';
 import TagList from './pages/TagList';
 

@@ -10,8 +10,8 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 // import moment from 'moment';
 
-import { fetchData, updateData, addData, deleteData } from '../components/conn/api';
-import extStyles from '../components/ext/styles.module.css';
+import { fetchData, updateData, addData, deleteData } from '../auth/api';
+import extStyles from '../utils/styles.module.css';
 
 function Certificate() {
   const [data, setData] = useState([]);

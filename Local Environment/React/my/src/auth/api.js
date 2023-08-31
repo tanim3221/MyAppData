@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getProdDevUrl } from '../../utils/commonFunction';
+import { getProdDevUrl } from '../utils/commonFunction';
 
 const apiUrl = `${getProdDevUrl()}/assets/api`;
 
@@ -25,6 +25,15 @@ export const fetchData = async (requestData) => {
 export const updateData = async (requestData) => {
   try {
     const response = await api.post('/update.php', requestData);
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
+export const changePasswordData = async (requestData) => {
+  try {
+    const response = await api.post('/change_password.php', requestData);
     return response.data;
   } catch (error) {
     console.error('API request error:', error);

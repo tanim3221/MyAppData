@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { DatePicker, DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
-import { fetchData, updateData } from '../components/conn/api';
-import extStyles from '../components/ext/styles.module.css';
+import { fetchData, updateData } from '../auth/api';
+import extStyles from '../utils/styles.module.css';
 
 import { fToNow } from '../utils/formatTime';
 

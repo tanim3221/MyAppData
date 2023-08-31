@@ -21,8 +21,8 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import {CircularProgress} from '@mui/material';
-import { tokenVerify } from '../../components/conn/api';
-import MainLayout from '../../layouts/main';
+import { tokenVerify } from './api';
+import MainLayout from '../layouts/MainLayout';
 import { useStateContext } from './StateProvider';
 
 // eslint-disable-next-line

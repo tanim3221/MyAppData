@@ -4,8 +4,8 @@ import { styled } from '@mui/material/styles';
 
 import { Delete, Check, RemoveRedEye } from '@mui/icons-material'
 
-import { fetchData, updateData, deleteData, addMedia } from '../components/conn/api';
-import extStyles from '../components/ext/styles.module.css';
+import { fetchData, updateData, deleteData, addMedia } from '../auth/api';
+import extStyles from '../utils/styles.module.css';
 import { getProdDevUrl } from '../utils/commonFunction';
 
 function Media() {

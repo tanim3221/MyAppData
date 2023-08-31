@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, Autocomplete, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
 import { Edit, Delete, Check} from '@mui/icons-material'
-import { fetchData, addData, deleteData, updateData } from '../components/conn/api';
-import extStyles from '../components/ext/styles.module.css';
+import { fetchData, addData, deleteData, updateData } from '../auth/api';
+import extStyles from '../utils/styles.module.css';
 
 function Services() {
   const [data, setData] = useState([]);
