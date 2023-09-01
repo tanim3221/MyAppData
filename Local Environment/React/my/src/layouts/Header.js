@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Dialog, DialogContent, Button, DialogTitle, TextField, Toolbar, IconButton, Typography, Divider, MenuItem, Avatar, Popover, Portal, useMediaQuery, Snackbar } from '@mui/material';
+import { styled, alpha } from '@mui/material/styles';
+import { Box, Stack, AppBar, Dialog, DialogContent, Button, DialogTitle, TextField, Toolbar, IconButton, Typography, Divider, MenuItem, Avatar, FormControl, InputLabel, Select, Popover, Portal, useMediaQuery, Snackbar } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Check } from '@mui/icons-material'
 
@@ -9,7 +9,9 @@ import { Check } from '@mui/icons-material'
 import { bgBlur } from '../utils/cssStyles';
 import Iconify from '../components/iconify';
 import { getProdDevUrl } from '../utils/commonFunction';
-import { fetchData, changePasswordData } from '../auth/api';
+import { fetchData, changePasswordData, updateProData } from '../auth/api';
+import { useStateContext } from '../auth/StateProvider';
+
 
 
 const NAV_WIDTH = 280;
@@ -67,32 +69,66 @@ Header.propTypes = {
 
 // eslint-disable-next-line
 export default function Header({ onOpenNav }) {
+  const {sharedState} = useStateContext();
   const loggedInToken = sessionStorage.getItem('authToken');
   const [open, setOpen] = useState(null);
-  const [data, setData] = useState([]);
+  const [mainData, setMainData] = useState([]);
   const [changePassword, setChangePassword] = useState(false);
-  const [passwordData, setPasswordData] = useState([]);
+  const [openProfile, setOpenProfile] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-
+  const [mediaList, setMediaList] = useState([]);
 
   const location = useLocation();
   const path = location.pathname.split('/')[1];
   const navigate = useNavigate();
 
+  const customUserData = {
+    'id': sharedState.userData.id,
+    'username': sharedState.userData.username,
+    'photo': sharedState.userData.photo,
+    'name': sharedState.userData.name,
+    'email': sharedState.userData.email,
+  };
+
   useEffect(() => {
     fetchData()
       .then(responseData => {
-        setData(responseData.saklayen.personalinfo[0]);
+        setMediaList(responseData.saklayen.media);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
   }, []);
 
+
+  const TABLE_NAME = "users";
+
+  const handleProChange = () => {
+    const requestData = {
+      data: mainData
+    };
+
+    updateProData(requestData)
+      .then(response => {
+        setSnackbarMessage(`${response.message} Please wait... Logging out and redirecting to login page.`);
+
+        setSnackbarOpen(true);
+        setOpenProfile(false);
+        setTimeout(() => {
+          userLogout();
+        }, 2000);
+      })
+      .catch(error => {
+        console.error(error);
+        setSnackbarMessage(error.message);
+        setSnackbarOpen(true);
+      });
+  }
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setPasswordData((prevEdu) => ({
+    setMainData((prevEdu) => ({
       ...prevEdu,
       [name]: value
     }));
@@ -105,18 +141,17 @@ export default function Header({ onOpenNav }) {
   const handleClose = () => {
     setOpen(false);
     setChangePassword(false);
+    setOpenProfile(false);
+    setMainData([]);
   };
 
-  const TABLE_NAME = "users";
 
   const handlePasswordChange = () => {
     const requestData = {
       table: TABLE_NAME,
-      data: passwordData,
+      data: mainData,
       token: loggedInToken
     };
-
-    // console.log(requestData);
 
     changePasswordData(requestData)
       .then(response => {
@@ -124,7 +159,7 @@ export default function Header({ onOpenNav }) {
         setSnackbarOpen(true);
         if (!response.error) {
           setChangePassword(false);
-          setPasswordData([]);
+          setMainData([]);
         }
       })
       .catch(error => {
@@ -138,6 +173,11 @@ export default function Header({ onOpenNav }) {
     sessionStorage.removeItem('authToken');
     sessionStorage.setItem('LoginMsg', 'Goodbye for now! You\'ve been logged out.');
     navigate('/login');
+  }
+
+  const viewSite = () => {
+    const url = window.location.origin;
+    window.open(url, "_blank");
   }
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -171,27 +211,100 @@ export default function Header({ onOpenNav }) {
             <TextField
               label="Current Password"
               name='curr_pass'
-              value={passwordData.curr_pass}
+              type="password"
+              value={mainData.curr_pass}
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
             <TextField
               label="New Password"
               name='new_pass'
-              value={passwordData.new_pass}
+              type="password"
+              value={mainData.new_pass}
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
             <TextField
               label="Confirm Password"
               name='con_pass'
-              value={passwordData.con_pass}
+              type="password"
+              value={mainData.con_pass}
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
             <Stack sx={{ gridColumn: 'span 2' }} spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
               <Button variant="contained" onClick={handlePasswordChange}><Check /></Button>
+            </Stack>
+          </Box>
+        </DialogContent>
+      </Dialog>
+    )
+  };
+  // eslint-disable-next-line
+  const renderProDialog = () => {
+
+    return (
+      <Dialog
+        maxWidth="md"
+        PaperProps={{
+          sx: {
+            minWidth: dialogMinWidth,
+          },
+        }}
+        open={openProfile}
+        onClose={() => setOpenProfile(false)}
+      >
+        <DialogTitle>My Profile</DialogTitle>
+        <DialogContent>
+          <Box
+            component="form"
+            sx={{
+              marginTop: '16px',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr', // Create a two-column layout
+              gap: '1.5rem', // Adjust the gap between columns
+            }}
+          >
+            <TextField
+              label="Username"
+              name='username'
+              value={mainData.username}
+              onChange={handleChange}
+            />
+            <FormControl sx={{ minWidth: 120 }}>
+              <InputLabel id="pro_img">Profile Photo</InputLabel>
+              <Select
+                labelId="pro_img"
+                label="Profile Photo"
+                value={mainData.photo}
+                onChange={handleChange}
+                name='photo'
+              >
+                {
+                  mediaList.map(item => (
+                    <MenuItem key={item.id} value={item.file_name}>{item.file_text}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+            <TextField
+              label="Full Name"
+              name='name'
+              value={mainData.name}
+              sx={{ gridColumn: 'span 2' }}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Email"
+              name='email'
+              value={mainData.email}
+              sx={{ gridColumn: 'span 2' }}
+              onChange={handleChange}
+            />
+            <Stack sx={{ gridColumn: 'span 2' }} spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
+              <Button variant="outlined" onClick={handleClose}>Close</Button>
+              <Button variant="contained" onClick={handleProChange}><Check /></Button>
             </Stack>
           </Box>
         </DialogContent>
@@ -209,6 +322,7 @@ export default function Header({ onOpenNav }) {
               className="iconMenu"
               sx={{
                 mr: 3,
+                padding: 0,
                 color: 'text.primary',
                 display: { lg: 'none', md: 'block' },
               }}
@@ -244,12 +358,14 @@ export default function Header({ onOpenNav }) {
                     height: '100%',
                     borderRadius: '50%',
                     position: 'absolute',
-                    // bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
+                    bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
                   },
                 }),
               }}
             >
-              <Avatar src={`${getProdDevUrl()}/assets/img/${data.photo}`} alt="photoURL" />
+              <Avatar src={`${getProdDevUrl()}/assets/img/${sharedState.userData.photo}`} alt="photoURL" >
+                {sharedState.userData.name[0]}
+              </Avatar>
 
             </IconButton>
 
@@ -274,12 +390,21 @@ export default function Header({ onOpenNav }) {
             >
               <Box sx={{ my: 1.5, px: 2.5 }}>
                 <Typography variant="subtitle1" noWrap>
-                  {data.name}
+                  {sharedState.userData.name}
                 </Typography>
               </Box>
 
               <Divider sx={{ borderStyle: 'dashed' }} />
 
+              <MenuItem
+                onClick={() => {
+                  setOpenProfile(true)
+                  setMainData(customUserData)
+                }}
+                sx={{ m: 1 }}
+              >
+                Profile
+              </MenuItem>
               <MenuItem
                 onClick={() => setChangePassword(true)}
                 sx={{ m: 1 }}
@@ -288,7 +413,9 @@ export default function Header({ onOpenNav }) {
               </MenuItem>
 
               <Divider sx={{ borderStyle: 'dashed' }} />
-
+              <MenuItem onClick={viewSite} sx={{ m: 1 }}>
+                View Site
+              </MenuItem>
               <MenuItem onClick={userLogout} sx={{ m: 1 }}>
                 Logout
               </MenuItem>
@@ -303,6 +430,7 @@ export default function Header({ onOpenNav }) {
                 />
               </Portal>
 
+              {renderProDialog()}
               {renderPasswordDialog()}
             </Popover>
           </Stack>

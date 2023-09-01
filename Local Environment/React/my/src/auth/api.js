@@ -31,6 +31,16 @@ export const updateData = async (requestData) => {
     throw error;
   }
 };
+
+export const updateProData = async (requestData) => {
+  try {
+    const response = await api.post('/update_profile.php', requestData);
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
 export const changePasswordData = async (requestData) => {
   try {
     const response = await api.post('/change_password.php', requestData);
