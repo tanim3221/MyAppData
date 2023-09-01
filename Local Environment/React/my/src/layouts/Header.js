@@ -69,7 +69,7 @@ Header.propTypes = {
 
 // eslint-disable-next-line
 export default function Header({ onOpenNav }) {
-  const {sharedState} = useStateContext();
+  const { sharedState } = useStateContext();
   const loggedInToken = sessionStorage.getItem('authToken');
   const [open, setOpen] = useState(null);
   const [mainData, setMainData] = useState([]);
@@ -78,6 +78,7 @@ export default function Header({ onOpenNav }) {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [mediaList, setMediaList] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const location = useLocation();
   const path = location.pathname.split('/')[1];
@@ -104,19 +105,38 @@ export default function Header({ onOpenNav }) {
 
   const TABLE_NAME = "users";
 
+  const handleFileChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      photo: selectedValue,
+    }));
+    setSelectedFile(selectedValue);
+  };
+
   const handleProChange = () => {
+
+    const dataChanged = JSON.stringify(mainData) !== JSON.stringify(customUserData);
+
+    if (!dataChanged) {
+      setSnackbarMessage("No changes to save.");
+      setSnackbarOpen(true);
+      setOpenProfile(true);
+      return;
+    }
+
     const requestData = {
       data: mainData
     };
 
     updateProData(requestData)
       .then(response => {
-        setSnackbarMessage(`${response.message} Please wait... Logging out and redirecting to login page.`);
-
+        setSnackbarMessage(`${response.message} Please wait...`);
         setSnackbarOpen(true);
         setOpenProfile(false);
+        setMainData([]);
         setTimeout(() => {
-          userLogout();
+          window.location.reload();
         }, 2000);
       })
       .catch(error => {
@@ -277,8 +297,8 @@ export default function Header({ onOpenNav }) {
               <Select
                 labelId="pro_img"
                 label="Profile Photo"
-                value={mainData.photo}
-                onChange={handleChange}
+                value={selectedFile}
+                onChange={handleFileChange}
                 name='photo'
               >
                 {
@@ -400,6 +420,7 @@ export default function Header({ onOpenNav }) {
                 onClick={() => {
                   setOpenProfile(true)
                   setMainData(customUserData)
+                  setSelectedFile(customUserData.photo)
                 }}
                 sx={{ m: 1 }}
               >
