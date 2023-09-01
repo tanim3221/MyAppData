@@ -136,7 +136,7 @@ export default function Header({ onOpenNav }) {
         setOpenProfile(false);
         setMainData([]);
         setTimeout(() => {
-          window.location.reload();
+          navigate('/admin', { replace: true });
         }, 2000);
       })
       .catch(error => {
