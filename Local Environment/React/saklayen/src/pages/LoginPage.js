@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Stack, IconButton, Container, CircularProgress, Typography, Box, InputAdornment, TextField, Snackbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import { userLogin } from '../auth/api';
 import Iconify from '../components/iconify';
@@ -23,15 +24,14 @@ const BackgroundOverlay = styled('div')(({ theme }) => ({
   left: 0,
   width: '100%',
   height: '100%',
-
-  backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-05.svg")`,
+  backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-08.svg")`,
   backgroundSize: 'cover',
-  zIndex: -1, // Move the background behind the content
+  zIndex: -1,
 }));
 
 const ContentOverlay = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
-  borderRadius: theme.spacing(1),
+  borderRadius: theme.spacing(3),
   backgroundColor: 'rgba(255, 255, 255, 0.9)',
   position: 'absolute',
   top: '50%',
@@ -65,17 +65,16 @@ const ContentOverlay = styled('div')(({ theme }) => ({
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: '400px',
   margin: 'auto',
-  // minHeight: '100vh',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  // padding: theme.spacing(3, 3),
 }));
 const HeadStyle = styled('div')(() => ({
   textAlign: 'center',
   fontSize: '4rem',
   fontWeight: 'bold',
   marginBottom: '3rem',
+  letterSpacing: '.5rem'
 }));
 
 // eslint-disable-next-line
@@ -90,6 +89,9 @@ function LoginForm({
   setUsername,
   password,
   setPassword,
+  captchaRef,
+  isCaptchaSuccessful,
+  onRecaptchaChange,
   showPassword,
   setShowPassword
 }) {
@@ -98,7 +100,6 @@ function LoginForm({
     <Container component="main" maxWidth='sm'>
       <Box
         sx={{
-          marginTop: '.5rem',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -129,8 +130,14 @@ function LoginForm({
             }}
           />
 
+          <ReCAPTCHA
+            sitekey={process.env.REACT_APP_GOOGLE_SITE_KEY}
+            onChange={onRecaptchaChange}
+            ref={captchaRef}
+          />
+
           <ButtonStyle>
-            <LoadingButton fullWidth size="large" variant="contained" onClick={handleLogin}>
+            <LoadingButton disabled={!isCaptchaSuccessful} fullWidth size="large" variant="contained" onClick={handleLogin}>
               Login
             </LoadingButton>
           </ButtonStyle>
@@ -148,7 +155,9 @@ export default function LoginPage() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const loggedIn = sessionStorage.getItem('authToken');
-
+  const captchaRef = useRef(null);
+  const [isCaptchaSuccessful, setIsCaptchaSuccess] = useState(false);
+  const [captchaKey, setCaptchaKey] = useState('');
 
   LoginForm.propTypes = {
     handleLogin: PropTypes.func.isRequired,
@@ -157,6 +166,9 @@ export default function LoginPage() {
     password: PropTypes.string.isRequired,
     setPassword: PropTypes.func.isRequired,
     showPassword: PropTypes.bool.isRequired,
+    isCaptchaSuccessful: PropTypes.bool.isRequired,
+    captchaRef: PropTypes.object.isRequired,
+    onRecaptchaChange: PropTypes.func.isRequired,
     setShowPassword: PropTypes.func.isRequired,
   };
 
@@ -173,12 +185,25 @@ export default function LoginPage() {
     // eslint-disable-next-line
   }, [navigate]);
 
+
+  const onRecaptchaChange = (value) => {
+    setIsCaptchaSuccess(true)
+    setCaptchaKey(value);
+  }
+
   const handleLogin = async () => {
+
+    // console.log("Captcha value:", captchaKey);
+
     try {
       const requestData = {
         user: username,
         pass: password,
+        captcha: captchaKey,
+        secret: process.env.REACT_APP_GOOGLE_SECRET_KEY,
       };
+
+      // console.log(requestData);
 
       const data = await userLogin(requestData);
 
@@ -206,9 +231,10 @@ export default function LoginPage() {
 
   if (loggedIn) {
     return (
-      <>      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <CircularProgress />
-      </div>
+      <>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
         <Snackbar
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           open={snackbarOpen}
@@ -217,10 +243,7 @@ export default function LoginPage() {
           message={snackbarMessage}
         />
       </>
-
-
     )
-
   }
 
   return (
@@ -232,13 +255,10 @@ export default function LoginPage() {
             <StyledContent>
               <HeadStyle>
                 <Typography variant="h4">
-                  Login
-                </Typography>
-                <Typography variant="h3">
-                  Saklayen Ahmed
+                  LOGIN
                 </Typography>
               </HeadStyle>
-              <LoginForm handleLogin={handleLogin} showPassword={showPassword} setPassword={setPassword} setUsername={setUsername} setShowPassword={setShowPassword} />
+              <LoginForm username={username} onRecaptchaChange={onRecaptchaChange} isCaptchaSuccessful={isCaptchaSuccessful} captchaRef={captchaRef} password={password} handleLogin={handleLogin} showPassword={showPassword} setPassword={setPassword} setUsername={setUsername} setShowPassword={setShowPassword} />
             </StyledContent>
           </ContentOverlay>
         </Container>
@@ -253,4 +273,3 @@ export default function LoginPage() {
     </>
   );
 }
-

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Stack, AppBar, Dialog, DialogContent, Button, DialogTitle, TextField, Toolbar, IconButton, Typography, Divider, MenuItem, Avatar, FormControl, InputLabel, Select, Popover, Portal, useMediaQuery, Snackbar } from '@mui/material';
+import { Box, Stack, AppBar, Dialog, DialogContent, Checkbox, FormGroup, FormControlLabel, Button, DialogTitle, TextField, Toolbar, IconButton, Typography, Divider, MenuItem, Avatar, FormControl, InputLabel, Select, Popover, Portal, useMediaQuery, Snackbar } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Check } from '@mui/icons-material'
 
@@ -79,6 +79,7 @@ export default function Header({ onOpenNav }) {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [mediaList, setMediaList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [showPass, setShowPass] = useState(false);
 
   const location = useLocation();
   const path = location.pathname.split('/')[1];
@@ -165,6 +166,9 @@ export default function Header({ onOpenNav }) {
     setMainData([]);
   };
 
+  const handleTogglePasswordVisibility = () => {
+    setShowPass(!showPass);
+  }
 
   const handlePasswordChange = () => {
     const requestData = {
@@ -231,7 +235,7 @@ export default function Header({ onOpenNav }) {
             <TextField
               label="Current Password"
               name='curr_pass'
-              type="password"
+              type={showPass ? 'text' : 'password'}
               value={mainData.curr_pass}
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
@@ -239,7 +243,7 @@ export default function Header({ onOpenNav }) {
             <TextField
               label="New Password"
               name='new_pass'
-              type="password"
+              type={showPass ? 'text' : 'password'}
               value={mainData.new_pass}
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
@@ -247,11 +251,23 @@ export default function Header({ onOpenNav }) {
             <TextField
               label="Confirm Password"
               name='con_pass'
-              type="password"
+              type={showPass ? 'text' : 'password'}
               value={mainData.con_pass}
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={showPass}
+                    onChange={handleTogglePasswordVisibility}
+                    color="primary"
+                  />
+                }
+                label="Show Password"
+              />
+            </FormGroup>
             <Stack sx={{ gridColumn: 'span 2' }} spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
               <Button variant="contained" onClick={handlePasswordChange}><Check /></Button>
@@ -427,7 +443,10 @@ export default function Header({ onOpenNav }) {
                 Profile
               </MenuItem>
               <MenuItem
-                onClick={() => setChangePassword(true)}
+                onClick={() => {
+                  setChangePassword(true)
+                  setShowPass(false)
+                }}
                 sx={{ m: 1 }}
               >
                 Change Password

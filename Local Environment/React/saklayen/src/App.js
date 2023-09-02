@@ -1,35 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
-function App() {
-  const [data, setData] = useState([]);
+import Router from './routes';
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+import ThemeProvider from './theme';
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch('http://192.168.43.226:8080/saklayen/api/getData.php');
-      const data = await response.json();
-      setData(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+import { StyledChart } from './components/chart';
+import ScrollToTop from './components/scroll-to-top';
+import { StateProvider } from './auth/StateProvider';
 
+export default function App() {
   return (
-    <div>
-      {data.map((item) => (
-        <div key={item.id}>
-          {/* Render your data here */}
-          <p>{item.name}</p>
-          <p>{item.mobile}</p>
-          <p>{item.email}</p>
-          {/* Add other data fields as needed */}
-        </div>
-      ))}
-    </div>
+    <StateProvider>
+      <HelmetProvider>
+        <BrowserRouter>
+          <ThemeProvider>
+            <ScrollToTop />
+            <StyledChart />
+            <Router />
+          </ThemeProvider>
+        </BrowserRouter>
+      </HelmetProvider>
+    </StateProvider>
+
   );
 }
-
-export default App;
