@@ -193,8 +193,6 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
 
-    // console.log("Captcha value:", captchaKey);
-
     try {
       const requestData = {
         user: username,
@@ -221,6 +219,7 @@ export default function LoginPage() {
         }, 2000);
 
       } else {
+        captchaRef.current.reset();
         setSnackbarOpen(true);
         setSnackbarMessage(data.message);
       }
