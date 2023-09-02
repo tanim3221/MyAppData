@@ -14,7 +14,20 @@ function App() {
   }
   const handleLogin = async (googleData) => {
     console.log(googleData)
-    setLoginData(googleData);    
+
+    const res = await fetch('/api/google-login', {
+      method: 'POST',
+      body: JSON.stringify({
+        token: googleData.tokenId
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await res.json();
+    setLoginData(googleData);
+    localStorage.setItem('loginData', JSON.stringify(data));
+    
   }
   const handleLogout = () => {
     console.log("Logout....")
@@ -38,7 +51,7 @@ function App() {
             buttonText='Login with Google'
             onSuccess={handleLogin}
             onFailure={handleFailure}
-            cookiePolicy={'none'}
+            cookiePolicy={'single_host_origin'}
           ></GoogleLogin>
           )}
         </div>
