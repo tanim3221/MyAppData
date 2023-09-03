@@ -45,7 +45,7 @@ export default function Router() {
         <Route path="media-list" element={<Media />} />
         <Route path="profile-role" element={<TagList />} />
       </Route>
-      <Route path="login" element={<LoginPage />} />
+      {/* <Route path="login" element={<LoginPage />} /> */}
       <Route path="admin" element={<LoginPage />} />
       <Route path="404" element={<Page404 />} />
       <Route path="*" element={<Navigate to="/404" />} />

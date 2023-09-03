@@ -196,7 +196,7 @@ export default function Header({ onOpenNav }) {
   const userLogout = () => {
     sessionStorage.removeItem('authToken');
     sessionStorage.setItem('LoginMsg', 'Goodbye for now! You\'ve been logged out.');
-    navigate('/login');
+    navigate('/admin');
   }
 
   const viewSite = () => {
