@@ -51,7 +51,7 @@ try:
             registration_no_input.send_keys(Keys.RETURN)
 
             # Wait for the page to load (you may need to add appropriate waits)
-            time.sleep(5)  # Adjust as needed
+            time.sleep(1)  # Adjust as needed
 
             # Check if "Record is not found in our system" message is displayed
             try:
