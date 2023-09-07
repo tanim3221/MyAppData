@@ -84,7 +84,7 @@ try:
             break  # Break out of the retry loop as valid data was found
 
     # Process and save all accumulated data to a single CSV file
-    save_data_to_csv(all_data, 'output.csv')
+    save_data_to_csv(all_data, 'data/'+start_value+'_'+end_value+'.csv')
 
 finally:
     # Close the web driver

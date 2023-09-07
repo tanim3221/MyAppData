@@ -2,15 +2,16 @@ import os
 
 import requests
 
+os.system('cls' if os.name == 'nt' else 'clear')
 # Range of numbers to generate
 start_number = 5922
-end_number = 37999  # Adjust this as needed
+end_number = 5930  # Adjust this as needed
 
 # Base URL for the images (assuming the number is part of the URL)
 base_url = "https://s3.brilliant.com.bd/icab-exam/studentDocument/"
 
 # Output folder for downloaded images
-output_folder = "downloads"
+output_folder = "data/"+str(start_number)+"_"+str(end_number)+""
 
 def download_image(number):
     try:
