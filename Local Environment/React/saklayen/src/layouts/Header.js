@@ -218,7 +218,7 @@ export default function Header({ onOpenNav }) {
   }
 
   const viewSite = () => {
-    const url = window.location.origin;
+    const url = window.location.hostname;
     window.open(url, "_blank");
   }
 
