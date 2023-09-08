@@ -13,6 +13,7 @@
 # pip install -r requirements.txt --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org
 
 
+import csv
 import os
 import time
 from datetime import datetime
@@ -344,6 +345,7 @@ def cleanExcel():
 
     print("\nCleaning excel files have been completed. Thank you !")
 
+'''
 def mergeExcel():
 
     curr_time = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -356,7 +358,7 @@ def mergeExcel():
     # Get the folder name
     folder_name = os.path.basename(excel_directory)
     # Get a list of PDF files in the directory and sort them by filename
-    excel_files = [excel_file for excel_file in os.listdir(excel_directory) if excel_file.lower().endswith('.xlsx')]
+    excel_files = [excel_file for excel_file in os.listdir(excel_directory) if excel_file.lower().endswith(('.xlsx','xls','csv'))]
     excel_files.sort()
 
     if not excel_files:
@@ -411,6 +413,79 @@ def mergeExcel():
     workbook_output.save(output_path)
 
     print("\nMerging Excel Files have completed. Thank You !")
+
+'''
+def mergeExcel():
+    curr_time = datetime.now().strftime("%Y%m%d%H%M%S")
+
+    # Create an empty list to store the input file names
+    input_files = []
+
+    # Specify the directory containing the Excel and CSV files
+    excel_directory = input("Enter the directory containing the Excel and CSV files:\n")
+    # Get the folder name
+    folder_name = os.path.basename(excel_directory)
+    # Get a list of Excel and CSV files in the directory and sort them by filename
+    valid_extensions = ('.xlsx', '.xls', '.csv')
+    excel_files = [excel_file for excel_file in os.listdir(excel_directory) if excel_file.lower().endswith(valid_extensions)]
+    excel_files.sort()
+
+    if not excel_files:
+        print("\nNo Excel or CSV files found in the directory.")
+        return
+
+    print("\nExcel and CSV files found in the directory:\n")
+    for excel_file in excel_files:
+        print(excel_file)
+
+    confirmation = input("\nDo you want to merge these Excel and CSV Files? (yes/no): ")
+    if confirmation.lower() != "yes":
+        print("\nExcel and CSV files merging canceled. Thank you!")
+        return
+
+    for excel_file in excel_files:
+        excel_path = os.path.join(excel_directory, excel_file)
+        input_files.append(excel_path)
+
+    # Create a new output workbook
+    workbook_output = openpyxl.Workbook()
+    # Get the active worksheet of the output workbook
+    worksheet_output = workbook_output.active
+
+    for i, input_file in enumerate(input_files):
+        # Load the input workbook into memory
+        if input_file.lower().endswith(('.xlsx', '.xls')):
+            try:
+                workbook = openpyxl.load_workbook(input_file)
+                worksheet = workbook.active
+            except FileNotFoundError:
+                print("\nFile '{0}' not found. Skipping file...".format(input_file))
+                continue
+            if i == 0:
+                header_row = [cell.value for cell in worksheet[1]]
+                worksheet_output.append(header_row)
+            for row in worksheet.iter_rows(min_row=2):
+                row_values = [cell.value for cell in row]
+                worksheet_output.append(row_values)
+        elif input_file.lower().endswith('.csv'):
+            try:
+                with open(input_file, 'r', newline='') as csvfile:
+                    csvreader = csv.reader(csvfile)
+                    for i, row in enumerate(csvreader):
+                        if i == 0:
+                            # Assume the first row in the CSV file is the header
+                            header_row = row
+                            worksheet_output.append(header_row)
+                        else:
+                            worksheet_output.append(row)
+            except FileNotFoundError:
+                print("\nFile '{0}' not found. Skipping file...".format(input_file))
+                continue
+
+    output_path = os.path.join(excel_directory, folder_name + "_" + curr_time + ".xlsx")
+    workbook_output.save(output_path)
+
+    print("\nMerging Excel and CSV Files has been completed. Thank you!")
 
 def clean_and_merge():
     # Create an empty list to store the input and output file names
