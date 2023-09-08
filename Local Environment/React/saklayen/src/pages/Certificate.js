@@ -217,7 +217,7 @@ function Certificate() {
               value={mainData.rank}
               onChange={handleChange}
             />
-            <FormControl sx={{ minWidth: 120 }}>
+           <FormControl sx={{ minWidth: 120 }}>
               <InputLabel id="issuer_label">Issued By</InputLabel>
               <Select
                 labelId="issuer_label"
@@ -233,7 +233,14 @@ function Certificate() {
                 }
               </Select>
             </FormControl>
-
+            <TextField
+              label="Course Category"
+              name='course_category'
+              value={mainData.course_category}
+              sx={{ gridColumn: 'span 2' }}
+              onChange={handleChange}
+            />
+            
             <TextField
               label="Certificate Title"
               name='title'
