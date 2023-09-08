@@ -218,9 +218,12 @@ export default function Header({ onOpenNav }) {
   }
 
   const viewSite = () => {
-    const url = window.location.hostname;
+    const protocol = window.location.protocol;
+    const hostname = window.location.hostname;
+    const url = `${protocol}//${hostname}`;
     window.open(url, "_blank");
-  }
+  };
+ 
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const dialogMinWidth = isSmallScreen ? '90%' : '500px';
