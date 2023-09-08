@@ -25,8 +25,8 @@ import TagList from './pages/TagList';
 export default function Router() {
   return (
     <Routes>
-      <Route path="/admin/" element={<ProtectedMainLayout />}>
-        <Route index element={<Navigate to="/admin/home" />} />
+      <Route path="/" element={<ProtectedMainLayout />}>
+        <Route index element={<Navigate to="/home" />} />
         <Route path="home" element={<Home/>} />
         <Route path="about-me" element={<About />} />
         <Route path="education" element={<Education/>} />
@@ -45,10 +45,10 @@ export default function Router() {
         <Route path="media-list" element={<Media />} />
         <Route path="profile-role" element={<TagList />} />
       </Route>
-      <Route path="admin/login" element={<LoginPage />} />
+      <Route path="login" element={<LoginPage />} />
       {/* <Route path="admin" element={<LoginPage />} /> */}
-      <Route path="admin/404" element={<Page404 />} />
-      <Route path="*" element={<Navigate to="/admin/404" />} />
+      <Route path="404" element={<Page404 />} />
+      <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
   );
 }
