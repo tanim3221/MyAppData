@@ -72,7 +72,7 @@ const ProtectedMainLayout = ({ children }) => {
     return <MainLayout>{children}</MainLayout>;
   }
   // Token is not valid, navigate to login
-  return <Navigate to="/admin" />;
+  return <Navigate to="/admin/login" />;
 };
 
 export default ProtectedMainLayout;

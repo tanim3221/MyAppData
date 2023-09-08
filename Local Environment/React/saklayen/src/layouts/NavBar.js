@@ -15,80 +15,80 @@ const NAV_WIDTH = 280;
 const navConfig = [
   {
     title: 'Home',
-    path: '/home',
+    path: '/admin/home',
     icon: <Home />,
   },
   {
     title: 'About Me',
-    path: '/about-me',
+    path: '/admin/about-me',
     icon: <InsertEmoticon />,
   },
   {
     title: 'Education',
-    path: '/education',
+    path: '/admin/education',
     icon: <School />,
   },
   {
     title: 'Media',
-    path: '/media-list',
+    path: '/admin/media-list',
     icon: <Image />,
   },
   {
     title: 'Experiance',
-    path: '/experiences',
+    path: '/admin/experiences',
     icon: <Work />,
   },
   {
     title: 'Certifications',
-    path: '/certifications',
+    path: '/admin/certifications',
     icon: <CardMembership />,
   },
   {
     title: 'Skills',
-    path: '/skills',
+    path: '/admin/skills',
     icon: <CastForEducation />,
   },
   {
     title: 'Portfolio',
-    path: '/portfolios',
+    path: '/admin/portfolios',
     icon: <FolderSpecial />,
   },
   {
     title: 'Attributes',
-    path: '/attributes',
+    path: '/admin/attributes',
     icon: <HistoryEdu />,
   },
   {
     title: 'Interests',
-    path: '/interests',
+    path: '/admin/interests',
     icon: <Interests />,
   },
   {
     title: 'Funfacts',
-    path: '/funfacts',
+    path: '/admin/funfacts',
     icon: <Celebration />,
   },
   {
     title: 'Services',
-    path: '/services',
+    path: '/admin/services',
     icon: <SupportAgent />,
   },
   {
     title: 'Languages',
-    path: '/languages',
+    path: '/admin/languages',
     icon: <GTranslate />,
   }, {
     title: 'Social Link',
-    path: '/social',
+    path: '/admin/social',
     icon: <ConnectWithoutContact />,
   }, {
     title: 'Contact Message',
-    path: '/messages',
+    path: '/admin/messages',
     icon: < Message />,
   }
   , {
     title: 'Web Visitors',
-    path: '/visitors',
+    path: '/admin/visitors',
     icon: < Public />,
   },
 ];

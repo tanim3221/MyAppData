@@ -99,7 +99,7 @@ export default function Header({ onOpenNav }) {
   const [showPass, setShowPass] = useState(false);
 
   const location = useLocation();
-  const path = location.pathname.split('/')[1];
+  const path = location.pathname.split('/')[2];
   const navigate = useNavigate();
 
   const customUserData = {
@@ -212,8 +212,9 @@ export default function Header({ onOpenNav }) {
 
   const userLogout = () => {
     sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem('intendedPath');
     sessionStorage.setItem('LoginMsg', 'Goodbye for now! You\'ve been logged out.');
-    navigate('/admin');
+    navigate('/admin/login');
   }
 
   const viewSite = () => {

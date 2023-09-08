@@ -174,7 +174,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (loggedIn) {
-      navigate('/home');
+      navigate('/admin/home');
     }
     const loginMsg = sessionStorage.getItem('LoginMsg');
     if (loginMsg) {
@@ -214,7 +214,7 @@ export default function LoginPage() {
           if (intendedPath) {
             navigate(intendedPath, { replace: true });
           } else {
-            navigate('/home', { replace: true });
+            navigate('/admin/home', { replace: true });
           }
         }, 2000);
 
