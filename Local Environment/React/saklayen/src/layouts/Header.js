@@ -218,10 +218,14 @@ export default function Header({ onOpenNav }) {
   }
 
   const viewSite = () => {
-    const protocol = window.location.protocol;
+    // eslint-disable-next-line
+    const protocol = window.location.protocol;  
+    // eslint-disable-next-line
     const hostname = window.location.hostname;
-    const url = `${protocol}//${hostname}`;
-    window.open(url, "_blank");
+    const domainParts = hostname.split('.');
+    const domain = domainParts.slice(-2).join('.');
+    const urlWithProtocol = `${protocol}//${domain}`;
+    window.open(urlWithProtocol, "_blank");
   };
  
 
