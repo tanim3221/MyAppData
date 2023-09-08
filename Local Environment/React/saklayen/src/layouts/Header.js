@@ -400,7 +400,7 @@ export default function Header({ onOpenNav }) {
           
           <Box sx={{ flexGrow: 1 }} />
 
-          <StyledSearchbar>
+          {/* <StyledSearchbar>
             <Input
               autoFocus
               fullWidth
@@ -420,7 +420,7 @@ export default function Header({ onOpenNav }) {
                 fontWeight: 'fontWeightBold'
               }}
             />
-          </StyledSearchbar>
+          </StyledSearchbar> */}
           <Stack
             direction="row"
             alignItems="center"
