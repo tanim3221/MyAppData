@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Stack, AppBar, Dialog, DialogContent, Checkbox, FormGroup, FormControlLabel, Button, DialogTitle, TextField, Toolbar, IconButton, Typography, Divider, MenuItem, Avatar, FormControl, InputLabel, Select, Popover, Portal, useMediaQuery, Snackbar } from '@mui/material';
+import { Box, Stack, AppBar, Dialog, DialogContent, Checkbox, FormGroup, FormControlLabel, Button, DialogTitle, TextField, Toolbar, IconButton, Typography, Divider, MenuItem, Avatar, FormControl, InputLabel, Select, Popover, Portal, useMediaQuery, Snackbar, Input, InputAdornment } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Check } from '@mui/icons-material'
 
@@ -60,6 +60,23 @@ const StyledAppbar = styled('div')(({ theme }) => ({
   },
 }));
 
+const StyledSearchbar = styled('div')(({ theme }) => ({
+  top: 0,
+  left: '50%',
+  transform: 'translate(-50%,0)',
+  zIndex: 10,
+  width: '50%',
+  display: 'flex',
+  position: 'absolute',
+  alignItems: 'center',
+  height: HEADER_MOBILE,
+  borderRadius: '1rem',
+  padding: theme.spacing(0, 3),
+  [theme.breakpoints.up('md')]: {
+    height: HEADER_DESKTOP,
+    padding: theme.spacing(0, 5),
+  },
+}));
 
 
 Header.propTypes = {
@@ -372,8 +389,30 @@ export default function Header({ onOpenNav }) {
               {toProperCase(path)}
             </Typography>
           </StyledAppbar>
-
+          
           <Box sx={{ flexGrow: 1 }} />
+
+          <StyledSearchbar>
+            <Input
+              autoFocus
+              fullWidth
+              disableUnderline
+              placeholder="Search…"
+              startAdornment={
+                <InputAdornment position="end">
+                  <Iconify icon="eva:search-fill" sx={{
+                    color: 'text.disabled',
+                    width: 20,
+                    height: 20,
+                    marginRight: '1rem'
+                  }} />
+                </InputAdornment>
+              }
+              sx={{
+                fontWeight: 'fontWeightBold'
+              }}
+            />
+          </StyledSearchbar>
           <Stack
             direction="row"
             alignItems="center"
@@ -388,7 +427,7 @@ export default function Header({ onOpenNav }) {
                 p: 0,
                 ...(open && {
                   '&:before': {
-                    zIndex: 1,
+                    zIndex: 11,
                     content: "''",
                     width: '100%',
                     height: '100%',
