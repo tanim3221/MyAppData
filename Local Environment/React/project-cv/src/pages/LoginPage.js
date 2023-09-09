@@ -24,7 +24,7 @@ const BackgroundOverlay = styled('div')(({ theme }) => ({
   left: 0,
   width: '100%',
   height: '100%',
-  backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-08.svg")`,
+  backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-login-01.jpg")`,
   backgroundSize: 'cover',
   zIndex: -1,
 }));
@@ -32,7 +32,7 @@ const BackgroundOverlay = styled('div')(({ theme }) => ({
 const ContentOverlay = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
   borderRadius: theme.spacing(3),
-  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  backgroundColor: 'rgba(255, 255, 255)',
   position: 'absolute',
   top: '50%',
   left: '50%',

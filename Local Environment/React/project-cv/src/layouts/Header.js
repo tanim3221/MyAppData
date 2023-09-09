@@ -44,6 +44,7 @@ const StyledAppbar = styled('div')(({ theme }) => ({
   width: '100%',
   color: theme.palette.text.primary,
   display: 'flex',
+  background: '#ffffff',
   position: 'absolute',
   alignItems: 'center',
   height: HEADER_MOBILE,
@@ -87,13 +88,7 @@ export default function Header({ onOpenNav }) {
   };
 
   useEffect(() => {
-    fetchData()
-      .then(responseData => {
-        setMediaList(responseData.saklayen.media);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+    
   }, []);
 
 
@@ -107,6 +102,12 @@ export default function Header({ onOpenNav }) {
     }));
     setSelectedFile(selectedValue);
   };
+
+  const StylePro = styled('div')(({ theme }) => ({
+      color: '#444444',
+      fontWeight: 'bold',
+      fontFamily: 'monospace',
+  }));
 
   const handleProChange = () => {
 
@@ -398,7 +399,9 @@ export default function Header({ onOpenNav }) {
               }}
             >
               <Avatar src={`${getProdDevUrl()}/assets/img/${sharedState.userData.photo}`} alt="photoURL" >
-                {sharedState.userData.name[0]}
+                <StylePro>
+                  {sharedState.userData.name[0]}
+                </StylePro>
               </Avatar>
 
             </IconButton>
@@ -451,9 +454,6 @@ export default function Header({ onOpenNav }) {
               </MenuItem>
 
               <Divider sx={{ borderStyle: 'dashed' }} />
-              <MenuItem onClick={viewSite} sx={{ m: 1 }}>
-                View Site
-              </MenuItem>
               <MenuItem onClick={userLogout} sx={{ m: 1 }}>
                 Logout
               </MenuItem>

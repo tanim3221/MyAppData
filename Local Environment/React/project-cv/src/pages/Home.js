@@ -1,155 +1,194 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Stack, Box, Snackbar, Typography, FormControl, InputLabel, Select, MenuItem, Dialog, Button, DialogContent, DialogTitle, CircularProgress } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { fetchData, updateData } from '../auth/api';
+// eslint-disable-next-line
+import { Container, Stack, Box, Snackbar, Card, CardContent, Typography, CardActionArea, List, ListItem, ListItemText, TextField, InputAdornment, Paper, Grid, FormControl, InputLabel, Input, Select, MenuItem, Dialog, Button, DialogContent, DialogTitle, CircularProgress, Divider } from '@mui/material';
+import { Search } from '@mui/icons-material';
+
+import { searchData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
+
 
 export default function Home() {
 
   // const theme = useTheme();
-  const [personal, setPersonal] = useState([{}]);
-  const [mainData, setMainData] = useState({});
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState('0');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [valueClick, setValueClick] = useState(false);
+  const [searchArray, setSearchArray] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  // eslint-disable-next-line
-  const navigate = useNavigate();
-
-  const TABLE_NAME = 'personalinfo';
+  const [searchValue, setSearchValue] = useState('');
+  const [searchResult, setSearchResult] = useState([]);
+  const [searchSingle, setSearchSingle] = useState({});
 
   useEffect(() => {
-    fetchData()
-      .then(responseData => {
-        setPersonal(responseData.project_cv[TABLE_NAME][0]);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-
-      });
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, []);
 
-  const handleSave = () => {
+  const handleSearchChange = (event) => {
+    const searchKey = event.target.value;
+    setSearchValue(searchKey);
+  };
 
-    try {
-      const existingData = (personal.id === mainData.id);
-      const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
 
+  const handleSearch = () => {
+    const requestData = {
+      search: searchValue,
+    };
 
-      if (!isDataChanged) {
-        setSnackbarMessage("No changes to save.");
-        setSnackbarOpen(true);
-        setOpen(false);
-        return;
-      }
-      const requestData = {
-        table: TABLE_NAME,
-        data: mainData
-      };
-
-      updateData(requestData)
-        .then(response => {
-          setSnackbarMessage(response.message);
-          setSnackbarOpen(true);
-          const updatedData = { ...existingData, ...mainData };
-          setPersonal(updatedData);
-          setOpen(false);
+    if (searchValue.trim() === '') {
+      setSnackbarMessage("Please enter keywords to search.");
+      setSnackbarOpen(true);
+    } else {
+      searchData(requestData)
+        .then((response) => {
+          const result = response.result;
+          if (Array.isArray(result) && result.length > 0) {
+            setSearchResult(result);
+            setSearchArray(true);
+          } else {
+            setSearchResult([]);
+            setSearchArray(false);
+            setSnackbarMessage(response.message);
+            setSnackbarOpen(true);
+          }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
-          setSnackbarMessage(error);
+          setSnackbarMessage("An error occurred during the search.");
           setSnackbarOpen(true);
         });
-    } catch (error) {
-      console.error(error);
-      setSnackbarMessage(error);
-      setSnackbarOpen(true);
     }
-  }
-
-  const resetMainDataState = () => {
-    setMainData({});
-  }
-
-  const handleClose = () => {
-    setOpen(false);
-    resetMainDataState();
   };
 
-  const handleStatusChange = (event) => {
-    const selectedValue = event.target.value;
-    setMainData((prevData) => ({
-      ...prevData,
-      shutdown: selectedValue,
-    }));
-    setSelectedStatus(selectedValue);
-  };
-
-  const statusMain = [
-    { id: 1, name: 'Activate', value: '1' },
-    { id: 2, name: 'Deactivate', value: '0' },
-  ]
 
 
-  // console.log(mainData);
-
-  // eslint-disable-next-line
-  const renderDialog = () => {
-    return (
-      <Dialog open={open} onClose={handleClose} fullWidth>
-        <DialogTitle>Maintenance View</DialogTitle>
-        <DialogContent>
-          <Box
-            component="form"
-            sx={{
-              marginTop: '16px',
-              display: 'grid',
-              // gridTemplateColumns: '1fr 1fr',
-              gap: '16px', // Adjust the gap between columns
-            }}
-          >
-            <FormControl sx={{ minWidth: 120 }}>
-              <InputLabel id="issuer_label">Maintenance Status</InputLabel>
-              <Select
-                labelId="issuer_label"
-                label="Maintenance Status"
-                value={selectedStatus}
-                onChange={handleStatusChange}
-                name='issuer'
-              >
-                {
-                  statusMain.map(item => (
-                    <MenuItem key={item.id} value={item.value}>{item.name}</MenuItem>
-                  ))
-                }
-              </Select>
-            </FormControl>
-           
-            <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
-              <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button variant="contained" onClick={handleSave}>Save</Button>
-            </Stack>
+  const LeftSide = () => (
+    <div style={{
+      height: 'calc(100vh)', // Adjust the height as needed
+      overflowY: 'auto',
+    }}>
+      <Paper style={{
+        padding: '1rem',
+        borderRadius: '1rem'
+      }}>
+        {/* Fixed header for search */}
+        <div style={{
+          position: 'sticky',
+          top: 0,
+          background: 'white',
+          zIndex: 1,
+          padding: '1rem 0',
+        }}>
+          <Box display="flex" alignItems="center">
+            <Input
+              autoFocus
+              fullWidth
+              disableUnderline
+              placeholder="Search…"
+              sx={{
+                fontWeight: 'fontWeightBold',
+              }}
+              name='search'
+              value={searchValue}
+              onChange={handleSearchChange}
+            />
+            <Button variant="contained" color="primary" onClick={handleSearch}>
+              <Search />
+            </Button>
           </Box>
-        </DialogContent>
-      </Dialog>
-    )
-  }
+        </div>
+        {searchArray ? (
+          <List>
+            {searchResult.map((item) => (
+              <ListItem key={item.id} sx={{
+                padding: '.5rem 0rem'
+              }}
+                onClick={() => {
+                  setSearchSingle(item)
+                  setValueClick(true)
+                }}
+              >
+                <Card sx={{
+                  width: '100%',
+                  padding: '0px'
+                }}>
+                  <CardActionArea sx={{
+                    padding: '0px'
+                  }}>
+                    <CardContent sx={{
+                      padding: '1rem'
+                    }}>
+                      <Typography variant="p" component="div">
+                        {item.name} ({item.reg_no})
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <div className={extStyles.not_found}>
+            No Search Result.
+          </div>
+        )}
+
+
+      </Paper>
+    </div>
+  );
+
+  const RightSide = () => (
+    <div style={{
+      height: 'calc(100vh - 64px)', // Adjust the height as needed
+      overflowY: 'auto',
+    }}>
+      <Paper style={{
+        padding: '0px',
+        borderRadius: '1rem'
+      }}>
+        {valueClick ? (
+          <Card key={searchSingle.id} style={{ marginBottom: '16px' }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                {searchSingle.name} ({searchSingle.reg_no})
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                <strong>Mobile:</strong> {searchSingle.mobile}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                <strong>Email:</strong> {searchSingle.email}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                <strong>Birthday:</strong> {searchSingle.birthday}
+              </Typography>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className={extStyles.not_selected} >No data selected.</div>
+        )}
+      </Paper>
+    </div>
+  );
 
 
   return (
-    <>
       <Container maxWidth="xl">
         {loading ? (
           <div className={extStyles.spinnerarea}>
             <CircularProgress />
           </div>
         ) : (
-          <Typography>
-            My Home
-          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={5}>
+              <LeftSide />
+            </Grid>
+
+            <Grid item xs={7}>
+              <RightSide />
+            </Grid>
+          </Grid>
         )}
 
         <Snackbar
@@ -159,8 +198,7 @@ export default function Home() {
           onClose={() => setSnackbarOpen(false)}
           message={snackbarMessage.toString()}
         />
-        {renderDialog()}
       </Container>
-    </>
+
   );
 }

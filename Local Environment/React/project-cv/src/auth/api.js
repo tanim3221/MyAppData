@@ -11,10 +11,20 @@ const api = axios.create({
 //   token: loggedinToken,
 // };
 
-export const fetchData = async (requestData) => {
+export const searchData = async (requestData) => {
   try {
     const loggedinToken = sessionStorage.getItem('authToken');
-    const response = await api.post('/end_api.php', { ...requestData, token: loggedinToken });
+    const response = await api.post('/search.php', { ...requestData, token: loggedinToken });
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
+export const getSearchLog = async (requestData) => {
+  try {
+    const loggedinToken = sessionStorage.getItem('authToken');
+    const response = await api.post('/search_log.php', { ...requestData, token: loggedinToken });
     return response.data;
   } catch (error) {
     console.error('API request error:', error);
@@ -51,16 +61,6 @@ export const changePasswordData = async (requestData) => {
   }
 };
 
-export const addData = async (requestData) => {
-  try {
-    const response = await api.post('/add.php', requestData);
-    return response.data;
-  } catch (error) {
-    console.error('API request error:', error);
-    throw error;
-  }
-};
-
 const headers = {
   'Content-Type': 'multipart/form-data'
 }
@@ -68,16 +68,6 @@ const headers = {
 export const addMedia = async (requestData) => {
   try {
     const response = await api.post('/media.php', requestData, { headers });
-    return response.data;
-  } catch (error) {
-    console.error('API request error:', error);
-    throw error;
-  }
-};
-
-export const deleteData = async (requestData) => {
-  try {
-    const response = await api.post('/delete.php', requestData);
     return response.data;
   } catch (error) {
     console.error('API request error:', error);

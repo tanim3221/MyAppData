@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import Home from './pages/Home';
+import History from './pages/History';
 import ProtectedMainLayout from './auth/ProtectedMainLayout';
 
 
@@ -13,6 +14,7 @@ export default function Router() {
       <Route path="/" element={<ProtectedMainLayout />}>
         <Route index element={<Navigate to="/home" />} />
         <Route path="home" element={<Home/>} />
+        <Route path="history" element={<History/>} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route path="404" element={<Page404 />} />
