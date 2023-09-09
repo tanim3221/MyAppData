@@ -119,13 +119,16 @@ export default function Home() {
 
     if (imageUrl) {
       return (
-        <Card key={searchSingle.id} style={{
-          minHeight: '320px'
-        }}>
-          <CardContent style={{ display: 'flex', alignItems: 'center', flexDirection:'column' }}>
+        <Card key={searchSingle.id}>
+          <CardContent style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: isDesktop ? 'row' : 'column'
+          }}>
             <div style={{
-              marginBottom: '1rem'
-            }} >
+              marginRight: isDesktop ? '1rem' : '',
+              marginBottom: isDesktop ? '' : '1rem'
+            }}>
               <img
                 src={imageUrl}
                 alt={`${searchSingle.name}'s profile picture`}
