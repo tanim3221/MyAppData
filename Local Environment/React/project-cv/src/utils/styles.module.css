@@ -11,6 +11,17 @@
     left: 55%;
 }
 
+.spinnerarea_deatails{
+  z-index: 9999;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  min-height: 160px;
+}
+
 .not_found{
   color: rgb(124, 3, 3);
   text-align: center;
