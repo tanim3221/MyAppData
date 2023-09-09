@@ -119,7 +119,9 @@ export default function Home() {
 
     if (imageUrl) {
       return (
-        <Card key={searchSingle.id}>
+        <Card key={searchSingle.id} style={{
+          minHeight: '320px'
+        }}>
           <CardContent style={{ display: 'flex', alignItems: 'center', flexDirection:'column' }}>
             <div style={{
               marginBottom: '1rem'
