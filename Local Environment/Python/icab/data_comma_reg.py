@@ -1,11 +1,13 @@
 import csv
 import time
+from datetime import datetime
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 
+curr_time = datetime.now().strftime("%Y%m%d%H%M%S")
 
 # Function to save data to a CSV file
 def save_data_to_csv(data, filename):
@@ -27,7 +29,8 @@ driver = webdriver.Chrome(executable_path=driver_path)
 
 try:
     with open('input.txt', 'r') as input_file:
-        input_values = [line.strip() for line in input_file]
+        input_values_string = input_file.read().strip()  # Read the entire line as a string
+        input_values = input_values_string.split(',')  # Split the string by comma
 
     all_data = []  # To accumulate data for all input values
 
@@ -43,7 +46,7 @@ try:
             registration_no_input.send_keys(Keys.RETURN)
 
             # Wait for the page to load (you may need to add appropriate waits)
-            time.sleep(5)  # Adjust as needed
+            time.sleep(1.5)  # Adjust as needed
 
             # Check if "Record is not found in our system" message is displayed
             try:
@@ -76,7 +79,7 @@ try:
             break  # Break out of the retry loop as valid data was found
 
     # Process and save all accumulated data to a single CSV file
-    save_data_to_csv(all_data, 'output.csv')
+    save_data_to_csv(all_data, 'data/comma/output_'+curr_time+'.csv')
 
 finally:
     # Close the web driver
