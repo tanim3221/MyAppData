@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { debounce } from 'lodash';
+import { FixedSizeList as FixedList } from "react-window";
 // eslint-disable-next-line
 import { Container, Stack, Box, Snackbar, Card, CardContent, Typography, CardActionArea, List, ListItem, ListItemText, TextField, InputAdornment, Paper, Grid, FormControl, InputLabel, Input, Select, MenuItem, Dialog, Button, DialogContent, DialogTitle, CircularProgress, Divider, useMediaQuery, DialogActions, IconButton } from '@mui/material';
 import { Search, Clear, Refresh } from '@mui/icons-material';
@@ -7,6 +9,89 @@ import useResponsive from '../utils/UseResponsive';
 import { searchData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
 
+
+function DetailsInfoView({ searchSingle, currentExtIndex, setCurrentExtIndex, setImageUrl, imageUrl, isDesktop, handleImgError, handleExtensionChange }) {
+  const imageExtensions = ['jpeg', 'jpg', 'png'];
+  const checkIfImageExists = async (url) => {
+    try {
+      const response = await fetch(url, {
+        mode: 'no-cors',
+      });
+      if (response.status === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  };
+  useEffect(() => {
+    const loadImage = async () => {
+      try {
+        const ext = imageExtensions[currentExtIndex];
+        const potentialUrl = `https://s3.brilliant.com.bd/icab-exam/studentDocument/${searchSingle.reg_no}/${searchSingle.reg_no}.${ext}`;
+        const imageExists = await checkIfImageExists(potentialUrl);
+        if (imageExists) {
+          setImageUrl(potentialUrl);
+        } else {
+          const nextExtIndex = (currentExtIndex + 1) % imageExtensions.length;
+          setCurrentExtIndex(nextExtIndex);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadImage();
+  }, [searchSingle, currentExtIndex, setImageUrl, setCurrentExtIndex]);
+
+  if (imageUrl) {
+    return (
+      <Card key={searchSingle.id}>
+        <CardContent style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: isDesktop ? 'row' : 'column'
+        }}>
+          <div style={{
+            marginRight: isDesktop ? '1rem' : '',
+            marginBottom: isDesktop ? '' : '1rem'
+          }}>
+            <img
+              src={imageUrl}
+              alt={`${searchSingle.name}'s profile picture`}
+              style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
+              onError={handleImgError}
+            />
+          </div>
+          <div>
+            <Typography variant="h6" component="div">
+              {searchSingle.name} ({searchSingle.reg_no})
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Mobile:</strong> {searchSingle.mobile}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Email:</strong> {searchSingle.email}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Birthday:</strong> {searchSingle.birthday}
+            </Typography>
+            <IconButton style={{
+              position: 'absolute',
+              right: '.5rem',
+              bottom: '.4rem'
+            }} onClick={handleExtensionChange}>
+              <Refresh />
+            </IconButton>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  } else {
+    return <div className={extStyles.spinnerarea_deatails}><CircularProgress /></div>;
+  }
+}
 
 export default function Home() {
 
@@ -32,34 +117,12 @@ export default function Home() {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
+  }, []);
 
-    const loadImage = async () => {
-      try {
-        const ext = imageExtensions[currentExtIndex];
-        const potentialUrl = `https://s3.brilliant.com.bd/icab-exam/studentDocument/${regNo}/${regNo}.${ext}`;
-        const imageExists = await checkIfImageExists(potentialUrl);
-
-        // console.log(potentialUrl);
-
-        if (imageExists) {
-          setImageUrl(potentialUrl);
-        } else {
-          const nextExtIndex = (currentExtIndex + 1) % imageExtensions.length;
-          setCurrentExtIndex(nextExtIndex);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    loadImage();
-  }, [regNo, currentExtIndex]);
-
-  const handleSearch = () => {
+  const handleSearch = debounce(() => {
     const requestData = {
       search: searchValue,
     };
-
     if (searchValue.trim() === '') {
       setSnackbarMessage("Please enter keywords to search.");
       setSnackbarOpen(true);
@@ -83,7 +146,7 @@ export default function Home() {
           setSnackbarOpen(true);
         });
     }
-  };
+  }, 300);
 
   const handleClose = () => {
     setDetailsView(false);
@@ -94,76 +157,43 @@ export default function Home() {
     e.target.src = imagePath;
   }
 
+  const Row = ({ index, style }) => {
+    const item = searchResult[index]; // data is your array
+    return (
+      <div style={style}>
+        <ListItem>
+           <Card
+           sx={{
+            width: '100%',
+            padding: 0,
+          }}
+            onClick={() => {
+              setSearchSingle(item);
+              setValueClick(true);
+              { isDesktop ? setDetailsView(false) : setDetailsView(true) }
+            }}
+          >
+            <CardActionArea>
+            <CardContent 
+            sx={{
+               padding: '1rem',
+              }}>
+                <Typography variant="p" component="div">
+                  {item.name} ({item.reg_no})
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </ListItem>
+      </div>
+    );
+  };
+ 
+
   const handleExtensionChange = () => {
     const nextExtIndex = (currentExtIndex + 1) % imageExtensions.length;
     setCurrentExtIndex(nextExtIndex);
   };
-
-  async function checkIfImageExists(url) {
-    try {
-      const response = await fetch(url, {
-        mode: 'no-cors',
-      });
-
-      if (response.status === 0) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      return false;
-    }
-  }
-
-  function DetailsInfoView() {
-
-    if (imageUrl) {
-      return (
-        <Card key={searchSingle.id}>
-          <CardContent style={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: isDesktop ? 'row' : 'column'
-          }}>
-            <div style={{
-              marginRight: isDesktop ? '1rem' : '',
-              marginBottom: isDesktop ? '' : '1rem'
-            }}>
-              <img
-                src={imageUrl}
-                alt={`${searchSingle.name}'s profile picture`}
-                style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
-                onError={handleImgError}
-              />
-            </div>
-            <div>
-              <Typography variant="h6" component="div">
-                {searchSingle.name} ({searchSingle.reg_no})
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <strong>Mobile:</strong> {searchSingle.mobile}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <strong>Email:</strong> {searchSingle.email}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <strong>Birthday:</strong> {searchSingle.birthday}
-              </Typography>
-              <IconButton style={{
-                position: 'absolute',
-                right: '.5rem',
-                bottom: '.4rem'
-              }} onClick={handleExtensionChange}>
-                <Refresh />
-              </IconButton>
-            </div>
-          </CardContent>
-        </Card>
-      );
-    } else {
-      return <div className={extStyles.spinnerarea_deatails}><CircularProgress /></div>;
-    }
-  }
 
   // eslint-disable-next-line
   const renderDetailsDialog = () => {
@@ -180,7 +210,16 @@ export default function Home() {
       >
         <DialogTitle>{searchSingle.name}</DialogTitle>
         <DialogContent>
-          <DetailsInfoView />
+          <DetailsInfoView
+            searchSingle={searchSingle}
+            currentExtIndex={currentExtIndex}
+            setCurrentExtIndex={setCurrentExtIndex}
+            setImageUrl={setImageUrl}
+            imageUrl={imageUrl}
+            isDesktop={isDesktop}
+            handleImgError={handleImgError}
+            handleExtensionChange={handleExtensionChange}
+          />
         </DialogContent>
         <DialogActions sx={{
           justifyContent: 'flex-end',
@@ -239,40 +278,14 @@ export default function Home() {
           </Box>
         </div>
         {searchArray ? (
-          <List style={{
-            overflow: 'scroll',
-            height: '30rem'
-          }}>
-            {searchResult.map((item) => (
-              <ListItem key={item.id} sx={{
-                padding: '.3rem 0rem'
-              }}>
-                <Card sx={{
-                  width: '100%',
-                  padding: '0px',
-                }}
-                  onClick={() => {
-                    setSearchSingle(item)
-                    setValueClick(true)
-                    { isDesktop ? setDetailsView(false) : setDetailsView(true) }
-
-                  }}
-                >
-                  <CardActionArea sx={{
-                    padding: '0px'
-                  }}>
-                    <CardContent sx={{
-                      padding: '1rem'
-                    }}>
-                      <Typography variant="p" component="div">
-                        {item.name} ({item.reg_no})
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </ListItem>
-            ))}
-          </List>
+          <FixedList
+          height={450}
+          itemCount={searchResult.length}
+          itemSize={50}
+          width={('100%')}
+        >
+          {Row}
+        </FixedList>
         ) : (
           <div className={extStyles.not_found}>
             No Search Result.
@@ -290,7 +303,16 @@ export default function Home() {
         borderRadius: '1rem'
       }}>
         {valueClick ? (
-          <DetailsInfoView />
+          <DetailsInfoView
+            searchSingle={searchSingle}
+            currentExtIndex={currentExtIndex}
+            setCurrentExtIndex={setCurrentExtIndex}
+            setImageUrl={setImageUrl}
+            imageUrl={imageUrl}
+            isDesktop={isDesktop}
+            handleImgError={handleImgError}
+            handleExtensionChange={handleExtensionChange}
+          />
         ) : (
           <div className={extStyles.not_selected} >No data selected.</div>
         )}
