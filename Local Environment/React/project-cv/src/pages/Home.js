@@ -189,6 +189,14 @@ export default function Home() {
     setDetailsView(false);
   }
 
+  const clearSearchValue = () => {
+    setSearchValue('');
+    setSearchResult([]);
+    setDetailsView(false);
+    setSearchArray(false);
+    setValueClick(false);
+  }
+
   const handleImgError = useCallback((e) => {
     const imagePath = process.env.PUBLIC_URL + '/android-chrome-192x192.png';
     e.target.src = imagePath;
@@ -297,13 +305,14 @@ export default function Home() {
               endAdornment={
                 <InputAdornment position="end">
                   {searchValue && (
-                    <Clear
-                      onClick={() => setSearchValue('')}
-                      style={{
-                        cursor: 'pointer',
-                        marginRight: '.5rem'
-                      }}
-                    />
+                    <IconButton 
+                    style={{
+                      cursor: 'pointer',
+                      marginRight: '.5rem'
+                    }}
+                    onClick={clearSearchValue}>
+                      <Clear />
+                    </IconButton>
                   )}
                 </InputAdornment>
               }
@@ -324,7 +333,7 @@ export default function Home() {
           </FixedList>
         ) : (
           <div className={extStyles.not_found}>
-            No Search Result.
+            No search results.
           </div>
         )}
       </Paper>
@@ -348,7 +357,7 @@ export default function Home() {
             handleExtensionChange={handleExtensionChange}
           />
         ) : (
-          <div className={extStyles.not_selected} >No data selected.</div>
+          <div className={extStyles.not_selected} >No profile selected.</div>
         )}
       </Paper>
     </div>
