@@ -22,7 +22,8 @@ import {
   CircularProgress,
   useMediaQuery,
   DialogActions,
-  IconButton
+  IconButton,
+  Skeleton
 } from '@mui/material';
 import { Search, Clear, Refresh } from '@mui/icons-material';
 
@@ -149,6 +150,7 @@ export default function Home() {
   const [imageUrl, setImageUrl] = useState(null);
   const [currentExtIndex, setCurrentExtIndex] = useState(0);
   const imageExtensions = ['jpeg', 'jpg', 'png'];
+  const [searchLoading, setSearchLoading] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -165,8 +167,10 @@ export default function Home() {
       setSnackbarMessage("Please enter keywords to search.");
       setSnackbarOpen(true);
     } else {
+      setSearchLoading(true);
       searchData(requestData)
         .then((response) => {
+          setSearchLoading(false);
           const result = response.result;
           if (Array.isArray(result) && result.length > 0) {
             setSearchResult(result);
@@ -180,6 +184,7 @@ export default function Home() {
         })
         .catch((error) => {
           console.error(error);
+          setSearchLoading(false);
           setSnackbarMessage("An error occurred during the search.");
           setSnackbarOpen(true);
         });
@@ -197,6 +202,7 @@ export default function Home() {
     setDetailsView(false);
     setSearchArray(false);
     setValueClick(false);
+    setSearchLoading(false);
   }
 
   const handleImgError = useCallback((e) => {
@@ -293,7 +299,7 @@ export default function Home() {
           borderRadius: '1rem',
         }}>
           <Box display="flex" alignItems="center">
-          <form
+            <form
               style={{
                 width: '100%'
               }}
@@ -328,7 +334,7 @@ export default function Home() {
                       }}
                       onClick={handleSearch}
                       color="primary"
-                      >
+                    >
                       <Search />
                     </IconButton>
                   </InputAdornment>
@@ -343,17 +349,31 @@ export default function Home() {
             </form>
           </Box>
         </div>
-        {searchArray ? (
-          <FixedList
-            height={450}
-            itemCount={searchResult.length}
-            itemSize={50}
-            width={('100%')}
-          >
-            {Row}
-          </FixedList>
+        {searchLoading ? (
+          <Box sx={{
+            width: '100%',
+            height: '450px',
+            padding: '1rem'
+          }}>
+            <Skeleton height={('4rem')} animation="wave" />
+            <Skeleton animation={false} />
+            <Skeleton animation="wave" />
+            <Skeleton height={('3rem')} animation={false} />
+            <Skeleton animation='wave' />
+          </Box>
         ) : (
-          <></>
+          searchArray ? (
+            <FixedList
+              height={450}
+              itemCount={searchResult.length}
+              itemSize={50}
+              width={('100%')}
+            >
+              {Row}
+            </FixedList>
+          ) : (
+            <></>
+          )
         )}
       </Paper>
     </div>
