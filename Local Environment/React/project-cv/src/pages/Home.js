@@ -146,7 +146,7 @@ export default function Home() {
           setSnackbarOpen(true);
         });
     }
-  }, 300);
+  }, 500);
 
   const handleClose = () => {
     setDetailsView(false);
