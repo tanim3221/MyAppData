@@ -158,6 +158,13 @@ export default function Home() {
     }, 1000);
   }, []);
 
+  const handleFilter = useCallback(debounce(() => {
+    const filteredResult = searchResult.filter((item) =>
+      item.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setSearchResult(filteredResult);
+  }, 300), [searchValue]);
+
   // eslint-disable-next-line
   const handleSearch = useCallback(debounce(() => {
     const requestData = {
@@ -209,6 +216,7 @@ export default function Home() {
     const imagePath = process.env.PUBLIC_URL + '/android-chrome-192x192.png';
     e.target.src = imagePath;
   }, []);
+
 
   const Row = useCallback(({ index, style }) => {
     const item = searchResult[index];
@@ -332,7 +340,7 @@ export default function Home() {
                       style={{
                         cursor: 'pointer',
                       }}
-                      onClick={handleSearch}
+                      onClick={searchArray ? handleFilter : handleSearch}
                       color="primary"
                     >
                       <Search />
@@ -341,8 +349,8 @@ export default function Home() {
                 }
                 onKeyPress={(e) => {
                   if (e.key === 'Enter') {
-                    e.preventDefault(); // Prevent the default form submission behavior
-                    handleSearch(); // Call your search function
+                    e.preventDefault();
+                    searchArray ? handleFilter() : handleSearch();
                   }
                 }}
               />

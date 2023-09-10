@@ -247,7 +247,9 @@ export default function Header({ onOpenNav }) {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
-            <FormGroup>
+            <FormGroup
+              sx={{ gridColumn: 'span 2' }}
+            >
               <FormControlLabel
                 control={
                   <Checkbox
