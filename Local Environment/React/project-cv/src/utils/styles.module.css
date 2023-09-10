@@ -9,7 +9,7 @@
     flex-direction: column;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(250%, 0);
 }
 
 .spinnerarea_deatails{
@@ -44,5 +44,11 @@
 @media (max-width: 768px) {
     .some-class {
       left: 50%;
+    }
+  }
+  
+  @media (max-width: 1200px) {
+    .spinnerarea {
+    transform: translate(-50%, 0);
     }
   }
