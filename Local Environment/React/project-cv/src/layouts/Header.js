@@ -6,10 +6,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Check, Menu } from '@mui/icons-material'
 
 import { getProdDevUrl } from '../utils/CommonFunction';
-import { fetchData, changePasswordData, updateProData } from '../auth/api';
+import { changePasswordData, updateProData } from '../auth/api';
 import { useStateContext } from '../auth/StateProvider';
-
-
 
 const NAV_WIDTH = 280;
 const HEADER_MOBILE = 66;
@@ -71,6 +69,8 @@ export default function Header({ onOpenNav }) {
   const [openProfile, setOpenProfile] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  // eslint-disable-next-line
   const [mediaList, setMediaList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [showPass, setShowPass] = useState(false);
@@ -194,17 +194,6 @@ export default function Header({ onOpenNav }) {
     navigate('/login');
   }
 
-  const viewSite = () => {
-    // eslint-disable-next-line
-    const protocol = window.location.protocol;  
-    // eslint-disable-next-line
-    const hostname = window.location.hostname;
-    const domainParts = hostname.split('.');
-    const domain = domainParts.slice(-2).join('.');
-    const urlWithProtocol = `${protocol}//${domain}`;
-    window.open(urlWithProtocol, "_blank");
-  };
- 
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const dialogMinWidth = isSmallScreen ? '90%' : '500px';

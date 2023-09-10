@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line
 import { Container, TableBody, TableRow, Snackbar, Table, TableContainer, TableCell, TableHead, List, ListItem, ListItemText, TextField, InputAdornment, Paper, Grid, FormControl, InputLabel, Input, Select, MenuItem, Dialog, Button, DialogContent, DialogTitle, CircularProgress, Divider } from '@mui/material';
-import { Search } from '@mui/icons-material';
 
 import { getSearchLog } from '../auth/api';
 import extStyles from '../utils/styles.module.css';

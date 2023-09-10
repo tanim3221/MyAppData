@@ -33,14 +33,13 @@ import extStyles from '../utils/styles.module.css';
 function DetailsInfoView({
   searchSingle,
   currentExtIndex,
-  setCurrentExtIndex,
   setImageUrl,
   imageUrl,
   isDesktop,
   handleImgError,
+  imageExtensions,
   handleExtensionChange
 }) {
-  const imageExtensions = ['jpeg', 'jpg', 'png'];
 
   const checkIfImageExists = useCallback(async (url) => {
     try {
@@ -87,7 +86,7 @@ function DetailsInfoView({
           }}>
             <img
               src={imageUrl}
-              alt={`Profile picture of ${searchSingle.name}`}
+              alt={`Profile of ${searchSingle.name}`}
               style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
               onError={handleImgError}
             />
@@ -122,7 +121,8 @@ function DetailsInfoView({
 }
 
 DetailsInfoView.propTypes = {
-  searchSingle: PropTypes.object.isRequired,
+  searchSingle: PropTypes.array.isRequired,
+  imageExtensions: PropTypes.object.isRequired,
   currentExtIndex: PropTypes.number.isRequired,
   setImageUrl: PropTypes.func.isRequired,
   imageUrl: PropTypes.string,
@@ -156,6 +156,7 @@ export default function Home() {
     }, 1000);
   }, []);
 
+  // eslint-disable-next-line
   const handleSearch = useCallback(debounce(() => {
     const requestData = {
       search: searchValue,
@@ -192,6 +193,7 @@ export default function Home() {
   const clearSearchValue = () => {
     setSearchValue('');
     setSearchResult([]);
+    setSearchSingle({});
     setDetailsView(false);
     setSearchArray(false);
     setValueClick(false);
@@ -256,6 +258,7 @@ export default function Home() {
           <MemoizedDetailsInfoView
             searchSingle={searchSingle}
             currentExtIndex={currentExtIndex}
+            imageExtensions={imageExtensions}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
             isDesktop={isDesktop}
@@ -277,7 +280,7 @@ export default function Home() {
   const LeftSide = () => (
     <div>
       <Paper style={{
-        padding: '1rem',
+        padding: '0',
         borderRadius: '1rem',
         position: 'relative',
       }}>
@@ -290,36 +293,54 @@ export default function Home() {
           borderRadius: '1rem',
         }}>
           <Box display="flex" alignItems="center">
-            <Input
-              autoFocus
-              fullWidth
-              disableUnderline
-              placeholder="Search…"
-              sx={{
-                fontWeight: 'fontWeightBold',
+          <form
+              style={{
+                width: '100%'
               }}
-              type='text'
-              name='search'
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              endAdornment={
-                <InputAdornment position="end">
-                  {searchValue && (
-                    <IconButton 
-                    style={{
-                      cursor: 'pointer',
-                      marginRight: '.5rem'
-                    }}
-                    onClick={clearSearchValue}>
-                      <Clear />
+              onSubmit={handleSearch}>
+              <Input
+                autoFocus
+                fullWidth
+                disableUnderline
+                placeholder="Search…"
+                sx={{
+                  fontWeight: 'fontWeightBold',
+                }}
+                type='text'
+                name='search'
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    {searchValue && (
+                      <IconButton
+                        style={{
+                          cursor: 'pointer',
+                          marginRight: '.5rem'
+                        }}
+                        onClick={clearSearchValue}>
+                        <Clear />
+                      </IconButton>
+                    )}
+                    <IconButton
+                      style={{
+                        cursor: 'pointer',
+                      }}
+                      onClick={handleSearch}
+                      color="primary"
+                      >
+                      <Search />
                     </IconButton>
-                  )}
-                </InputAdornment>
-              }
-            />
-            <Button variant="contained" color="primary" onClick={handleSearch}>
-              <Search />
-            </Button>
+                  </InputAdornment>
+                }
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault(); // Prevent the default form submission behavior
+                    handleSearch(); // Call your search function
+                  }
+                }}
+              />
+            </form>
           </Box>
         </div>
         {searchArray ? (
@@ -332,9 +353,7 @@ export default function Home() {
             {Row}
           </FixedList>
         ) : (
-          <div className={extStyles.not_found}>
-            No search results.
-          </div>
+          <></>
         )}
       </Paper>
     </div>
@@ -350,6 +369,7 @@ export default function Home() {
           <MemoizedDetailsInfoView
             searchSingle={searchSingle}
             currentExtIndex={currentExtIndex}
+            imageExtensions={imageExtensions}
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
             isDesktop={isDesktop}
@@ -357,7 +377,7 @@ export default function Home() {
             handleExtensionChange={handleExtensionChange}
           />
         ) : (
-          <div className={extStyles.not_selected} >No profile selected.</div>
+          <></>
         )}
       </Paper>
     </div>
