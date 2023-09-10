@@ -8,7 +8,8 @@
     align-items: center;
     flex-direction: column;
     top: 50%;
-    left: 55%;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 .spinnerarea_deatails{
@@ -43,11 +44,5 @@
 @media (max-width: 768px) {
     .some-class {
       left: 50%;
-    }
-  }
-  
-  @media (max-width: 1200px) {
-    .spinnerarea {
-        left: 50%;
     }
   }
