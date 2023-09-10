@@ -50,7 +50,7 @@ function DetailsInfoView({ searchSingle, currentExtIndex, setCurrentExtIndex, se
       <Card key={searchSingle.id}>
         <CardContent style={{
           display: 'flex',
-          alignItems: 'center',
+          alignItems: isDesktop ? 'flex-start' : 'center',
           flexDirection: isDesktop ? 'row' : 'column'
         }}>
           <div style={{
