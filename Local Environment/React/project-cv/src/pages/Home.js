@@ -86,7 +86,7 @@ function DetailsInfoView({
             marginBottom: isDesktop ? '' : '1rem'
           }}>
             <img
-              src={imageUrl}
+              src={searchSingle.photo === '' ? imageUrl : 'data:image/jpeg;base64,'+searchSingle.photo}
               alt={`Profile of ${searchSingle.name}`}
               style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
               onError={handleImgError}
@@ -105,13 +105,17 @@ function DetailsInfoView({
             <Typography variant="body2" color="textSecondary">
               <strong>Birthday:</strong> {searchSingle.birthday}
             </Typography>
-            <IconButton style={{
+            {searchSingle.photo === '' ? (
+              <IconButton style={{
               position: 'absolute',
               right: '.5rem',
               bottom: '.4rem'
             }} onClick={handleExtensionChange}>
               <Refresh />
             </IconButton>
+            ) : (
+              <></>
+            )}
           </div>
         </CardContent>
       </Card>
