@@ -70,10 +70,13 @@ function DetailsInfoView({
   }, [searchSingle, currentExtIndex, setImageUrl, checkIfImageExists, imageExtensions]);
 
   useEffect(() => {
-    loadImage();
-  }, [loadImage]);
+    if (searchSingle.photo === null) {
+      loadImage();
+    }
+  }, [loadImage, searchSingle.photo]);
 
   if (imageUrl) {
+    const imageSource = (searchSingle.photo === null) ? imageUrl : `data:image/jpeg;base64,${searchSingle.photo}`;
     return (
       <Card key={searchSingle.id}>
         <CardContent style={{
@@ -86,7 +89,7 @@ function DetailsInfoView({
             marginBottom: isDesktop ? '' : '1rem'
           }}>
             <img
-              src={searchSingle.photo === '' ? imageUrl : 'data:image/jpeg;base64,'+searchSingle.photo}
+              src={imageSource}
               alt={`Profile of ${searchSingle.name}`}
               style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
               onError={handleImgError}
@@ -105,7 +108,7 @@ function DetailsInfoView({
             <Typography variant="body2" color="textSecondary">
               <strong>Birthday:</strong> {searchSingle.birthday}
             </Typography>
-            {searchSingle.photo === '' ? (
+            {searchSingle.photo === null ? (
               <IconButton style={{
               position: 'absolute',
               right: '.5rem',
@@ -115,7 +118,7 @@ function DetailsInfoView({
             </IconButton>
             ) : (
               <></>
-            )}
+            )} 
           </div>
         </CardContent>
       </Card>
@@ -219,6 +222,7 @@ export default function Home() {
   const handleImgError = useCallback((e) => {
     const imagePath = process.env.PUBLIC_URL + '/android-chrome-192x192.png';
     e.target.src = imagePath;
+    e.target.onerror = null;
   }, []);
 
 
