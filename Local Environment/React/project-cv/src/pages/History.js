@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line
-import { Container, TableBody, TableRow, Snackbar, Table, TableContainer, TableCell, TableHead, List, ListItem, ListItemText, TextField, InputAdornment, Paper, Grid, FormControl, InputLabel, Input, Select, MenuItem, Dialog, Button, DialogContent, DialogTitle, CircularProgress, Divider } from '@mui/material';
+import { Container, TableBody, TableRow, Snackbar, Table, TableContainer, TableCell, TableHead, List, ListItem, ListItemText, TextField, InputAdornment, Paper, Grid, FormControl, InputLabel, Input, Select, MenuItem, Dialog, Button, DialogContent, DialogTitle, CircularProgress, Divider, Typography } from '@mui/material';
 
 import { getSearchLog } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -27,8 +27,8 @@ export default function History() {
         setSnackbarMessage('Error fetching data.'); // Display a message in case of an error.
       });
   }, []);
-  
-  console.log("dataLength:",searchLog.length);
+
+  console.log("dataLength:", searchLog.length);
 
   return (
     <Container maxWidth="xl">
@@ -38,33 +38,49 @@ export default function History() {
         </div>
       ) : (
         <>
-         {searchLog.length === 0 ? (
+          {searchLog.length === 0 ? (
             <div>No history log found</div>
           ) : (
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>SL</TableCell>
-                    <TableCell>Keywords/View</TableCell>
-                    <TableCell>User</TableCell>
-                    <TableCell>Results</TableCell>
-                    <TableCell>Date</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {searchLog.map((item, index) => (
-                    <TableRow key={item.id}>
-                      <TableCell>{index + 1}</TableCell>
-                      <TableCell>{item.keywords}</TableCell>
-                      <TableCell>{item.username}</TableCell>
-                      <TableCell>{item.found}</TableCell>
-                      <TableCell>{item.date_search}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <>
+              {searchLog.map((item, index) => (
+                <div style={{
+                  margin: '.5rem 0rem'
+                }}  key={item.id}>
+                  <Typography>
+                    [{item.date_search}] - <strong>{item.search_type == 'view' ? "[View] " : "[Search] "} </strong> {item.keywords}; <strong>[Found] </strong>{item.found}
+                  </Typography>
+                  <Divider sx={{
+                    margin: '.5rem 0rem'
+                  }}  />
+                </div>
+
+              ))}
+            </>
+
+            // <TableContainer>
+            //   <Table>
+            //     <TableHead>
+            //       <TableRow>
+            //         <TableCell>SL</TableCell>
+            //         <TableCell>Keywords/View</TableCell>
+            //         <TableCell>User</TableCell>
+            //         <TableCell>Results</TableCell>
+            //         <TableCell>Date</TableCell>
+            //       </TableRow>
+            //     </TableHead>
+            //     <TableBody>
+            //       {searchLog.map((item, index) => (
+            //         <TableRow key={item.id}>
+            //           <TableCell>{index + 1}</TableCell>
+            //           <TableCell>{item.keywords}</TableCell>
+            //           <TableCell>{item.username}</TableCell>
+            //           <TableCell>{item.found}</TableCell>
+            //           <TableCell>{item.date_search}</TableCell>
+            //         </TableRow>
+            //       ))}
+            //     </TableBody>
+            //   </Table>
+            // </TableContainer>
           )}
         </>
       )}
