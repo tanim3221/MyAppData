@@ -31,6 +31,7 @@ import useResponsive from '../utils/UseResponsive';
 import { searchData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
 
+
 function DetailsInfoView({
   searchSingle,
   currentExtIndex,
@@ -41,7 +42,6 @@ function DetailsInfoView({
   imageExtensions,
   handleExtensionChange
 }) {
-
   const checkIfImageExists = useCallback(async (url) => {
     try {
       const response = await fetch(url, {
@@ -53,10 +53,10 @@ function DetailsInfoView({
     }
   }, []);
 
-  const loadImage = useCallback(async () => {
+  const loadImage = useCallback(async (item) => {
     try {
       const ext = imageExtensions[currentExtIndex];
-      const potentialUrl = `https://s3.brilliant.com.bd/icab-exam/studentDocument/${searchSingle.reg_no}/${searchSingle.reg_no}.${ext}`;
+      const potentialUrl = `https://s3.brilliant.com.bd/icab-exam/studentDocument/${item.reg_no}/${item.reg_no}.${ext}`;
       const imageExists = await checkIfImageExists(potentialUrl);
 
       if (imageExists) {
@@ -67,70 +67,86 @@ function DetailsInfoView({
     } catch (error) {
       console.error('Error loading image:', error);
     }
-  }, [searchSingle, currentExtIndex, setImageUrl, checkIfImageExists, imageExtensions]);
+  }, [currentExtIndex, setImageUrl, checkIfImageExists, imageExtensions]);
 
   useEffect(() => {
-    if (searchSingle.photo === null) {
-      loadImage();
+    if (searchSingle.length > 0) {
+      searchSingle.forEach((item) => {
+        if (item.photo === null) {
+          loadImage(item);
+        }
+      });
     }
-  }, [loadImage, searchSingle.photo]);
+  }, [loadImage, searchSingle]);
 
-  if (imageUrl) {
-    const imageSource = (searchSingle.photo === null) ? imageUrl : `data:image/jpeg;base64,${searchSingle.photo}`;
+  if (searchSingle.length > 0) {
     return (
-      <Card key={searchSingle.id}>
-        <CardContent style={{
-          display: 'flex',
-          alignItems: isDesktop ? 'flex-start' : 'center',
-          flexDirection: isDesktop ? 'row' : 'column'
-        }}>
-          <div style={{
-            marginRight: isDesktop ? '1rem' : '',
-            marginBottom: isDesktop ? '' : '1rem'
-          }}>
-            <img
-              src={imageSource}
-              alt={`Profile of ${searchSingle.name}`}
-              style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
-              onError={handleImgError}
-            />
-          </div>
-          <div>
-            <Typography variant="h6" component="div">
-              {searchSingle.name} ({searchSingle.reg_no})
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              <strong>Mobile:</strong> {searchSingle.mobile}
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              <strong>Email:</strong> {searchSingle.email}
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              <strong>Birthday:</strong> {searchSingle.birthday}
-            </Typography>
-            {searchSingle.photo === null ? (
-              <IconButton style={{
-              position: 'absolute',
-              right: '.5rem',
-              bottom: '.4rem'
-            }} onClick={handleExtensionChange}>
-              <Refresh />
-            </IconButton>
-            ) : (
-              <></>
-            )} 
-          </div>
-        </CardContent>
-      </Card>
+      <div style={{
+        backgroundColor: 'none'
+      }}>
+        {searchSingle.map((item) => (
+          
+          <Card 
+            key={item.id}
+            style={{
+              marginBottom:'1rem'
+            }}
+          >
+            <CardContent style={{
+              display: 'flex',
+              alignItems: isDesktop ? 'flex-start' : 'center',
+              flexDirection: isDesktop ? 'row' : 'column',
+            }}>
+              <div style={{
+                marginRight: isDesktop ? '1rem' : '',
+                marginBottom: isDesktop ? '' : '1rem'
+              }}>
+                  <img
+                    src={(item.photo === null) ? imageUrl : `data:image/jpeg;base64,${item.photo}`}
+                    alt={`Profile of ${item.name}`}
+                    style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
+                    onError={handleImgError}
+                  />
+              </div>
+              <div>
+                <Typography variant="h6" component="div">
+                  {item.name} ({item.reg_no})
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  <strong>Mobile:</strong> {item.mobile}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  <strong>Email:</strong> {item.email}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  <strong>Birthday:</strong> {item.birthday}
+                </Typography>
+                {item.photo === null ? (
+                  <IconButton style={{
+                    position: 'absolute',
+                    right: '.5rem',
+                    bottom: '.4rem'
+                  }} onClick={handleExtensionChange}>
+                    <Refresh />
+                  </IconButton>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     );
   } else {
     return <div className={extStyles.spinnerarea_deatails}><CircularProgress /></div>;
   }
 }
 
+
 DetailsInfoView.propTypes = {
   searchSingle: PropTypes.array.isRequired,
-  imageExtensions: PropTypes.object.isRequired,
+  imageExtensions: PropTypes.array.isRequired,
   currentExtIndex: PropTypes.number.isRequired,
   setImageUrl: PropTypes.func.isRequired,
   imageUrl: PropTypes.string,
@@ -150,7 +166,7 @@ export default function Home() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
-  const [searchSingle, setSearchSingle] = useState({});
+  const [searchSingle, setSearchSingle] = useState([]);
   const isDesktop = useResponsive('up', 'lg');
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const dialogMinWidth = isSmallScreen ? '90%' : '500px';
@@ -176,6 +192,7 @@ export default function Home() {
   const handleSearch = useCallback(debounce(() => {
     const requestData = {
       search: searchValue,
+      searchType: 'search',
     };
     if (searchValue.trim() === '') {
       setSnackbarMessage("Please enter keywords to search.");
@@ -205,14 +222,32 @@ export default function Home() {
     }
   }, 300), [searchValue]);
 
+  // eslint-disable-next-line
+  const handleSearchView = useCallback(debounce((reg_no) => {
+    const requestData = {
+      search: reg_no,
+      searchType: 'view',
+    };
+    searchData(requestData)
+      .then((response) => {
+        const result = response.result;
+        setSearchSingle(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, 300), []);
+
   const handleClose = () => {
     setDetailsView(false);
+    setSearchSingle([]);
   }
+
 
   const clearSearchValue = () => {
     setSearchValue('');
     setSearchResult([]);
-    setSearchSingle({});
+    setSearchSingle([]);
     setDetailsView(false);
     setSearchArray(false);
     setValueClick(false);
@@ -221,6 +256,7 @@ export default function Home() {
 
   const handleImgError = useCallback((e) => {
     const imagePath = process.env.PUBLIC_URL + '/android-chrome-192x192.png';
+    e.preventDefault();
     e.target.src = imagePath;
     e.target.onerror = null;
   }, []);
@@ -237,8 +273,9 @@ export default function Home() {
               padding: 0,
             }}
             onClick={() => {
-              setSearchSingle(item);
+              handleSearchView(item.reg_no);
               setValueClick(true);
+              setSearchSingle([]);
               isDesktop ? setDetailsView(false) : setDetailsView(true);
             }}
           >
@@ -275,8 +312,12 @@ export default function Home() {
         open={detailsView}
         onClose={() => setDetailsView(false)}
       >
-        <DialogTitle>{searchSingle.name}</DialogTitle>
-        <DialogContent>
+        <DialogContent 
+          sx={{
+            padding: 0,
+            boxShadow: 'none'
+          }}
+        >
           <MemoizedDetailsInfoView
             searchSingle={searchSingle}
             currentExtIndex={currentExtIndex}

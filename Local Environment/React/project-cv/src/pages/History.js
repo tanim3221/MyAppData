@@ -46,10 +46,10 @@ export default function History() {
                 <TableHead>
                   <TableRow>
                     <TableCell>SL</TableCell>
-                    <TableCell>Keywords</TableCell>
-                    <TableCell>Search By</TableCell>
-                    <TableCell>Found</TableCell>
-                    <TableCell>Date Search</TableCell>
+                    <TableCell>Keywords/View</TableCell>
+                    <TableCell>User</TableCell>
+                    <TableCell>Results</TableCell>
+                    <TableCell>Date</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

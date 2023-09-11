@@ -7,10 +7,6 @@ const api = axios.create({
   baseURL: apiUrl,
 });
 
-// const postData = {
-//   token: loggedinToken,
-// };
-
 export const searchData = async (requestData) => {
   try {
     const loggedinToken = sessionStorage.getItem('authToken');
