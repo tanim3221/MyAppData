@@ -56,7 +56,7 @@ function DetailsInfoView({
   const loadImage = useCallback(async (item) => {
     try {
       const ext = imageExtensions[currentExtIndex];
-      const potentialUrl = `https://s3.brilliant.com.bd/icab-exam/studentDocument/${item.reg_no}/${item.reg_no}.${ext}`;
+      const potentialUrl = `${process.env.REACT_APP_IMG_URL}/${item.reg_no}/${item.reg_no}.${ext}`;
       const imageExists = await checkIfImageExists(potentialUrl);
 
       if (imageExists) {
@@ -158,6 +158,7 @@ DetailsInfoView.propTypes = {
 export const MemoizedDetailsInfoView = memo(DetailsInfoView);
 
 export default function Home() {
+  const imagePath = process.env.PUBLIC_URL + '/android-chrome-192x192.png';
   const [loading, setLoading] = useState(true);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [valueClick, setValueClick] = useState(false);
@@ -170,7 +171,7 @@ export default function Home() {
   const isDesktop = useResponsive('up', 'lg');
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const dialogMinWidth = isSmallScreen ? '90%' : '500px';
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState(imagePath);
   const [currentExtIndex, setCurrentExtIndex] = useState(0);
   const imageExtensions = ['jpeg', 'jpg', 'png'];
   const [searchLoading, setSearchLoading] = useState(false);
@@ -252,10 +253,10 @@ export default function Home() {
     setSearchArray(false);
     setValueClick(false);
     setSearchLoading(false);
+    setImageUrl(null);
   }
 
   const handleImgError = useCallback((e) => {
-    const imagePath = process.env.PUBLIC_URL + '/android-chrome-192x192.png';
     e.preventDefault();
     e.target.src = imagePath;
     e.target.onerror = null;
@@ -276,6 +277,7 @@ export default function Home() {
               handleSearchView(item.reg_no);
               setValueClick(true);
               setSearchSingle([]);
+              setImageUrl(imagePath);
               isDesktop ? setDetailsView(false) : setDetailsView(true);
             }}
           >
