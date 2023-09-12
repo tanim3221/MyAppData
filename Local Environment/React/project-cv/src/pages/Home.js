@@ -18,7 +18,6 @@ import {
   Dialog,
   Button,
   DialogContent,
-  DialogTitle,
   CircularProgress,
   useMediaQuery,
   DialogActions,
@@ -164,6 +163,7 @@ export default function Home() {
   const [valueClick, setValueClick] = useState(false);
   const [searchArray, setSearchArray] = useState(false);
   const [detailsView, setDetailsView] = useState(false);
+  const [clearState, setClearState] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
@@ -182,15 +182,15 @@ export default function Home() {
     }, 1000);
   }, []);
 
-  const handleFilter = useCallback(debounce(() => {
+  const handleFilter = () => {
     const filteredResult = searchResult.filter((item) =>
       item.name.toLowerCase().includes(searchValue.toLowerCase())
     );
     setSearchResult(filteredResult);
-  }, 300), [searchValue]);
+  };
 
   // eslint-disable-next-line
-  const handleSearch = useCallback(debounce(() => {
+  const handleSearch = () => {
     const requestData = {
       search: searchValue,
       searchType: 'search',
@@ -221,7 +221,7 @@ export default function Home() {
           setSnackbarOpen(true);
         });
     }
-  }, 300), [searchValue]);
+  };
 
   // eslint-disable-next-line
   const handleSearchView = useCallback(debounce((reg_no) => {
@@ -244,8 +244,12 @@ export default function Home() {
     setSearchSingle([]);
   }
 
-
   const clearSearchValue = () => {
+    setSearchValue('');
+    setClearState(true);
+  }
+
+  const removeSearchStates = () => {
     setSearchValue('');
     setSearchResult([]);
     setSearchSingle([]);
@@ -254,6 +258,7 @@ export default function Home() {
     setValueClick(false);
     setSearchLoading(false);
     setImageUrl(null);
+    setClearState(false);
   }
   
   const handleInputChange = (e) => {
@@ -265,7 +270,7 @@ export default function Home() {
     e.preventDefault();
     e.target.src = imagePath;
     e.target.onerror = null;
-  }, []);
+  }, [imagePath]);
 
 
   const Row = useCallback(({ index, style }) => {
@@ -300,7 +305,7 @@ export default function Home() {
         </ListItem>
       </div>
     );
-  }, [searchResult, isDesktop]);
+  }, [searchResult, isDesktop, handleSearchView, imagePath]);
 
   const handleExtensionChange = useCallback(() => {
     const nextExtIndex = (currentExtIndex + 1) % imageExtensions.length;
@@ -389,7 +394,7 @@ export default function Home() {
                           cursor: 'pointer',
                           marginRight: '.5rem'
                         }}
-                        onClick={clearSearchValue}>
+                        onClick={clearState ? removeSearchStates : clearSearchValue}>
                         <Clear />
                       </IconButton>
                     )}
