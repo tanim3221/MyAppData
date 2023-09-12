@@ -368,7 +368,7 @@ export default function Home() {
           borderRadius: '1rem',
         }}>
           <Box display="flex" alignItems="center">
-            <form
+            <form autoComplete="off"
               style={{
                 width: '100%'
               }}
@@ -416,7 +416,6 @@ export default function Home() {
                   }
                 }}
 
-                autoComplete="on"
               />
             </form>
           </Box>
