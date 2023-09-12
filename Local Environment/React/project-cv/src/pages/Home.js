@@ -410,7 +410,8 @@ export default function Home() {
                         cursor: 'pointer',
                         marginRight: '.5rem'
                       }}
-                      onClick={clearState ? removeSearchStates : clearSearchValue}
+                      // onClick={clearState ? removeSearchStates : clearSearchValue}
+                      onClick={removeSearchStates}
                     >
                       <Clear />
                     </IconButton>
