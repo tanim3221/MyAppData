@@ -255,6 +255,11 @@ export default function Home() {
     setSearchLoading(false);
     setImageUrl(null);
   }
+  
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+    setSearchValue(newValue);
+  };
 
   const handleImgError = useCallback((e) => {
     e.preventDefault();
@@ -372,9 +377,10 @@ export default function Home() {
                   fontWeight: 'fontWeightBold',
                 }}
                 type='text'
+                inputMode="text"
                 name='search'
                 value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={handleInputChange}
                 endAdornment={
                   <InputAdornment position="end">
                     {searchValue && (
@@ -404,6 +410,8 @@ export default function Home() {
                     searchArray ? handleFilter() : handleSearch();
                   }
                 }}
+
+                autoComplete="on"
               />
             </form>
           </Box>
