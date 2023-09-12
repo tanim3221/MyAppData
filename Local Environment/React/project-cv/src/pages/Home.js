@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, memo } from 'react';
+import React, { useState, useEffect, useCallback, memo, useRef } from 'react';
 import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
 import { FixedSizeList as FixedList } from "react-window";
@@ -11,10 +11,8 @@ import {
   Typography,
   CardActionArea,
   ListItem,
-  InputAdornment,
   Paper,
   Grid,
-  Input,
   Dialog,
   Button,
   DialogContent,
@@ -157,6 +155,8 @@ DetailsInfoView.propTypes = {
 export const MemoizedDetailsInfoView = memo(DetailsInfoView);
 
 export default function Home() {
+  const searchInputRef = useRef(null);
+
   const imagePath = process.env.PUBLIC_URL + '/android-chrome-192x192.png';
   const [loading, setLoading] = useState(true);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -165,7 +165,7 @@ export default function Home() {
   const [detailsView, setDetailsView] = useState(false);
   const [clearState, setClearState] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [searchValue, setSearchValue] = useState('');
+  // const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [searchSingle, setSearchSingle] = useState([]);
   const isDesktop = useResponsive('up', 'lg');
@@ -182,20 +182,24 @@ export default function Home() {
     }, 1000);
   }, []);
 
+
   const handleFilter = () => {
+    const inputValue = searchInputRef.current.value;
     const filteredResult = searchResult.filter((item) =>
-      item.name.toLowerCase().includes(searchValue.toLowerCase())
+      item.name.toLowerCase().includes(inputValue.toLowerCase())
     );
     setSearchResult(filteredResult);
   };
 
   // eslint-disable-next-line
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const inputValue = searchInputRef.current.value;
     const requestData = {
-      search: searchValue,
+      search: inputValue,
       searchType: 'search',
     };
-    if (searchValue.trim() === '') {
+    if (inputValue.trim() === '') {
       setSnackbarMessage("Please enter keywords to search.");
       setSnackbarOpen(true);
     } else {
@@ -245,12 +249,12 @@ export default function Home() {
   }
 
   const clearSearchValue = () => {
-    setSearchValue('');
+    searchInputRef.current.value = '';
     setClearState(true);
   }
 
   const removeSearchStates = () => {
-    setSearchValue('');
+    searchInputRef.current.value = '';
     setSearchResult([]);
     setSearchSingle([]);
     setDetailsView(false);
@@ -261,10 +265,10 @@ export default function Home() {
     setClearState(false);
   }
 
-  const handleInputChange = (e) => {
-    const newValue = e.target.value;
-    setSearchValue(newValue);
-  };
+  // const handleInputChange = (e) => {
+  //   const newValue = e.target.value;
+  //   setSearchValue(newValue);
+  // };
 
   const handleImgError = useCallback((e) => {
     e.preventDefault();
@@ -374,7 +378,7 @@ export default function Home() {
               }}
               onSubmit={handleSearch}>
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                <input
+              <input
                   autoFocus
                   placeholder="Search…"
                   style={{
@@ -386,21 +390,21 @@ export default function Home() {
                     width: '100%', // make the input take the full width
                     paddingRight: '3rem' // space for the adornments
                   }}
-                  type='text'
+                  defaultValue={searchInputRef.current ? searchInputRef.current.value : ''}
                   inputMode="text"
                   name='search'
-                  autoComplete="search"
-                  value={searchValue}
-                  onChange={handleInputChange}
+                  autoComplete="off"
+                  ref={searchInputRef}
                   onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
-                      searchArray ? handleFilter() : handleSearch();
+                      searchArray ? handleFilter() : handleSearch(e);
+                      searchInputRef.current && searchInputRef.current.blur();
                     }
                   }}
                 />
                 <div style={{ position: 'absolute', right: '1rem', display: 'flex', alignItems: 'center' }}>
-                  {searchValue && (
+                {searchInputRef.current && searchInputRef.current.value && (
                     <IconButton
                       style={{
                         cursor: 'pointer',
@@ -415,7 +419,10 @@ export default function Home() {
                     style={{
                       cursor: 'pointer',
                     }}
-                    onClick={searchArray ? handleFilter : handleSearch}
+                    onClick={(e) => {
+                      searchArray ? handleFilter() : handleSearch(e);
+                      searchInputRef.current && searchInputRef.current.blur();
+                  }}
                     color="primary"
                   >
                     <Search />
@@ -435,6 +442,8 @@ export default function Home() {
             <Skeleton height={('4rem')} animation="wave" />
             <Skeleton animation={false} />
             <Skeleton animation="wave" />
+            <Skeleton height={('3rem')} animation={true} />
+            <Skeleton animation='wave' />
             <Skeleton height={('3rem')} animation={false} />
             <Skeleton animation='wave' />
           </Box>
