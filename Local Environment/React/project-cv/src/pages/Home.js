@@ -84,11 +84,11 @@ function DetailsInfoView({
         backgroundColor: 'none'
       }}>
         {searchSingle.map((item) => (
-          
-          <Card 
+
+          <Card
             key={item.id}
             style={{
-              marginBottom:'1rem'
+              marginBottom: '1rem'
             }}
           >
             <CardContent style={{
@@ -100,12 +100,12 @@ function DetailsInfoView({
                 marginRight: isDesktop ? '1rem' : '',
                 marginBottom: isDesktop ? '' : '1rem'
               }}>
-                  <img
-                    src={(item.photo === null) ? imageUrl : `data:image/jpeg;base64,${item.photo}`}
-                    alt={`Profile of ${item.name}`}
-                    style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
-                    onError={handleImgError}
-                  />
+                <img
+                  src={(item.photo === null) ? imageUrl : `data:image/jpeg;base64,${item.photo}`}
+                  alt={`Profile of ${item.name}`}
+                  style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
+                  onError={handleImgError}
+                />
               </div>
               <div>
                 <Typography variant="h6" component="div">
@@ -260,7 +260,7 @@ export default function Home() {
     setImageUrl(null);
     setClearState(false);
   }
-  
+
   const handleInputChange = (e) => {
     const newValue = e.target.value;
     setSearchValue(newValue);
@@ -324,7 +324,7 @@ export default function Home() {
         open={detailsView}
         onClose={() => setDetailsView(false)}
       >
-        <DialogContent 
+        <DialogContent
           sx={{
             padding: 0,
             boxShadow: 'none'
@@ -368,55 +368,61 @@ export default function Home() {
           borderRadius: '1rem',
         }}>
           <Box display="flex" alignItems="center">
-            <form autoComplete="off"
+            <form
               style={{
                 width: '100%'
               }}
               onSubmit={handleSearch}>
-              <Input
-                autoFocus
-                fullWidth
-                disableUnderline
-                placeholder="Search…"
-                sx={{
-                  fontWeight: 'fontWeightBold',
-                }}
-                type='text'
-                inputMode="text"
-                name='search'
-                value={searchValue}
-                onChange={handleInputChange}
-                endAdornment={
-                  <InputAdornment position="end">
-                    {searchValue && (
-                      <IconButton
-                        style={{
-                          cursor: 'pointer',
-                          marginRight: '.5rem'
-                        }}
-                        onClick={clearState ? removeSearchStates : clearSearchValue}>
-                        <Clear />
-                      </IconButton>
-                    )}
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <input
+                  autoFocus
+                  placeholder="Search…"
+                  style={{
+                    padding: '1rem',
+                    border: 'none',
+                    fontSize: '1rem',
+                    fontWeight: 'bold',
+                    outline: 'none',
+                    width: '100%', // make the input take the full width
+                    paddingRight: '3rem' // space for the adornments
+                  }}
+                  type='text'
+                  inputMode="text"
+                  name='search'
+                  autoComplete="search"
+                  value={searchValue}
+                  onChange={handleInputChange}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      searchArray ? handleFilter() : handleSearch();
+                    }
+                  }}
+                />
+                <div style={{ position: 'absolute', right: '1rem', display: 'flex', alignItems: 'center' }}>
+                  {searchValue && (
                     <IconButton
                       style={{
                         cursor: 'pointer',
+                        marginRight: '.5rem'
                       }}
-                      onClick={searchArray ? handleFilter : handleSearch}
-                      color="primary"
+                      onClick={clearState ? removeSearchStates : clearSearchValue}
                     >
-                      <Search />
+                      <Clear />
                     </IconButton>
-                  </InputAdornment>
-                }
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    searchArray ? handleFilter() : handleSearch();
-                  }
-                }}
+                  )}
+                  <IconButton
+                    style={{
+                      cursor: 'pointer',
+                    }}
+                    onClick={searchArray ? handleFilter : handleSearch}
+                    color="primary"
+                  >
+                    <Search />
+                  </IconButton>
+                </div>
+              </div>
 
-              />
             </form>
           </Box>
         </div>
