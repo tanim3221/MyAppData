@@ -183,7 +183,11 @@ function DetailsInfoView({
           </CardContent>
         </Card>
 
-        <Grid container spacing={2} alignItems="center">
+        <Grid container spacing={2} alignItems="center" 
+        sx={{
+          margin: 0,
+          width: '100%'
+        }}>
           <Grid item xs={6} style={{ 
             padding: isDesktop ? '1rem 1rem 1rem 0' : '1rem' 
             }}>
