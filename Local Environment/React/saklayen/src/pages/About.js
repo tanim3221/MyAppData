@@ -220,6 +220,15 @@ function About() {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
+             <TextField
+              label="Career Objective"
+              name='car_obj'
+              multiline
+              rows={8}
+              value={mainData.car_obj}
+              sx={{ gridColumn: 'span 2' }}
+              onChange={handleChange}
+            />
             <TextField
               label="Birthday"
               name='birthday'
@@ -481,6 +490,14 @@ function About() {
               Social Links
             </Typography>
             <Typography style={textStyles}>{personal.linkedin_profile}</Typography>
+          </Paper>
+        </Grid>
+      <Grid item xs={12} md={12} lg={12} sm={12}>
+          <Paper elevation={3} style={paperStyle}>
+            <Typography variant="h6" gutterBottom style={textStyles}>
+              Career Objective
+            </Typography>
+            <Typography style={textStyles}>{personal.car_obj}</Typography>
           </Paper>
         </Grid>
       </Grid>
