@@ -22,7 +22,7 @@ import {
   IconButton,
   Skeleton
 } from '@mui/material';
-import { Search, Clear, Refresh } from '@mui/icons-material';
+import { Search, Clear, Refresh,Close, ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 import useResponsive from '../utils/UseResponsive';
 import { searchData } from '../auth/api';
@@ -30,15 +30,59 @@ import extStyles from '../utils/styles.module.css';
 
 
 function DetailsInfoView({
+  originalSearchResults,
+  currentIndex,
+  viewLoading,
+  imagePath,
+  setSearchSingle,
+  setViewLoading,
+  handleSearchView,
+  setCurrentIndex,
   searchSingle,
   currentExtIndex,
   setImageUrl,
+  setDetailsView,
   imageUrl,
   isDesktop,
   handleImgError,
   imageExtensions,
   handleExtensionChange
 }) {
+
+  const item = searchSingle;
+
+  const handlePrev = () => {
+    let newIndex;
+    if (currentIndex === 0) {
+      newIndex = originalSearchResults.length - 1; // go to the last item
+    } else {
+      newIndex = currentIndex - 1; // go to the previous item
+    }
+
+    const reg_no = originalSearchResults[newIndex].reg_no;
+    handleSearchView(reg_no);
+    setCurrentIndex(newIndex);
+    setSearchSingle({});
+    setImageUrl(imagePath);
+    setViewLoading(true);
+  };
+
+  const handleNext = () => {
+    let newIndex;
+    if (currentIndex === originalSearchResults.length - 1) {
+      newIndex = 0; // go to the first item
+    } else {
+      newIndex = currentIndex + 1; // go to the next item
+    }
+
+    const reg_no = originalSearchResults[newIndex].reg_no;
+    handleSearchView(reg_no);
+    setCurrentIndex(newIndex);
+    setSearchSingle({});
+    setViewLoading(true);
+    setImageUrl(imagePath);
+  };
+
   const checkIfImageExists = useCallback(async (url) => {
     try {
       const response = await fetch(url, {
@@ -50,10 +94,12 @@ function DetailsInfoView({
     }
   }, []);
 
-  const loadImage = useCallback(async (item) => {
+
+
+  const fetchImage = useCallback(async () => {
     try {
       const ext = imageExtensions[currentExtIndex];
-      const potentialUrl = `${process.env.REACT_APP_IMG_URL}/${item.reg_no}/${item.reg_no}.${ext}`;
+      const potentialUrl = `${process.env.REACT_APP_IMG_URL}/${searchSingle.reg_no}/${searchSingle.reg_no}.${ext}`;
       const imageExists = await checkIfImageExists(potentialUrl);
 
       if (imageExists) {
@@ -64,75 +110,105 @@ function DetailsInfoView({
     } catch (error) {
       console.error('Error loading image:', error);
     }
-  }, [currentExtIndex, setImageUrl, checkIfImageExists, imageExtensions]);
+  }, [currentExtIndex, checkIfImageExists, imageExtensions, setImageUrl, searchSingle.reg_no]);
+
+  const debouncedFetchImage = useCallback(debounce(() => {
+    fetchImage();
+  }, 500), [fetchImage]); // 500ms delay
 
   useEffect(() => {
-    if (searchSingle.length > 0) {
-      searchSingle.forEach((item) => {
-        if (item.photo === null) {
-          loadImage(item);
-        }
-      });
+    if (searchSingle.photo === null) {
+      debouncedFetchImage();
     }
-  }, [loadImage, searchSingle]);
+    // Cleanup to cancel any pending debounced calls when component unmounts or on other significant changes.
+    return () => debouncedFetchImage.cancel();
+  }, [currentExtIndex, searchSingle.photo, debouncedFetchImage]);
 
-  if (searchSingle.length > 0) {
+
+  if (!viewLoading) {
     return (
       <div style={{
         backgroundColor: 'none'
       }}>
-        {searchSingle.map((item) => (
 
-          <Card
-            key={item.id}
-            style={{
-              marginBottom: '1rem'
-            }}
-          >
-            <CardContent style={{
-              display: 'flex',
-              alignItems: isDesktop ? 'flex-start' : 'center',
-              flexDirection: isDesktop ? 'row' : 'column',
+        <Card
+          key={item.id}
+          style={{
+            borderRadius: isDesktop ? '1rem' : '0'
+
+          }}
+        >
+          <CardContent style={{
+            display: 'flex',
+            alignItems: isDesktop ? 'center' : 'center',
+            flexDirection: isDesktop ? 'row' : 'column',
+            minHeight: '15rem',
+          }}>
+            <div style={{
+              marginRight: isDesktop ? '1rem' : '',
+              marginBottom: isDesktop ? '' : '1rem'
             }}>
-              <div style={{
-                marginRight: isDesktop ? '1rem' : '',
-                marginBottom: isDesktop ? '' : '1rem'
-              }}>
-                <img
-                  src={(item.photo === null) ? imageUrl : `data:image/jpeg;base64,${item.photo}`}
-                  alt={`Profile of ${item.name}`}
-                  style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
-                  onError={handleImgError}
-                />
-              </div>
-              <div>
-                <Typography variant="h6" component="div">
-                  {item.name} ({item.reg_no})
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  <strong>Mobile:</strong> {item.mobile}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  <strong>Email:</strong> {item.email}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  <strong>Birthday:</strong> {item.birthday}
-                </Typography>
-                {item.photo === null ? (
-                  <IconButton style={{
-                    position: 'absolute',
-                    right: '.5rem',
-                    bottom: '.4rem'
-                  }} onClick={handleExtensionChange}>
-                    <Refresh />
-                  </IconButton>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              <img
+                src={(item.photo === null) ? imageUrl : `data:image/jpeg;base64,${item.photo}`}
+                alt={`Profile of ${item.name}`}
+                style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
+                onError={handleImgError}
+              />
+            </div>
+            <div>
+              <Typography variant="h6" component="div">
+                {item.name} ({item.reg_no})
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                <strong>Mobile:</strong> {item.mobile}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                <strong>Email:</strong> {item.email}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                <strong>Birthday:</strong> {item.birthday}
+              </Typography>
+              {item.photo === null ? (
+                <IconButton style={{
+                  position: 'absolute',
+                  right: '.5rem',
+                  bottom: '.4rem'
+                }} onClick={handleExtensionChange}>
+                  <Refresh />
+                </IconButton>
+              ) : (
+                <></>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={6} style={{ 
+            padding: isDesktop ? '1rem 1rem 1rem 0' : '1rem' 
+            }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handlePrev}
+            >
+              <ArrowBackIos />
+            </Button>
+          </Grid>
+          <Grid item xs={6} style={{ textAlign: 'right', 
+          padding: isDesktop ? '1rem 0 1rem 1rem' : '1rem' 
+          }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleNext}
+            >
+              <ArrowForwardIos />
+            </Button>
+          </Grid>
+        </Grid>
+
+
       </div>
     );
   } else {
@@ -163,11 +239,12 @@ export default function Home() {
   const [valueClick, setValueClick] = useState(false);
   const [searchArray, setSearchArray] = useState(false);
   const [detailsView, setDetailsView] = useState(false);
+  const [viewLoading, setViewLoading] = useState(true);
   const [clearState, setClearState] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   // const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
-  const [searchSingle, setSearchSingle] = useState([]);
+  const [searchSingle, setSearchSingle] = useState({});
   const isDesktop = useResponsive('up', 'lg');
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const dialogMinWidth = isSmallScreen ? '90%' : '500px';
@@ -175,6 +252,7 @@ export default function Home() {
   const [currentExtIndex, setCurrentExtIndex] = useState(0);
   const imageExtensions = ['jpeg', 'jpg', 'png'];
   const [searchLoading, setSearchLoading] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -237,15 +315,21 @@ export default function Home() {
       .then((response) => {
         const result = response.result;
         setSearchSingle(result);
+        setViewLoading(false);
+        const index = searchResult.findIndex(item => item.reg_no === reg_no);
+        if (index !== -1) {
+          setCurrentIndex(index);
+        }
       })
       .catch((error) => {
         console.error(error);
       });
-  }, 300), []);
+  }, 300), [searchResult]);
 
   const handleClose = () => {
     setDetailsView(false);
-    setSearchSingle([]);
+    setSearchSingle({});
+    setValueClick(false);
   }
 
   const clearSearchValue = () => {
@@ -256,7 +340,7 @@ export default function Home() {
   const removeSearchStates = () => {
     searchInputRef.current.value = '';
     setSearchResult([]);
-    setSearchSingle([]);
+    setSearchSingle({});
     setDetailsView(false);
     setSearchArray(false);
     setValueClick(false);
@@ -290,7 +374,8 @@ export default function Home() {
             onClick={() => {
               handleSearchView(item.reg_no);
               setValueClick(true);
-              setSearchSingle([]);
+              setViewLoading(true);
+              setSearchSingle({});
               setImageUrl(imagePath);
               isDesktop ? setDetailsView(false) : setDetailsView(true);
             }}
@@ -314,7 +399,8 @@ export default function Home() {
   const handleExtensionChange = useCallback(() => {
     const nextExtIndex = (currentExtIndex + 1) % imageExtensions.length;
     setCurrentExtIndex(nextExtIndex);
-  }, [currentExtIndex, imageExtensions.length]);
+    setImageUrl(imagePath);
+  }, [currentExtIndex, imageExtensions.length, imagePath]);
 
   const renderDetailsDialog = () => {
     return (
@@ -323,11 +409,24 @@ export default function Home() {
         PaperProps={{
           sx: {
             minWidth: dialogMinWidth,
+            position: 'relative'
           },
         }}
         open={detailsView}
         onClose={() => setDetailsView(false)}
       >
+        <IconButton
+        aria-label="close"
+        onClick={handleClose}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: 8,
+          zIndex: 999
+        }}
+      >
+        <Close />
+      </IconButton>
         <DialogContent
           sx={{
             padding: 0,
@@ -336,22 +435,31 @@ export default function Home() {
         >
           <MemoizedDetailsInfoView
             searchSingle={searchSingle}
+            setCurrentIndex={setCurrentIndex}
+            setDetailsView={setDetailsView}
+            viewLoading={viewLoading}
+            setViewLoading={setViewLoading}
+            setSearchSingle={setSearchSingle}
             currentExtIndex={currentExtIndex}
             imageExtensions={imageExtensions}
+            handleSearchView={handleSearchView}
             setImageUrl={setImageUrl}
+            imagePath={imagePath}
             imageUrl={imageUrl}
             isDesktop={isDesktop}
             handleImgError={handleImgError}
             handleExtensionChange={handleExtensionChange}
+            originalSearchResults={searchResult}
+            currentIndex={currentIndex}
           />
         </DialogContent>
-        <DialogActions sx={{
+        {/* <DialogActions sx={{
           justifyContent: 'flex-end',
           paddingRight: '1rem',
           paddingBottom: '1rem'
         }}>
           <Button variant="outlined" onClick={handleClose}>Close</Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
     )
   };
@@ -378,7 +486,7 @@ export default function Home() {
               }}
               onSubmit={handleSearch}>
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-              <input
+                <input
                   autoFocus
                   placeholder="Search…"
                   style={{
@@ -404,7 +512,7 @@ export default function Home() {
                   }}
                 />
                 <div style={{ position: 'absolute', right: '1rem', display: 'flex', alignItems: 'center' }}>
-                {searchInputRef.current && searchInputRef.current.value && (
+                  {searchInputRef.current && searchInputRef.current.value && (
                     <IconButton
                       style={{
                         cursor: 'pointer',
@@ -423,7 +531,7 @@ export default function Home() {
                     onClick={(e) => {
                       searchArray ? handleFilter() : handleSearch(e);
                       searchInputRef.current && searchInputRef.current.blur();
-                  }}
+                    }}
                     color="primary"
                   >
                     <Search />
@@ -470,18 +578,28 @@ export default function Home() {
     <div>
       <Paper style={{
         padding: '0px',
-        borderRadius: '1rem'
+        borderRadius: '1rem',
+        background: 'none'
       }}>
         {valueClick ? (
           <MemoizedDetailsInfoView
             searchSingle={searchSingle}
+            setCurrentIndex={setCurrentIndex}
+            viewLoading={viewLoading}
+            setDetailsView={setDetailsView}
+            setViewLoading={setViewLoading}
+            setSearchSingle={setSearchSingle}
             currentExtIndex={currentExtIndex}
             imageExtensions={imageExtensions}
+            handleSearchView={handleSearchView}
             setImageUrl={setImageUrl}
+            imagePath={imagePath}
             imageUrl={imageUrl}
             isDesktop={isDesktop}
             handleImgError={handleImgError}
             handleExtensionChange={handleExtensionChange}
+            originalSearchResults={searchResult}
+            currentIndex={currentIndex}
           />
         ) : (
           <></>

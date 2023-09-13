@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "start",
+            "path": "React/project-cv",
+            "problemMatcher": [],
+            "label": "npm: cv_start - React/project-cv",
+            "detail": "react-scripts start"
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "path": "React/project-cv",
+            "problemMatcher": [],
+            "label": "npm: cv_build - React/project-cv",
+            "detail": "react-scripts build"
+        }
+    ]
+}
