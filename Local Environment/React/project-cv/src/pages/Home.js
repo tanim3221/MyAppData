@@ -23,7 +23,7 @@ import {
   IconButton,
   Skeleton
 } from '@mui/material';
-import { Search, Clear, Refresh, Close, ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { Search, Clear, Refresh, Close, ArrowBackIos, ArrowForwardIos, School, BusinessCenter } from '@mui/icons-material';
 
 import useResponsive from '../utils/UseResponsive';
 import { searchData } from '../auth/api';
@@ -147,18 +147,21 @@ function DetailsInfoView({
         >
           <CardContent style={{
             display: 'flex',
-            alignItems: isDesktop ? 'center' : 'center',
+            alignItems: isDesktop ? 'flex-start' : '',
             flexDirection: isDesktop ? 'row' : 'column',
             minHeight: '15rem',
           }}>
             <div style={{
               marginRight: isDesktop ? '1rem' : '',
-              marginBottom: isDesktop ? '' : '1rem'
+              marginBottom: isDesktop ? '' : '1rem',
+              display: 'flex',
+              alignItems: isDesktop ? 'flex-start' : 'center',
+              flexDirection: isDesktop ? 'row' : 'column',
             }}>
               <img
                 src={(get_photo === null) ? optionSearch ? item.image : imageUrl : `data:image/jpeg;base64,${get_photo}`}
                 alt={`Profile of ${optionSearch ? item?.first_name : item?.name}`}
-                style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
+                style={{ borderRadius: '.7rem', width: optionSearch ? isDesktop ? '11rem' : '9rem' : '9rem', height: '100%', objectFit: 'cover' }}
                 onError={handleImgError}
               />
             </div>
@@ -296,6 +299,14 @@ export default function Home() {
 
   const handleChange = (e) => {
     setOptionSearch(e.target.checked);
+    setSearchResult([]);
+    setSearchSingle({});
+    setDetailsView(false);
+    setSearchArray(false);
+    setValueClick(false);
+    setSearchLoading(false);
+    setImageUrl(null);
+    setClearState(false);
   };
 
   useEffect(() => {
@@ -557,7 +568,7 @@ export default function Home() {
 
                 <input
                   autoFocus
-                  placeholder={optionSearch ? 'Search Members...' : 'Search Students...'}
+                  placeholder='Search . . .'
                   style={{
                     padding: '1rem',
                     border: 'none',
@@ -603,7 +614,7 @@ export default function Home() {
                     }}
                     color="primary"
                   >
-                    <Search />
+                    {optionSearch ? <BusinessCenter /> : <School />}
                   </IconButton>
                 </div>
               </div>
