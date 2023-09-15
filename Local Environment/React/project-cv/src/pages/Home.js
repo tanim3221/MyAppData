@@ -18,11 +18,12 @@ import {
   DialogContent,
   CircularProgress,
   useMediaQuery,
-  DialogActions,
+  FormControlLabel,
+  Switch,
   IconButton,
   Skeleton
 } from '@mui/material';
-import { Search, Clear, Refresh,Close, ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { Search, Clear, Refresh, Close, ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 import useResponsive from '../utils/UseResponsive';
 import { searchData } from '../auth/api';
@@ -42,6 +43,7 @@ function DetailsInfoView({
   currentExtIndex,
   setImageUrl,
   setDetailsView,
+  optionSearch,
   imageUrl,
   isDesktop,
   handleImgError,
@@ -60,7 +62,8 @@ function DetailsInfoView({
     }
 
     const reg_no = originalSearchResults[newIndex].reg_no;
-    handleSearchView(reg_no);
+    const enrollment_number = originalSearchResults[newIndex].enrollment_number;
+    handleSearchView(optionSearch ? enrollment_number : reg_no);
     setCurrentIndex(newIndex);
     setSearchSingle({});
     setImageUrl(imagePath);
@@ -74,9 +77,9 @@ function DetailsInfoView({
     } else {
       newIndex = currentIndex + 1; // go to the next item
     }
-
     const reg_no = originalSearchResults[newIndex].reg_no;
-    handleSearchView(reg_no);
+    const enrollment_number = originalSearchResults[newIndex].enrollment_number;
+    handleSearchView(optionSearch ? enrollment_number : reg_no);
     setCurrentIndex(newIndex);
     setSearchSingle({});
     setViewLoading(true);
@@ -94,12 +97,12 @@ function DetailsInfoView({
     }
   }, []);
 
-
-
+  // const id_no = optionSearch ? searchSingle.enrollment_number : searchSingle.reg_no;
+  const id_no = optionSearch ? searchSingle?.enrollment_number : searchSingle?.reg_no;
   const fetchImage = useCallback(async () => {
     try {
       const ext = imageExtensions[currentExtIndex];
-      const potentialUrl = `${process.env.REACT_APP_IMG_URL}/${searchSingle.reg_no}/${searchSingle.reg_no}.${ext}`;
+      const potentialUrl = `${process.env.REACT_APP_IMG_URL}/${id_no}/${id_no}.${ext}`;
       const imageExists = await checkIfImageExists(potentialUrl);
 
       if (imageExists) {
@@ -110,20 +113,24 @@ function DetailsInfoView({
     } catch (error) {
       console.error('Error loading image:', error);
     }
-  }, [currentExtIndex, checkIfImageExists, imageExtensions, setImageUrl, searchSingle.reg_no]);
+  }, [currentExtIndex, checkIfImageExists, imageExtensions, setImageUrl, id_no]);
 
   const debouncedFetchImage = useCallback(debounce(() => {
     fetchImage();
   }, 500), [fetchImage]); // 500ms delay
 
+  const get_photo_single = optionSearch ? searchSingle?.image_base64 : searchSingle?.photo;
+
   useEffect(() => {
-    if (searchSingle.photo === null) {
+
+    if (get_photo_single === null) {
       debouncedFetchImage();
     }
     // Cleanup to cancel any pending debounced calls when component unmounts or on other significant changes.
     return () => debouncedFetchImage.cancel();
-  }, [currentExtIndex, searchSingle.photo, debouncedFetchImage]);
+  }, [currentExtIndex, get_photo_single, debouncedFetchImage]);
 
+  const get_photo = optionSearch ? item?.image_base64 : item?.photo;
 
   if (!viewLoading) {
     return (
@@ -132,7 +139,7 @@ function DetailsInfoView({
       }}>
 
         <Card
-          key={item.id}
+          key={item?.id}
           style={{
             borderRadius: isDesktop ? '1rem' : '0'
 
@@ -149,26 +156,53 @@ function DetailsInfoView({
               marginBottom: isDesktop ? '' : '1rem'
             }}>
               <img
-                src={(item.photo === null) ? imageUrl : `data:image/jpeg;base64,${item.photo}`}
-                alt={`Profile of ${item.name}`}
+                src={(get_photo === null) ? optionSearch ? item.image : imageUrl : `data:image/jpeg;base64,${get_photo}`}
+                alt={`Profile of ${optionSearch ? item?.first_name : item?.name}`}
                 style={{ borderRadius: '.7rem', width: '130px', height: '100%', objectFit: 'cover' }}
                 onError={handleImgError}
               />
             </div>
             <div>
-              <Typography variant="h6" component="div">
-                {item.name} ({item.reg_no})
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <strong>Mobile:</strong> {item.mobile}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <strong>Email:</strong> {item.email}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <strong>Birthday:</strong> {item.birthday}
-              </Typography>
-              {item.photo === null ? (
+              {
+                optionSearch ? (
+                  <>
+                    <Typography variant="h5" component="div">
+                      {item?.first_name + ' ' + item?.last_name}, {item.qualification} ({item.qualification_date}) ({item?.enrollment_number})
+                    </Typography>
+                    <Typography variant="body1" color="textSecondary">
+                      {item?.position}, {item?.firm}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      <strong>Graduation: </strong> {item?.education}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      <strong>Mobile: </strong> {item?.mobile}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                    <strong>Email: </strong> {item?.email}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                    <strong>Address: </strong>{item?.address}
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <Typography variant="h6" component="div">
+                      {item.name} ({item.reg_no})
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      <strong>Mobile:</strong> {item.mobile}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      <strong>Email:</strong> {item.email}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      <strong>Birthday:</strong> {item.birthday}
+                    </Typography>
+                  </>
+                )
+              }
+              {get_photo === null ? (
                 <IconButton style={{
                   position: 'absolute',
                   right: '.5rem',
@@ -183,14 +217,14 @@ function DetailsInfoView({
           </CardContent>
         </Card>
 
-        <Grid container spacing={2} alignItems="center" 
-        sx={{
-          margin: 0,
-          width: '100%'
-        }}>
-          <Grid item xs={6} style={{ 
-            padding: isDesktop ? '1rem 1rem 1rem 0' : '1rem' 
-            }}>
+        <Grid container spacing={2} alignItems="center"
+          sx={{
+            margin: 0,
+            width: '100%'
+          }}>
+          <Grid item xs={6} style={{
+            padding: isDesktop ? '1rem 1rem 1rem 0' : '1rem'
+          }}>
             <Button
               variant="contained"
               color="primary"
@@ -199,8 +233,9 @@ function DetailsInfoView({
               <ArrowBackIos />
             </Button>
           </Grid>
-          <Grid item xs={6} style={{ textAlign: 'right', 
-          padding: isDesktop ? '1rem 0 1rem 1rem' : '1rem' 
+          <Grid item xs={6} style={{
+            textAlign: 'right',
+            padding: isDesktop ? '1rem 0 1rem 1rem' : '1rem'
           }}>
             <Button
               variant="contained"
@@ -257,6 +292,11 @@ export default function Home() {
   const imageExtensions = ['jpeg', 'jpg', 'png'];
   const [searchLoading, setSearchLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [optionSearch, setOptionSearch] = useState(false);
+
+  const handleChange = (e) => {
+    setOptionSearch(e.target.checked);
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -266,12 +306,18 @@ export default function Home() {
 
 
   const handleFilter = () => {
-    const inputValue = searchInputRef.current.value;
-    const filteredResult = searchResult.filter((item) =>
-      item.name.toLowerCase().includes(inputValue.toLowerCase())
-    );
+    const inputValue = searchInputRef.current.value.toLowerCase();
+    const filteredResult = searchResult.filter((item) => {
+      if (optionSearch) {
+        return item.first_name.toLowerCase().includes(inputValue) ||
+          item.last_name.toLowerCase().includes(inputValue);
+      } else {
+        return item.name.toLowerCase().includes(inputValue);
+      }
+    });
     setSearchResult(filteredResult);
   };
+
 
   // eslint-disable-next-line
   const handleSearch = (e) => {
@@ -280,6 +326,7 @@ export default function Home() {
     const requestData = {
       search: inputValue,
       searchType: 'search',
+      searchFrom: optionSearch
     };
     if (inputValue.trim() === '') {
       setSnackbarMessage("Please enter keywords to search.");
@@ -314,13 +361,16 @@ export default function Home() {
     const requestData = {
       search: reg_no,
       searchType: 'view',
+      searchFrom: optionSearch
     };
     searchData(requestData)
       .then((response) => {
         const result = response.result;
         setSearchSingle(result);
+        // console.log(response);
+
         setViewLoading(false);
-        const index = searchResult.findIndex(item => item.reg_no === reg_no);
+        const index = searchResult.findIndex(item => (optionSearch ? item.enrollment_number : item.reg_no) === reg_no);
         if (index !== -1) {
           setCurrentIndex(index);
         }
@@ -376,7 +426,7 @@ export default function Home() {
               padding: 0,
             }}
             onClick={() => {
-              handleSearchView(item.reg_no);
+              handleSearchView(optionSearch ? item.enrollment_number : item.reg_no);
               setValueClick(true);
               setViewLoading(true);
               setSearchSingle({});
@@ -390,7 +440,7 @@ export default function Home() {
                   padding: '1rem',
                 }}>
                 <Typography variant="p" component="div">
-                  {item.name} ({item.reg_no})
+                  {optionSearch ? item.first_name + ' ' + item.last_name : item.name} ({optionSearch ? item.enrollment_number : item.reg_no})
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -398,7 +448,7 @@ export default function Home() {
         </ListItem>
       </div>
     );
-  }, [searchResult, isDesktop, handleSearchView, imagePath]);
+  }, [searchResult, isDesktop, handleSearchView, imagePath, optionSearch]);
 
   const handleExtensionChange = useCallback(() => {
     const nextExtIndex = (currentExtIndex + 1) % imageExtensions.length;
@@ -420,17 +470,17 @@ export default function Home() {
         onClose={() => setDetailsView(false)}
       >
         <IconButton
-        aria-label="close"
-        onClick={handleClose}
-        sx={{
-          position: 'absolute',
-          right: 8,
-          top: 8,
-          zIndex: 999
-        }}
-      >
-        <Close />
-      </IconButton>
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            zIndex: 999
+          }}
+        >
+          <Close />
+        </IconButton>
         <DialogContent
           sx={{
             padding: 0,
@@ -452,6 +502,7 @@ export default function Home() {
             imageUrl={imageUrl}
             isDesktop={isDesktop}
             handleImgError={handleImgError}
+            optionSearch={optionSearch}
             handleExtensionChange={handleExtensionChange}
             originalSearchResults={searchResult}
             currentIndex={currentIndex}
@@ -490,9 +541,23 @@ export default function Home() {
               }}
               onSubmit={handleSearch}>
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+
+                <FormControlLabel
+                  labelPlacement="start"
+                  sx={{
+                    margin: 0
+                  }}
+                  control={
+                    <Switch
+                      checked={optionSearch}
+                      onChange={handleChange}
+                    />
+                  }
+                />
+
                 <input
                   autoFocus
-                  placeholder="Search…"
+                  placeholder={optionSearch ? 'Search Members...' : 'Search Students...'}
                   style={{
                     padding: '1rem',
                     border: 'none',
@@ -600,6 +665,7 @@ export default function Home() {
             imagePath={imagePath}
             imageUrl={imageUrl}
             isDesktop={isDesktop}
+            optionSearch={optionSearch}
             handleImgError={handleImgError}
             handleExtensionChange={handleExtensionChange}
             originalSearchResults={searchResult}
