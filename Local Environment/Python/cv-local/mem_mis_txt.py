@@ -1,6 +1,8 @@
 import base64
+import logging
 import os
 import re
+import time
 from urllib.parse import urlparse
 
 import mysql.connector
@@ -12,12 +14,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+logging.basicConfig(level=logging.INFO)
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-
 URL = 'https://www.icab.org.bd/page/find-member'
-
-# Options for the Chrome driver
 options = webdriver.ChromeOptions()
 options.add_argument("--log-level=3")
 options.add_argument("--headless")
@@ -33,6 +33,16 @@ driver_path = 'chromedriver-win64/chromedriver.exe'
 driver = webdriver.Chrome(executable_path=driver_path, options=options)
 driver.get(URL)
 
+def create_db_connection():
+    conn = mysql.connector.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='project-cv'
+    )
+    cursor = conn.cursor()
+    return conn, cursor
+
 def get_filename_from_url(url):
     """
     Get a valid filename from a given URL.
@@ -41,13 +51,14 @@ def get_filename_from_url(url):
     filename = os.path.basename(path)
     return filename
 
+
 def download_image(url):
     try:
         if not url.startswith(('http://', 'https://')):
             # print(f"Invalid URL: {url}")
             return None
-        
-        if 'https' in url and '8084' in url: 
+
+        if 'https' in url and '8084' in url:
             url = url.replace('https', 'http')
 
         response = requests.get(url, verify=False)
@@ -55,7 +66,8 @@ def download_image(url):
             image_base64 = base64.b64encode(response.content).decode('utf-8')
             return image_base64
         else:
-            print(f"Error downloading the image {url}. Status code: {response.status_code}")
+            print(
+                f"Error downloading the image {url}. Status code: {response.status_code}")
             return None
     except requests.exceptions.SSLError as e:
         print(f"SSL Error encountered for {url}. Error: {e}")
@@ -63,6 +75,7 @@ def download_image(url):
     except Exception as e:
         print(f"Error downloading {url}. Error: {e}")
         return None
+
 
 def scrape_page():
     soup = BeautifulSoup(driver.page_source, 'lxml')
@@ -82,7 +95,8 @@ def scrape_page():
         # Name
         name_tag = member.select_one('h3')
         if name_tag:
-            data['last_name'] = name_tag.contents[0].strip().split(',')[0].strip()
+            data['last_name'] = name_tag.contents[0].strip().split(',')[
+                0].strip()
             span_tag = name_tag.select_one('span')
             data['first_name'] = span_tag.text if span_tag else ""
 
@@ -94,7 +108,8 @@ def scrape_page():
         icab_tags = member.select('p')
         for icab_text in icab_tags:
             text_content = icab_text.text.strip()
-            matches = re.search(r"(ACA|FCA) \((\d{2}/\d{2}/\d{4})\) \((\d+)\)", text_content)
+            matches = re.search(
+                r"(ACA|FCA) \((\d{2}/\d{2}/\d{4})\) \((\d+)\)", text_content)
             if matches:
                 data['qualification'] = matches.group(1)
                 data['qualification_date'] = matches.group(2)
@@ -103,7 +118,6 @@ def scrape_page():
             else:
                 data['icab'] = text_content
 
-       
         # Position and Firm
         h4_tag = member.select_one('h4')
         if h4_tag:
@@ -116,7 +130,6 @@ def scrape_page():
         else:
             data['position'] = ''
             data['firm'] = None
-
 
         # Retrieve mobile number
         mobile_tag = member.select_one('p:contains("(M)")')
@@ -142,101 +155,107 @@ def scrape_page():
                 else:
                     data['address'] = ''
 
-
-
         email_tag = member.select_one('p:contains("(E)")')
         if email_tag:
             data['email'] = email_tag.text.split(')')[-1].strip()
-
+        # if data.get('enrollment_no') in missing_enrollment_numbers:
+        
         members_data.append(data)
-
     return members_data
 
 
-# Establish a Database Connection
-def create_db_connection():
+def close_db_connection(conn, cursor):
+    if conn.is_connected():
+        cursor.close()
+        conn.close()
+        logging.info("MySQL connection is closed")
+
+
+def insert_to_sql(data_list, cursor, conn):
     try:
-        conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="project-cv"
-        )
-        cursor = conn.cursor()
-        return conn, cursor
+        for member_data in data_list:
+            # Check if member with the same enrollment number exists
+            check_query = "SELECT COUNT(*) FROM mem_mis WHERE enrollment_number = %s"
+            cursor.execute(
+                check_query, (member_data.get('enrollment_no', ''),))
+            result = cursor.fetchone()
+
+            if result[0] == 0:
+                query = """INSERT INTO mem_mis 
+                    (image, image_base64, first_name, last_name, education, icab, qualification, qualification_date, enrollment_number, position, firm, address, mobile, email) 
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                values = (
+                    member_data.get('image', ''),
+                    member_data.get('image_base64', ''),
+                    member_data.get('first_name', ''),
+                    member_data.get('last_name', ''),
+                    member_data.get('education', ''),
+                    member_data.get('icab', ''),
+                    member_data.get('qualification', ''),
+                    member_data.get('qualification_date', ''),
+                    member_data.get('enrollment_no', ''),
+                    member_data.get('position', ''),
+                    member_data.get('firm', ''),
+                    member_data.get('address', ''),
+                    member_data.get('phone', ''),
+                    member_data.get('email', '')
+                )
+                cursor.execute(query, values)
+                conn.commit()
+                logging.info(f"Scraped and inserted : {member_data.get('enrollment_no')}.")
+
+            else:
+                logging.info(
+                    f"Member with enrollment no {member_data.get('enrollment_no')} already exists.")
     except mysql.connector.Error as err:
-        print(f"Error: {err}")
-        return None, None
+        logging.error(f"Error during insertion: {err}")
+
+
+with open('mis_mem_01.txt', 'r') as file:
+    enrollment_numbers_to_search = file.read().splitlines()
+
+enrollment_numbers_to_search = enrollment_numbers_to_search[::-1]
+
+# enrollment_numbers_to_search = [str(i).zfill(4) for i in range(1, 2251)]
+# enrollment_numbers_to_search = enrollment_numbers_to_search[::-1]
 
 conn, cursor = create_db_connection()
 if not conn or not cursor:
-    print("Failed to connect to the database!")
+    logging.error("Failed to connect to the database!")
     exit()
 
-def insert_to_sql(data_list):
-    try:
-        for member_data in data_list:
-            query = """INSERT INTO members 
-                    (image, image_base64, first_name, last_name, education, icab, qualification, qualification_date, enrollment_number, position, firm, address, mobile, email) 
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-
-            values = (
-                member_data.get('image', ''),
-                member_data.get('image_base64', ''),
-                member_data.get('first_name', ''),
-                member_data.get('last_name', ''),
-                member_data.get('education', ''),
-                member_data.get('icab', ''),
-                member_data.get('qualification', ''),
-                member_data.get('qualification_date', ''),
-                member_data.get('enrollment_no', ''),
-                member_data.get('position', ''),
-                member_data.get('firm', ''),
-                member_data.get('address', ''),
-                member_data.get('phone', ''),
-                member_data.get('email', '')
-            )
-            cursor.execute(query, values)
-            conn.commit()
-
-    except mysql.connector.Error as err:
-        print(f"Error: {err}")
-
-
-all_data = []
-
-while True:
-    scraped_data = scrape_page()
-    all_data.extend(scrape_page())
-    insert_to_sql(scraped_data)
-    print(f"Scraped and inserted, total: {len(all_data)}.")
-
-    # Try to click the next button
-    try:
-        next_button = WebDriverWait(driver, 15).until(
-            EC.element_to_be_clickable(
-                (By.CSS_SELECTOR, ".page-item a[aria-label='Next']"))
+try:
+    for enrollment_number in enrollment_numbers_to_search:
+        # Enter the enrollment number into the search box and click the submit button.
+        search_box = WebDriverWait(driver, 15).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".member-search-box input[type='text']"))
         )
+        search_box.clear()
+        search_box.send_keys(enrollment_number)
 
-        # Scroll to the button using JavaScript
-        driver.execute_script(
-            "arguments[0].scrollIntoView(true);", next_button)
+        submit_button = driver.find_element_by_css_selector(".member-search-box input[type='submit']")
+        submit_button.click()
 
-        # Use JavaScript to click the button
-        driver.execute_script("arguments[0].click();", next_button)
+        # Wait for results to load (you may adjust the wait time as needed).
+        time.sleep(2)
 
-        # Wait for a few seconds to ensure the new page has loaded
-        driver.implicitly_wait(5)
+        # Check if "No Member Found" is displayed.
+        page_content = driver.page_source
+        if "No Member Found" not in page_content:
+            scraped_data = scrape_page()
+            if scraped_data:
+                insert_to_sql(scraped_data, cursor, conn)
+                logging.info(f"Scraped and inserted data for enrollment number {enrollment_number}.")
+            else:
+                logging.warning(f"No data scraped for enrollment number {enrollment_number}.")
 
-    except Exception as e:
-        print("Failed to click the next button. Error:", e)
-        break  # No more pages left
+except Exception as e:
+    logging.error(f"Error during the process: {e}")
+finally:
+    driver.quit()
+    close_db_connection(conn, cursor)
 
-
-driver.quit()
-
-# At the end of your script:
-if conn.is_connected():
-    cursor.close()
-    conn.close()
-    print("MySQL connection is closed")
+conn, cursor = create_db_connection()
+if not conn or not cursor:
+    logging.error("Failed to connect to the database!")
+    exit()
