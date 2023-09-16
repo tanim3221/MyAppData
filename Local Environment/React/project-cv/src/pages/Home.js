@@ -21,7 +21,8 @@ import {
   FormControlLabel,
   Switch,
   IconButton,
-  Skeleton
+  Skeleton,
+  Divider
 } from '@mui/material';
 import { Search, Clear, Refresh, Close, ArrowBackIos, ArrowForwardIos, School, BusinessCenter } from '@mui/icons-material';
 
@@ -182,10 +183,10 @@ function DetailsInfoView({
                       <strong>Mobile: </strong> {item?.mobile}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                    <strong>Email: </strong> {item?.email}
+                      <strong>Email: </strong> {item?.email}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                    <strong>Address: </strong>{item?.address}
+                      <strong>Address: </strong>{item?.address}
                     </Typography>
                   </>
                 ) : (
@@ -218,6 +219,16 @@ function DetailsInfoView({
               )}
             </div>
           </CardContent>
+          {(optionSearch && item.reg_no) || (!optionSearch && item.enrollment_number) ? (
+            <div>
+              <Divider sx={{}} />
+              <div style={{ padding: '1rem' }}>
+                <strong>{optionSearch ? "Registration Number: " : "Enrollment Number: "}</strong>
+                {optionSearch ? item.reg_no : item.enrollment_number}
+              </div>
+            </div>
+          ) : null}
+
         </Card>
 
         <Grid container spacing={2} alignItems="center"
