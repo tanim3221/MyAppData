@@ -8,6 +8,7 @@ import pandas as pd
 import PyPDF2
 from colorama import Back, Style
 from django.conf import settings
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from openpyxl import load_workbook
@@ -22,7 +23,7 @@ from .models import Upload
 
 def upload_file(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
+        form = UploadFileForm(request.FILES)
         if form.is_valid():
             instance = form.save()
             image_path = instance.file.path
@@ -30,14 +31,15 @@ def upload_file(request):
             relative_pdf_path = jpgtopdf(image_paths)
             context = {
                 'pdf_path': relative_pdf_path,
-                'MEDIA_URL': settings.MEDIA_URL  # Pass MEDIA_URL to the context
+                'message': 'Successfully uploaded and converted to PDF!',
+                'MEDIA_URL': settings.MEDIA_URL
             }
             
-            return render(request, 'download.html', context)
+            return render(request, 'home.html', context)
             
     else:
         form = UploadFileForm()
-    return render(request, 'upload.html', {'form': form})
+    return render(request, 'home.html', {'form': form})
 
 
 def jpgtopdf(image_paths):
@@ -72,6 +74,3 @@ def jpgtopdf(image_paths):
 
     relative_path = os.path.relpath(pdf_output, settings.MEDIA_ROOT)
     return relative_path
-
-def success(request):
-    return HttpResponse('Successfully uploaded and converted to PDF!')

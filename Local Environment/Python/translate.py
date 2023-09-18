@@ -1,12 +1,15 @@
-import requests, uuid, json
+import json
+import uuid
 
-inputText = input("Enter your english: ")
+import requests
+
+inputText = input("Enter your English text: ")
 # Add your key and endpoint
 key = "57b4c5ed889842b599502012058d8612"
 endpoint = "https://api.cognitive.microsofttranslator.com"
 
-# location, also known as region.
-# required if you're using a multi-service or regional (not global) resource. It can be found in the Azure portal on the Keys and Endpoint page.
+# Location, also known as region.
+# Required if you're using a multi-service or regional (not global) resource. It can be found in the Azure portal on the Keys and Endpoint page.
 location = "eastus"
 
 path = '/translate'
@@ -20,7 +23,7 @@ params = {
 
 headers = {
     'Ocp-Apim-Subscription-Key': key,
-    # location required if you're using a multi-service or regional (not global) resource.
+    # Location required if you're using a multi-service or regional (not global) resource.
     'Ocp-Apim-Subscription-Region': location,
     'Content-type': 'application/json',
     'X-ClientTraceId': str(uuid.uuid4())
@@ -34,4 +37,9 @@ body = [{
 request = requests.post(constructed_url, params=params, headers=headers, json=body)
 response = request.json()
 
-print(json.dumps(response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': ')))
+response_string = json.dumps(response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': '))
+print(response_string)
+
+# Save response to txt file
+with open('response.txt', 'w', encoding='utf-8') as f:
+    f.write(response_string)
