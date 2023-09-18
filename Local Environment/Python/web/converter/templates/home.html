@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="icon" href="{% static 'img/convert01.png' %}" type="image/png" />
 </head>
 
 <body data-spy="scroll" data-target="#myScrollspy">
@@ -35,16 +36,29 @@
   <section class="body_form">
     {% if message %}
     <div class="messages">{{message}}</div>
-    <div><a href="{{ MEDIA_URL }}{{ pdf_path }}" download>Click here to download the PDF</a>
-    </div>
-    {% endif %}
+    <div><a href="{{ MEDIA_URL }}{{ pdf_path }}" download>Click here to download the PDF</a></div>
+    {% else %}
     {% block content %}
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Start Process</button>
+      {% for field in form %}
+      {% if field.name == "file" %}
+      <div class="drop-zone" id="dropZone">
+        <input type="file" name="{{ field.name }}" id="fileInput">
+        <label for="fileInput" id="dropLabel">Drag & drop a file here or click to select one</label>
+    </div>
+      {% else %}
+      {{ field.as_p }}
+      {% endif %}
+      {% endfor %}
+      <div class="button_div">
+        <button type="submit" id="submit_button">Start Process</button>
+
+      </div>
     </form>
+
     {% endblock %}
+    {% endif %}
   </section>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

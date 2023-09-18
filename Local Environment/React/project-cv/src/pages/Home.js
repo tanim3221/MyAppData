@@ -340,7 +340,6 @@ export default function Home() {
     setSearchResult(filteredResult);
   };
 
-
   // eslint-disable-next-line
   const handleSearch = (e) => {
     e.preventDefault();
@@ -574,6 +573,7 @@ export default function Home() {
                     <Switch
                       checked={optionSearch}
                       onChange={handleChange}
+                      disabled={searchLoading}
                     />
                   }
                 />

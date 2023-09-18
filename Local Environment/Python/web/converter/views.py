@@ -23,7 +23,7 @@ from .models import Upload
 
 def upload_file(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.FILES)
+        form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save()
             image_path = instance.file.path
