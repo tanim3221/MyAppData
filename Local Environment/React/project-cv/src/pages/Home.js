@@ -361,6 +361,7 @@ export default function Home() {
           const result = response.result;
           if (Array.isArray(result) && result.length > 0) {
             setSearchResult(result);
+            setOptionSearch(response.search);
             setSearchArray(true);
           } else {
             setSearchResult([]);
