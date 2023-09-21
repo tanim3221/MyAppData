@@ -21,6 +21,7 @@ import Visitors from './pages/Visitors';
 import ProtectedMainLayout from './auth/ProtectedMainLayout';
 import Media from './pages/Media';
 import TagList from './pages/TagList';
+import Reference from './pages/Reference';
 
 export default function Router() {
   return (
@@ -44,6 +45,7 @@ export default function Router() {
         <Route path="visitors" element={<Visitors />} />
         <Route path="media-list" element={<Media />} />
         <Route path="profile-role" element={<TagList />} />
+        <Route path="references" element={<Reference />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       {/* <Route path="admin" element={<LoginPage />} /> */}

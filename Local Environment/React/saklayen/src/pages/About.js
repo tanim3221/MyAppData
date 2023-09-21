@@ -538,11 +538,15 @@ function About() {
       <Stack
           spacing={2}
           direction="row"
-          justifyContent="space-between"
-          sx={{ margin: '2rem 0' }}
+          justifyContent="center"
+          flexWrap="wrap"
+          sx={{ margin: '1rem 0 2rem 0' }}
         >
           <Button
             variant="contained"
+            style={{
+              marginTop: '1rem'
+            }}
             onClick={() => {
               resetMainDataState();
               setIsAdding(true);
@@ -552,11 +556,25 @@ function About() {
             Add About Info
           </Button>
           <Button
+            style={{
+              marginTop: '1rem'
+            }}
             variant="outlined"
             onClick={() => {navigatePage('/profile-role')}}>
             Profile Role
           </Button>
+         <Button
+           style={{
+            marginTop: '1rem'
+          }}
+            variant="contained"
+            onClick={() => {navigatePage('/references')}}>
+            References
+          </Button>
         <Button
+          style={{
+            marginTop: '1rem'
+          }}
             variant="outlined"
             onClick={() => {
               setEditOpen(true);
