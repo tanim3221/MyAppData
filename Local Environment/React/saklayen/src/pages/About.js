@@ -221,6 +221,18 @@ function About() {
               onChange={handleChange}
             />
              <TextField
+              label="Father Name"
+              name='father_name'
+              value={mainData.father_name}
+              onChange={handleChange}
+            />
+             <TextField
+              label="Mother Name"
+              name='mother_name'
+              value={mainData.mother_name}
+              onChange={handleChange}
+            />
+             <TextField
               label="Career Objective"
               name='car_obj'
               multiline
@@ -233,6 +245,18 @@ function About() {
               label="Birthday"
               name='birthday'
               value={mainData.birthday}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Gender"
+              name='gender'
+              value={mainData.gender}
+              onChange={handleChange}
+            />
+             <TextField
+              label="Marital Status"
+              name='marital'
+              value={mainData.marital}
               onChange={handleChange}
             />
             <TextField
@@ -313,7 +337,16 @@ function About() {
                 }
               </Select>
             </FormControl>
-            
+            <TextField
+              label="Present Address"
+              name='present_address'
+              multiline
+              rows={3}
+              value={mainData.present_address}
+              sx={{ gridColumn: 'span 2' }}
+              onChange={handleChange}
+            />
+
             <TextField
               label="Permanent Address"
               name='permanent_address'

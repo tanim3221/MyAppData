@@ -168,11 +168,20 @@ function Education() {
               onChange={handleChange}
             />
 
+           <TextField
+              label="Passing Year"
+              name='passing'
+              value={mainData.passing}
+              onChange={handleChange}
+            />
+
             <TextField
               label="Department"
               name='department'
               value={mainData.department || ''}
               onChange={handleChange}
+              sx={{ gridColumn: 'span 2' }}
+
             />
             <TextField
               label="Grade"

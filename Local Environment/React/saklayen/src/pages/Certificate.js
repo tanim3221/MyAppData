@@ -25,8 +25,11 @@ function Certificate() {
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [viewInCv, setAddCvValue] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [mediaList, setMediaList] = useState([]);
+  const [skillList, setSkillList] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   const navigate = useNavigate();
 
@@ -39,6 +42,7 @@ function Certificate() {
         setData(responseData.saklayen[TABLE_NAME]);
         setIssuerList(responseData.saklayen.issuer_list);
         setMediaList(responseData.saklayen.media);
+        setSkillList(responseData.saklayen.skills);
         setLoading(false);
       })
       .catch(error => {
@@ -75,6 +79,14 @@ function Certificate() {
       });
   }
 
+  const handleSkillsChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      skills: JSON.stringify(selectedValue),
+    }));
+    setSelectedSkills(selectedValue);
+  };
   const handleDelete = (id) => {
     const requestData = {
       table: TABLE_NAME,
@@ -155,6 +167,14 @@ function Certificate() {
     }));
     setSelectedCategory(selectedValue);
   };
+  const handleViewInCV = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      for_cv: selectedValue,
+    }));
+    setAddCvValue(selectedValue);
+  };
 
   const handleFileChange = (event) => {
     const selectedValue = event.target.value;
@@ -196,11 +216,25 @@ function Certificate() {
     navigate(url, { replace: true });
   }
 
+  const cvOption = [
+    {
+        id: '1',
+        value: '1',
+        name: 'Add In CV'
+    },
+    {
+        id: '2',
+        value: '0',
+        name: 'Not Neccessary'
+    }
+];
+
+
   // eslint-disable-next-line
   const renderDialog = () => {
     return (
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{isAdding ? 'Add New Education' : mainData.title}</DialogTitle>
+        <DialogTitle>{isAdding ? 'Add New Certificates' : mainData.title}</DialogTitle>
         <DialogContent>
           <Box
             component="form"
@@ -233,11 +267,26 @@ function Certificate() {
                 }
               </Select>
             </FormControl>
+            <FormControl sx={{ minWidth: 120 }}>
+              <InputLabel id="for_cv">View In CV</InputLabel>
+              <Select
+                labelId="for_cv"
+                label="View In CV"
+                value={viewInCv}
+                onChange={handleViewInCV}
+                name='for_cv'
+              >
+                {
+                  cvOption.map(item => (
+                    <MenuItem key={item.id} value={item.value}>{item.name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
             <TextField
               label="Course Category"
               name='course_category'
               value={mainData.course_category}
-              sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
             
@@ -260,6 +309,26 @@ function Certificate() {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
+            <FormControl sx={{minWidth: 120, gridColumn: 'span 2' }}>
+              <InputLabel id="tag_id">Skills</InputLabel>
+              <Select
+                labelId='tag_id'
+                label="Skills"
+                multiple
+                name='skills'
+                value={selectedSkills}
+                onChange={handleSkillsChange}
+                renderValue={(selected) => selected.join(', ')}
+              >
+                
+                {
+                  skillList.map(item => (
+                    <MenuItem key={item.id} value={item.skill}>{item.skill}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+            
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Date Issued"
@@ -382,6 +451,7 @@ function Certificate() {
                           setMainData(item);
                           setOpen(true);
                           setSelectedCategory(item.issuer);
+                          setAddCvValue(item.for_cv);
                           setSelectedFile(item.icon);
                           setIsAdding(false)
                         }}

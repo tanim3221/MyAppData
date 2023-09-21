@@ -9,6 +9,7 @@ import {properCase} from '../utils/commonFunction';
 
 function Skill() {
   const [data, setData] = useState([]);
+  const [techcat, setTechCat] = useState([]);
   const [loading, setLoading] = useState(true);
   const [mainData, setMainData] = useState({});
   const [open, setOpen] = useState(false);
@@ -17,13 +18,16 @@ function Skill() {
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedTechCategory, setSelectedTechCategory] = useState('');
 
   const TABLE_NAME = 'skills';
+  const TABLE_NAME_CAT = 'categories';
 
   useEffect(() => {
     fetchData()
       .then(responseData => {
         setData(responseData.saklayen[TABLE_NAME]);
+        setTechCat(responseData.saklayen[TABLE_NAME_CAT]);
         setLoading(false);
       })
       .catch(error => {
@@ -132,6 +136,15 @@ function Skill() {
     setSelectedCategory(selectedValue);
   };
 
+  const handleTechCategoryChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      cat_id: selectedValue,
+    }));
+    setSelectedTechCategory(selectedValue);
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setMainData((prevData) => ({
@@ -185,6 +198,24 @@ function Skill() {
                 {
                   skillCategory.map(item => (
                     <MenuItem key={item.id} value={item.value}>{item.name}</MenuItem>
+                  ))
+                }
+
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 120, gridColumn: 'span 2' }}>
+              <InputLabel id="Tech_Skill_Category">Tech Skill Area</InputLabel>
+              <Select
+                labelId="Tech_Skill_Category"
+                label="Tech Skill Area"
+                value={selectedTechCategory}
+                onChange={handleTechCategoryChange}
+                sx={{ gridColumn: 'span 2' }}
+                name='cat_id'
+              >
+                {
+                  techcat.map(item => (
+                    <MenuItem key={item.id} value={item.id}>{item.category_name}</MenuItem>
                   ))
                 }
 
@@ -261,6 +292,7 @@ function Skill() {
                         setOpen(true);
                         setIsAdding(false)
                         setSelectedCategory(item.category);
+                        setSelectedTechCategory(item.cat_id);
                       }}
                     >
                       <Edit />

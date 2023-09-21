@@ -6,6 +6,7 @@ import extStyles from '../utils/styles.module.css';
 
 function Experience() {
   const [data, setData] = useState([]);
+  const [extraData, setExtraData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [mainData, setMainData] = useState({});
   const [open, setOpen] = useState(false);
@@ -13,13 +14,16 @@ function Experience() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
+  const [forExp, setForExp] = useState(true);
 
   const TABLE_NAME = 'experience';
+  const TABLE_NAME_EXTRA = 'extra_curr';
 
   useEffect(() => {
     fetchData()
       .then(responseData => {
         setData(responseData.saklayen[TABLE_NAME]);
+        setExtraData(responseData.saklayen[TABLE_NAME_EXTRA]);
         setLoading(false);
       })
       .catch(error => {
@@ -34,15 +38,21 @@ function Experience() {
 
   const handleAdd = () => {
     const requestData = {
-      table: TABLE_NAME,
+      table: forExp ? TABLE_NAME : TABLE_NAME_EXTRA,
       data: mainData
     };
     addData(requestData)
       .then(response => {
         setSnackbarMessage(response.message);
         setSnackbarOpen(true);
-        const addData = [...data, mainData];
-        setData(addData);
+        if (forExp) {
+          const addData = [...data, mainData];
+          setData(addData);
+        } else {
+          const addData = [...extraData, mainData];
+          setExtraData(addData);
+        }
+
         setOpen(false);
         setIsAdding(false);
         setMainData({});
@@ -57,7 +67,7 @@ function Experience() {
 
   const handleDelete = (id) => {
     const requestData = {
-      table: TABLE_NAME,
+      table: forExp ? TABLE_NAME : TABLE_NAME_EXTRA,
       id,
       action: 'delete',
     };
@@ -66,8 +76,13 @@ function Experience() {
       .then(response => {
         setSnackbarMessage(response.message);
         setSnackbarOpen(true);
-        const deletedData = data.filter(item => item.id !== id);
-        setData(deletedData);
+        if (forExp) {
+          const deletedData = data.filter(item => item.id !== id);
+          setData(deletedData);
+        } else {
+          const deletedData = extraData.filter(item => item.id !== id);
+          setExtraData(deletedData);
+        }
         setOpen(false);
       })
       .catch(error => {
@@ -79,7 +94,7 @@ function Experience() {
 
   const handleSave = () => {
 
-    const existingData = data.find(item => item.id === mainData.id);
+    const existingData = forExp ? data.find(item => item.id === mainData.id) : extraData.find(item => item.id === mainData.id);
     const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
 
     if (!isDataChanged) {
@@ -89,7 +104,7 @@ function Experience() {
       return;
     }
     const requestData = {
-      table: TABLE_NAME,
+      table: forExp ? TABLE_NAME : TABLE_NAME_EXTRA,
       data: mainData
     };
 
@@ -97,14 +112,24 @@ function Experience() {
       .then(response => {
         setSnackbarMessage(response.message);
         setSnackbarOpen(true);
-        const updatedData = data.map(item => {
-          if (item.id === mainData.id) {
-            return { ...item, ...mainData };
-          }
-          return item;
-        });
+        if (forExp) {
+          const updatedData = data.map(item => {
+            if (item.id === mainData.id) {
+              return { ...item, ...mainData };
+            }
+            return item;
+          });
+          setData(updatedData);
+        } else {
+          const updatedData = extraData.map(item => {
+            if (item.id === mainData.id) {
+              return { ...item, ...mainData };
+            }
+            return item;
+          });
+          setExtraData(updatedData);
+        }
 
-        setData(updatedData);
         setOpen(false);
       })
       .catch(error => {
@@ -131,7 +156,7 @@ function Experience() {
   const renderDialog = () => {
     return (
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{isAdding ? 'Add New Experience' : mainData.position}</DialogTitle>
+        <DialogTitle>{isAdding ? forExp ? 'Add New Experience' : 'Add New Curricular Activities' : mainData.position}</DialogTitle>
         <DialogContent>
           <Box
             component="form"
@@ -167,6 +192,34 @@ function Experience() {
               value={mainData.company}
               onChange={handleChange}
             />
+            
+            <TextField
+              label="Department"
+              name='department'
+              value={mainData.department}
+              sx={{ gridColumn: 'span 2' }}
+
+              onChange={handleChange}
+            />
+            
+            <TextField
+              label="Company Address"
+              name='address'
+              value={mainData.address}
+              sx={{ gridColumn: 'span 2' }}
+              multiline
+              rows={3}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Job Responsibility"
+              name='job_res'
+              value={mainData.job_res || ''}
+              sx={{ gridColumn: 'span 2' }}
+              multiline
+              rows={8}
+              onChange={handleChange}
+            />
             <TextField
               label="Description"
               name='description'
@@ -199,11 +252,24 @@ function Experience() {
         onClick={() => {
           resetMainDataState();
           setIsAdding(true);
+          setForExp(true);
           setOpen(true);
         }}
         style={{ marginBottom: '1.3rem' }}
       >
-        Add New
+        Add New Experience
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          resetMainDataState();
+          setIsAdding(true);
+          setForExp(false);
+          setOpen(true);
+        }}
+        style={{ marginBottom: '1.3rem',marginLeft:'1rem' }}
+      >
+        Add New Curricular Activities
       </Button>
       <TableContainer component={Paper}>
         {loading ? (
@@ -235,6 +301,30 @@ function Experience() {
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
+                        setForExp(true);
+                        setIsAdding(false)
+                      }}
+                    >
+                      <Edit />
+                      </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+            <TableBody>
+              {extraData.map(item => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.rank}</TableCell>
+                  <TableCell>{item.company}</TableCell>
+                  <TableCell>{item.position}</TableCell>
+                  <TableCell>{item.period}</TableCell>
+                  <TableCell>{item.description}</TableCell>
+                  <TableCell>
+                  <Button
+                      onClick={() => {
+                        setMainData(item);
+                        setOpen(true);
+                        setForExp(false);
                         setIsAdding(false)
                       }}
                     >
