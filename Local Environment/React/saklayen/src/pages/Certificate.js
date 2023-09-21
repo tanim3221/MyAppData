@@ -448,9 +448,18 @@ function Certificate() {
                       <Button
                         variant="outlined"
                         onClick={() => {
+                          const skillsArray = (() => {
+                            try {
+                                const parsed = JSON.parse(item.skills);
+                                return Array.isArray(parsed) ? parsed : [];
+                            } catch (e) {
+                                return [];
+                            }
+                        })();
                           setMainData(item);
                           setOpen(true);
                           setSelectedCategory(item.issuer);
+                          setSelectedSkills(skillsArray);
                           setAddCvValue(item.for_cv);
                           setSelectedFile(item.icon);
                           setIsAdding(false)
