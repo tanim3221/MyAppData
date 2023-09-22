@@ -281,7 +281,9 @@ export default function Header({ onOpenNav }) {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
-            <FormGroup>
+            <FormGroup
+                sx={{ gridColumn: 'span 2' }}
+            >
               <FormControlLabel
                 control={
                   <Checkbox
@@ -333,7 +335,7 @@ export default function Header({ onOpenNav }) {
               value={mainData.username}
               onChange={handleChange}
             />
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl>
               <InputLabel id="pro_img">Profile Photo</InputLabel>
               <Select
                 labelId="pro_img"

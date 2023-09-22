@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
+import { Container, Button, TableContainer, Paper, Table,FormControl,InputLabel,MenuItem,Select, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
 import { Edit, Delete, Check} from '@mui/icons-material'
 import { fetchData, addData, deleteData, updateData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -13,6 +13,9 @@ function TagList() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
+  const [selectedVisible, setSelectedVisibility] = useState('');
+
+
 
   const TABLE_NAME = "my_tags";
 
@@ -30,6 +33,15 @@ function TagList() {
       });
   }, [dataChanged]);
 
+
+  const handleVisibilityChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      visibility: selectedValue,
+    }));
+    setSelectedVisibility(selectedValue);
+  };
   const resetMainDataState = () => {
     setMainData({});
   }
@@ -159,6 +171,19 @@ function TagList() {
             value={mainData.tag_description}
             onChange={handleChange}
             />
+                        <FormControl  sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
+              </Select>
+            </FormControl>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
             {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
             </Stack>
@@ -208,6 +233,8 @@ function TagList() {
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
+                        setSelectedVisibility(item.visibility);
+
                         setIsAdding(false)
                       }}
                     >

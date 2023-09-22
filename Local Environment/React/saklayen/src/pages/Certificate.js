@@ -25,6 +25,7 @@ function Certificate() {
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedVisible, setSelectedVisibility] = useState('');
   const [viewInCv, setAddCvValue] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [mediaList, setMediaList] = useState([]);
@@ -54,6 +55,15 @@ function Certificate() {
   const resetMainDataState = () => {
     setMainData({});
   }
+
+  const handleVisibilityChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      visibility: selectedValue,
+    }));
+    setSelectedVisibility(selectedValue);
+  };
 
   const handleAdd = () => {
     const requestData = {
@@ -167,6 +177,7 @@ function Certificate() {
     }));
     setSelectedCategory(selectedValue);
   };
+  
   const handleViewInCV = (event) => {
     const selectedValue = event.target.value;
     setMainData((prevData) => ({
@@ -251,7 +262,7 @@ function Certificate() {
               value={mainData.rank}
               onChange={handleChange}
             />
-           <FormControl sx={{ minWidth: 120 }}>
+           <FormControl>
               <InputLabel id="issuer_label">Issued By</InputLabel>
               <Select
                 labelId="issuer_label"
@@ -267,7 +278,7 @@ function Certificate() {
                 }
               </Select>
             </FormControl>
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl>
               <InputLabel id="for_cv">View In CV</InputLabel>
               <Select
                 labelId="for_cv"
@@ -309,7 +320,7 @@ function Certificate() {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
-            <FormControl sx={{minWidth: 120, gridColumn: 'span 2' }}>
+            <FormControl sx={{gridColumn: 'span 2' }}>
               <InputLabel id="tag_id">Skills</InputLabel>
               <Select
                 labelId='tag_id'
@@ -340,7 +351,7 @@ function Certificate() {
               />
             </LocalizationProvider>
             
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl>
               <InputLabel id="issuer_label">Issuer Logo</InputLabel>
               <Select
                 labelId="issuer_label"
@@ -354,6 +365,21 @@ function Certificate() {
                     <MenuItem key={item.id} value={item.file_name}>{item.file_text}</MenuItem>
                   ))
                 }
+              </Select>
+            </FormControl>
+
+             
+            <FormControl  sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
               </Select>
             </FormControl>
 
@@ -461,6 +487,7 @@ function Certificate() {
                           setSelectedCategory(item.issuer);
                           setSelectedSkills(skillsArray);
                           setAddCvValue(item.for_cv);
+                          setSelectedVisibility(item.visibility);
                           setSelectedFile(item.icon);
                           setIsAdding(false)
                         }}

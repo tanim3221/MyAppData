@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
+import { Container, Button, TableContainer, Paper, FormControl, InputLabel, Select,MenuItem, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
 import { Edit, Delete, Check} from '@mui/icons-material'
 import { fetchData, addData, deleteData, updateData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -11,6 +11,8 @@ function Attributes() {
   const [open, setOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [selectedVisible, setSelectedVisibility] = useState('');
+
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
 
@@ -33,6 +35,15 @@ function Attributes() {
   const resetMainDataState = () => {
     setMainData({});
   }
+
+  const handleVisibilityChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      visibility: selectedValue,
+    }));
+    setSelectedVisibility(selectedValue);
+  };
 
   const handleAdd = () => {
     const requestData = {
@@ -165,6 +176,19 @@ function Attributes() {
             onChange={handleChange}
             sx={{ gridColumn: 'span 2' }}
             />
+            <FormControl  sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
+              </Select>
+            </FormControl>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
             {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
             </Stack>
@@ -214,6 +238,7 @@ function Attributes() {
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
+                        setSelectedVisibility(item.visibility);
                         setIsAdding(false)
                       }}
                     >

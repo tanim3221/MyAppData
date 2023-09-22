@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle, Snackbar, FormControl,InputLabel,MenuItem,Select, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
 import { Edit, Delete, Check } from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -13,6 +13,8 @@ function Education() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
+  const [selectedVisible, setSelectedVisibility] = useState('');
+
 
   const TABLE_NAME = 'education';
 
@@ -32,6 +34,14 @@ function Education() {
     setMainData({});
   }
 
+  const handleVisibilityChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      visibility: selectedValue,
+    }));
+    setSelectedVisibility(selectedValue);
+  };
   const handleAdd = () => {
     const requestData = {
       table: TABLE_NAME,
@@ -195,6 +205,19 @@ function Education() {
               value={mainData.stream || ''}
               onChange={handleChange}
             />
+                        <FormControl  sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
+              </Select>
+            </FormControl>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
             {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
             </Stack>
@@ -255,7 +278,9 @@ function Education() {
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
-                        setIsAdding(false)
+                        setIsAdding(false);
+                        setSelectedVisibility(item.visibility);
+
                       }}
                     >
                       <Edit />

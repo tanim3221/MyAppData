@@ -24,6 +24,8 @@ function About() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedSocial, setSelectedSocial] = useState([]);
+  const [selectedVisible, setSelectedVisibility] = useState('');
+
   const navigate = useNavigate();
 
 
@@ -59,6 +61,7 @@ function About() {
   const textStyles = {
     textAlign: 'left',
     whiteSpace: 'normal',
+    overflowWrap: 'break-word'
   };
 
   const TABLE_NAME_ABOUT = 'aboutme';
@@ -159,6 +162,15 @@ function About() {
         setSnackbarOpen(true);
       });
   }
+
+  const handleVisibilityChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      visibility: selectedValue,
+    }));
+    setSelectedVisibility(selectedValue);
+  };
 
   const handleFileChange = (event) => {
     const selectedValue = event.target.value;
@@ -283,7 +295,7 @@ function About() {
               value={mainData.email}
               onChange={handleChange}
             />
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl>
               <InputLabel id="issuer_label">Profile Photo</InputLabel>
               <Select
                 labelId="issuer_label"
@@ -299,7 +311,7 @@ function About() {
                 }
               </Select>
             </FormControl>
-            <FormControl sx={{minWidth: 120, gridColumn: 'span 2' }}>
+            <FormControl sx={{gridColumn: 'span 2' }}>
               <InputLabel id="tag_id">My Tags</InputLabel>
               <Select
                 labelId='tag_id'
@@ -318,7 +330,7 @@ function About() {
                 }
               </Select>
             </FormControl>
-            <FormControl sx={{minWidth: 120, gridColumn: 'span 2' }}>
+            <FormControl sx={{gridColumn: 'span 2' }}>
               <InputLabel id="social_id">Social Media Link</InputLabel>
               <Select
                 labelId="social_id"
@@ -356,7 +368,19 @@ function About() {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
-
+            <FormControl  sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
+              </Select>
+            </FormControl>
 
             <Stack sx={{ gridColumn: 'span 2' }} spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
             <Button variant="outlined" onClick={() =>navigatePage('/media-list')}><Image/></Button>
@@ -407,6 +431,19 @@ function About() {
               rows={10}
               onChange={handleChange}
             />
+            <FormControl  sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
+              </Select>
+            </FormControl>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
               {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
             </Stack>
@@ -435,6 +472,28 @@ function About() {
               Name
             </Typography>
             <Typography style={textStyles}>{personal.name}</Typography>
+          </Paper>
+        </Grid>
+         <Grid item xs={12} md={6} lg={4} sm={12}>
+          <Paper elevation={1} style={paperStyle}>
+            {/* <Button size="small" style={buttonStyle}>
+              <Edit />
+            </Button> */}
+            <Typography variant="h6" gutterBottom style={textStyles}>
+              Father Name
+            </Typography>
+            <Typography style={textStyles}>{personal.father_name}</Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4} sm={12}>
+          <Paper elevation={1} style={paperStyle}>
+            {/* <Button size="small" style={buttonStyle}>
+              <Edit />
+            </Button> */}
+            <Typography variant="h6" gutterBottom style={textStyles}>
+              Mother Name
+            </Typography>
+            <Typography style={textStyles}>{personal.mother_name}</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} md={6} lg={4} sm={12}>
@@ -470,7 +529,7 @@ function About() {
             <Typography style={textStyles}>{personal.birthday}</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6} lg={4} sm={12}>
+        <Grid item xs={12} md={6} lg={3} sm={12}>
           <Paper elevation={3} style={paperStyle}>
             {/* <Button size="small" style={buttonStyle}>
               <Edit />
@@ -481,7 +540,18 @@ function About() {
             <Typography style={textStyles}>{personal.religion}</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6} lg={4} sm={12}>
+        <Grid item xs={12} md={6} lg={3} sm={12}>
+          <Paper elevation={3} style={paperStyle}>
+            {/* <Button size="small" style={buttonStyle}>
+              <Edit />
+            </Button> */}
+            <Typography variant="h6" gutterBottom style={textStyles}>
+              Gender
+            </Typography>
+            <Typography style={textStyles}>{personal.gender}</Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3} sm={12}>
           <Paper elevation={3} style={paperStyle}>
             {/* <Button size="small" style={buttonStyle}>
               <Edit />
@@ -490,6 +560,17 @@ function About() {
               Nationality
             </Typography>
             <Typography style={textStyles}>{personal.nationality}</Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3} sm={12}>
+          <Paper elevation={3} style={paperStyle}>
+            {/* <Button size="small" style={buttonStyle}>
+              <Edit />
+            </Button> */}
+            <Typography variant="h6" gutterBottom style={textStyles}>
+              Marital Status
+            </Typography>
+            <Typography style={textStyles}>{personal.marital}</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} md={12} lg={12} sm={12}>
@@ -581,6 +662,7 @@ function About() {
               resetMainDataState();
               setMainData(personal);
               setSelectedFile(personal.photo);
+              setSelectedVisibility(personal.visibility);
               setSelectedTags(JSON.parse(personal.tag));
               setSelectedSocial(JSON.parse(personal.linkedin_profile));
             }}>
@@ -611,8 +693,11 @@ function About() {
                   <TableCell>{item.rank}</TableCell>
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{item.description}</TableCell>
-                  <TableCell><Button onClick={() => {
+                  <TableCell>
+                    <Button onClick={() => {
                     setMainData(item);
+                    setSelectedVisibility(item.visibility);
+
                     setOpen(true);
                   }}><Edit /></Button></TableCell>
                 </TableRow>

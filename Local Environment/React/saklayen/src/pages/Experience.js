@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle, Snackbar, Box, FormControl,InputLabel,MenuItem,Select, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
 import { Edit, Delete, Check } from '@mui/icons-material'
 import { fetchData,addData, updateData, deleteData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -15,6 +15,8 @@ function Experience() {
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
   const [forExp, setForExp] = useState(true);
+  const [selectedVisible, setSelectedVisibility] = useState('');
+
 
   const TABLE_NAME = 'experience';
   const TABLE_NAME_EXTRA = 'extra_curr';
@@ -31,7 +33,14 @@ function Experience() {
         setLoading(false);
       });
   }, [dataChanged]);
-
+  const handleVisibilityChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      visibility: selectedValue,
+    }));
+    setSelectedVisibility(selectedValue);
+  };
   const resetMainDataState = () => {
     setMainData({});
   }
@@ -229,6 +238,19 @@ function Experience() {
               rows={10}
               onChange={handleChange}
             />
+                        <FormControl  sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
+              </Select>
+            </FormControl>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
             {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
             </Stack>
@@ -255,7 +277,7 @@ function Experience() {
           setForExp(true);
           setOpen(true);
         }}
-        style={{ marginBottom: '1.3rem' }}
+        style={{ marginBottom: '1rem', marginRight:'1rem' }}
       >
         Add New Experience
       </Button>
@@ -267,7 +289,7 @@ function Experience() {
           setForExp(false);
           setOpen(true);
         }}
-        style={{ marginBottom: '1.3rem',marginLeft:'1rem' }}
+        style={{ marginBottom: '1rem' }}
       >
         Add New Curricular Activities
       </Button>
@@ -302,7 +324,9 @@ function Experience() {
                         setMainData(item);
                         setOpen(true);
                         setForExp(true);
-                        setIsAdding(false)
+                        setIsAdding(false);
+                        setSelectedVisibility(item.visibility);
+
                       }}
                     >
                       <Edit />

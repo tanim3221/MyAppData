@@ -21,6 +21,8 @@ function Media() {
   const [dataChanged, setDataChanged] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedVisible, setSelectedVisibility] = useState('');
+
 
   const TABLE_NAME = 'media';
 
@@ -40,6 +42,14 @@ function Media() {
     setMainData({});
   }
 
+  const handleVisibilityChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      visibility: selectedValue,
+    }));
+    setSelectedVisibility(selectedValue);
+  };
   const handleAdd = (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -296,7 +306,7 @@ function Media() {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl>
               <InputLabel id="file_cat">File Category</InputLabel>
               <Select
                 labelId="file_cat"
@@ -318,6 +328,19 @@ function Media() {
               name='file_name'
               onChange={handleFileChange}
             />
+            <FormControl  sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
+              </Select>
+            </FormControl>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
               {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
             </Stack>

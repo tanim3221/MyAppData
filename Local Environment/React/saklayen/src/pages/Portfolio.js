@@ -20,6 +20,8 @@ function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [mediaList, setMediaList] = useState([]);
+  const [selectedVisible, setSelectedVisibility] = useState('');
+
 
   const navigate = useNavigate();
 
@@ -43,6 +45,15 @@ function Portfolio() {
   const resetMainDataState = () => {
     setMainData({});
   }
+
+  const handleVisibilityChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      visibility: selectedValue,
+    }));
+    setSelectedVisibility(selectedValue);
+  };
 
   const handleAdd = () => {
     const requestData = {
@@ -194,7 +205,7 @@ function Portfolio() {
               value={mainData.rank}
               onChange={handleChange}
             />
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl>
               <InputLabel id="category">Category</InputLabel>
               <Select
                 labelId="category"
@@ -225,7 +236,7 @@ function Portfolio() {
               onChange={handleChange}
               // sx={{ gridColumn: 'span 2' }}
             />
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl>
               <InputLabel id="issuer_label">Logo</InputLabel>
               <Select
                 labelId="issuer_label"
@@ -239,6 +250,19 @@ function Portfolio() {
                     <MenuItem key={item.id} value={item.file_name}>{item.file_text}</MenuItem>
                   ))
                 }
+              </Select>
+            </FormControl>
+            <FormControl  sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
               </Select>
             </FormControl>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
@@ -301,6 +325,8 @@ function Portfolio() {
                         setOpen(true);
                         setSelectedCategory(item.category);
                         setSelectedFile(item.imageLink);
+                        setSelectedVisibility(item.visibility);
+
                         setIsAdding(false)
                       }}
                     >
