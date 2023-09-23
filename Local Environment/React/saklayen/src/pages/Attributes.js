@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Paper, FormControl, InputLabel, Select,MenuItem, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
-import { Edit, Delete, Check} from '@mui/icons-material'
+import { Container, Button, TableContainer, Paper,IconButton, FormControl, InputLabel, Select,MenuItem, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
+import { Edit, Delete, Check,Close} from '@mui/icons-material'
 import { fetchData, addData, deleteData, updateData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
 
@@ -256,7 +256,15 @@ function Attributes() {
         open={snackbarOpen}
         autoHideDuration={3000}
         onclose={() => setSnackbarOpen(false)}
-        message={snackbarMessage} />
+        message={snackbarMessage}
+        action={
+          <>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
+              <Close fontSize="small" />
+            </IconButton>
+          </>
+        }
+         />
       {renderDialog()}
     </Container>
   );

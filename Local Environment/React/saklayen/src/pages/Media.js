@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, Input, TableRow, Select, FormControl, MenuItem, InputLabel, TableCell, TableBody, CircularProgress, Stack, Typography, Divider } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle,IconButton, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, Input, TableRow, Select, FormControl, MenuItem, InputLabel, TableCell, TableBody, CircularProgress, Stack, Typography, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import { Delete, Check, RemoveRedEye } from '@mui/icons-material'
+import { Delete, Check, RemoveRedEye, Close } from '@mui/icons-material'
 
 import { fetchData, updateData, deleteData, addMedia } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -427,6 +427,13 @@ function Media() {
         autoHideDuration={3000}
         onClose={() => setSnackbarOpen(false)}
         message={snackbarMessage}
+        action={
+          <>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
+              <Close fontSize="small" />
+            </IconButton>
+          </>
+        }
       />
       {renderDialog()}
       {renderViewDialog()}

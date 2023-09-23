@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line
-import { Container, TableContainer, Stack, Box, Paper, Grid, Table, Dialog, DialogTitle, DialogContent, TableHead, Button, TableRow, TableCell, Divider, TableBody, CircularProgress, Typography } from '@mui/material';
+import { Container, TableContainer, Stack, Box, Paper, Grid, Table, Dialog, DialogTitle, DialogContent, TableHead, Button, TableRow, TableCell, Divider, TableBody, IconButton, CircularProgress, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-
+import {Visibility} from '@mui/icons-material'
 import JSONTree from 'react-json-view';
 
 // import { Edit } from '@mui/icons-material'
@@ -116,15 +116,13 @@ function Visitors() {
       headerName: 'Actions',
       width: 120,
       renderCell: (param) => (
-        <Button variant="contained" color="primary" size="small"
+        <IconButton size="small" aria-label="close" color="inherit"
           onClick={() => {
             handleDialogView(param.row);
-          }
-
-          }
+          }}
         >
-          View
-        </Button>
+          <Visibility fontSize="small" />
+        </IconButton>
       ),
     },
   ];
@@ -137,53 +135,64 @@ function Visitors() {
             <CircularProgress />
           </div>
         ) : (
-          <>
-            <div>
-              <DataGrid
-                rows={visitor}
-                columns={columns}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
-                    },
-                  },
-                }}
-                pageSizeOptions={[10, 20, 50, 100, 500, 1000]}
-                checkboxSelection
-                disableRowSelectionOnClick
-              />
+          // <>
+          //   <div>
+          //     <DataGrid
+          //       rows={visitor}
+          //       columns={columns}
+          //       initialState={{
+          //         pagination: {
+          //           paginationModel: {
+          //             pageSize: 10,
+          //           },
+          //         },
+          //       }}
+          //       pageSizeOptions={[10, 20, 50, 100, 500, 1000]}
+          //       checkboxSelection={false}
+          //       disableRowSelectionOnClick
+          //     />
 
-            </div>
-            {renderDialog()}
-          </>
+          //   </div>
+          //   {renderDialog()}
+          // </>
 
-          // <Table>
-          //   <TableHead>
-          //     <TableRow>
-          //       <TableCell>SL</TableCell>
-          //       <TableCell>IP</TableCell>
-          //       <TableCell>ISP</TableCell>
-          //       <TableCell>Date</TableCell>
-          //       <TableCell>Country</TableCell>
-          //       {/* <TableCell>Action</TableCell> */}
-          //     </TableRow>
-          //   </TableHead>
-          //   <TableBody>
-          //     {visitor.map((item, index) => (
-          //       <TableRow key={item.id}>
-          //         <TableCell>{index+1}</TableCell>
-          //         <TableCell>{item.ip}</TableCell>
-          //         <TableCell>{item.isp}</TableCell>
-          //         <TableCell>{item.visit_date}</TableCell>
-          //         <TableCell>{item.country}</TableCell>
-          //         {/* <TableCell><Button><Edit /></Button></TableCell> */}
-          //       </TableRow>
-          //     ))}
-          //   </TableBody>
-          // </Table>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>SL</TableCell>
+                <TableCell>IP</TableCell>
+                <TableCell>ISP</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Country</TableCell>
+                <TableCell>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            {visitor
+                .sort((a, b) => b.id - a.id)
+                .map((item, index) => (
+                <TableRow key={item.id}>
+                  <TableCell>{index+1}</TableCell>
+                  <TableCell>{item.ip}</TableCell>
+                  <TableCell>{item.isp}</TableCell>
+                  <TableCell>{item.visit_date}</TableCell>
+                  <TableCell>{item.country}</TableCell>
+                  <TableCell>
+                  <IconButton size="small" aria-label="close" color="inherit"
+                      onClick={() => {
+                        handleDialogView(item);
+                      }}
+                    >
+                      <Visibility fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         )}
       </Paper>
+      {renderDialog()}
     </Container>
   );
 }

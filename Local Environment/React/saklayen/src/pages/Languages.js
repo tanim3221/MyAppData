@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Paper, Table, TableHead,FormControl,InputLabel,MenuItem,Select, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, Autocomplete, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
-import { Edit, Delete, Check} from '@mui/icons-material'
+import { Container, Button, TableContainer, Paper, Table, TableHead,FormControl,InputLabel,MenuItem,Select, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, Autocomplete, CircularProgress, Snackbar, DialogTitle, Box, Stack, IconButton } from '@mui/material';
+import { Edit, Delete, Check, Close} from '@mui/icons-material'
 import { fetchData, addData, deleteData, updateData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
 
@@ -282,7 +282,15 @@ function Languages() {
         open={snackbarOpen}
         autoHideDuration={3000}
         onclose={() => setSnackbarOpen(false)}
-        message={snackbarMessage} />
+        message={snackbarMessage} 
+        action={
+          <>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
+              <Close fontSize="small" />
+            </IconButton>
+          </>
+        }
+        />
       {renderDialog()}
     </Container>
   );

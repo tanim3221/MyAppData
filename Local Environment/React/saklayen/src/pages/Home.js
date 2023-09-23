@@ -1,6 +1,8 @@
 // import { useTheme } from '@mui/material/styles';
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Stack, Box, Snackbar, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Dialog, Button, DialogContent, DialogTitle, Card, CircularProgress, CardHeader } from '@mui/material';
+import { Container, Grid, Stack, Box, Snackbar,IconButton, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Dialog, Button, DialogContent, DialogTitle, Card, CircularProgress, CardHeader } from '@mui/material';
+import { Edit, Delete, Check,Close} from '@mui/icons-material'
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useNavigate } from 'react-router-dom';
@@ -292,6 +294,13 @@ export default function Home() {
           autoHideDuration={3000}
           onClose={() => setSnackbarOpen(false)}
           message={snackbarMessage.toString()}
+          action={
+            <>
+              <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
+                <Close fontSize="small" />
+              </IconButton>
+            </>
+          }
         />
         {renderDialog()}
       </Container>

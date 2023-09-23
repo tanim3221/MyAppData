@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Stack, IconButton, Container, CircularProgress, Typography, Box, InputAdornment, TextField, Snackbar } from '@mui/material';
+import { Edit, Delete, Check,Close} from '@mui/icons-material'
+
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
@@ -267,6 +269,13 @@ export default function LoginPage() {
           autoHideDuration={3000}
           onClose={() => setSnackbarOpen(false)}
           message={snackbarMessage}
+          action={
+            <>
+              <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
+                <Close fontSize="small" />
+              </IconButton>
+            </>
+          }
         />
       </StyledRoot>
     </>

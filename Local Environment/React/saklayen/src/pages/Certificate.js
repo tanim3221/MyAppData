@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle, Link, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, Select, FormControl, MenuItem, InputLabel,  TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
-import { Edit, Delete, Check, Image} from '@mui/icons-material'
+import { Container, Button, Dialog, DialogTitle, Link, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, Select, FormControl, MenuItem, InputLabel,  TableCell, TableBody, CircularProgress, Stack, IconButton } from '@mui/material';
+import { Edit, Delete, Check, Image, Close} from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -519,6 +519,13 @@ function Certificate() {
         autoHideDuration={3000}
         onClose={() => setSnackbarOpen(false)}
         message={snackbarMessage}
+        action={
+          <>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
+              <Close fontSize="small" />
+            </IconButton>
+          </>
+        }
       />
       {renderDialog()}
       {/* {imageDialog()} */}

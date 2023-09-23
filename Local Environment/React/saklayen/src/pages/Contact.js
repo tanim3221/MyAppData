@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Paper, Box, Stack, Typography, Dialog, DialogContent, DialogTitle, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress } from '@mui/material';
-import { Visibility } from '@mui/icons-material'
+import { Container, Button, TableContainer, Paper, Box, IconButton, Stack, Typography, Dialog, DialogContent, DialogTitle, Table, TableHead,Snackbar, TableRow, TableCell, TableBody, CircularProgress } from '@mui/material';
+import { Visibility, Delete, Close } from '@mui/icons-material'
 import { styled } from '@mui/material/styles';
 
-import { fetchData } from '../auth/api';
+import { fetchData, deleteData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
 
 function Contact() {
   const [contact, setData] = useState([]);
   const [mainData, setMainData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const [open, setOpen] = useState(false);
+  const TABLE_NAME = 'contact_messages';
+
   useEffect(() => {
     fetchData()
       .then(responseData => {
@@ -24,6 +28,29 @@ function Contact() {
   }, []);
   // const handleReply = () => {
   // }
+
+  const handleDelete = (id) => {
+    const requestData = {
+      table: TABLE_NAME,
+      id,
+      action: 'delete',
+    };
+
+    deleteData(requestData)
+      .then(response => {
+        setSnackbarMessage(response.message);
+        setSnackbarOpen(true);
+        const deletedData = contact.filter(item => item.id !== id);
+        setData(deletedData);
+        setOpen(false);
+      })
+      .catch(error => {
+        console.error(error);
+        setSnackbarMessage(error);
+        setSnackbarOpen(true);
+      });
+  }
+
   const handleClose = () => {
     setOpen(false);
     setMainData({});
@@ -48,10 +75,11 @@ function Contact() {
             <Typography variant="body1">{mainData.message}</Typography>
           </StyledContainer>
           <Typography variant="body1" style={{ marginTop: '1rem' }} ><strong>Date Send:</strong> {mainData.date_added}</Typography>
-          <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
-            <Button variant="outlined" onClick={handleClose}>Close</Button>
-            {/* <Button variant="contained" onClick={handleReply}>Reply</Button> */}
+          <Stack spacing={2} direction="row" style={{ marginTop: '2rem' }} justifyContent="space-between">
+              <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)}><Delete/></Button>
+              <Button variant="outlined" onClick={handleClose}>Close</Button>
           </Stack>
+
         </DialogContent>
       </Dialog>
 
@@ -100,6 +128,20 @@ function Contact() {
           </Table>
         )}
       </TableContainer>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+        action={
+          <>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
+              <Close fontSize="small" />
+            </IconButton>
+          </>
+        }
+      />
       {renderDialog()}
     </Container>
   );

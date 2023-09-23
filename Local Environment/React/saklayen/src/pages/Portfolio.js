@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle, Snackbar, Link, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, FormControl, Select, InputLabel, MenuItem, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
-import { Edit, Delete, Check, Image } from '@mui/icons-material'
+import { Container, Button, Dialog, DialogTitle, Snackbar, Link, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, FormControl,IconButton, Select, InputLabel, MenuItem, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
+import { Edit, Delete, Check, Image, Close } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom';
 
 import { fetchData, updateData, addData, deleteData } from '../auth/api';
@@ -345,6 +345,13 @@ function Portfolio() {
         autoHideDuration={3000}
         onClose={() => setSnackbarOpen(false)}
         message={snackbarMessage}
+        action={
+          <>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
+              <Close fontSize="small" />
+            </IconButton>
+          </>
+        }
       />
       {renderDialog()}
     </Container>

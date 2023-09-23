@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Button, TableContainer, Dialog, InputAdornment, DialogTitle, DialogContent, Box, TextField, Stack, Snackbar, Typography, Paper, Grid, IconButton, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { Edit, Delete, Check, Image } from '@mui/icons-material'
+import { Edit, Delete, Check, Image, Close} from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
 
@@ -14,6 +14,7 @@ function About() {
   const [mainData, setMainData] = useState({tag:[]});
   const [open, setOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [aboutSave, setAboutSave] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
@@ -147,9 +148,10 @@ function About() {
           }
           return item;
         });
-
+        // console.log(updatedData);
         setAbout(updatedData);
         setPersonal(updatedData[0]);
+        
         setOpen(false);
         setEditOpen(false);
         // setTimeout(() => {
@@ -449,7 +451,18 @@ function About() {
             </Stack>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button variant="contained" onClick={isAdding ? handleAdd : () => handleSave('aboutme')}>{isAdding ? 'Add' : <Check />}</Button>
+              <Button 
+                  variant="contained" 
+                  onClick={() => {
+                    setAboutSave(true);
+                    if (isAdding) {
+                      handleAdd();
+                    } else {
+                      handleSave('aboutme');
+                    }
+                  }}>
+                  {isAdding ? 'Add' : <Check />}
+                </Button>
             </Stack>
           </Box>
 
@@ -659,6 +672,7 @@ function About() {
             variant="outlined"
             onClick={() => {
               setEditOpen(true);
+              setAboutSave(false);
               resetMainDataState();
               setMainData(personal);
               setSelectedFile(personal.photo);
@@ -694,7 +708,8 @@ function About() {
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{item.description}</TableCell>
                   <TableCell>
-                    <Button onClick={() => {
+                    <Button 
+                    onClick={() => {
                     setMainData(item);
                     setSelectedVisibility(item.visibility);
 
@@ -712,6 +727,13 @@ function About() {
         autoHideDuration={3000}
         onClose={() => setSnackbarOpen(false)}
         message={snackbarMessage}
+        action={
+          <>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
+              <Close fontSize="small" />
+            </IconButton>
+          </>
+        }
       />
       {renderDialog()}
       {renderEditDialog()}
