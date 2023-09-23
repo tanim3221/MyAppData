@@ -10,6 +10,7 @@ import extStyles from '../utils/styles.module.css';
 function About() {
   const [about, setAbout] = useState([]);
   const [personal, setPersonal] = useState([]);
+  const [personalMultiple, setPersonalMultiple] = useState([]);
   const [loading, setLoading] = useState(true);
   const [mainData, setMainData] = useState({tag:[]});
   const [open, setOpen] = useState(false);
@@ -35,6 +36,7 @@ function About() {
       .then(responseData => {
         setAbout(responseData.saklayen.aboutme);
         setPersonal(responseData.saklayen.personalinfo[0]);
+        setPersonalMultiple(responseData.saklayen.personalinfo);
         setMediaList(responseData.saklayen.media);
         setTagList(responseData.saklayen.my_tags);
         setSocialMedia(responseData.saklayen.social_links);
@@ -124,7 +126,7 @@ function About() {
 
   const handleSave = (TABLE_NAME) => {
 
-    const existingData = about.find(item => item.id === mainData.id);
+    const existingData = ((aboutSave===true) ? about.find(item => item.id === mainData.id) : personalMultiple.find(item => item.id === mainData.id));
     const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
 
     if (!isDataChanged) {
@@ -142,21 +144,29 @@ function About() {
       .then(response => {
         setSnackbarMessage(response.message);
         setSnackbarOpen(true);
-        const updatedData = about.map(item => {
-          if (item.id === mainData.id) {
-            return { ...item, ...mainData };
-          }
-          return item;
-        });
-        // console.log(updatedData);
-        setAbout(updatedData);
-        setPersonal(updatedData[0]);
-        
+
+        if(aboutSave===true){
+          const updatedData = about.map(item => {
+            if (item.id === mainData.id) {
+              return { ...item, ...mainData };
+            }
+            return item;
+          });
+          setAbout(updatedData);
+        } else {
+          const updatedData = personalMultiple.map(item => {
+            if (item.id === mainData.id) {
+              return { ...item, ...mainData };
+            }
+            return item;
+          });
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 2000);
+          setPersonal(updatedData[0])
+        }
         setOpen(false);
         setEditOpen(false);
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2000);
       })
       .catch(error => {
         console.error(error);
@@ -454,7 +464,6 @@ function About() {
               <Button 
                   variant="contained" 
                   onClick={() => {
-                    setAboutSave(true);
                     if (isAdding) {
                       handleAdd();
                     } else {
@@ -712,7 +721,7 @@ function About() {
                     onClick={() => {
                     setMainData(item);
                     setSelectedVisibility(item.visibility);
-
+                    setAboutSave(true);
                     setOpen(true);
                   }}><Edit /></Button></TableCell>
                 </TableRow>
