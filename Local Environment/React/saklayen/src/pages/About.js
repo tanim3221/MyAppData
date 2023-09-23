@@ -126,8 +126,12 @@ function About() {
 
   const handleSave = (TABLE_NAME) => {
 
-    const existingData = ((aboutSave===true) ? about.find(item => item.id === mainData.id) : personalMultiple.find(item => item.id === mainData.id));
+    const existingData = ((aboutSave===true) ? about.find(item => item.id === mainData.id) : personal.id === mainData.id);
     const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
+
+    // console.log("maindata",mainData);
+    // console.log("PerMul", personalMultiple);
+    // console.log("Per", personal);
 
     if (!isDataChanged) {
       setSnackbarMessage("No changes to save.");
