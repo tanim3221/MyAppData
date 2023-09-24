@@ -50,6 +50,15 @@ export const changePasswordData = async (requestData) => {
     throw error;
   }
 };
+export const cvPassChange = async (requestData) => {
+  try {
+    const response = await api.post('/cv_pass_change.php', requestData);
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
 
 export const addData = async (requestData) => {
   try {

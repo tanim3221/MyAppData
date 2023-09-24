@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle, Link, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, Select, FormControl, MenuItem, InputLabel,  TableCell, TableBody, CircularProgress, Stack, IconButton } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle, Link, Snackbar, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, Select, FormControl, MenuItem, InputLabel,  TableCell, TableBody, CircularProgress, Stack, IconButton, useMediaQuery } from '@mui/material';
 import { Edit, Delete, Check, Image, Close} from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ function Certificate() {
   const [mediaList, setMediaList] = useState([]);
   const [skillList, setSkillList] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
-
+  const isMobile = useMediaQuery('(max-width:600px)');
   const navigate = useNavigate();
 
 
@@ -260,9 +260,10 @@ function Certificate() {
               label="Rank"
               name='rank'
               value={mainData.rank}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
-           <FormControl>
+           <FormControl sx={{ gridColumn: isMobile ? 'span 2' : '' }}>
               <InputLabel id="issuer_label">Issued By</InputLabel>
               <Select
                 labelId="issuer_label"
@@ -278,7 +279,7 @@ function Certificate() {
                 }
               </Select>
             </FormControl>
-            <FormControl>
+            <FormControl sx={{ gridColumn: isMobile ? 'span 2' : '' }}>
               <InputLabel id="for_cv">View In CV</InputLabel>
               <Select
                 labelId="for_cv"
@@ -298,6 +299,7 @@ function Certificate() {
               label="Course Category"
               name='course_category'
               value={mainData.course_category}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
             
@@ -347,11 +349,12 @@ function Certificate() {
                 value={dayjs(mainData.date)}
                 renderInput={(params) => <TextField {...params} />}
                 // sx={{ gridColumn: 'span 2' }}
+                sx={{ gridColumn: isMobile ? 'span 2' : '' }}
                 onChange={handleDateSelect}
               />
             </LocalizationProvider>
             
-            <FormControl>
+            <FormControl sx={{ gridColumn: isMobile ? 'span 2' : '' }}>
               <InputLabel id="issuer_label">Issuer Logo</InputLabel>
               <Select
                 labelId="issuer_label"

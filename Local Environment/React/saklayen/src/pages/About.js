@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line
-import { Container, Button, TableContainer, Dialog, InputAdornment, DialogTitle, DialogContent, Box, TextField, Stack, Snackbar, Typography, Paper, Grid, IconButton, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Container, Button, TableContainer, Dialog, FormGroup, FormControlLabel, InputAdornment, DialogTitle, DialogContent, Box, TextField, Stack, Snackbar, Typography, Paper, Grid, IconButton, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, FormControl, InputLabel, Select, MenuItem, useMediaQuery, Checkbox } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { Edit, Delete, Check, Image, Close} from '@mui/icons-material'
-import { fetchData, updateData, addData, deleteData } from '../auth/api';
+import { Edit, Delete, Check, Image, Close } from '@mui/icons-material'
+import { fetchData, updateData, addData, deleteData, cvPassChange } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
 
 function About() {
@@ -12,8 +12,9 @@ function About() {
   const [personal, setPersonal] = useState([]);
   const [personalMultiple, setPersonalMultiple] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [mainData, setMainData] = useState({tag:[]});
+  const [mainData, setMainData] = useState({ tag: [] });
   const [open, setOpen] = useState(false);
+  const [cvPassopen, setCvPassOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [aboutSave, setAboutSave] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -27,8 +28,10 @@ function About() {
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedSocial, setSelectedSocial] = useState([]);
   const [selectedVisible, setSelectedVisibility] = useState('');
-
+  const isMobile = useMediaQuery('(max-width:600px)');
   const navigate = useNavigate();
+  const [showPass, setShowPass] = useState(false);
+  const dialogMinWidth = isMobile ? '90%' : '500px';
 
 
   useEffect(() => {
@@ -72,6 +75,41 @@ function About() {
   const resetMainDataState = () => {
     setMainData({});
   }
+  const handleTogglePasswordVisibility = () => {
+    setShowPass(!showPass);
+  }
+
+  const handlePasswordChange = (TABLE_NAME) => {
+    const requestData = {
+      table: TABLE_NAME,
+      data: {
+        cv_pass: mainData.cv_pass,
+        id: mainData.id
+      },
+    };
+
+    setPersonal(prevState => ({
+      ...prevState,
+      cv_pass: mainData.cv_pass,
+    }));
+
+    // console.log(personal);
+
+    cvPassChange(requestData)
+      .then(response => {
+        setSnackbarMessage(response.message);
+        setSnackbarOpen(true);
+        if (!response.error) {
+          setCvPassOpen(false);
+          setMainData([]);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        setSnackbarMessage(error);
+        setSnackbarOpen(true);
+      });
+  }
 
   const handleDelete = (id) => {
     const requestData = {
@@ -99,6 +137,7 @@ function About() {
     setOpen(false)
     setEditOpen(false);
     resetMainDataState();
+    setCvPassOpen(false);
   };
 
   const handleAdd = () => {
@@ -126,7 +165,7 @@ function About() {
 
   const handleSave = (TABLE_NAME) => {
 
-    const existingData = ((aboutSave===true) ? about.find(item => item.id === mainData.id) : personal.id === mainData.id);
+    const existingData = ((aboutSave === true) ? about.find(item => item.id === mainData.id) : personal.id === mainData.id);
     const isDataChanged = JSON.stringify(mainData) !== JSON.stringify(existingData);
 
     // console.log("maindata",mainData);
@@ -149,7 +188,7 @@ function About() {
         setSnackbarMessage(response.message);
         setSnackbarOpen(true);
 
-        if(aboutSave===true){
+        if (aboutSave === true) {
           const updatedData = about.map(item => {
             if (item.id === mainData.id) {
               return { ...item, ...mainData };
@@ -225,6 +264,61 @@ function About() {
     navigate(url, { replace: true });
   }
 
+  // eslint-disable-next-line
+  const renderPasswordDialog = () => {
+
+    return (
+      <Dialog
+        PaperProps={{
+          sx: {
+            minWidth: dialogMinWidth,
+          },
+        }}
+        open={cvPassopen}
+        onClose={() => setCvPassOpen(false)}
+      >
+        <DialogTitle>Change CV Password</DialogTitle>
+        <DialogContent>
+          <Box
+            component="form"
+            sx={{
+              marginTop: '16px',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr', // Create a two-column layout
+              gap: '1.5rem', // Adjust the gap between columns
+            }}
+          >
+            <TextField
+              label="CV Password"
+              name='cv_pass'
+              type={showPass ? 'text' : 'password'}
+              value={mainData.cv_pass}
+              sx={{ gridColumn: 'span 2' }}
+              onChange={handleChange}
+            />
+            <FormGroup
+              sx={{ gridColumn: 'span 2' }}
+            >
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={showPass}
+                    onChange={handleTogglePasswordVisibility}
+                    color="primary"
+                  />
+                }
+                label="Show Password"
+              />
+            </FormGroup>
+            <Stack sx={{ gridColumn: 'span 2' }} spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
+              <Button variant="outlined" onClick={handleClose}>Close</Button>
+              <Button variant="contained" onClick={() => handlePasswordChange('personalinfo')}><Check /></Button>
+            </Stack>
+          </Box>
+        </DialogContent>
+      </Dialog>
+    )
+  };
 
   // eslint-disable-next-line
   const renderEditDialog = () => {
@@ -248,19 +342,21 @@ function About() {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
-             <TextField
+            <TextField
               label="Father Name"
               name='father_name'
               value={mainData.father_name}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
-             <TextField
+            <TextField
               label="Mother Name"
               name='mother_name'
               value={mainData.mother_name}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
-             <TextField
+            <TextField
               label="Career Objective"
               name='car_obj'
               multiline
@@ -273,6 +369,7 @@ function About() {
               label="Birthday"
               name='birthday'
               value={mainData.birthday}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
             <TextField
@@ -280,38 +377,44 @@ function About() {
               name='gender'
               value={mainData.gender}
               onChange={handleChange}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
-             <TextField
+            <TextField
               label="Marital Status"
               name='marital'
               value={mainData.marital}
               onChange={handleChange}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
             <TextField
               label="Nationality"
               name='nationality'
               value={mainData.nationality}
               onChange={handleChange}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
             <TextField
               label="Religion"
               name='religion'
               value={mainData.religion}
               onChange={handleChange}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
             <TextField
               label="Mobile"
               name='mobile'
               value={mainData.mobile}
               onChange={handleChange}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
             <TextField
               label="Email"
               name='email'
               value={mainData.email}
               onChange={handleChange}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
-            <FormControl>
+            <FormControl sx={{ gridColumn: isMobile ? 'span 2' : '' }}>
               <InputLabel id="issuer_label">Profile Photo</InputLabel>
               <Select
                 labelId="issuer_label"
@@ -327,7 +430,7 @@ function About() {
                 }
               </Select>
             </FormControl>
-            <FormControl sx={{gridColumn: 'span 2' }}>
+            <FormControl sx={{ gridColumn: 'span 2' }}>
               <InputLabel id="tag_id">My Tags</InputLabel>
               <Select
                 labelId='tag_id'
@@ -338,7 +441,7 @@ function About() {
                 onChange={handleTagChange}
                 renderValue={(selected) => selected.join(', ')}
               >
-                
+
                 {
                   tagList.map(item => (
                     <MenuItem key={item.id} value={item.tag_name}>{item.tag_name}</MenuItem>
@@ -346,7 +449,7 @@ function About() {
                 }
               </Select>
             </FormControl>
-            <FormControl sx={{gridColumn: 'span 2' }}>
+            <FormControl sx={{ gridColumn: 'span 2' }}>
               <InputLabel id="social_id">Social Media Link</InputLabel>
               <Select
                 labelId="social_id"
@@ -357,7 +460,7 @@ function About() {
                 onChange={handleSocialChange}
                 renderValue={(selected) => selected.join(', ')}
               >
-                
+
                 {
                   socialMedia.map(item => (
                     <MenuItem key={item.id} value={item.link}>{item.name}</MenuItem>
@@ -365,6 +468,14 @@ function About() {
                 }
               </Select>
             </FormControl>
+            <TextField
+              label="My Portfolio Web"
+              name='per_web'
+              value={mainData.per_web}
+              onChange={handleChange}
+              sx={{ gridColumn: 'span 2' }}
+            />
+
             <TextField
               label="Present Address"
               name='present_address'
@@ -384,7 +495,7 @@ function About() {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
-            <FormControl  sx={{ gridColumn: 'span 2' }}>
+            <FormControl sx={{ gridColumn: 'span 2' }}>
               <InputLabel id="Visibility">Visibility</InputLabel>
               <Select
                 labelId="Visibility"
@@ -399,7 +510,7 @@ function About() {
             </FormControl>
 
             <Stack sx={{ gridColumn: 'span 2' }} spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
-            <Button variant="outlined" onClick={() =>navigatePage('/media-list')}><Image/></Button>
+              <Button variant="outlined" onClick={() => navigatePage('/media-list')}><Image /></Button>
 
               <Button variant="outlined" onClick={handleClose}>Close</Button>
               <Button variant="contained" onClick={() => handleSave('personalinfo')}><Check /></Button>
@@ -429,6 +540,7 @@ function About() {
             <TextField
               label="Rank"
               name='rank'
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
               value={mainData.rank}
               onChange={handleChange}
             />
@@ -436,6 +548,7 @@ function About() {
               label="Title"
               name='title'
               value={mainData.title}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
             <TextField
@@ -447,7 +560,7 @@ function About() {
               rows={10}
               onChange={handleChange}
             />
-            <FormControl  sx={{ gridColumn: 'span 2' }}>
+            <FormControl sx={{ gridColumn: 'span 2' }}>
               <InputLabel id="Visibility">Visibility</InputLabel>
               <Select
                 labelId="Visibility"
@@ -465,17 +578,17 @@ function About() {
             </Stack>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button 
-                  variant="contained" 
-                  onClick={() => {
-                    if (isAdding) {
-                      handleAdd();
-                    } else {
-                      handleSave('aboutme');
-                    }
-                  }}>
-                  {isAdding ? 'Add' : <Check />}
-                </Button>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (isAdding) {
+                    handleAdd();
+                  } else {
+                    handleSave('aboutme');
+                  }
+                }}>
+                {isAdding ? 'Add' : <Check />}
+              </Button>
             </Stack>
           </Box>
 
@@ -500,7 +613,7 @@ function About() {
             <Typography style={textStyles}>{personal.name}</Typography>
           </Paper>
         </Grid>
-         <Grid item xs={12} md={6} lg={4} sm={12}>
+        <Grid item xs={12} md={6} lg={4} sm={12}>
           <Paper elevation={1} style={paperStyle}>
             {/* <Button size="small" style={buttonStyle}>
               <Edit />
@@ -632,7 +745,7 @@ function About() {
             <Typography style={textStyles}>{personal.linkedin_profile}</Typography>
           </Paper>
         </Grid>
-      <Grid item xs={12} md={12} lg={12} sm={12}>
+        <Grid item xs={12} md={12} lg={12} sm={12}>
           <Paper elevation={3} style={paperStyle}>
             <Typography variant="h6" gutterBottom style={textStyles}>
               Career Objective
@@ -643,59 +756,72 @@ function About() {
       </Grid>
 
       <Stack
-          spacing={2}
-          direction="row"
-          justifyContent="center"
-          flexWrap="wrap"
-          sx={{ margin: '1rem 0 2rem 0' }}
-        >
-          <Button
-            variant="contained"
-            style={{
-              marginTop: '1rem'
-            }}
-            onClick={() => {
-              resetMainDataState();
-              setIsAdding(true);
-              setOpen(true);
-            }}
-          >
-            Add About Info
-          </Button>
-          <Button
-            style={{
-              marginTop: '1rem'
-            }}
-            variant="outlined"
-            onClick={() => {navigatePage('/profile-role')}}>
-            Profile Role
-          </Button>
-         <Button
-           style={{
+        spacing={2}
+        direction="row"
+        justifyContent="center"
+        flexWrap="wrap"
+        sx={{ margin: '1rem 0 2rem 0' }}
+      >
+        <Button
+          variant="contained"
+          style={{
             marginTop: '1rem'
           }}
-            variant="contained"
-            onClick={() => {navigatePage('/references')}}>
-            References
-          </Button>
+          onClick={() => {
+            resetMainDataState();
+            setIsAdding(true);
+            setOpen(true);
+          }}
+        >
+          Add About Info
+        </Button>
         <Button
           style={{
             marginTop: '1rem'
           }}
-            variant="outlined"
-            onClick={() => {
-              setEditOpen(true);
-              setAboutSave(false);
-              resetMainDataState();
-              setMainData(personal);
-              setSelectedFile(personal.photo);
-              setSelectedVisibility(personal.visibility);
-              setSelectedTags(JSON.parse(personal.tag));
-              setSelectedSocial(JSON.parse(personal.linkedin_profile));
-            }}>
-            Edit Personal Info
-          </Button>
-        </Stack>
+          variant="outlined"
+          onClick={() => { navigatePage('/profile-role') }}>
+          Profile Role
+        </Button>
+        <Button
+          style={{
+            marginTop: '1rem'
+          }}
+          variant="contained"
+          onClick={() => { navigatePage('/references') }}>
+          References
+        </Button>
+        <Button
+          style={{
+            marginTop: '1rem'
+          }}
+          variant="outlined"
+          onClick={() => {
+            setEditOpen(true);
+            setAboutSave(false);
+            resetMainDataState();
+            setMainData(personal);
+            setSelectedFile(personal.photo);
+            setSelectedVisibility(personal.visibility);
+            setSelectedTags(JSON.parse(personal.tag));
+            setSelectedSocial(JSON.parse(personal.linkedin_profile));
+          }}>
+          Edit Personal Info
+        </Button>
+        <Button
+          variant="contained"
+          style={{
+            marginTop: '1rem'
+          }}
+          onClick={() => {
+            setCvPassOpen(true);
+            setShowPass(false);
+            setMainData(personal)
+          }}
+        >
+          CV Password
+        </Button>
+      </Stack>
 
 
       <TableContainer component={Paper}>
@@ -721,13 +847,13 @@ function About() {
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{item.description}</TableCell>
                   <TableCell>
-                    <Button 
-                    onClick={() => {
-                    setMainData(item);
-                    setSelectedVisibility(item.visibility);
-                    setAboutSave(true);
-                    setOpen(true);
-                  }}><Edit /></Button></TableCell>
+                    <Button
+                      onClick={() => {
+                        setMainData(item);
+                        setSelectedVisibility(item.visibility);
+                        setAboutSave(true);
+                        setOpen(true);
+                      }}><Edit /></Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -749,6 +875,7 @@ function About() {
         }
       />
       {renderDialog()}
+      {renderPasswordDialog()}
       {renderEditDialog()}
     </Container>
   );

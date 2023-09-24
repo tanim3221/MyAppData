@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, IconButton, Paper, Table, FormControl,InputLabel,MenuItem,Select,TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
+import { Container, Button, TableContainer, IconButton, Paper, Table, FormControl,InputLabel,MenuItem,Select,TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack, useMediaQuery } from '@mui/material';
 import { Edit, Delete, Check, Close} from '@mui/icons-material'
 import { fetchData, addData, deleteData, updateData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -14,7 +14,7 @@ function Reference() {
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
   const [selectedVisible, setSelectedVisibility] = useState('');
-
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const TABLE_NAME = "reference_cv";
 
@@ -161,12 +161,14 @@ function Reference() {
             name="rank"
             value={mainData.rank}
             onChange={handleChange}
+            sx={{gridColumn: isMobile ? 'span 2' : '' }}
             />
              <TextField
             label="Name"
             name="name"
             value={mainData.name}
             onChange={handleChange}
+            sx={{gridColumn: isMobile ? 'span 2' : '' }}
             />
               <TextField
             label="Institution"
@@ -179,12 +181,14 @@ function Reference() {
             label="Position"
             name="position"
             value={mainData.position}
+            sx={{gridColumn: isMobile ? 'span 2' : '' }}
             onChange={handleChange}
             />
               <TextField
             label="Department"
             name="department"
             value={mainData.department}
+            sx={{gridColumn: isMobile ? 'span 2' : '' }}
             onChange={handleChange}
             />
              <TextField
@@ -201,15 +205,17 @@ function Reference() {
             name="mobile"
             value={mainData.mobile}
             onChange={handleChange}
+            sx={{gridColumn: isMobile ? 'span 2' : '' }}
             />
              <TextField
             label="Email"
             name="email"
             value={mainData.email}
+            sx={{gridColumn: isMobile ? 'span 2' : '' }}
             onChange={handleChange}
             />
 
-<FormControl  sx={{ gridColumn: 'span 2' }}>
+            <FormControl  sx={{ gridColumn: 'span 2' }}>
               <InputLabel id="Visibility">Visibility</InputLabel>
               <Select
                 labelId="Visibility"
