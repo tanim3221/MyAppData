@@ -1,2 +1,182 @@
-Encryption performed on C:\Users\asaklayen\Desktop\FS at 2023-09-26 15:27:59.089351
-Decryption performed on C:\Users\asaklayen\Desktop\FS at 2023-09-26 15:28:39.165191
+Encryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:40:05.690728
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01\CV_of_Md Ashraful Bashar Shanto.pdf (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\PGCL USD FY 2022-23_Formatted.xlsx (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 02
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 02
+File: C:\Users\asaklayen\Desktop\test_for_rename\Book1.xlsx (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02
+----------------
+
+Decryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:41:06.589628
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\cRU_JYJQhjd9mfV3NbnN0ZDeP5ExLGYuTWUScT-wr08=\81k0NK38lpYBRDVVbcBc__A_3qnS0WUz2iDtjUGfYCw=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\cRU_JYJQhjd9mfV3NbnN0ZDeP5ExLGYuTWUScT-wr08=\x8QSxzoh77PZJlqV4JsfDMRbsCRaHlhlriPFcnGmyCo=
+File: C:\Users\asaklayen\Desktop\test_for_rename\YlJhiH5Xn_IoC9UlH9oceSkpKihMLXBsnoKBNNRfVMs=\yym4gGsF_hn-WJH-sQXLnRN_iucpc5wPZn3XKEItr7A=\N9t31M4kqiUtRvuqhmyGUV4carGrHQQTzn0d3qcQDuZYP-70eixI2CdpBWXC4LmxYoZSIrP9nZI1WwVroQvb9g== (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\YlJhiH5Xn_IoC9UlH9oceSkpKihMLXBsnoKBNNRfVMs=\fWcZlNLBBnXxTQ_cMqtm9Y28l3rSRuaJwv-RrVdhzMvB63LIei5brHsOWnz0vENfXuSE6CEnd7MXVKCg5RAD2g== (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\YlJhiH5Xn_IoC9UlH9oceSkpKihMLXBsnoKBNNRfVMs=\yym4gGsF_hn-WJH-sQXLnRN_iucpc5wPZn3XKEItr7A=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\YlJhiH5Xn_IoC9UlH9oceSkpKihMLXBsnoKBNNRfVMs=\_fH5NQPaNa4YFuT6C7QVty4irYmRoiB9AdNFmMvabdk=
+File: C:\Users\asaklayen\Desktop\test_for_rename\X_2fcxSAEO2a7tJivWambtObznMbmmeUWYhV6pusCOM= (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\cRU_JYJQhjd9mfV3NbnN0ZDeP5ExLGYuTWUScT-wr08=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\YlJhiH5Xn_IoC9UlH9oceSkpKihMLXBsnoKBNNRfVMs=
+----------------
+
+Encryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:42:19.223021
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01\CV_of_Md Ashraful Bashar Shanto.pdf (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\PGCL USD FY 2022-23_Formatted.xlsx (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 02
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 02
+File: C:\Users\asaklayen\Desktop\test_for_rename\Book1.xlsx (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02
+----------------
+
+Decryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:42:58.037589
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\kdgh-3P7owZljXWqkZGJsIWN0OS8ogw0SqpSe-Yve1o=\V9bU8WrPKOuQjHRqWPHkAx-FZGZ1GS06AbKyaMfX2is=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\kdgh-3P7owZljXWqkZGJsIWN0OS8ogw0SqpSe-Yve1o=\vEpqjfj3yiDiGEBpQ7lIac8LJIkV_0-CWZGbdinaQ5U=
+File: C:\Users\asaklayen\Desktop\test_for_rename\xELfyJdfjB-5iHh9lBHh4VFEiAxvvpEBvoqTYkPmREs=\iPzMpfHf1zfdaimPanU9LMykrT-jP6q7s5j7y_hlde8=\UwAnV3eeONRs0Vp0DXOzJkxnef2s5MLLG50wRsKLDltLIG-okohEC3TUdzAh4uFJ8YQQuJwn8D6ZISWTHnUSmA== (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\xELfyJdfjB-5iHh9lBHh4VFEiAxvvpEBvoqTYkPmREs=\oc5eg5JeVx63eS4US7GQh5Tv1YA6xhv5VWJ_j8F-Xfl0zhMtfZeWkxx8WY8MNpGHfYbFmgHlFnmZaXWebegvFg== (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\xELfyJdfjB-5iHh9lBHh4VFEiAxvvpEBvoqTYkPmREs=\iPzMpfHf1zfdaimPanU9LMykrT-jP6q7s5j7y_hlde8=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\xELfyJdfjB-5iHh9lBHh4VFEiAxvvpEBvoqTYkPmREs=\t4-sXD0kTltczDDXjQaPDXskQYehfgoSV0hwH7M_fck=
+File: C:\Users\asaklayen\Desktop\test_for_rename\psARY7Cab_CtHljRdQeJF_Ia6U4nQqlfSvxgQaG2ECk= (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\kdgh-3P7owZljXWqkZGJsIWN0OS8ogw0SqpSe-Yve1o=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\xELfyJdfjB-5iHh9lBHh4VFEiAxvvpEBvoqTYkPmREs=
+----------------
+
+Encryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:47:52.972507
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01\CV_of_Md Ashraful Bashar Shanto.pdf (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\PGCL USD FY 2022-23_Formatted.xlsx (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 02
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 02
+File: C:\Users\asaklayen\Desktop\test_for_rename\Book1.xlsx (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02
+----------------
+
+Encryption performed on C:\Users\asaklayen\Desktop\Deloitte\Others\New folder at 2023-09-26 19:48:36.318022
+Files processed: 4
+Directories processed: 0
+Total data size: 965148 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\Deloitte\Others\New folder\01 Split_20230810115853.pdf (441049 bytes)
+File: C:\Users\asaklayen\Desktop\Deloitte\Others\New folder\02 pdf.pdf (149284 bytes)
+File: C:\Users\asaklayen\Desktop\Deloitte\Others\New folder\03 EBL Margin statement-Jul-23 (003).pdf (195111 bytes)
+File: C:\Users\asaklayen\Desktop\Deloitte\Others\New folder\04 psd.pdf (179704 bytes)
+----------------
+
+Decryption performed on C:\Users\asaklayen\Desktop\Deloitte\Others\New folder at 2023-09-26 19:48:50.687844
+Files processed: 4
+Directories processed: 0
+Total data size: 965148 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\Deloitte\Others\New folder\8zDGXBylKPMSKRGnE2NpC4extRhXctup0iSLtiK0PcZY6UCJimPS6URYENVQ0b38k7QHMgWKRiBSgEWkgmFnYw== (195111 bytes)
+File: C:\Users\asaklayen\Desktop\Deloitte\Others\New folder\HHyzFfIBK54Zl5Eek1EmN4GsFtU-ukmLVG_LKp1iZv4= (179704 bytes)
+File: C:\Users\asaklayen\Desktop\Deloitte\Others\New folder\jtNG-VNGAP9zbxcuPGbZM3GnA2dI6vQTYYek4AxapyFBJQazxObvjU_jbdzFWJVD (441049 bytes)
+File: C:\Users\asaklayen\Desktop\Deloitte\Others\New folder\mc1b2cLnvjCMlQASznA9Bf0zQY6spoNZh1oF1UtGECM= (149284 bytes)
+----------------
+
+Decryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:49:12.014724
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\qj0Wv5gdM_KpvQv-8GnIGuwjYLAVcyBW2zgC6hdkSwA=\mHQp4fZSnS54AhvwX6HoO1TxcaKCf2VFLYtX5k9ew5E=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\qj0Wv5gdM_KpvQv-8GnIGuwjYLAVcyBW2zgC6hdkSwA=\mr4-qBgVVL7kvLmc7DBn4nvqFcmJc4bR8lWsb0m5Pvs=
+File: C:\Users\asaklayen\Desktop\test_for_rename\u8lGoYxaBtYo9k2dQ_lV8TmTInJpb4xEGqeLV6RBvfs=\Yj9lUlb7qu0X_H0HnS7vUb9qXSN_TfcpAANo-EiRekY=\-2AqXRer14OaMXFiqFtXknvOs8zy1VTjS7ykRjkDI5jILk3ipigSbxGDf1OumSWa0BeGjO746B22a2hriK9IIg== (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\u8lGoYxaBtYo9k2dQ_lV8TmTInJpb4xEGqeLV6RBvfs=\jgD-ftVF9kfv5pe5iNgAv_t51m8uVUw2wY1vW25Tjs0apD1SFzxGULeoac9BmzgSLVOtkE3AFARguYCi4wq1qQ== (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\u8lGoYxaBtYo9k2dQ_lV8TmTInJpb4xEGqeLV6RBvfs=\rerEU-WWpzsOC2yCXdI1K5XS0bCxa5p8sAdklbSpxCo=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\u8lGoYxaBtYo9k2dQ_lV8TmTInJpb4xEGqeLV6RBvfs=\Yj9lUlb7qu0X_H0HnS7vUb9qXSN_TfcpAANo-EiRekY=
+File: C:\Users\asaklayen\Desktop\test_for_rename\fS1nK2GyG5zF68dWdL5p6OVa6V5-SMb2UhyYJn0rY-o= (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\qj0Wv5gdM_KpvQv-8GnIGuwjYLAVcyBW2zgC6hdkSwA=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\u8lGoYxaBtYo9k2dQ_lV8TmTInJpb4xEGqeLV6RBvfs=
+----------------
+
+Encryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:49:34.237742
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01\CV_of_Md Ashraful Bashar Shanto.pdf (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\PGCL USD FY 2022-23_Formatted.xlsx (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 02
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 02
+File: C:\Users\asaklayen\Desktop\test_for_rename\Book1.xlsx (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02
+----------------
+
+Decryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:50:09.839529
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\3C9HDZ-WL3H0VE5NYi_5Z5X22F5XlMOdrDaxfUJCPVE=\gBIqL57XHNz5f525OPZZNS5pTjgj_LrQEaJTj0vLJ6w=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\3C9HDZ-WL3H0VE5NYi_5Z5X22F5XlMOdrDaxfUJCPVE=\PKy5OilPOfAz7K9VB8-iL4xDK5PvnQpDKBsX-nepNIs=
+File: C:\Users\asaklayen\Desktop\test_for_rename\4Mq2wUJG3DDuqJJnajFI3JWMYy2f0lk5ST46_0LQbFk=\OgHalMQBnIGAkMZW7stWYOToDp39qaCb6tr5yMDSnBM=\ObLSSc4SciTONdiaR_SIzf8bpJ4aG8JN5I6SL1vLT73Fh-PqbKpzjVdqBHOHwdsSNkfx-Wg5KN597jm7BEU8tg== (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\4Mq2wUJG3DDuqJJnajFI3JWMYy2f0lk5ST46_0LQbFk=\YijjP4FvKJGUDoU0S08VAv5KdJKy9xhqBs9RYoWeToKQp4GJ_TUPnahTdxnfSXQHtfK22vcmHHNWQ4n0b7XjCQ== (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\4Mq2wUJG3DDuqJJnajFI3JWMYy2f0lk5ST46_0LQbFk=\OgHalMQBnIGAkMZW7stWYOToDp39qaCb6tr5yMDSnBM=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\4Mq2wUJG3DDuqJJnajFI3JWMYy2f0lk5ST46_0LQbFk=\WpY090kZ13xDaSMlqsdXVRRtnHMhsDlZXi_MFBpAWZA=
+File: C:\Users\asaklayen\Desktop\test_for_rename\ih3ni5TxgVeRAD7nHI9mPe466DP6DiLb7rC_QcxCq_I= (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\3C9HDZ-WL3H0VE5NYi_5Z5X22F5XlMOdrDaxfUJCPVE=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\4Mq2wUJG3DDuqJJnajFI3JWMYy2f0lk5ST46_0LQbFk=
+----------------
+
+Encryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:54:14.875614
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01\CV_of_Md Ashraful Bashar Shanto.pdf (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\PGCL USD FY 2022-23_Formatted.xlsx (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 02
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 02
+File: C:\Users\asaklayen\Desktop\test_for_rename\Book1.xlsx (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02
+----------------
+
+Decryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 19:55:09.433859
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\test_for_rename\eble8kr0exL_Waw2lRT0fLjh6DtoQ24LG8E-XHvNIVQ=\_DBKsd1Ad3cOF8aba9c66xtflSFCJQ5VX5n8Hhrd6dM=\Nkync-fqKDhYUrR_jd3Zju3dU0F7neivuxhC-yYQWO4cz1iqrIxpEt35jCRGHH3P4QlMEcZ0qeeaBZQ20J8cfg== (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\eble8kr0exL_Waw2lRT0fLjh6DtoQ24LG8E-XHvNIVQ=\VnDAIIEvP8W5op9mikz_86sKgn3L-uzih3JX_tUvHgYYQ3Qotbkf2Hq60pS03MgCOJtgdoWTyqNPdgGu9jf6GQ== (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\eble8kr0exL_Waw2lRT0fLjh6DtoQ24LG8E-XHvNIVQ=\spIatvODfESCmANnTEoQd9Pz5Ehuh41pzejGXbajnFs=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\eble8kr0exL_Waw2lRT0fLjh6DtoQ24LG8E-XHvNIVQ=\_DBKsd1Ad3cOF8aba9c66xtflSFCJQ5VX5n8Hhrd6dM=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\tPAwbRCcOUIaUgKerAPAzIRcCD-nUeK2_mFOmIPPX0M=\aro6km_0PkzGXzV7cKF_AfYQzFxtrpTrzzMOW7-OASY=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\tPAwbRCcOUIaUgKerAPAzIRcCD-nUeK2_mFOmIPPX0M=\CVa2JIcCKh1I0RPiKrMMLNNaoi4_9Ytb8BiJQfRxU2U=
+File: C:\Users\asaklayen\Desktop\test_for_rename\OwnatPOZaHvMNRioV1M4lP7kkPyEacvPIwPm0woQYFw= (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\eble8kr0exL_Waw2lRT0fLjh6DtoQ24LG8E-XHvNIVQ=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\tPAwbRCcOUIaUgKerAPAzIRcCD-nUeK2_mFOmIPPX0M=
+----------------
+
