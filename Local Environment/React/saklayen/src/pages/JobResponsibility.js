@@ -188,6 +188,13 @@ function JobResponsibility() {
               onChange={handleChange}
               sx={{ gridColumn: 'span 2' }}
             />
+             <TextField
+              label="Audit Type"
+              name="audit_type"
+              value={mainData.audit_type}
+              onChange={handleChange}
+              sx={{ gridColumn: 'span 2' }}
+            />
             <TextField
               label="Task Role"
               name="task_role"
@@ -239,6 +246,8 @@ function JobResponsibility() {
               <TableRow>
                 <TableCell>SL</TableCell>
                 <TableCell>Client Name</TableCell>
+                <TableCell>Client Type</TableCell>
+                <TableCell>Audit Type</TableCell>
                 <TableCell>Job Role</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
@@ -248,6 +257,8 @@ function JobResponsibility() {
                 <TableRow key={item.id}>
                   <TableCell>{index+1}</TableCell>
                   <TableCell>{item.client_name}</TableCell>
+                  <TableCell>{item.client_type}</TableCell>
+                  <TableCell>{item.audit_type}</TableCell>
                   <TableCell>{item.task_role}</TableCell>
                   <TableCell>
                     <Button
