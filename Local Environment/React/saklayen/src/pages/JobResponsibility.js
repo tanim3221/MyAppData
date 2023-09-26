@@ -144,7 +144,7 @@ function JobResponsibility() {
   const renderDialog = () => {
     return (
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{isAdding ? 'Add New Job Responsibility' : mainData.title}</DialogTitle>
+        <DialogTitle>{isAdding ? 'Add New Job Responsibility' : mainData.client_name}</DialogTitle>
         <DialogContent>
           <Box
             component="form"

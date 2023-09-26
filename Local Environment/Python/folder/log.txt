@@ -196,3 +196,19 @@ Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01
 Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02
 ----------------
 
+Decryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 20:01:47.155622
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\test_for_rename\CoPs6pxnw625L7Y5STg8lPgRCLzJwpet4-36K5opVLU=\8tgzJT_JOq4KM_9PVkIBYEztwYLNbOBmAyIsoJPgcK8=\55Cs7qYsVbMewiB1kHJ9rNIKSpq221zpXUA8UebyaVzlDgcfTkeMFaiGwG_InceiBiFKw6bbHYGBu-EgNZhPRA== (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\CoPs6pxnw625L7Y5STg8lPgRCLzJwpet4-36K5opVLU=\VTorQhkNa2NRKAb6mggTAjWsKaSHthexQ_fbtMzND4te8g8G5DFVPDy7yNMBLA4w6hxwg5zjNwu6HOmm8s8Ozg== (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\CoPs6pxnw625L7Y5STg8lPgRCLzJwpet4-36K5opVLU=\8tgzJT_JOq4KM_9PVkIBYEztwYLNbOBmAyIsoJPgcK8=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\CoPs6pxnw625L7Y5STg8lPgRCLzJwpet4-36K5opVLU=\FIQIafVe_EW_AwcjuMKdQAfmBWSulhI2TC_3crvNLSQ=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\Tt80PFkt1qpQBsLO9OVwCTENMdgdUcytqd3tu8OI8Ic=\4KbQk_s5fcX3qXEqxDVQo0k3gbyj53JiEjLJOP9hAiA=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\Tt80PFkt1qpQBsLO9OVwCTENMdgdUcytqd3tu8OI8Ic=\p0ks5kyxXQ4qzDMdr1DL79NTfrKy_ebZBb4kXAuWOMg=
+File: C:\Users\asaklayen\Desktop\test_for_rename\Uf6BZhpwPNPUUkyf-KUSig6B-rcnjbohjdLGeX8Lr64= (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\CoPs6pxnw625L7Y5STg8lPgRCLzJwpet4-36K5opVLU=
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\Tt80PFkt1qpQBsLO9OVwCTENMdgdUcytqd3tu8OI8Ic=
+----------------
+
