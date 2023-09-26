@@ -22,6 +22,7 @@ import ProtectedMainLayout from './auth/ProtectedMainLayout';
 import Media from './pages/Media';
 import TagList from './pages/TagList';
 import Reference from './pages/Reference';
+import JobResponsibility from './pages/JobResponsibility';
 
 export default function Router() {
   return (
@@ -46,6 +47,7 @@ export default function Router() {
         <Route path="media-list" element={<Media />} />
         <Route path="profile-role" element={<TagList />} />
         <Route path="references" element={<Reference />} />
+        <Route path="job-responsibility" element={<JobResponsibility />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       {/* <Route path="admin" element={<LoginPage />} /> */}

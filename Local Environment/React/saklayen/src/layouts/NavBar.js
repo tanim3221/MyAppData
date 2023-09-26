@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import { Box, Drawer, Typography } from '@mui/material';
-import { Home, Public, Interests, Message, SupportAgent, GTranslate, HistoryEdu, Celebration, ConnectWithoutContact, InsertEmoticon, School, Image, Work, CardMembership, FolderSpecial, CastForEducation } from '@mui/icons-material';
+import { Home, Public, Interests, Message, SupportAgent, GTranslate, HistoryEdu, Celebration, ConnectWithoutContact, InsertEmoticon, School, WorkHistory, Image, Work, CardMembership, FolderSpecial, CastForEducation } from '@mui/icons-material';
 
 // Custom hooks and components
 import useResponsive from '../hooks/useResponsive';
@@ -47,6 +47,11 @@ const navConfig = [
     title: 'Skills',
     path: '/skills',
     icon: <CastForEducation />,
+  },
+  {
+    title: 'Job Responsibility',
+    path: '/job-responsibility',
+    icon: <WorkHistory />,
   },
   {
     title: 'Portfolio',

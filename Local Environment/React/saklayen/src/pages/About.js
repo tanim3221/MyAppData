@@ -821,6 +821,14 @@ function About() {
         >
           CV Password
         </Button>
+        <Button
+          style={{
+            marginTop: '1rem'
+          }}
+          variant="contained"
+          onClick={() => { navigatePage('/job-responsibility') }}>
+          Job Details
+        </Button>
       </Stack>
 
 
