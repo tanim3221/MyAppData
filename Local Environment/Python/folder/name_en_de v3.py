@@ -28,14 +28,17 @@ def get_encryption_key():
     digest.update(passphrase.encode())
     return digest.finalize()
 
+
 def initialize_passphrase_file():
     """Initialize the PASSPHRASE_FILE with an empty dictionary if it doesn't exist or if it's empty."""
     if not os.path.exists(PASSPHRASE_FILE) or os.stat(PASSPHRASE_FILE).st_size == 0:
         with open(PASSPHRASE_FILE, 'w') as f:
             json.dump({}, f)
 
+
 def save_passphrase(directory, key):
-    initialize_passphrase_file()  # Ensure the passphrase file is properly initialized.
+    # Ensure the passphrase file is properly initialized.
+    initialize_passphrase_file()
 
     with open(PASSPHRASE_FILE, 'r') as f:
         data = json.load(f)
@@ -49,7 +52,8 @@ def save_passphrase(directory, key):
 
 
 def load_passphrase(directory):
-    initialize_passphrase_file()  # Ensure the passphrase file is properly initialized.
+    # Ensure the passphrase file is properly initialized.
+    initialize_passphrase_file()
 
     with open(PASSPHRASE_FILE, 'r') as f:
         data = json.load(f)
@@ -61,19 +65,22 @@ def load_passphrase(directory):
             return base64.b64decode(data[current_dir])
         current_dir = os.path.dirname(current_dir)
 
-    raise ValueError(f"No stored passphrase for directory: {directory} or its parents.")
+    raise ValueError(
+        f"No stored passphrase for directory: {directory} or its parents.")
 
 
 def is_directory_encrypted(directory):
-    initialize_passphrase_file()  # Ensure the passphrase file is properly initialized.
+    # Ensure the passphrase file is properly initialized.
+    initialize_passphrase_file()
     with open(PASSPHRASE_FILE, 'r') as f:
         data = json.load(f)
     return directory in data
 
+
 def remove_passphrase(directory):
     """Remove the passphrase associated with the directory."""
     initialize_passphrase_file()  # Ensure the passphrase file is properly initialized.
-    
+
     with open(PASSPHRASE_FILE, 'r') as f:
         data = json.load(f)
 
@@ -84,8 +91,10 @@ def remove_passphrase(directory):
         with open(PASSPHRASE_FILE, 'w') as f:
             json.dump(data, f)
 
+
 def main():
-    main_folder = input("\nEnter the path of the main folder to encrypt/decrypt: ")
+    main_folder = input(
+        "\nEnter the path of the main folder to encrypt/decrypt: ")
     action = input("\nChoose an action [en/de]: ").strip().lower()
 
     try:
@@ -94,25 +103,30 @@ def main():
                 print("\nThe directory has already been encrypted!")
                 return
             key = get_encryption_key()
-            save_passphrase(main_folder, key)  # Store the passphrase with directory association.
-            file_count, folder_count, total_size, details = process_directory(main_folder, key)
-            log_operation("Encryption", main_folder, file_count, folder_count, total_size, details)
+            # Store the passphrase with directory association.
+            save_passphrase(main_folder, key)
+            file_count, folder_count, total_size, details = process_directory(
+                main_folder, key)
+            log_operation("Encryption", main_folder, file_count,
+                          folder_count, total_size, details)
             print("\nEncryption successfully done!")
         elif action == "de":
             if not is_directory_encrypted(main_folder):
-                print("\nThe directory has not been encrypted or the passphrase is missing!")
+                print(
+                    "\nThe directory has not been encrypted or the passphrase is missing!")
                 return
-            key = load_passphrase(main_folder)  # Load the passphrase associated with the directory.
-            file_count, folder_count, total_size, details = process_directory(main_folder, key, decrypt=True)
-            log_operation("Decryption", main_folder, file_count, folder_count, total_size, details)
+            # Load the passphrase associated with the directory.
+            key = load_passphrase(main_folder)
+            file_count, folder_count, total_size, details = process_directory(
+                main_folder, key, decrypt=True)
+            log_operation("Decryption", main_folder, file_count,
+                          folder_count, total_size, details)
             remove_passphrase(main_folder)
             print("\nDecryption successfully done!")
         else:
             print("\nInvalid action!")
     except Exception as e:
         print(f"An error occurred: {e}")
-
-
 
 
 def encrypt_string(input_string, key):
@@ -123,7 +137,9 @@ def encrypt_string(input_string, key):
     padder = padding.PKCS7(128).padder()
     padded_data = padder.update(input_string) + padder.finalize()
     encrypted_data = encryptor.update(padded_data) + encryptor.finalize()
-    return base64.urlsafe_b64encode(iv + encrypted_data).decode()  # urlsafe version
+    # urlsafe version
+    return base64.urlsafe_b64encode(iv + encrypted_data).decode()
+
 
 def decrypt_string(input_string, key):
     backend = default_backend()
@@ -155,10 +171,12 @@ def process_directory(path, key, decrypt=False):
     total_size = 0
     details = []
 
-    for root, dirs, files in os.walk(path, topdown=False):  # topdown=False for depth-first
+    # topdown=False for depth-first
+    for root, dirs, files in os.walk(path, topdown=False):
         for name in files:
             full_name = os.path.join(root, name)
-            new_name = decrypt_string(name, key) if decrypt else encrypt_string(name.encode(), key)
+            new_name = decrypt_string(
+                name, key) if decrypt else encrypt_string(name.encode(), key)
             os.rename(full_name, os.path.join(root, new_name))
             file_size = os.path.getsize(os.path.join(root, new_name))
             total_size += file_size
@@ -167,12 +185,14 @@ def process_directory(path, key, decrypt=False):
 
         for name in dirs:
             full_name = os.path.join(root, name)
-            new_name = decrypt_string(name, key) if decrypt else encrypt_string(name.encode(), key)
+            new_name = decrypt_string(
+                name, key) if decrypt else encrypt_string(name.encode(), key)
             os.rename(full_name, os.path.join(root, new_name))
             folder_count += 1
             details.append(f"Directory: {full_name}")
 
     return file_count, folder_count, total_size, "\n".join(details)
+
 
 if __name__ == "__main__":
     os.system('cls' if os.name == 'nt' else 'clear')
