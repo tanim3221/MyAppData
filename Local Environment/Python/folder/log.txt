@@ -180,3 +180,19 @@ Directory: C:\Users\asaklayen\Desktop\test_for_rename\eble8kr0exL_Waw2lRT0fLjh6D
 Directory: C:\Users\asaklayen\Desktop\test_for_rename\tPAwbRCcOUIaUgKerAPAzIRcCD-nUeK2_mFOmIPPX0M=
 ----------------
 
+Encryption performed on C:\Users\asaklayen\Desktop\test_for_rename at 2023-09-26 20:00:12.059693
+Files processed: 3
+Directories processed: 6
+Total data size: 904513 bytes
+--- Details ---
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01\CV_of_Md Ashraful Bashar Shanto.pdf (95149 bytes)
+File: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\PGCL USD FY 2022-23_Formatted.xlsx (759923 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01\folder 01 02
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02\folder 02 02
+File: C:\Users\asaklayen\Desktop\test_for_rename\Book1.xlsx (49441 bytes)
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 01
+Directory: C:\Users\asaklayen\Desktop\test_for_rename\folder 02
+----------------
+
