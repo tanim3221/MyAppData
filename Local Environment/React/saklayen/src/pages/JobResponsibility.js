@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, TableContainer, Paper, IconButton, FormControl, InputLabel, Select, MenuItem, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack } from '@mui/material';
+import { Container, Button, TableContainer, Paper, IconButton, FormControl, InputLabel, Select, MenuItem, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack, useMediaQuery} from '@mui/material';
 import { Edit, Delete, Check, Close } from '@mui/icons-material'
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import  ClassicEditor  from '@ckeditor/ckeditor5-build-classic';
 import { fetchData, addData, deleteData, updateData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
+
+
 
 function JobResponsibility() {
   const [data, setData] = useState([]);
@@ -12,10 +16,30 @@ function JobResponsibility() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [selectedVisible, setSelectedVisibility] = useState('');
-
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
 
+  const isMobile = useMediaQuery(theme => theme.breakpoints.only('xs'));
+  const isSm = useMediaQuery(theme => theme.breakpoints.only('sm'));
+  const isMd = useMediaQuery(theme => theme.breakpoints.only('md'));
+  const isLg = useMediaQuery(theme => theme.breakpoints.only('lg'));
+  const isXl = useMediaQuery(theme => theme.breakpoints.up('xl'));
+ 
+  let dialogMinWidth;
+  
+  if (isMobile) {
+    dialogMinWidth = '95%';
+  } else if (isSm) {
+    dialogMinWidth = '90%';
+  }  else if (isMd) {
+    dialogMinWidth = '80%';
+  } else if (isLg) {
+    dialogMinWidth = '50rem';
+  } else if (isXl) {
+    dialogMinWidth = '60rem';
+  } else {
+    dialogMinWidth = '70rem';
+  }
   const TABLE_NAME = "job_res";
 
 
@@ -140,10 +164,27 @@ function JobResponsibility() {
     }));
   }
 
+  const handleEditorChange = (event, editor) => {
+    const data = editor.getData();
+    setMainData(prevState => ({ ...prevState, res_details: data }));
+};
+const editorConfig = {
+  toolbar: [
+    'undo', 'redo', '|',
+    'heading', '|', 
+    'bold', 'italic','|',
+    'bulletedList', 'numberedList', 'blockQuote', '|',
+  ],
+};
+
   // eslint-disable-next-line
   const renderDialog = () => {
     return (
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog PaperProps={{
+        sx: {
+          minWidth: dialogMinWidth,
+        },
+      }} open={open} onClose={handleClose}>
         <DialogTitle>{isAdding ? 'Add New Job Responsibility' : mainData.client_name}</DialogTitle>
         <DialogContent>
           <Box
@@ -160,8 +201,9 @@ function JobResponsibility() {
               name="rank"
               value={mainData.rank}
               onChange={handleChange}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
-            <FormControl>
+            <FormControl  sx={{ gridColumn: isMobile ? 'span 2' : '' }}>
               <InputLabel id="Visibility">Visibility</InputLabel>
               <Select
                 labelId="Visibility"
@@ -179,46 +221,64 @@ function JobResponsibility() {
               name="client_name"
               value={mainData.client_name}
               onChange={handleChange}
-              sx={{ gridColumn: 'span 2' }}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
             <TextField
               label="Client Type"
               name="client_type"
               value={mainData.client_type}
               onChange={handleChange}
-              sx={{ gridColumn: 'span 2' }}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
              <TextField
               label="Audit Type"
               name="audit_type"
               value={mainData.audit_type}
               onChange={handleChange}
-              sx={{ gridColumn: 'span 2' }}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
             <TextField
               label="Task Role"
               name="task_role"
               value={mainData.task_role}
               onChange={handleChange}
-              sx={{ gridColumn: 'span 2' }}
+              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
-            <TextField
+            {/* <TextField
               label="Job Details"
               name="res_details"
               multiline
-              rows={10}
+              rows={15}
               value={mainData.res_details}
               onChange={handleChange}
               sx={{ gridColumn: 'span 2' }}
-            />
+            /> */}
 
-            <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
-              {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
-            </Stack>
-            <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
-              <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check />}</Button>
-            </Stack>
+              <Box
+                  sx={{
+                      gridColumn: 'span 2',
+                      width: '100%',
+                      '& .ck-editor__editable': {
+                          height: '400px', // or whatever height you desire
+                      },
+                  }}
+              >
+                  <CKEditor
+                      editor={ClassicEditor}
+                      data={mainData.res_details || ''}
+                      onChange={handleEditorChange}
+                      config={editorConfig}
+                  />
+              </Box>
+    
+                <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
+                  {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
+                </Stack>
+                <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
+                  <Button variant="outlined" onClick={handleClose}>Close</Button>
+                  <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check />}</Button>
+                </Stack>
+
           </Box>
         </DialogContent>
       </Dialog>
