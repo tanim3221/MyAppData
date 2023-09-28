@@ -1,0 +1,16 @@
+@media print {
+    body {
+        font-family: 'openSans', sans-serif;
+    }
+
+    .table{
+        border-top: 1px solid #000;
+        padding-top:.5rem;
+        width: 100%;
+    }
+
+    .last_td {
+        padding: 0 0 1rem 0;
+    }
+
+}

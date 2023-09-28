@@ -1,19 +1,24 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/Home'; // Adjust path if needed
-import Page404 from './pages/Page404'; // Adjust path if needed
-import ShutDownPage from './pages/Maintenance'; // Adjust path if needed
+import Home from './pages/Home';
+import HomeSection from './pages/sections/HomeSection';
+import AboutContent from './pages/sections/AboutSection';
+import Page404 from './pages/Page404';
+import ShutDownPage from './pages/Maintenance';
 
-function Router() {
+function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/home" />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/maintenance" element={<ShutDownPage />} />
-      <Route path="/404" element={<Page404 />} />
-      <Route path="*" element={<Navigate to="/404" />} />
+      <Route path="/" element={<Home />}>
+        <Route index element={<Navigate to="/home" />} />
+        <Route path="home" element={<HomeSection />} />
+        <Route path="about" element={<AboutContent />} />
+        <Route path="maintenance" element={<ShutDownPage />} />
+      </Route>
+      <Route path="not-found" element={<Page404 />} />
+      <Route path="*" element={<Navigate to="/not-found" />} />
     </Routes>
   );
 }
 
-export default Router;
+export default AppRoutes;
