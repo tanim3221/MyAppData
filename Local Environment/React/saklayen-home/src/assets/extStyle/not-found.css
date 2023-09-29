@@ -62,19 +62,29 @@
         padding: 80px 0;
     }
 
-    a.err-link {
+    button.err-link {
         text-align: center;
         text-transform: uppercase;
         font-size: 1em;
         font-family: 'Titillium Web';
         font-weight: 500;
         color: #ffe000;
+        background: none;
+        outline: none;
+        border: none;
         letter-spacing: 10px;
         text-decoration: none;
+        background-color: unset!important;
+        cursor: pointer;
 
     }
 
-    a.err-link:hover {
+    button.err-link:hover {
+        box-shadow: none;
+        outline: none;
+        border: none;
+    }
+    button.err-link:hover {
         text-transform: uppercase;
         font-size: 1em;
         font-family: 'Titillium Web';

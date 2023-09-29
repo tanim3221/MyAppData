@@ -373,6 +373,21 @@
   width: 50%;
 }
 
+.skeletonProfile{
+  height: 224px!important;
+  border-radius: 4rem!important;
+  width: 180px!important;
+  background-color: rgb(255 255 255)!important;
+}
+
+.spinnerBar{
+  display: flex!important;
+    height: 100%!important;
+    position: absolute!important;
+    left: 50%!important;
+    transform: translate(-50%, -8%)!important;
+    align-items: center!important;
+}
 div#profilePhoto {
   display: flex !important;
   justify-content: center !important;
@@ -387,6 +402,7 @@ div#profilePhoto {
   align-content: flex-start;
   flex-wrap: wrap;
   margin: 0 auto 3rem;
+  min-height: 224px;
 }
 
 .header-photo img {
@@ -409,6 +425,38 @@ div#profilePhoto {
   overflow: auto;
     height: 100vh!important;
 }
+
+.sp-subtitle{
+  height: 2rem;
+}
+
+.social-links {
+  z-index: 1;
+  position: relative;
+}
+
+.form-control, .form-control:focus, .has-error .form-control, .has-error .form-control:focus, input[type=password], input[type=search], input[type=text]{
+  border: none!important;
+}
+
+.form_contact input {
+  padding: 16.5px 14px!important;
+}
+
+.MuiInputBase-formControl {
+  border-radius: 1rem!important;
+}
+
+.portfolio-grid figure i {
+  top: 0!important;
+  right: 0!important;
+}
+
+.itemFilterPort{
+  cursor: pointer;
+}
+
+
 @media only screen and (min-width: 1300px) {
   .header {
     max-width: 440px !important;
@@ -484,6 +532,7 @@ div#profilePhoto {
   div#profilePhoto {
     width: 100px !important;
     height: 100px !important;
+    min-height: 124px !important;
   }
 
   .counterTimer {

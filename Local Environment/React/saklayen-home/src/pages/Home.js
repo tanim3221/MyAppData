@@ -1,27 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Skeleton } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router-dom';
-
+import { fetchData } from '../auth/api';
 import { getProdDevUrl } from '../tools/commonFunction';
 
 const apiUrl = `${getProdDevUrl()}/assets/api`;
 
-// eslint-disable-next-line
 function Home() {
 
   const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAnimated, setIsAnimated] = useState(false);
+  const [personal, setPersonal] = useState([]);
+  const [socialLinks, setSocialLinks] = useState([]);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const setToken = '';
 
   const menuItems = [
     { id: 'home', icon: 'menu-icon lnr lnr-home', text: 'Home', route: '/home' },
     { id: 'about', icon: 'lnr lnr-user', text: 'About Me', route: '/about' },
-    { id: 'qualifications', icon: 'lnr lnr-graduation-hat', text: 'Qualifications',route: '/qualifications' },
-    { id: 'portfolio', icon: 'lnr lnr-laptop-phone', text: 'Portfolio',route: '/portfolio' },
-    { id: 'contact', icon: 'lnr lnr-envelope', text: 'Contact',route: '/contact' },
+    { id: 'qualifications', icon: 'lnr lnr-graduation-hat', text: 'Qualifications', route: '/qualifications' },
+    { id: 'portfolio', icon: 'lnr lnr-laptop-phone', text: 'Portfolio', route: '/portfolio' },
+    { id: 'contact', icon: 'lnr lnr-envelope', text: 'Contact', route: '/contact' },
   ];
+
+  const tables = ['personalinfo', 'social_links'];
+
+
+  useEffect(() => {
+    fetchData(tables)
+      .then(responseData => {
+        const getdata = responseData.saklayen;
+        const personalinfo = getdata.personalinfo[0];
+        const social = getdata.social_links;
+        setPersonal(personalinfo);
+        setSocialLinks(social);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+
+    window.addEventListener('resize', mobileMenuHide);
+
+    return () => {
+      window.removeEventListener('resize', mobileMenuHide);
+    }
+    // eslint-disable-next-line
+  }, []);
+
 
   const handleClick = (sectionId) => {
     const menuItem = menuItems.find(item => item.id === sectionId);
@@ -50,14 +79,6 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener('resize', mobileMenuHide);
-    return () => {
-      window.removeEventListener('resize', mobileMenuHide);
-    }
-  }, []);
-
-
 
   function navigateToNextSection() {
     const currentIndex = menuItems.findIndex(item => item.id === activeSection);
@@ -71,31 +92,38 @@ function Home() {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   };
 
+
   const handleDownload = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       const response = await axios.post(`${apiUrl}/requests.php`, {
         generate_pdf: true
       }, {
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
+        responseType: 'blob'  // Ensuring Axios expects a blob response
       });
 
-      // Convert data to Blob
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
+
       const a = document.createElement('a');
       a.href = url;
       a.download = `CV_of_Saklayen_Ahmed_${currentDate()}.pdf`;
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch (error) {
       console.log('Error generating PDF:', error);
+      // Optionally: Inform the user about the error, e.g. using a toast notification.
+    } finally {
+      setIsLoading(false);  // Setting the loading state back to false.
     }
-
   };
-
 
   return (
     <div>
@@ -105,9 +133,26 @@ function Home() {
           <header id="site_header" className={`header ${isAnimated ? 'animate' : ''} ${isMenuOpen ? '' : 'mobile-menu-hide'}`}>
             <div>
               <div className="header-content">
-                <div className="header-photo" id="profilePhoto"><img src={`${process.env.PUBLIC_URL}/img/man.png`} alt="Saklayen Ahmed" /></div>
+                <div className="header-photo" id="profilePhoto">
+
+                  <div>
+                    {!imageLoaded && <Skeleton className='skeletonProfile' variant="circular" />}
+
+                    <img
+                      src={`${getProdDevUrl()}/assets/img/` + personal.photo}
+                      alt={personal.name}
+                      onLoad={() => setImageLoaded(true)}
+                      style={imageLoaded ? {} : { display: 'none' }}
+                    />
+                  </div>
+
+                  {/* <Skeleton className='skeletonProfile' variant="circular" /> */}
+                  {/* <img src={`${getProdDevUrl()}/assets/img/` + personal.photo} alt={personal.name} />
+                  <img src={`${process.env.PUBLIC_URL}/img/man.png`} alt={personal.name} /> */}
+
+                </div>
                 <div className="header-titles">
-                  <h2 id="sidebar_name_title"> Saklayen Ahmed</h2>
+                  <h2 id="sidebar_name_title"> {personal.name}</h2>
                   <h4>Tech Enthusiast</h4>
                 </div>
               </div>
@@ -121,12 +166,22 @@ function Home() {
                   </li>
                 ))}
               </ul>
-              <div className="social-links"></div>
+              <div className="social-links">
+                <ul>
+                  {socialLinks.map(socialLink => (
+                    <li key={socialLink.link}>
+                      <a href={socialLink.link} target="_blank" rel="noopener noreferrer">
+                        <i className={socialLink.icon}></i>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <div className="header-buttons">
-                <button onClick={handleDownload} className="cv_download_button nav-anim btn btn-primary">Download CV</button>
+                {isLoading ? <button className="cv_download_button nav-anim btn btn-primary" disabled="disabled" >Generating CV</button> : <button className="cv_download_button nav-anim btn btn-primary" onClick={handleDownload}>Download CV</button>}
               </div>
               <div className="copyrights">
-                © <span className="get_year">2023</span> | <a href="https://saklayenahmed.cf"><span>Saklayen Ahmed</span></a> | All rights reserved.
+                © <span className="get_year">2023</span> | <a href="https://saklayenahmed.cf"><span>{personal.name}</span></a> | All rights reserved.
               </div>
             </div>
           </header>
@@ -138,7 +193,7 @@ function Home() {
           <div className="content-area">
             <div id="animatedContent" className="animated-sections">
               <section className="animated-section ps section-active">
-                <Outlet/>
+                <Outlet />
               </section>
               <div className="lmpixels-arrows-nav" onClick={navigateToNextSection}>
                 <div className="chevron"></div>

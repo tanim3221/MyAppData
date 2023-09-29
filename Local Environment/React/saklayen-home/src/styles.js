@@ -1,6 +1,6 @@
 // src/styles.js
 
-// import './assets/extStyle/animations.css';
+import './assets/extStyle/animations.css';
 import './assets/extStyle/animations.min.css';
 import './assets/extStyle/bootstrap-grid.min.css';
 import './assets/extStyle/custom.css';

@@ -11,10 +11,19 @@ const api = axios.create({
 //   token: loggedinToken,
 // };
 
-export const fetchData = async (requestData) => {
+export const fetchData = async (tables) => {
   try {
-    const loggedinToken = sessionStorage.getItem('authToken');
-    const response = await api.post('/end_api.php', { ...requestData, token: loggedinToken, userType: 'fromAdmin' });
+    const response = await api.post('/home_api.php', { tables, userType: 'enduser' });
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
+
+export const postContactData = async (requestData) => {
+  try {
+    const response = await api.post('/contact.php', requestData);
     return response.data;
   } catch (error) {
     console.error('API request error:', error);

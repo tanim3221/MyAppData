@@ -1,13 +1,19 @@
 import React from 'react';
 import '../assets/extStyle/not-found.css';
+import { useNavigate } from 'react-router-dom';
 
 const ErrorPage = () => {
+    const navigate = useNavigate();
+
+    const handleHome = () => {
+        navigate('/home');
+    }
     return (
         <div id="shutDownPage">
-            <div className="lm-animated-bg" style={{ 
+            <div className="lm-animated-bg" style={{
                 backgroundImage: `url(${process.env.PUBLIC_URL}/img/main_bg.png)`,
                 position: 'absolute!important'
-                }}></div>
+            }}></div>
             <div id="shutPageContent">
                 <div className="header-content">
                     <div className="err-container">
@@ -22,7 +28,7 @@ const ErrorPage = () => {
                         <br />
                         <br />
                         <br />
-                        <a href="/" className="err-link">[go home]</a>
+                        <button onClick={handleHome} className="err-link">[go home]</button>
                     </div>
                 </div>
             </div>
