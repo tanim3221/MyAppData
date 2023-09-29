@@ -17,7 +17,7 @@ const ProtectedMainLayout = ({ children }) => {
     const checkMaintenanceMode = async () => {
       try {
         const data = await checkMaintenance({ table: 'personalinfo' });
-        console.log("value", data.value);
+        // console.log("value", data.value);
         if (data && data.value === '0') {
           setMaintenanceStatus('noMaintenance');
         } else {
@@ -31,7 +31,7 @@ const ProtectedMainLayout = ({ children }) => {
     checkMaintenanceMode();
   }, [setMaintenanceStatus, location.pathname]);
 
-  console.log("status", maintenanceStatus);
+  // console.log("status", maintenanceStatus);
 
   switch (maintenanceStatus) {
     case 'loading':

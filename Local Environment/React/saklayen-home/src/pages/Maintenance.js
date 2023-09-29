@@ -11,6 +11,7 @@ function ShutdownPage() {
     const [imageLoaded, setImageLoaded] = useState(false);
     const tables = ['personalinfo'];
 
+
     useEffect(() => {
         fetchData(tables)
             .then(responseData => {
@@ -39,6 +40,54 @@ function ShutdownPage() {
 
     const mytag = JSON.parse(personal.tag || '[]');
     const lastKey = mytag.length - 1;
+
+
+    function CountdownTimer({ expiryDate }) {
+        const [timeLeft, setTimeLeft] = useState({
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+        });
+
+        useEffect(() => {
+            const interval = setInterval(() => {
+                const now = new Date();
+                const expiration = new Date(expiryDate);
+                const difference = expiration - now;
+        
+                if (difference <= 0) {
+                    setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+                    clearInterval(interval);
+                } else {
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        
+                    setTimeLeft({ days, hours, minutes, seconds });
+                }
+            }, 1000);
+        
+            return () => clearInterval(interval);
+        }, [expiryDate]);
+        
+        return (
+            <div className="counterTimer">
+                {[
+                    ['days', 'Days'],
+                    ['hours', 'Hours'],
+                    ['minutes', 'Minutes'],
+                    ['seconds', 'Seconds'],
+                ].map(([key, label]) => (
+                    <div className="counter__time" key={key}>
+                        <span id={`ss-${key}`}>{String(timeLeft[key]).padStart(2, '0')}</span>
+                        <span>{label}</span>
+                    </div>
+                ))}
+            </div>
+        );
+    }
 
     return (
         <>
@@ -84,14 +133,7 @@ function ShutdownPage() {
                                     <p>It was a pleasure to have you here.</p>
                                     <p>I hope to see you again soon.</p>
                                 </div>
-                                <div className="counterTimer">
-                                    {[['ss-days', 'Days'], ['ss-hours', 'Hours'], ['ss-minutes', 'Minutes'], ['ss-seconds', 'Seconds']].map(([id, label]) => (
-                                        <div className="counter__time" key={id}>
-                                            <span id={id}>00</span>
-                                            <span>{label}</span>
-                                        </div>
-                                    ))}
-                                </div>
+                                <CountdownTimer expiryDate={personal.expiry_date}/>
                             </div>
                         </div>
                     </div>
