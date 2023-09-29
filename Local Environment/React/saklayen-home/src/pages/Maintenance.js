@@ -7,7 +7,6 @@ import { getProdDevUrl } from '../tools/commonFunction';
 function ShutdownPage() {
     const [personal, setPersonal] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [imageLoaded, setImageLoaded] = useState(false);
     const tables = ['personalinfo'];
 
@@ -22,7 +21,6 @@ function ShutdownPage() {
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
-                setError(error);
                 setLoading(false);
             });
         // eslint-disable-next-line
@@ -35,8 +33,6 @@ function ShutdownPage() {
             }}
         />
     </div>;
-    if (error) return <div>Error loading data. Please try again later.</div>;
-    if (!personal) return null;
 
     const mytag = JSON.parse(personal.tag || '[]');
     const lastKey = mytag.length - 1;

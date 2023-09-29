@@ -374,7 +374,7 @@
 }
 
 .skeletonProfile{
-  height: 224px!important;
+  height: 186px!important;
   border-radius: 4rem!important;
   width: 180px!important;
   background-color: rgb(255 255 255)!important;
@@ -394,6 +394,10 @@
     transform: translate(-50%, -8%)!important;
     align-items: center!important;
 }
+
+div#profilePhoto img {
+  width: 150px;
+}
 div#profilePhoto {
   display: flex !important;
   justify-content: center !important;
@@ -408,11 +412,11 @@ div#profilePhoto {
   align-content: flex-start;
   flex-wrap: wrap;
   margin: 0 auto 3rem;
-  min-height: 224px;
+  min-height: 186px;
 }
 
 .header-photo img {
-  border-radius: 4rem !important;
+  border-radius: 3rem !important;
 }
 
 .header {
@@ -468,7 +472,10 @@ div#profilePhoto {
 
 li.menu_li_item.active span {
   color: #5e2fd6;
-  font-weight: 700;
+  font-weight:500;
+}
+li.menu_li_item.active {
+  border-bottom: 2px solid #5e2fd6;
 }
 
 
