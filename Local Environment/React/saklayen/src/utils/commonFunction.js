@@ -108,6 +108,6 @@ export function properCase(str) {
     return str.replace(/\s+/g, ' ');
   }
   export function getProdDevUrl() {
-    const domain = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/saklayen' : 'https://saklayen.cf';
+    const domain = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/saklayen_api' : 'https://api.saklayen.cf';
     return domain;
   }
