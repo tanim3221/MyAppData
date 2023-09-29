@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Skeleton } from '@mui/material';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { fetchData } from '../auth/api';
 import { getProdDevUrl } from '../tools/commonFunction';
 
@@ -17,7 +17,7 @@ function Home() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const setToken = '';
+  const routeLocation = useLocation();
 
   const menuItems = [
     { id: 'home', icon: 'menu-icon lnr lnr-home', text: 'Home', route: '/home' },
@@ -127,7 +127,7 @@ function Home() {
 
   return (
     <div>
-      <div className="lm-animated-bg" id="web_home" token={setToken} style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/img/main_bg.png)` }}></div>
+      <div className="lm-animated-bg" id="web_home" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/img/main_bg.png)` }}></div>
       <div className="page" id="mainContent__">
         <div className="page-content">
           <header id="site_header" className={`header ${isAnimated ? 'animate' : ''} ${isMenuOpen ? '' : 'mobile-menu-hide'}`}>
@@ -158,7 +158,7 @@ function Home() {
               </div>
               <ul className="main-menu">
                 {menuItems.map(item => (
-                  <li key={item.id} className={`menu_li_item ${item.id === 'home' ? 'active' : ''}`}>
+                  <li key={item.id} className={`menu_li_item ${routeLocation.pathname === item.route ? 'active' : ''}`}>
                     <div onClick={() => handleClick(item.id)} className="nav-anim">
                       <span className={`menu-icon ${item.icon}`}></span>
                       <span className="link-text">{item.text}</span>

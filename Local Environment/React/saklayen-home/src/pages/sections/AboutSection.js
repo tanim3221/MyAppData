@@ -206,7 +206,7 @@ function AboutContent() {
                     </div>
                     <div className="row">
                         {languages.map(language => (
-                            <div className="col-xs-12 col-sm-6">
+                            <div key={language.id} className="col-xs-12 col-sm-6">
                                 <div className="col-inner">
                                     <div className="info-list-w-icon">
                                         <div className="info-block-w-icon">

@@ -466,6 +466,11 @@ div#profilePhoto {
   margin-top: 1rem!important;
 }
 
+li.menu_li_item.active span {
+  color: #5e2fd6;
+  font-weight: 700;
+}
+
 
 @media only screen and (min-width: 1300px) {
   .header {
