@@ -29,6 +29,10 @@ function Home() {
 
   const tables = ['personalinfo', 'social_links'];
 
+  function disableCopy(e) {
+    e.preventDefault();
+    return false;
+  }
 
   useEffect(() => {
     fetchData(tables)
@@ -44,10 +48,21 @@ function Home() {
       });
 
     window.addEventListener('resize', mobileMenuHide);
-
+    document.addEventListener('copy', disableCopy);
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'C' || e.key === 'U')) || 
+          (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I'))) {
+        e.preventDefault();
+      }
+    });
     return () => {
       window.removeEventListener('resize', mobileMenuHide);
+      document.removeEventListener('copy', disableCopy);
     }
+
     // eslint-disable-next-line
   }, []);
 
