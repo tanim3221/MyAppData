@@ -301,6 +301,12 @@ function FormComponent({
                     onChange={onRecaptchaChange}
                     ref={captchaRef}
                 />
+
+                {message && (
+                    <Typography className='contactMessage' variant="body1" style={messageStyle}>
+                        {message}
+                    </Typography>
+                )}
                 <Box
                     display="flex"
                     alignContent="flex-start"
@@ -309,15 +315,9 @@ function FormComponent({
                     justifyContent="flex-start"
                 >
 
-                    {message && (
-                        <Typography className='contactMessage' variant="body1" style={messageStyle}>
-                            {message}
-                        </Typography>
-                    )}
-
                     <button
                         style={{
-                            marginTop: '2rem'
+                            marginTop: '1rem'
                         }}
                         onClick={handleSubmit}
                         className='button btn-send'
