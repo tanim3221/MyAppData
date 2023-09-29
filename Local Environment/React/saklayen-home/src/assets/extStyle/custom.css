@@ -379,6 +379,12 @@
   width: 180px!important;
   background-color: rgb(255 255 255)!important;
 }
+.skeletonProfileMaintenace{
+  height: 100px!important;
+  border-radius: 50%!important;
+  width: 100px!important;
+  background-color: rgb(255 255 255)!important;
+}
 
 .spinnerBar{
   display: flex!important;
@@ -454,6 +460,10 @@ div#profilePhoto {
 
 .itemFilterPort{
   cursor: pointer;
+}
+
+.contactMessage{
+  margin-top: 1rem!important;
 }
 
 

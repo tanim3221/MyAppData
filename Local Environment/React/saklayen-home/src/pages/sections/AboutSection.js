@@ -261,9 +261,9 @@ function AboutContent() {
 
 
                 </>
-            )};
+            )}
         </div>
-    );
+    )
 }
 
 export default AboutContent;

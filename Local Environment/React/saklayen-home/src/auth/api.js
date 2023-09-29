@@ -31,9 +31,9 @@ export const postContactData = async (requestData) => {
   }
 };
 
-export const tokenVerify = async (requestData) => {
+export const checkMaintenance = async (requestData) => {
   try {
-    const response = await api.post('/token_verify.php', requestData);
+    const response = await api.post('/check_maintenance.php', requestData);
     return response.data;
   } catch (error) {
     console.error('API request error:', error);

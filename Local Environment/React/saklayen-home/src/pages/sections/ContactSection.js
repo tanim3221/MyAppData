@@ -4,12 +4,9 @@ import {
     FormControl,
     Typography,
     Box,
-    Snackbar,
     Stack,
-    IconButton
 } from '@mui/material';
 
-import { Close } from '@mui/icons-material';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 import { fetchData, postContactData } from '../../auth/api';
@@ -24,8 +21,6 @@ function ContactContent() {
     const mainDataRef = useRef({});
     const TABLE_NAME = 'contact_messages';
     const isMobile = useMediaQuery('(max-width:600px)');
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
     const captchaRef = useRef(null);
     const [isCaptchaSuccessful, setIsCaptchaSuccess] = useState(false);
     const [captchaKey, setCaptchaKey] = useState('');
@@ -188,20 +183,6 @@ function ContactContent() {
 
             )}
 
-            <Snackbar
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                open={snackbarOpen}
-                autoHideDuration={3000}
-                onClose={() => setSnackbarOpen(false)}
-                message={snackbarMessage}
-                action={
-                    <>
-                        <IconButton size="small" aria-label="close" color="inherit" onClick={() => setSnackbarOpen(false)}>
-                            <Close fontSize="small" />
-                        </IconButton>
-                    </>
-                }
-            />
 
         </div>
     )
@@ -328,9 +309,11 @@ function FormComponent({
                     justifyContent="flex-start"
                 >
 
-                    <Typography variant="body1" style={messageStyle}>
-                        {message}
-                    </Typography>
+                    {message && (
+                        <Typography className='contactMessage' variant="body1" style={messageStyle}>
+                            {message}
+                        </Typography>
+                    )}
 
                     <button
                         style={{
