@@ -121,7 +121,7 @@ function Home() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${apiUrl}/requests.php`, {
+      const response = await axios.post(`${apiUrl}/generate_cv.php`, {
         generate_pdf: true
       }, {
         headers: {
