@@ -376,7 +376,7 @@
 .skeletonProfile{
   height: 186px!important;
   border-radius: 4rem!important;
-  width: 180px!important;
+  width: 150px!important;
   background-color: rgb(255 255 255)!important;
 }
 .skeletonProfileMaintenace{
@@ -385,13 +385,34 @@
   width: 100px!important;
   background-color: rgb(255 255 255)!important;
 }
-
+.skeletonName{
+  width: 16rem;
+  border-radius: .5rem;
+  margin: 0 auto;
+  height: 2.7rem!important;
+  background-color: rgb(255 255 255 / 50%)!important;
+}
+.skeletonTag{
+  width: 12rem;
+  border-radius: .5rem;
+  margin: 0 auto;
+  height: 1.9rem!important;
+  background-color: rgb(255 255 255 / 50%)!important;
+}
 .spinnerBar{
   display: flex!important;
     height: 100%!important;
     position: absolute!important;
     left: 50%!important;
-    transform: translate(-50%, -8%)!important;
+    transform: translate(-50%, 0%)!important;
+    align-items: center!important;
+}
+.spinnerBarMaintenace{
+  display: flex!important;
+    height: 100%!important;
+    position: absolute!important;
+    left: 50%!important;
+    transform: translate(-50%, 0%)!important;
     align-items: center!important;
 }
 .spinnerBarLoading{
@@ -546,7 +567,22 @@ li.menu_li_item.active {
 }
 
 @media only screen and (max-width: 768px) {
-
+  .skeletonName{
+    width: 13rem;
+    border-radius: .4rem;
+    height: 2rem!important;
+    background-color: rgb(255 255 255 / 50%)!important;
+  }
+  .skeletonTag{
+    width: 10rem;
+    border-radius: .4rem;
+    height: 1.5rem!important;
+    background-color: rgb(255 255 255 / 50%)!important;
+  }
+  .title-block h2 {
+    font-size: 32px!important;
+    line-height: 35px!important;
+  }
   li.menu_li_item.active span {
     color: #ffffff;
     font-weight:500;
@@ -570,10 +606,6 @@ li.menu_li_item.active {
 
   .professional_class {
     margin-top: 50px;
-  }
-
-  .title-block h2 {
-    font-size: 35px !important;
   }
 
   div#profilePhoto {

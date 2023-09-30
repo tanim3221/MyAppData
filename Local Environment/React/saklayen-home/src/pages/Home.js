@@ -14,7 +14,8 @@ function Home() {
   const [personal, setPersonal] = useState([]);
   const [socialLinks, setSocialLinks] = useState([]);
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isCVLoading, setIsCVLoading] = useState(false);
+  const [isDataLoading, setIsDataLoading] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const routeLocation = useLocation();
 
@@ -41,9 +42,11 @@ function Home() {
         const social = getdata.social_links;
         setPersonal(personalinfo);
         setSocialLinks(social);
+        setIsDataLoading(true);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        setIsDataLoading(false);
       });
 
     window.addEventListener('resize', mobileMenuHide);
@@ -117,7 +120,7 @@ function Home() {
 
   const handleDownloadCV = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsCVLoading(true);
     const date = new Date();
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const ciphertext = CryptoJS.MD5(minutes).toString();
@@ -142,7 +145,7 @@ function Home() {
     } catch (error) {
       console.error('Error generating PDF:', error);
     } finally {
-      setIsLoading(false);
+      setIsCVLoading(false);
     }
   };
 
@@ -168,15 +171,18 @@ function Home() {
                       style={imageLoaded ? {} : { display: 'none' }}
                     />
                   </div>
-
-                  {/* <Skeleton className='skeletonProfile' variant="circular" /> */}
-                  {/* <img src={`${getProdDevUrl()}/assets/img/` + personal.photo} alt={personal.name} />
-                  <img src={`${process.env.PUBLIC_URL}/img/man.png`} alt={personal.name} /> */}
-
                 </div>
                 <div className="header-titles">
-                  <h2 id="sidebar_name_title"> {personal.name}</h2>
-                  <h4>Tech Enthusiast</h4>
+                  <h2 id="sidebar_name_title">
+                    {!isDataLoading
+                      ? <Skeleton animation="wave" className='skeletonName' variant='h2'/>
+                      : personal.name}
+                  </h2>
+                  <h4>
+                  {!isDataLoading
+                      ? <Skeleton className='skeletonTag' variant='h4'/>
+                      : 'Tech Enthusiast'}
+                  </h4>
                 </div>
               </div>
               <ul className="main-menu">
@@ -200,13 +206,13 @@ function Home() {
                   ))}
                 </ul>
               </div>
-                  
-              {personal.cv_download ==='1' && (
+
+              {personal.cv_download === '1' && (
                 <div className="header-buttons">
-                {isLoading ? <button className="cv_download_button nav-anim btn btn-primary" disabled="disabled" >Generating CV</button> : <button className="cv_download_button nav-anim btn btn-primary" onClick={handleDownloadCV}>Download CV</button>}
-              </div>
+                  {isCVLoading ? <button className="cv_download_button nav-anim btn btn-primary" disabled="disabled" >Generating CV</button> : <button className="cv_download_button nav-anim btn btn-primary" onClick={handleDownloadCV}>Download CV</button>}
+                </div>
               )}
-              
+
               <div className="copyrights">
                 © <span className="get_year">2023</span> | <a href="https://saklayenahmed.cf"><span>{personal.name}</span></a> | All rights reserved.
               </div>

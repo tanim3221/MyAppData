@@ -88,7 +88,7 @@ function ShutdownPage() {
     return (
         <>
             {loading ? (
-                <div className='spinnerBar'>
+                <div className='spinnerBarMaintenace'>
                     <CircularProgress
                         style={{
                             color: '#5e2fd6'
