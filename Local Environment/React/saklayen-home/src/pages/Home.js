@@ -200,9 +200,13 @@ function Home() {
                   ))}
                 </ul>
               </div>
-              <div className="header-buttons">
+                  
+              {personal.cv_download ==='1' && (
+                <div className="header-buttons">
                 {isLoading ? <button className="cv_download_button nav-anim btn btn-primary" disabled="disabled" >Generating CV</button> : <button className="cv_download_button nav-anim btn btn-primary" onClick={handleDownloadCV}>Download CV</button>}
               </div>
+              )}
+              
               <div className="copyrights">
                 © <span className="get_year">2023</span> | <a href="https://saklayenahmed.cf"><span>{personal.name}</span></a> | All rights reserved.
               </div>

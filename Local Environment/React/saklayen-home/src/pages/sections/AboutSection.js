@@ -42,7 +42,7 @@ function AboutContent() {
 
     function AboutMeDescription({ about }) {
         if (about.title === "Additional Description") {
-            return <p>{about.description}</p>;
+            return <p className='aboutDesc'>{about.description}</p>;
         }
         return null;
     }

@@ -490,6 +490,10 @@ li.menu_li_item.active {
   margin-bottom: 10rem;
 }
 
+.expDesc{
+  margin-top: .5rem;
+  line-height: 1.5;
+}
 
 @media only screen and (min-width: 1300px) {
   .header {

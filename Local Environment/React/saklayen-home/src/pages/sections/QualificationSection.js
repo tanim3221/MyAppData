@@ -44,7 +44,7 @@ function QualificationSection() {
                         <div className="divider"></div>
                         <div className="right-part">
                             <h4 className="item-title">{item.company}</h4>
-                            <p>{item.description}</p>
+                            <p className='expDesc'>{item.description}</p>
                         </div>
                     </div>
                 ))}
