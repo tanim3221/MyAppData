@@ -26,7 +26,7 @@ function ShutdownPage() {
         // eslint-disable-next-line
     }, []);
 
-    if (loading) return <div className='spinnerBar'>
+    if (loading) return <div className='spinnerBarMaintenace'>
         <CircularProgress
             style={{
                 color: '#5e2fd6'
