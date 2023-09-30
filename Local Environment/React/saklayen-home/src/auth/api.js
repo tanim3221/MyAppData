@@ -40,3 +40,15 @@ export const checkMaintenance = async (requestData) => {
     throw error;
   }
 };
+
+export const generateCv = async (requestData) => {
+  try {
+    const response = await api.post('/generate_cv.php', requestData, {
+      responseType: 'blob'
+    });
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};

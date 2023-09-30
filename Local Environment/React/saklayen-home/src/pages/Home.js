@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Skeleton } from '@mui/material';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { fetchData } from '../auth/api';
+import CryptoJS from 'crypto-js';
+import { fetchData, generateCv } from '../auth/api';
 import { getProdDevUrl } from '../tools/commonFunction';
 
-const apiUrl = `${getProdDevUrl()}/assets/api`;
 
 function Home() {
 
@@ -53,8 +52,8 @@ function Home() {
       e.preventDefault();
     });
     document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'C' || e.key === 'U')) || 
-          (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I'))) {
+      if ((e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'C' || e.key === 'U')) ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I'))) {
         e.preventDefault();
       }
     });
@@ -112,30 +111,29 @@ function Home() {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return `${day}${month}${year}${hours}${minutes}${seconds}`;
   };
 
 
-  const handleDownload = async (e) => {
+  const handleDownloadCV = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    const date = new Date();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const ciphertext = CryptoJS.MD5(minutes).toString();
     try {
-      const response = await axios.post(`${apiUrl}/generate_cv.php`, {
-        generate_pdf: true
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        responseType: 'blob'
-      });
+      const requestData = {
+        token: ciphertext
+      };
+      const response = await generateCv(requestData);
 
-      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const blob = new Blob([response], { type: 'application/pdf' });
+      await new Promise(resolve => setTimeout(resolve, 0));
       const url = URL.createObjectURL(blob);
 
       const a = document.createElement('a');
       a.href = url;
-      const dateStr = currentDate() || 'unknown_date';
+      const dateStr = currentDate();
       a.download = `CV_of_Saklayen_Ahmed_${dateStr}.pdf`;
       document.body.appendChild(a);
       a.click();
@@ -143,11 +141,11 @@ function Home() {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error generating PDF:', error);
-      // Consider adding a user-friendly error message here, e.g. a toast or modal.
     } finally {
       setIsLoading(false);
     }
   };
+
 
 
   return (
@@ -203,7 +201,7 @@ function Home() {
                 </ul>
               </div>
               <div className="header-buttons">
-                {isLoading ? <button className="cv_download_button nav-anim btn btn-primary" disabled="disabled" >Generating CV</button> : <button className="cv_download_button nav-anim btn btn-primary" onClick={handleDownload}>Download CV</button>}
+                {isLoading ? <button className="cv_download_button nav-anim btn btn-primary" disabled="disabled" >Generating CV</button> : <button className="cv_download_button nav-anim btn btn-primary" onClick={handleDownloadCV}>Download CV</button>}
               </div>
               <div className="copyrights">
                 © <span className="get_year">2023</span> | <a href="https://saklayenahmed.cf"><span>{personal.name}</span></a> | All rights reserved.
