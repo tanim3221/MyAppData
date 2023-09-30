@@ -36,7 +36,7 @@ const ProtectedMainLayout = ({ children }) => {
   switch (maintenanceStatus) {
     case 'loading':
       return (
-        <div className='spinnerBar'>
+        <div className='spinnerBarLoading'>
           <CircularProgress style={{ color: '#5e2fd6' }} />
         </div>
       );
