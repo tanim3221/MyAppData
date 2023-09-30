@@ -69,7 +69,7 @@ function Portfolio() {
 
 
     return (
-        <div className="section-content ">
+        <div className="section-content main_body_wrapper">
             {loading ? (
                 <div className='spinnerBar'>
                     <CircularProgress
@@ -83,7 +83,7 @@ function Portfolio() {
                     <div className="page-title">
                         <h2>Portfolio</h2>
                     </div>
-                    <div className="row main_body_wrapper">
+                    <div className="row">
                         <div className="col-xs-12 col-sm-12">
                             <div className="portfolio-content">
                                 <ul className="portfolio-filters" id="portfolioFilter">

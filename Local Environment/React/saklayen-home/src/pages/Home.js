@@ -52,12 +52,12 @@ function Home() {
     document.addEventListener('contextmenu', (e) => {
       e.preventDefault();
     });
-    // document.addEventListener('keydown', (e) => {
-    //   if ((e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'C' || e.key === 'U')) || 
-    //       (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I'))) {
-    //     e.preventDefault();
-    //   }
-    // });
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'C' || e.key === 'U')) || 
+          (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I'))) {
+        e.preventDefault();
+      }
+    });
     return () => {
       window.removeEventListener('resize', mobileMenuHide);
       document.removeEventListener('copy', disableCopy);

@@ -137,7 +137,7 @@ function ContactContent() {
     }
 
     return (
-        <div className="section-content">
+        <div className="section-content main_body_wrapper">
             {loading ? (
                 <div className='spinnerBar'>
                     <CircularProgress
@@ -150,7 +150,7 @@ function ContactContent() {
                 <><div className="page-title">
                     <h2>Contact</h2>
                 </div>
-                    <div className="row main_body_wrapper">
+                    <div className="row">
                         <ContactInfoBlock value={personal.mobile} iconClass="lnr lnr-phone-handset" title="Mobile" id="contactMobile" />
                         <ContactInfoBlock value={personal.email} iconClass="lnr lnr-envelope" title="E-mail" id="contactMail" />
                     </div>

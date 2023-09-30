@@ -109,7 +109,7 @@ function AboutContent() {
     }
 
     return (
-        <div className="section-content">
+        <div className="section-content main_body_wrapper">
             {loading ? (
                 <div className='spinnerBar'>
                     <CircularProgress
@@ -123,7 +123,7 @@ function AboutContent() {
                     <div className="page-title">
                         <h2>About <span>Me</span></h2>
                     </div>
-                    <div className="row main_body_wrapper">
+                    <div className="row">
                         <div className="col-xs-12 col-sm-7 about_me_text" id="aboutmeView">
                             <div id="aboutmeView">
                                 <div className="info-list">
