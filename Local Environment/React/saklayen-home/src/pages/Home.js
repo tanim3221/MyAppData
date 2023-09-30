@@ -127,7 +127,7 @@ function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        responseType: 'blob'  // Ensuring Axios expects a blob response
+        responseType: 'blob'
       });
 
       const blob = new Blob([response.data], { type: 'application/pdf' });
@@ -135,18 +135,20 @@ function Home() {
 
       const a = document.createElement('a');
       a.href = url;
-      a.download = `CV_of_Saklayen_Ahmed_${currentDate()}.pdf`;
+      const dateStr = currentDate() || 'unknown_date';
+      a.download = `CV_of_Saklayen_Ahmed_${dateStr}.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch (error) {
-      console.log('Error generating PDF:', error);
-      // Optionally: Inform the user about the error, e.g. using a toast notification.
+      console.error('Error generating PDF:', error);
+      // Consider adding a user-friendly error message here, e.g. a toast or modal.
     } finally {
-      setIsLoading(false);  // Setting the loading state back to false.
+      setIsLoading(false);
     }
   };
+
 
   return (
     <div>
