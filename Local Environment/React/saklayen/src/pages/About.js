@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { Container, Button, TableContainer, Dialog, FormGroup, FormControlLabel, InputAdornment, DialogTitle, DialogContent, Box, TextField, Stack, Snackbar, Typography, Paper, Grid, IconButton, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, FormControl, InputLabel, Select, MenuItem, useMediaQuery, Checkbox } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 import { Edit, Delete, Check, Image, Close } from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData, cvPassChange } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -28,6 +31,7 @@ function About() {
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedSocial, setSelectedSocial] = useState([]);
   const [selectedVisible, setSelectedVisibility] = useState('');
+  const [selectedDownloadPer, setDownloadPer] = useState('');
   const isMobile = useMediaQuery('(max-width:600px)');
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
@@ -84,6 +88,7 @@ function About() {
       table: TABLE_NAME,
       data: {
         cv_pass: mainData.cv_pass,
+        cv_download: mainData.cv_download,
         id: mainData.id
       },
     };
@@ -91,6 +96,7 @@ function About() {
     setPersonal(prevState => ({
       ...prevState,
       cv_pass: mainData.cv_pass,
+      cv_download: mainData.cv_download,
     }));
 
     // console.log(personal);
@@ -163,6 +169,19 @@ function About() {
       });
   }
 
+  const handleEditorChange = (event, editor) => {
+    const data = editor.getData();
+    setMainData(prevState => ({ ...prevState, description: data }));
+  };
+  const editorConfig = {
+    toolbar: [
+      'undo', 'redo', '|',
+      'heading', '|',
+      'bold', 'italic', '|',
+      'bulletedList', 'numberedList', 'blockQuote', '|',
+    ],
+  };
+
   const handleSave = (TABLE_NAME) => {
 
     const existingData = ((aboutSave === true) ? about.find(item => item.id === mainData.id) : personal.id === mainData.id);
@@ -225,6 +244,15 @@ function About() {
       visibility: selectedValue,
     }));
     setSelectedVisibility(selectedValue);
+  }; 
+  
+  const handleDownloadPerChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      cv_download: selectedValue,
+    }));
+    setDownloadPer(selectedValue);
   };
 
   const handleFileChange = (event) => {
@@ -277,7 +305,7 @@ function About() {
         open={cvPassopen}
         onClose={() => setCvPassOpen(false)}
       >
-        <DialogTitle>Change CV Password</DialogTitle>
+        <DialogTitle>Change CV Info</DialogTitle>
         <DialogContent>
           <Box
             component="form"
@@ -296,6 +324,19 @@ function About() {
               sx={{ gridColumn: 'span 2' }}
               onChange={handleChange}
             />
+             <FormControl sx={{ gridColumn: 'span 2' }}>
+              <InputLabel id="CV">CV Download Permission</InputLabel>
+              <Select
+                labelId="CV"
+                label="CV Download Permission"
+                value={selectedDownloadPer}
+                onChange={handleDownloadPerChange}
+                name='cv_download'
+              >
+                <MenuItem key={1} value={1}>Activate</MenuItem>
+                <MenuItem key={2} value={0}>Deactivate</MenuItem>
+              </Select>
+            </FormControl>
             <FormGroup
               sx={{ gridColumn: 'span 2' }}
             >
@@ -551,7 +592,7 @@ function About() {
               sx={{ gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
-            <TextField
+            {/* <TextField
               label="Description"
               name='description'
               value={mainData.description}
@@ -559,7 +600,24 @@ function About() {
               multiline
               rows={10}
               onChange={handleChange}
-            />
+            /> */}
+
+            <Box
+              sx={{
+                gridColumn: 'span 2',
+                width: '100%',
+                '& .ck-editor__editable': {
+                  height: '400px', // or whatever height you desire
+                },
+              }}
+            >
+              <CKEditor
+                editor={ClassicEditor}
+                data={mainData.description || ''}
+                onChange={handleEditorChange}
+                config={editorConfig}
+              />
+            </Box>
             <FormControl sx={{ gridColumn: 'span 2' }}>
               <InputLabel id="Visibility">Visibility</InputLabel>
               <Select
@@ -816,10 +874,11 @@ function About() {
           onClick={() => {
             setCvPassOpen(true);
             setShowPass(false);
-            setMainData(personal)
+            setMainData(personal);
+            setDownloadPer(personal.cv_download);
           }}
         >
-          CV Password
+          CV Info
         </Button>
         <Button
           style={{
