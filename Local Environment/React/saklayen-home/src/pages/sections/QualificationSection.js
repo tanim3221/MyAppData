@@ -180,7 +180,7 @@ function QualificationSection() {
                     <div className="page-title">
                         <h2>Qualifications</h2>
                     </div>
-                    <div className="row">
+                    <div className="row main_body_wrapper">
                         <div className="col-xs-12 col-sm-7">
                             <div className="block-title">
                                 <h3>Education</h3>

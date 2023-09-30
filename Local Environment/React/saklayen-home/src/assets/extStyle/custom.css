@@ -478,6 +478,10 @@ li.menu_li_item.active {
   border-bottom: 2px solid #5e2fd6;
 }
 
+.main_body_wrapper{
+  margin-bottom: 10rem;
+}
+
 
 @media only screen and (min-width: 1300px) {
   .header {
@@ -530,6 +534,15 @@ li.menu_li_item.active {
 }
 
 @media only screen and (max-width: 768px) {
+
+  li.menu_li_item.active span {
+    color: #ffffff;
+    font-weight:500;
+  }
+  li.menu_li_item.active {
+    border-bottom: unset;
+  }
+  
   .header-photo img {
     border-radius: 2rem !important;
   }

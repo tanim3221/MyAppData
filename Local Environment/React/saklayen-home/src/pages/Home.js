@@ -52,12 +52,12 @@ function Home() {
     document.addEventListener('contextmenu', (e) => {
       e.preventDefault();
     });
-    document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'C' || e.key === 'U')) || 
-          (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I'))) {
-        e.preventDefault();
-      }
-    });
+    // document.addEventListener('keydown', (e) => {
+    //   if ((e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'C' || e.key === 'U')) || 
+    //       (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I'))) {
+    //     e.preventDefault();
+    //   }
+    // });
     return () => {
       window.removeEventListener('resize', mobileMenuHide);
       document.removeEventListener('copy', disableCopy);
@@ -104,7 +104,15 @@ function Home() {
 
   const currentDate = () => {
     const date = new Date();
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
 
