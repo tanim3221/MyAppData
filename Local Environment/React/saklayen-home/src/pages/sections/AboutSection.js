@@ -42,7 +42,7 @@ function AboutContent() {
 
     function AboutMeDescription({ about }) {
         if (about.title === "Additional Description") {
-            return <p className='aboutDesc'>{about.description}</p>;
+            return <p className='aboutDesc' dangerouslySetInnerHTML={{ __html: about.description }}></p>;
         }
         return null;
     }
@@ -52,7 +52,7 @@ function AboutContent() {
             return (
                 <li>
                     <span className="title">{about.title}: </span>
-                    <span>{about.description}</span>
+                    <span dangerouslySetInnerHTML={{ __html: about.description }}></span>
                 </li>
             );
         }

@@ -292,6 +292,10 @@ function About() {
     navigate(url, { replace: true });
   }
 
+  const stripHTML=(html)=> {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+  }
   // eslint-disable-next-line
   const renderPasswordDialog = () => {
 
@@ -912,7 +916,7 @@ function About() {
                 <TableRow key={item.id}>
                   <TableCell>{item.rank}</TableCell>
                   <TableCell>{item.title}</TableCell>
-                  <TableCell>{item.description}</TableCell>
+                  <TableCell>{stripHTML(item.description)}</TableCell>
                   <TableCell>
                     <Button
                       onClick={() => {
