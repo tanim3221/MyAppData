@@ -128,10 +128,10 @@ function AboutContent() {
                             <div id="aboutmeView">
                                 <div className="info-list">
                                     <ul>
-                                        {aboutme.map(about => <AboutMeItem key={about.id} about={about} />)}
+                                        {aboutme.sort((b,a)=>a.rank-b.rank).map(about => <AboutMeItem key={about.id} about={about} />)}
                                     </ul>
                                 </div>
-                                {aboutme.map(about => <AboutMeDescription key={about.id} about={about} />)}
+                                {aboutme.sort((b,a)=>a.rank-b.rank).map(about => <AboutMeDescription key={about.id} about={about} />)}
                             </div>
                         </div>
                         <div className="col-xs-12 col-sm-5">
@@ -177,7 +177,7 @@ function AboutContent() {
                         </div>
                     </div>
                     <div className="row">
-                        {service.map(item => (
+                        {service.sort((b,a)=>a.rank-b.rank).map(item => (
                             <div className="col-xs-12 col-sm-6" key={item.id}>
                                 <div className="col-inner">
                                     <div className="info-list-w-icon">
@@ -205,7 +205,7 @@ function AboutContent() {
                         </div>
                     </div>
                     <div className="row">
-                        {languages.map(language => (
+                        {languages.sort((b,a)=>a.rank-b.rank).map(language => (
                             <div key={language.id} className="col-xs-12 col-sm-6">
                                 <div className="col-inner">
                                     <div className="info-list-w-icon">
@@ -233,7 +233,7 @@ function AboutContent() {
                         </div>
                     </div>
                     <div className="row">
-                        {interests.map(interest => <InterestItem key={interest.id} interest={interest} />)}
+                        {interests.sort((b,a)=>a.rank-b.rank).map(interest => <InterestItem key={interest.id} interest={interest} />)}
                     </div>
                     <div className="white-space-50"></div>
                     <div className="row">
@@ -244,7 +244,7 @@ function AboutContent() {
                         </div>
                     </div>
                     <div className="row">
-                        {attributes.map(attribute => <AttributeItem key={attribute.id} attribute={attribute} />)}
+                        {attributes.sort((b,a)=>a.rank-b.rank).map(attribute => <AttributeItem key={attribute.id} attribute={attribute} />)}
                     </div>
                     <div className="white-space-50"></div>
 
@@ -256,7 +256,7 @@ function AboutContent() {
                         </div>
                     </div>
                     <div className="row">
-                        {funfacts.map(funfact => <FunFactItem key={funfact.id} funfact={funfact} />)}
+                        {funfacts.sort((b,a)=>a.rank-b.rank).map(funfact => <FunFactItem key={funfact.id} funfact={funfact} />)}
                     </div>
 
 

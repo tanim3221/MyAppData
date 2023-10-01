@@ -35,7 +35,7 @@ function QualificationSection() {
     function ExperienceTimeline({ experienceData }) {
         return (
             <div id="experienceTimeline">
-                {experienceData.map((item) => (
+                {experienceData.sort((b,a)=>a.rank-b.rank).map((item) => (
                     <div className="timeline-item clearfix" key={item.company + item.position}>
                         <div className="left-part">
                             <h5 className="item-period">{item.period}</h5>
@@ -70,7 +70,7 @@ function QualificationSection() {
         if (category === "finance_accounting") {
             return (
                 <ul id="skillsContainerFin">
-                    {skillsData.filter(item => item.category === "finance_accounting").map(skill => (
+                    {skillsData.sort((b,a)=>a.rank-b.rank).filter(item => item.category === "finance_accounting").map(skill => (
                         <li key={skill.skill}>{skill.skill}</li>
                     ))}
                 </ul>
@@ -80,7 +80,7 @@ function QualificationSection() {
         if (category === "coding") {
             return (
                 <div id="skillsContainerCode">
-                    {skillsData.filter(item => item.category === "coding").map(skill => {
+                    {skillsData.sort((b,a)=>a.rank-b.rank).filter(item => item.category === "coding").map(skill => {
                         const percentage = getSkillLevelPercentage(skill.level);
                         return (
                             <div key={skill.skill} className="clearfix">
@@ -101,7 +101,7 @@ function QualificationSection() {
         if (category === "technology") {
             return (
                 <ul id="skillsContainerTech">
-                    {skillsData.filter(item => item.category === "technology").map(skill => (
+                    {skillsData.sort((b,a)=>a.rank-b.rank).filter(item => item.category === "technology").map(skill => (
                         <li key={skill.skill}>{skill.skill}</li>
                     ))}
                 </ul>
@@ -114,7 +114,7 @@ function QualificationSection() {
     function Certifications({ certificationsData }) {
         return (
             <div className='row' id="certificationsTimeline">
-                {certificationsData.map((item) => (
+                {certificationsData.sort((b,a)=>a.rank-b.rank).map((item) => (
                     <div
                         className="col-xs-12 col-sm-6"
                         key={item.title + item.issuer}
@@ -145,7 +145,7 @@ function QualificationSection() {
     function EducationTimeline({ educationData }) {
         return (
             <div id="educationTimeline">
-                {educationData.map((item) => (
+                {educationData.sort((b,a)=>a.rank-b.rank).map((item) => (
                     <div className="timeline-item clearfix" key={item.title}>
                         <div className="left-part">
                             <h5 className="item-period">{item.period}</h5>

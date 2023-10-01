@@ -6,9 +6,10 @@ import { getProdDevUrl } from '../tools/commonFunction';
 
 function ShutdownPage() {
     const [personal, setPersonal] = useState(null);
+    const [myTags, setMyTag] = useState([]);
     const [loading, setLoading] = useState(true);
     const [imageLoaded, setImageLoaded] = useState(false);
-    const tables = ['personalinfo'];
+    const tables = ['personalinfo', 'my_tags'];
 
 
     useEffect(() => {
@@ -16,7 +17,9 @@ function ShutdownPage() {
             .then(responseData => {
                 const getdata = responseData.saklayen;
                 const personalinfo = getdata.personalinfo[0];
+                const myTag = getdata.my_tags;
                 setPersonal(personalinfo);
+                setMyTag(myTag);
                 setLoading(false);
             })
             .catch(error => {
@@ -34,9 +37,7 @@ function ShutdownPage() {
         />
     </div>;
 
-    const mytag = JSON.parse(personal.tag || '[]');
-    const lastKey = mytag.length - 1;
-
+    const lastKey = myTags.length - 1;
 
     function CountdownTimer({ expiryDate }) {
         const [timeLeft, setTimeLeft] = useState({
@@ -115,9 +116,9 @@ function ShutdownPage() {
                                 <div className="header-titles">
                                     <h2 id="shutName">{personal.name}</h2>
                                     <h4>
-                                        {mytag.map((value, index) => (
+                                        {myTags.sort((b,a)=>a.rank-b.rank).map((value, index) => (
                                             <React.Fragment key={index}>
-                                                {value}
+                                                {value.tag_name}
                                                 {index !== lastKey && <>&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</>}
                                             </React.Fragment>
                                         ))}

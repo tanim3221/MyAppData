@@ -197,7 +197,7 @@ function Home() {
               </ul>
               <div className="social-links">
                 <ul>
-                  {socialLinks.map(socialLink => (
+                  {socialLinks.sort((b,a)=>a.rank-b.rank).map(socialLink => (
                     <li key={socialLink.link}>
                       <a href={socialLink.link} target="_blank" rel="noopener noreferrer">
                         <i className={socialLink.icon}></i>

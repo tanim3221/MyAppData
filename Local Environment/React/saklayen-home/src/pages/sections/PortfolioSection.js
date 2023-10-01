@@ -52,7 +52,7 @@ function Portfolio() {
                 }}>
                     <span href='#' className="filter btn btn-sm btn-link active">All</span>
                 </li>
-                {filterData.map(item => (
+                {filterData.sort((b,a)=>a.rank-b.rank).map(item => (
                     <li className='itemFilterPort' key={item.id}>
                         <span
                             onClick={() => {
@@ -90,7 +90,7 @@ function Portfolio() {
                                     <FilterList filterData={portfolioFilters} />
                                 </ul>
                                 <div className="portfolio-grid three-columns" id="portfolioGrid">
-                                    {portfolios.map(item => (
+                                    {portfolios.sort((b,a)=>a.rank-b.rank).map(item => (
                                         <figure key={item.id} className="item standard">
                                             <div className="portfolio-item-img">
 
