@@ -552,6 +552,11 @@ li.menu_li_item.active {
     max-width: 100% !important;
   }
 
+  li.menu_li_item.active span {
+    color: #ffffff;
+    font-weight:500;
+  }
+
   div#profilePhoto {
     width: 130px !important;
     height: 130px !important;
@@ -564,6 +569,19 @@ li.menu_li_item.active {
   .title-block h2 {
     font-size: 45px !important;
   }
+
+  ul.main-menu .nav-anim {
+    display: block;
+    color: #fff;
+    padding: 12px 0;
+    font-weight: normal;
+    line-height: 21px;
+    opacity: .7;
+  }
+  ul.main-menu li.menu_li_item.active .nav-anim {
+     opacity: 1!important;
+  }
+
 }
 
 @media only screen and (max-width: 768px) {
@@ -583,10 +601,7 @@ li.menu_li_item.active {
     font-size: 32px!important;
     line-height: 35px!important;
   }
-  li.menu_li_item.active span {
-    color: #ffffff;
-    font-weight:500;
-  }
+ 
   li.menu_li_item.active {
     border-bottom: unset;
   }
@@ -642,9 +657,6 @@ li.menu_li_item.active {
     width: 100px !important;
 
   }
-}
-
-@media only screen and (min-width: 1025px) {
   ul.main-menu .nav-anim {
     border-bottom: 1px solid #f5f5f5;
     display: block;
@@ -655,13 +667,3 @@ li.menu_li_item.active {
   }
 }
 
-@media only screen and (max-width: 1024px) {
-  ul.main-menu .nav-anim {
-    display: block;
-    color: #fff;
-    padding: 12px 0;
-    line-height: 21px;
-    opacity: .7;
-  }
-
-}
