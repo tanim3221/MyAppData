@@ -49,13 +49,6 @@ function Home() {
         setIsDataLoading(false);
       });
 
-    // const handleScroll = () => {
-    //   if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight) {
-    //     navigateToNextSection();
-    //   }
-    // };
-
-    // window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', mobileMenuHide);
     document.addEventListener('copy', disableCopy);
     document.addEventListener('contextmenu', (e) => {
@@ -68,7 +61,6 @@ function Home() {
       }
     });
     return () => {
-      // window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', mobileMenuHide);
       document.removeEventListener('copy', disableCopy);
     }
