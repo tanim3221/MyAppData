@@ -4,7 +4,7 @@ import './../App.css';
 
 
 function Home() {
-    const imageUrl = "https://api.saklayen.cf/assets/img/9593487dda110b125edacdba7b3058ef.jpg";
+    const imageUrl = "http://localhost:8080/php-test/translator/img.php?url=https://api.saklayen.cf/assets/img/9593487dda110b125edacdba7b3058ef.jpg";
     // const base64Image = useImageToBase64(imageUrl, 300, 300);
 
     // mode 0 = define width e.g 150

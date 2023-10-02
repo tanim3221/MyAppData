@@ -1,42 +1,90 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { getProdDevUrl } from './commonFunction';
 
-const useImageToBase64 = (url, targetWidth = 500, targetHeight = 500) => {
+
+const useImageToBase64 = (imageUrl, mode, val = null) => {
   const [base64, setBase64] = useState(null);
+  const valRef = useRef(val);
 
   useEffect(() => {
-    let isMounted = true; // track if component is mounted
+    let isMounted = true;  // To avoid setting state on unmounted component
 
-    const fetchImageAndConvertToBase64 = async () => {
+    const getOpt = (mode, val, width, height, size) => {
+      let result = {};
+      switch (mode) {
+        case 0:
+          // Fixed width
+          result.rate = val / width;
+          result.width = val;
+          result.height = height * result.rate;
+          break;
+        case 1:
+          // Ratio size width and height
+          result.rate = val;
+          result.width = width * val;
+          result.height = height * val;
+          break;
+        case 2:
+          // Actual image size width and height
+          val *= 1024;
+          result.rate = Math.sqrt(size / val);
+          result.width = Math.ceil(width / result.rate);
+          result.height = Math.ceil(height / result.rate);
+          break;
+        default:
+          break;
+      }
+      return result;
+    };
+
+    const convertImage = async () => {
       try {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        
-        const img = new Image();
-        
-        img.onload = function() {
-          if (!isMounted) return; // if component has been unmounted, exit
+        const imgRender = `${getProdDevUrl()}/assets/api/img_base64.php`;
+        let response = await axios.post(imgRender, {
+          url: imageUrl
+        }, {
+          responseType: 'arraybuffer'
+        });
+        let img = new Blob([response.data], { type: response.headers['content-type'] });
 
-          // rest of the logic remains the same
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          canvas.width = targetWidth;
-          canvas.height = targetHeight;
-          ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-          const reducedBase64 = canvas.toDataURL();
-          setBase64(reducedBase64);
+        // let responseText = new TextDecoder("utf-8").decode(response.data);
+        // console.log(imgRender);
+
+        let size = img.size;
+        let bitmap = await createImageBitmap(img);
+
+        if (val !== null) {
+          valRef.current = val;
+        } else if (mode === 0 && val === null) {
+          valRef.current = 150;
+        } else if (mode === 1 && val === null) {
+          valRef.current = 0.3;
         }
 
-        img.src = URL.createObjectURL(blob);
+        const para = getOpt(mode, valRef.current, bitmap.width, bitmap.height, size);
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext('2d');
+        canvas.width = para.width;
+        canvas.height = para.height;
+        ctx.drawImage(bitmap, 0, 0, para.width, para.height);
+
+        if (isMounted) {
+          setBase64(canvas.toDataURL("image/jpeg", 0.8));
+        }
+
       } catch (error) {
-        console.error("Failed to fetch and convert image:", error);
+        console.error("Failed to fetch the image from server:", error);
+        return; 
       }
+    };
+
+    convertImage();
+
+    return () => {
+      isMounted = false;
     }
-
-    fetchImageAndConvertToBase64();
-
-    return () => { isMounted = false }; // cleanup function
-
-  }, [url, targetWidth, targetHeight]);
+  }, [imageUrl, mode, val]);
 
   return base64;
 }

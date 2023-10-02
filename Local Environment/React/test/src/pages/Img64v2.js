@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 
 const useImageToBase64 = (imageUrl, mode, val = null) => {
   const [base64, setBase64] = useState(null);
@@ -37,16 +36,8 @@ const useImageToBase64 = (imageUrl, mode, val = null) => {
     };
 
     const convertImage = async () => {
-      let response = await axios.post("http://localhost:8080/php-test/translator/img.php", {
-        url: imageUrl
-      }, {
-        responseType: 'arraybuffer'
-      });
-      let img = new Blob([response.data], {type: response.headers['content-type']});
-
-      // let responseText = new TextDecoder("utf-8").decode(response.data);
-      // console.log(responseText);
- 
+      let img = await fetch(imageUrl);
+      img = await img.blob();
       let size = img.size;
       let bitmap = await createImageBitmap(img);
 

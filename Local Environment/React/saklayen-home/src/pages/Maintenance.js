@@ -3,12 +3,20 @@ import { fetchData } from '../auth/api';
 import { CircularProgress, Skeleton } from '@mui/material';
 import '../styles';
 import { getProdDevUrl } from '../tools/commonFunction';
+import useImageToBase64 from '../tools/Base64Images';
+
+const DEFAULT_IMAGE_URL = `${process.env.PUBLIC_URL}/img/man.png`;
 
 function ShutdownPage() {
     const [personal, setPersonal] = useState(null);
     const [myTags, setMyTag] = useState([]);
     const [loading, setLoading] = useState(true);
     const [imageLoaded, setImageLoaded] = useState(false);
+
+    const imageUrl = personal ? `${getProdDevUrl()}/assets/img/${personal.photo}` : DEFAULT_IMAGE_URL;
+
+    const base64Image = useImageToBase64(imageUrl, 0, 100);
+
     const tables = ['personalinfo', 'my_tags'];
 
 
@@ -28,6 +36,7 @@ function ShutdownPage() {
             });
         // eslint-disable-next-line
     }, []);
+
 
     if (loading) return <div className='spinnerBarMaintenace'>
         <CircularProgress
@@ -52,7 +61,7 @@ function ShutdownPage() {
                 const now = new Date();
                 const expiration = new Date(expiryDate);
                 const difference = expiration - now;
-        
+
                 if (difference <= 0) {
                     setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
                     clearInterval(interval);
@@ -61,14 +70,14 @@ function ShutdownPage() {
                     const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-        
+
                     setTimeLeft({ days, hours, minutes, seconds });
                 }
             }, 1000);
-        
+
             return () => clearInterval(interval);
         }, [expiryDate]);
-        
+
         return (
             <div className="counterTimer">
                 {[
@@ -85,6 +94,7 @@ function ShutdownPage() {
             </div>
         );
     }
+
 
     return (
         <>
@@ -103,9 +113,10 @@ function ShutdownPage() {
                         <div id="shutPageContent">
                             <div className="header-content" id="shutDownHead">
                                 <div className="header-photo" id="shutImageHead">
-                                    {!imageLoaded && <Skeleton className='skeletonProfileMaintenace' variant="circular" />}
+                                    {!imageLoaded && <Skeleton animation="wave" className='skeletonProfileMaintenace' variant="circular" />}
                                     <img
-                                        src={`${getProdDevUrl()}/assets/img/` + personal.photo}
+                                        // src={`${getProdDevUrl()}/assets/img/` + personal.photo}
+                                        src={base64Image}
                                         alt={personal.name}
                                         onLoad={() => setImageLoaded(true)}
                                         style={imageLoaded ? {} : { display: 'none' }}
@@ -116,7 +127,7 @@ function ShutdownPage() {
                                 <div className="header-titles">
                                     <h2 id="shutName">{personal.name}</h2>
                                     <h4>
-                                        {myTags.sort((b,a)=>a.rank-b.rank).map((value, index) => (
+                                        {myTags.sort((b, a) => a.rank - b.rank).map((value, index) => (
                                             <React.Fragment key={index}>
                                                 {value.tag_name}
                                                 {index !== lastKey && <>&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</>}
@@ -130,7 +141,7 @@ function ShutdownPage() {
                                     <p>It was a pleasure to have you here.</p>
                                     <p>I hope to see you again soon.</p>
                                 </div>
-                                <CountdownTimer expiryDate={personal.expiry_date}/>
+                                <CountdownTimer expiryDate={personal.expiry_date} />
                             </div>
                         </div>
                     </div>

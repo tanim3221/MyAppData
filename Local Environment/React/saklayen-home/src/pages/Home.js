@@ -4,6 +4,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import CryptoJS from 'crypto-js';
 import { fetchData, generateCv } from '../auth/api';
 import { getProdDevUrl } from '../tools/commonFunction';
+import useImageToBase64 from '../tools/Base64Images';
 
 
 function Home() {
@@ -68,6 +69,8 @@ function Home() {
     // eslint-disable-next-line
   }, []);
 
+  const imageUrl = `${getProdDevUrl()}/assets/img/` + personal.photo;
+  const base64Image = useImageToBase64(imageUrl, 0, 200);
 
   const handleClick = (sectionId) => {
     const menuItem = menuItems.find(item => item.id === sectionId);
@@ -162,10 +165,11 @@ function Home() {
                 <div className="header-photo" id="profilePhoto">
 
                   <div>
-                    {!imageLoaded && <Skeleton className='skeletonProfile' variant="circular" />}
+                    {!imageLoaded && <Skeleton animation="wave" className='skeletonProfile' variant="circular" />}
 
                     <img
-                      src={`${getProdDevUrl()}/assets/img/` + personal.photo}
+                      // src={`${getProdDevUrl()}/assets/img/` + personal.photo}
+                      src={base64Image}
                       alt={personal.name}
                       onLoad={() => setImageLoaded(true)}
                       style={imageLoaded ? {} : { display: 'none' }}
