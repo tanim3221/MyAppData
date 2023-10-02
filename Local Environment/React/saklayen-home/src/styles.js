@@ -4,7 +4,6 @@ import './assets/extStyle/animations.css';
 import './assets/extStyle/animations.min.css';
 import './assets/extStyle/bootstrap-grid.min.css';
 import './assets/extStyle/custom.css';
-// import './assets/extStyle/custom.min.css';
 // import './assets/extStyle/magnific-popup.css';
 import './assets/extStyle/magnific-popup.min.css';
 // import './assets/extStyle/main.dark.blue.css';

@@ -165,7 +165,7 @@ function Home() {
                 <div className="header-photo" id="profilePhoto">
 
                   <div>
-                    {!imageLoaded && <Skeleton animation="wave" className='skeletonProfile' variant="circular" />}
+                    {!imageLoaded && <Skeleton className='skeletonProfile' variant="circular" />}
 
                     <img
                       // src={`${getProdDevUrl()}/assets/img/` + personal.photo}

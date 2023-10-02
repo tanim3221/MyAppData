@@ -113,7 +113,7 @@ function ShutdownPage() {
                         <div id="shutPageContent">
                             <div className="header-content" id="shutDownHead">
                                 <div className="header-photo" id="shutImageHead">
-                                    {!imageLoaded && <Skeleton animation="wave" className='skeletonProfileMaintenace' variant="circular" />}
+                                    {!imageLoaded && <Skeleton className='skeletonProfileMaintenace' variant="circular" />}
                                     <img
                                         // src={`${getProdDevUrl()}/assets/img/` + personal.photo}
                                         src={base64Image}

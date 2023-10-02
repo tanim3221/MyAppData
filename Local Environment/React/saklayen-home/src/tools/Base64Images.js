@@ -6,9 +6,14 @@ import { getProdDevUrl } from './commonFunction';
 const useImageToBase64 = (imageUrl, mode, val = null) => {
   const [base64, setBase64] = useState(null);
   const valRef = useRef(val);
+  const debounceTimer = useRef(null);
 
   useEffect(() => {
-    let isMounted = true; 
+    let isMounted = true;
+
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
 
     const getOpt = (mode, val, width, height, size) => {
       let result = {};
@@ -75,17 +80,20 @@ const useImageToBase64 = (imageUrl, mode, val = null) => {
 
       } catch (error) {
         if (isMounted) {
-          console.error("Failed to fetch the image from server:", error);
+          console.log("Failed to fetch the image from server:", error);
         }
         return;
       }
     };
 
-    convertImage();
+    debounceTimer.current = setTimeout(() => {
+      convertImage();
+    }, 1500);
 
     return () => {
       isMounted = false;
     }
+
   }, [imageUrl, mode, val]);
 
   return base64;
