@@ -7,6 +7,13 @@
   pointer-events: none;
 }
 
+.imgScr{
+  width: 200px;
+  height: 250px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
