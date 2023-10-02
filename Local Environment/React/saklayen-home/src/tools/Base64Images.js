@@ -8,7 +8,7 @@ const useImageToBase64 = (imageUrl, mode, val = null) => {
   const valRef = useRef(val);
 
   useEffect(() => {
-    let isMounted = true;  // To avoid setting state on unmounted component
+    let isMounted = true; 
 
     const getOpt = (mode, val, width, height, size) => {
       let result = {};
@@ -49,7 +49,7 @@ const useImageToBase64 = (imageUrl, mode, val = null) => {
         let img = new Blob([response.data], { type: response.headers['content-type'] });
 
         // let responseText = new TextDecoder("utf-8").decode(response.data);
-        // console.log(imgRender);
+        // console.log(response.headers['content-type']);
 
         let size = img.size;
         let bitmap = await createImageBitmap(img);
@@ -70,12 +70,14 @@ const useImageToBase64 = (imageUrl, mode, val = null) => {
         ctx.drawImage(bitmap, 0, 0, para.width, para.height);
 
         if (isMounted) {
-          setBase64(canvas.toDataURL("image/jpeg", 0.8));
+          setBase64(canvas.toDataURL("image/jpeg", 1));
         }
 
       } catch (error) {
-        console.error("Failed to fetch the image from server:", error);
-        return; 
+        if (isMounted) {
+          console.error("Failed to fetch the image from server:", error);
+        }
+        return;
       }
     };
 
