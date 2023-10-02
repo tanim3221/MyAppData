@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchData } from '../../auth/api';
 import { CircularProgress } from '@mui/material';
+import LinkedInBadge from '../../tools/LinkedInBadge';
 
 function AboutContent() {
     const [personal, setPersonal] = useState([]);
@@ -163,8 +164,8 @@ function AboutContent() {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="white-space-10"></div>
-                            <div className="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="light" data-type="HORIZONTAL" data-vanity="saklayen" data-version="v1"></div>
+                            <div className="white-space-50"></div>
+                            <LinkedInBadge/>              
                         </div>
                     </div>
                     <div className="white-space-50"></div>
