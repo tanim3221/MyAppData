@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle,IconButton, Snackbar, Box, FormControl,InputLabel,MenuItem,Select, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle, IconButton, Snackbar, Box, FormControl, InputLabel, MenuItem, Select, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack, Typography } from '@mui/material';
 import { Edit, Delete, Check, Close } from '@mui/icons-material'
-import { fetchData,addData, updateData, deleteData } from '../auth/api';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { fetchData, addData, updateData, deleteData } from '../auth/api';
+
 import extStyles from '../utils/styles.module.css';
 
 function Experience() {
@@ -72,6 +75,11 @@ function Experience() {
         setSnackbarMessage(error);
         setSnackbarOpen(true);
       });
+  }
+
+  const stripHTML = (html) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
   }
 
   const handleDelete = (id) => {
@@ -161,6 +169,19 @@ function Experience() {
     }));
   };
 
+  const handleEditorChange = (event, editor) => {
+    const data = editor.getData();
+    setMainData(prevState => ({ ...prevState, description: data }));
+  };
+  const editorConfig = {
+    toolbar: [
+      'undo', 'redo', '|',
+      'heading', '|',
+      'bold', 'italic', '|',
+      'bulletedList', 'numberedList', 'blockQuote', '|',
+    ],
+  };
+
   // eslint-disable-next-line
   const renderDialog = () => {
     return (
@@ -201,7 +222,7 @@ function Experience() {
               value={mainData.company}
               onChange={handleChange}
             />
-            
+
             <TextField
               label="Department"
               name='department'
@@ -210,7 +231,7 @@ function Experience() {
 
               onChange={handleChange}
             />
-            
+
             <TextField
               label="Company Address"
               name='address'
@@ -229,16 +250,28 @@ function Experience() {
               rows={8}
               onChange={handleChange}
             />
-            <TextField
-              label="Description"
-              name='description'
-              value={mainData.description || ''}
-              sx={{ gridColumn: 'span 2' }}
-              multiline
-              rows={10}
-              onChange={handleChange}
-            />
-                        <FormControl  sx={{ gridColumn: 'span 2' }}>
+
+            <Box
+              sx={{
+                gridColumn: 'span 2',
+                width: '100%',
+                '& .ck-editor__editable': {
+                  height: '400px',
+                },
+              }}
+            >
+              <Typography variant="h6" component="h6" gutterBottom>
+                Description
+              </Typography>
+              <CKEditor
+                editor={ClassicEditor}
+                data={mainData.description || ''}
+                onChange={handleEditorChange}
+                config={editorConfig}
+              />
+            </Box>
+
+            <FormControl sx={{ gridColumn: 'span 2' }}>
               <InputLabel id="Visibility">Visibility</InputLabel>
               <Select
                 labelId="Visibility"
@@ -252,11 +285,11 @@ function Experience() {
               </Select>
             </FormControl>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
-            {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
+              {isAdding ? null : <Button style={{ backgroundColor: 'maroon', color: 'white' }} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete /></Button>}
             </Stack>
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-end">
               <Button variant="outlined" onClick={handleClose}>Close</Button>
-              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check/> }</Button>
+              <Button variant="contained" onClick={isAdding ? handleAdd : handleSave}>{isAdding ? 'Add' : <Check />}</Button>
             </Stack>
           </Box>
 
@@ -277,7 +310,7 @@ function Experience() {
           setForExp(true);
           setOpen(true);
         }}
-        style={{ marginBottom: '1rem', marginRight:'1rem' }}
+        style={{ marginBottom: '1rem', marginRight: '1rem' }}
       >
         Add New Experience
       </Button>
@@ -317,9 +350,9 @@ function Experience() {
                   <TableCell>{item.company}</TableCell>
                   <TableCell>{item.position}</TableCell>
                   <TableCell>{item.period}</TableCell>
-                  <TableCell>{item.description}</TableCell>
+                  <TableCell>{stripHTML(item.description)}</TableCell>
                   <TableCell>
-                  <Button
+                    <Button
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
@@ -330,7 +363,7 @@ function Experience() {
                       }}
                     >
                       <Edit />
-                      </Button>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -342,9 +375,9 @@ function Experience() {
                   <TableCell>{item.company}</TableCell>
                   <TableCell>{item.position}</TableCell>
                   <TableCell>{item.period}</TableCell>
-                  <TableCell>{item.description}</TableCell>
+                  <TableCell>{stripHTML(item.description)}</TableCell>
                   <TableCell>
-                  <Button
+                    <Button
                       onClick={() => {
                         setMainData(item);
                         setOpen(true);
@@ -353,7 +386,7 @@ function Experience() {
                       }}
                     >
                       <Edit />
-                      </Button>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

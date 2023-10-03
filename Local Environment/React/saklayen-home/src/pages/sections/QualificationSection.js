@@ -8,17 +8,20 @@ function QualificationSection() {
     const [educations, setEducation] = useState([]);
     const [experiences, setExperience] = useState([]);
     const [certifications, setCertifications] = useState([]);
+    const [extraCurr, setExtraCurr] = useState([]);
     const [skills, setSkills] = useState([]);
-    const tables = ['education', 'experience', 'certifications', 'skills'];
+    const tables = ['education', 'experience', 'certifications', 'skills','extra_curr'];
 
     useEffect(() => {
         fetchData(tables)
             .then(responseData => {
                 const getdata = responseData.saklayen;
                 const experience = getdata.experience;
+                const extras = getdata.extra_curr;
                 const certification = getdata.certifications;
                 const skill = getdata.skills;
                 const education = getdata.education;
+                setExtraCurr(extras);
                 setEducation(education);
                 setSkills(skill);
                 setCertifications(certification);
@@ -32,6 +35,11 @@ function QualificationSection() {
         // eslint-disable-next-line
     }, []);
 
+    const stripHTML=(html)=> {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
+      }
+
     function ExperienceTimeline({ experienceData }) {
         return (
             <div id="experienceTimeline">
@@ -44,7 +52,26 @@ function QualificationSection() {
                         <div className="divider"></div>
                         <div className="right-part">
                             <h4 className="item-title">{item.company}</h4>
-                            <p className='expDesc'>{item.description}</p>
+                            <p className='expDesc'>{stripHTML(item.description)}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
+    }
+    function ExtraTimeline({ extraData }) {
+        return (
+            <div id="experienceTimeline">
+                {extraData.sort((b,a)=>a.rank-b.rank).map((item) => (
+                    <div className="timeline-item clearfix" key={item.company + item.position}>
+                        <div className="left-part">
+                            <h5 className="item-period">{item.period}</h5>
+                            <span className="item-company">{item.position}</span>
+                        </div>
+                        <div className="divider"></div>
+                        <div className="right-part">
+                            <h4 className="item-title">{item.company}</h4>
+                            <p className='expDesc'>{stripHTML(item.description)}</p>
                         </div>
                     </div>
                 ))}
@@ -194,6 +221,13 @@ function QualificationSection() {
                             </div>
                             <div className="timeline timeline-second-style clearfix" id="experienceTimeline">
                                 <ExperienceTimeline experienceData={experiences} />
+                            </div>
+                            <div className="white-space-50"></div>
+                            <div className="block-title">
+                                <h3>Extracurricular Activities</h3>
+                            </div>
+                            <div className="timeline timeline-second-style clearfix" id="experienceTimeline">
+                                <ExtraTimeline extraData={extraCurr} />
                             </div>
                         </div>
                         <div className="col-xs-12 col-sm-5 professional_class">
