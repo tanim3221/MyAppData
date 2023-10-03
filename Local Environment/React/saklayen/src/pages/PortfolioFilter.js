@@ -138,7 +138,7 @@ function PortfolioFilter() {
     setMainData((prevData) => {
       let newCategory = prevData.category;
       if (name === "text") {
-        newCategory = value.replace(/\s+/g, "_");
+        newCategory = value.replace(/\s+/g, "_").toLowerCase();
       }
       return {
         ...prevData,
