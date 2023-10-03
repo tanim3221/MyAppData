@@ -630,6 +630,13 @@ li.menu_li_item.active {
     min-height: 124px !important;
   }
 
+  .skeletonProfile{
+    height: 100px!important;
+    width: 100px!important;
+    min-height: 124px !important;
+    border-radius: 2rem!important;
+  }
+
   .counterTimer {
     gap: 25px !important;
     bottom: 50px;

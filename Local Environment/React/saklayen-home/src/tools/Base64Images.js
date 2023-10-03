@@ -88,7 +88,7 @@ const useImageToBase64 = (imageUrl, mode, val = null) => {
 
     debounceTimer.current = setTimeout(() => {
       convertImage();
-    }, 1500);
+    }, 500);
 
     return () => {
       isMounted = false;
