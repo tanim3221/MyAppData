@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle, IconButton, Snackbar, Box, FormControl, InputLabel, MenuItem, Select, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack, Typography } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle, IconButton, Snackbar, Box, FormControl, InputLabel, MenuItem, Select, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack, Typography, useMediaQuery } from '@mui/material';
 import { Edit, Delete, Check, Close } from '@mui/icons-material'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -19,6 +19,7 @@ function Experience() {
   const [dataChanged, setDataChanged] = useState(false);
   const [forExp, setForExp] = useState(true);
   const [selectedVisible, setSelectedVisibility] = useState('');
+  const isMobile = useMediaQuery('(max-width:600px)');
 
 
   const TABLE_NAME = 'experience';
@@ -201,18 +202,21 @@ function Experience() {
               label="Rank"
               name='rank'
               value={mainData.rank}
+              sx={{gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
             <TextField
               label="Time-Period"
               name='period'
               value={mainData.period}
+              sx={{gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
             <TextField
               label="Position"
               name='position'
               value={mainData.position}
+              sx={{gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
 
@@ -220,6 +224,7 @@ function Experience() {
               label="Company"
               name='company'
               value={mainData.company}
+              sx={{gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
 
@@ -247,7 +252,7 @@ function Experience() {
               value={mainData.job_res || ''}
               sx={{ gridColumn: 'span 2' }}
               multiline
-              rows={8}
+              rows={5}
               onChange={handleChange}
             />
 
@@ -256,7 +261,7 @@ function Experience() {
                 gridColumn: 'span 2',
                 width: '100%',
                 '& .ck-editor__editable': {
-                  height: '400px',
+                  height: '250px',
                 },
               }}
             >

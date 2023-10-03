@@ -163,12 +163,26 @@ function Reference() {
             onChange={handleChange}
             sx={{gridColumn: isMobile ? 'span 2' : '' }}
             />
+            <FormControl  sx={{gridColumn: isMobile ? 'span 2' : '' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
+              </Select>
+            </FormControl>
+
              <TextField
             label="Name"
             name="name"
             value={mainData.name}
             onChange={handleChange}
-            sx={{gridColumn: isMobile ? 'span 2' : '' }}
+            sx={{gridColumn: 'span 2'}}
             />
               <TextField
             label="Institution"
@@ -180,15 +194,17 @@ function Reference() {
               <TextField
             label="Position"
             name="position"
+            multiline
+            rows={5}
             value={mainData.position}
-            sx={{gridColumn: isMobile ? 'span 2' : '' }}
+            sx={{gridColumn: 'span 2'}}
             onChange={handleChange}
             />
               <TextField
             label="Department"
             name="department"
             value={mainData.department}
-            sx={{gridColumn: isMobile ? 'span 2' : '' }}
+            sx={{gridColumn: 'span 2'}}
             onChange={handleChange}
             />
              <TextField
@@ -214,20 +230,6 @@ function Reference() {
             sx={{gridColumn: isMobile ? 'span 2' : '' }}
             onChange={handleChange}
             />
-
-            <FormControl  sx={{ gridColumn: 'span 2' }}>
-              <InputLabel id="Visibility">Visibility</InputLabel>
-              <Select
-                labelId="Visibility"
-                label="Visibility"
-                value={selectedVisible}
-                onChange={handleVisibilityChange}
-                name='visibility'
-              >
-                <MenuItem key={1} value={1}>Show</MenuItem>
-                <MenuItem key={2} value={0}>Hide</MenuItem>
-              </Select>
-            </FormControl>
              
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
             {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}

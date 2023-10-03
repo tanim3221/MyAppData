@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Dialog, DialogTitle,IconButton, Snackbar, FormControl,InputLabel,MenuItem,Select, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle,IconButton, Snackbar, FormControl,InputLabel,MenuItem,Select, Box, DialogContent, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, Stack, useMediaQuery } from '@mui/material';
 import { Edit, Delete, Check,Close} from '@mui/icons-material'
 import { fetchData, updateData, addData, deleteData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -14,6 +14,7 @@ function Education() {
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
   const [selectedVisible, setSelectedVisibility] = useState('');
+  const isMobile = useMediaQuery('(max-width:600px)');
 
 
   const TABLE_NAME = 'education';
@@ -156,17 +157,34 @@ function Education() {
               label="Rank"
               name='rank'
               value={mainData.rank}
+              sx={{gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
+            <FormControl  sx={{gridColumn: isMobile ? 'span 2' : '' }}>
+              <InputLabel id="Visibility">Visibility</InputLabel>
+              <Select
+                labelId="Visibility"
+                label="Visibility"
+                value={selectedVisible}
+                onChange={handleVisibilityChange}
+                name='visibility'
+              >
+                <MenuItem key={1} value={1}>Show</MenuItem>
+                <MenuItem key={2} value={0}>Hide</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
               label="Degree"
               name='title'
               value={mainData.title}
+              sx={{gridColumn: 'span 2'}}
               onChange={handleChange}
             />
             <TextField
               label="Institution"
               name='institution'
+              multiline
+              rows={3}
               value={mainData.institution}
               onChange={handleChange}
               sx={{ gridColumn: 'span 2' }}
@@ -175,6 +193,7 @@ function Education() {
               label="Time-Period"
               name='period'
               value={mainData.period}
+              sx={{gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
 
@@ -182,6 +201,7 @@ function Education() {
               label="Passing Year"
               name='passing'
               value={mainData.passing}
+              sx={{gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
 
@@ -197,27 +217,17 @@ function Education() {
               label="Grade"
               name='grade'
               value={mainData.grade || ''}
+              sx={{gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
             <TextField
               label="Group"
               name='stream'
               value={mainData.stream || ''}
+              sx={{gridColumn: isMobile ? 'span 2' : '' }}
               onChange={handleChange}
             />
-                        <FormControl  sx={{ gridColumn: 'span 2' }}>
-              <InputLabel id="Visibility">Visibility</InputLabel>
-              <Select
-                labelId="Visibility"
-                label="Visibility"
-                value={selectedVisible}
-                onChange={handleVisibilityChange}
-                name='visibility'
-              >
-                <MenuItem key={1} value={1}>Show</MenuItem>
-                <MenuItem key={2} value={0}>Hide</MenuItem>
-              </Select>
-            </FormControl>
+ 
             <Stack spacing={2} direction="row" style={{ marginTop: '20px' }} justifyContent="flex-start">
             {isAdding ? null : <Button style={{backgroundColor:'maroon', color:'white'}} variant="outlined" onClick={() => handleDelete(mainData.id)} ><Delete/></Button>}
             </Stack>
