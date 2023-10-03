@@ -1,7 +1,7 @@
 // import { useTheme } from '@mui/material/styles';
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Stack, Box, Snackbar,IconButton, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Dialog, Button, DialogContent, DialogTitle, Card, CircularProgress, CardHeader } from '@mui/material';
-import { Edit, Delete, Check,Close} from '@mui/icons-material'
+import { Container, Grid, Stack, Box, Snackbar, IconButton, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Dialog, Button, DialogContent, DialogTitle, Card, CircularProgress, CardHeader } from '@mui/material';
+import { Edit, Delete, Check, Close } from '@mui/icons-material'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -258,33 +258,38 @@ export default function Home() {
               />
             </Grid>
 
-            <Grid item xs={12} md={12} lg={12}>
-              <Card>
-                <CardHeader title="Contact Messages" style={HeaderStyle} />
-                {message.map((item) => (
-                  <Stack direction="row" alignItems="center" spacing={2} style={stackStyle} key={item.id}>
-                    <Grid item md={12} lg={12}>
-                      <Grid item md={12} lg={12}>
-                        <Box sx={{ minWidth: 240, flexGrow: 1 }}>
-                          <Typography style={subjectStyle}>
-                            {item.subject}
-                          </Typography>
-                          <Typography style={msgStyle}>
-                            {item.message}
-                          </Typography>
-                        </Box>
-                      </Grid>
+            {
+              message && message.length > 0 && (
+                <Grid item xs={12} md={12} lg={12}>
+                  <Card>
+                    <CardHeader title="Contact Messages" style={HeaderStyle} />
+                    {message.map((item) => (
+                      <Stack direction="row" alignItems="center" spacing={2} style={stackStyle} key={item.id}>
+                        <Grid item md={12} lg={12}>
+                          <Grid item md={12} lg={12}>
+                            <Box sx={{ minWidth: 240, flexGrow: 1 }}>
+                              <Typography style={subjectStyle}>
+                                {item.subject}
+                              </Typography>
+                              <Typography style={msgStyle}>
+                                {item.message}
+                              </Typography>
+                            </Box>
+                          </Grid>
 
-                      <Grid item md={12} lg={12}>
-                        <Typography style={dateStyle}>
-                          {fToNow(item.date_added)}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Stack>
-                ))}
-              </Card>
-            </Grid>
+                          <Grid item md={12} lg={12}>
+                            <Typography style={dateStyle}>
+                              {fToNow(item.date_added)}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Stack>
+                    ))}
+                  </Card>
+                </Grid>
+              )
+            }
+
           </Grid>
         )}
 
