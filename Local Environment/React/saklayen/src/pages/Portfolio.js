@@ -291,9 +291,20 @@ function Portfolio() {
           setIsAdding(true);
           setOpen(true);
         }}
-        style={{ marginBottom: '1.3rem' }}
+        style={{ marginBottom: '1rem', marginRight: '1rem' }}
       >
         Add New
+      </Button>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          navigate('/portfolio-filter')
+        }}
+        style={{ 
+          marginBottom: '1rem',
+         }}
+      >
+        View Portfolio Option
       </Button>
       <TableContainer component={Paper}>
         {loading ? (

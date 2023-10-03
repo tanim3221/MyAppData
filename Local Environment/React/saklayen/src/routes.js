@@ -23,6 +23,7 @@ import Media from './pages/Media';
 import TagList from './pages/TagList';
 import Reference from './pages/Reference';
 import JobResponsibility from './pages/JobResponsibility';
+import PortfolioFilter from './pages/PortfolioFilter';
 
 export default function Router() {
   return (
@@ -48,6 +49,7 @@ export default function Router() {
         <Route path="profile-role" element={<TagList />} />
         <Route path="references" element={<Reference />} />
         <Route path="job-responsibility" element={<JobResponsibility />} />
+        <Route path="portfolio-filter" element={<PortfolioFilter />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       {/* <Route path="admin" element={<LoginPage />} /> */}
