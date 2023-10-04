@@ -517,6 +517,11 @@ li.menu_li_item.active {
   line-height: 1.5;
 }
 
+div#shutDownHead {
+  position: absolute;
+  top: 5rem;
+}
+
 @media only screen and (min-width: 1300px) {
   .header {
     max-width: 440px !important;
@@ -586,6 +591,10 @@ li.menu_li_item.active {
 }
 
 @media only screen and (max-width: 768px) {
+  div#shutDownHead {
+    position: absolute;
+    top: 2rem;
+  }
   .skeletonName{
     width: 13rem;
     border-radius: .4rem;
@@ -651,7 +660,7 @@ li.menu_li_item.active {
   }
 
   .header-titles {
-    padding: 0px;
+    padding: 0 1rem;
   }
 
   .lm-info-block .lm-info-block-value {
