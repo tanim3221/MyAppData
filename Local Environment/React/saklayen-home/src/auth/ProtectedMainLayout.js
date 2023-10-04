@@ -4,6 +4,7 @@ import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { checkMaintenance } from './api';
 import Home from '../pages/Home';
+import './../styles';
 import { useMaintenanceStatus } from './MaintenanceContext';
 
 
