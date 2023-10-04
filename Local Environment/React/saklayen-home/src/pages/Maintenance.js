@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchData } from '../auth/api';
 import { CircularProgress, Skeleton } from '@mui/material';
-import '../styles';
 import { getProdDevUrl } from '../tools/commonFunction';
 import useImageToBase64 from '../tools/Base64Images';
 
