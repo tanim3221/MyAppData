@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Button, TableContainer, Paper, IconButton, FormControl, InputLabel, Select, MenuItem, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogContent, TextField, CircularProgress, Snackbar, DialogTitle, Box, Stack, useMediaQuery} from '@mui/material';
 import { Edit, Delete, Check, Close } from '@mui/icons-material'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { useNavigate } from 'react-router-dom';
+
 import  ClassicEditor  from '@ckeditor/ckeditor5-build-classic';
 import { fetchData, addData, deleteData, updateData } from '../auth/api';
 import extStyles from '../utils/styles.module.css';
@@ -22,6 +24,7 @@ function JobResponsibility() {
   const [dataChanged, setDataChanged] = useState(false);
   const [selectedType, setSelectedType] = useState([]);
   const [selectedClientType, setSelectedClientType] = useState([]);
+  const navigate = useNavigate();
 
 
   const isMobile = useMediaQuery(theme => theme.breakpoints.only('xs'));
@@ -343,11 +346,18 @@ const editorConfig = {
       <Button
         variant="contained"
         onClick={() => {
+          navigate('/audit-type')
+        }}
+        style={{ marginBottom: '1rem', marginRight:'1rem'}}>Audit Type</Button>
+      <Button
+        variant="contained"
+        onClick={() => {
           setOpen(true);
           setIsAdding(true);
           resetMainDataState();
         }}
         style={{ marginBottom: '1.3rem' }}>Add New</Button>
+        
       <TableContainer component={Paper}>
         {loading ? (
           <div className={extStyles.spinnerarea}>

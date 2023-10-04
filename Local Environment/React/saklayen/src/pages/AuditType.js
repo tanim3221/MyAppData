@@ -230,7 +230,7 @@ function AuditType() {
           setIsAdding(true);
           resetMainDataState();
         }}
-        style={{ marginBottom: '1.3rem' }}>Add New</Button>
+        style={{ marginBottom: '1rem' }}>Add New</Button>
       <TableContainer component={Paper}>
         {loading ? (
           <div className={extStyles.spinnerarea}>
@@ -242,6 +242,7 @@ function AuditType() {
               <TableRow>
                 <TableCell>SL</TableCell>
                 <TableCell>Audit Type</TableCell>
+                <TableCell>For CV</TableCell>
                 <TableCell>Visibility</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
@@ -251,6 +252,9 @@ function AuditType() {
                 <TableRow key={item.id}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{item.name}</TableCell>
+                  <TableCell>
+                    {item.for_cv === '1' ? "Visible" : "Invisible"}
+                  </TableCell>
                   <TableCell>
                     {item.visibility === '1' ? "Visible" : "Invisible"}
                   </TableCell>
