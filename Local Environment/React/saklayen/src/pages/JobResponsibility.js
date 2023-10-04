@@ -10,6 +10,8 @@ import extStyles from '../utils/styles.module.css';
 
 function JobResponsibility() {
   const [data, setData] = useState([]);
+  const [auditType, setAuditType] = useState([]);
+  const [clientType, setClientType] = useState([]);
   const [loading, setLoading] = useState(true);
   const [mainData, setMainData] = useState({});
   const [open, setOpen] = useState(false);
@@ -18,6 +20,9 @@ function JobResponsibility() {
   const [selectedVisible, setSelectedVisibility] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
+  const [selectedType, setSelectedType] = useState([]);
+  const [selectedClientType, setSelectedClientType] = useState([]);
+
 
   const isMobile = useMediaQuery(theme => theme.breakpoints.only('xs'));
   const isSm = useMediaQuery(theme => theme.breakpoints.only('sm'));
@@ -41,12 +46,16 @@ function JobResponsibility() {
     dialogMinWidth = '70rem';
   }
   const TABLE_NAME = "job_res";
+  const TABLE_NAME_TYPE = "audit_type";
+  const TABLE_NAME_CLIENT_TYPE = "client_types";
 
 
   useEffect(() => {
     fetchData()
       .then(responseData => {
         setData(responseData.saklayen[TABLE_NAME]);
+        setAuditType(responseData.saklayen[TABLE_NAME_TYPE]);
+        setClientType(responseData.saklayen[TABLE_NAME_CLIENT_TYPE]);
         setLoading(false);
       })
       .catch(error => {
@@ -67,6 +76,24 @@ function JobResponsibility() {
       visibility: selectedValue,
     }));
     setSelectedVisibility(selectedValue);
+  };
+
+  const handleTypeChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      audit_type: selectedValue,
+    }));
+    setSelectedType(selectedValue);
+  };
+
+  const handleClientTypeChange = (event) => {
+    const selectedValue = event.target.value;
+    setMainData((prevData) => ({
+      ...prevData,
+      client_type: selectedValue,
+    }));
+    setSelectedClientType(selectedValue);
   };
 
   const handleAdd = () => {
@@ -223,20 +250,46 @@ const editorConfig = {
               onChange={handleChange}
               sx={{ gridColumn: isMobile ? 'span 2' : '' }}
             />
-            <TextField
+            {/* <TextField
               label="Client Type"
               name="client_type"
               value={mainData.client_type}
               onChange={handleChange}
               sx={{ gridColumn: isMobile ? 'span 2' : '' }}
-            />
-             <TextField
-              label="Audit Type"
-              name="audit_type"
-              value={mainData.audit_type}
-              onChange={handleChange}
-              sx={{ gridColumn: isMobile ? 'span 2' : '' }}
-            />
+            /> */}
+
+            <FormControl sx={{ gridColumn: isMobile ? 'span 2' : '' }}>
+              <InputLabel id="client_type">Client Type</InputLabel>
+              <Select
+                labelId='client_type'
+                label="Client Type"
+                name='client_type'
+                value={selectedClientType}
+                onChange={handleClientTypeChange}
+              >
+                {
+                  clientType.map(item => (
+                    <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+            <FormControl sx={{ gridColumn: isMobile ? 'span 2' : '' }}>
+              <InputLabel id="audit_type">Audit Type</InputLabel>
+              <Select
+                labelId='audit_type'
+                label="Audit Type"
+                name='audit_type'
+                value={selectedType}
+                onChange={handleTypeChange}
+              >
+                {
+                  auditType.map(item => (
+                    <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
             <TextField
               label="Task Role"
               name="task_role"
@@ -326,6 +379,8 @@ const editorConfig = {
                         setMainData(item);
                         setOpen(true);
                         setSelectedVisibility(item.visibility);
+                        setSelectedClientType(item.client_type);
+                        setSelectedType(item.audit_type);
                         setIsAdding(false)
                       }}
                     >
