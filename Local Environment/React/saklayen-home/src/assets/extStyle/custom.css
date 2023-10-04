@@ -64,6 +64,7 @@
   overflow: hidden;
 }
 
+
 #shutDownPage {
   background-color: #5050f5;
   background: -webkit-gradient(linear, left top, left bottom, from(#9d2bf3), to(#5050f5)) !important;
@@ -520,6 +521,10 @@ li.menu_li_item.active span {
 div#shutDownHead {
   position: absolute;
   top: 5rem;
+}
+
+.lm-animated-bg{
+  position: fixed!important;
 }
 
 @media only screen and (min-width: 1300px) {
