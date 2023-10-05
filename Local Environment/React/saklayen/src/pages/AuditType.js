@@ -32,22 +32,6 @@ function AuditType() {
   }, [dataChanged]);
 
 
-  const handleVisibilityChange = (event) => {
-    const selectedValue = event.target.value;
-    setMainData((prevData) => ({
-      ...prevData,
-      visibility: selectedValue,
-    }));
-    setSelectedVisibility(selectedValue);
-  };
-  const handleForCVValueChange = (event) => {
-    const selectedValue = event.target.value;
-    setMainData((prevData) => ({
-      ...prevData,
-      for_cv: selectedValue,
-    }));
-    setSelectedForCV(selectedValue);
-  };
   const resetMainDataState = () => {
     setMainData({});
   }
@@ -141,18 +125,31 @@ function AuditType() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+
+    // Update mainData state
     setMainData((prevData) => {
-      let newCategory = prevData.category;
-      if (name === "name") {
-        newCategory = value.replace(/\s+/g, "_").toLowerCase();
-      }
-      return {
-        ...prevData,
-        [name]: value,
-        key_name: newCategory,
-      };
+        let newCategory = prevData.category;
+        if (name === "name") {
+            newCategory = value.replace(/\s+/g, "_").toLowerCase();
+        }
+        return {
+            ...prevData,
+            [name]: value,
+            key_name: newCategory,
+        };
     });
-  };
+
+    // Additionally, update visibility or for_cv states
+    if (name === "visibility") {
+        setSelectedVisibility(value);
+    } else if (name === "for_cv") {
+        setSelectedForCV(value);
+    }
+};
+
+  // console.log('mainData',mainData);
+  // console.log('data',data);
+
   // eslint-disable-next-line
   const renderDialog = () => {
     return (
@@ -187,8 +184,8 @@ function AuditType() {
               <Select
                 labelId="Visibility"
                 label="Visibility"
-                value={selectedVisible}
-                onChange={handleVisibilityChange}
+                value={mainData.visibility}
+                onChange={handleChange}
                 name='visibility'
               >
                 <MenuItem key={1} value={1}>Show</MenuItem>
@@ -200,8 +197,8 @@ function AuditType() {
               <Select
                 labelId="for_cv"
                 label="For CV"
-                value={selectedForCV}
-                onChange={handleForCVValueChange}
+                value={mainData.for_cv}
+                onChange={handleChange}
                 name='for_cv'
               >
                 <MenuItem key={1} value={1}>Show</MenuItem>
@@ -242,8 +239,8 @@ function AuditType() {
               <TableRow>
                 <TableCell>SL</TableCell>
                 <TableCell>Audit Type</TableCell>
-                <TableCell>For CV</TableCell>
                 <TableCell>Visibility</TableCell>
+                <TableCell>For CV</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -253,10 +250,10 @@ function AuditType() {
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>
-                    {item.for_cv === '1' ? "Visible" : "Invisible"}
+                    {Number(item.visibility) === 1 ? "Visible" : "Invisible"}
                   </TableCell>
                   <TableCell>
-                    {item.visibility === '1' ? "Visible" : "Invisible"}
+                    {Number(item.for_cv) === 1 ? "Visible" : "Invisible"}
                   </TableCell>
                   <TableCell>
                     <Button
@@ -281,7 +278,7 @@ function AuditType() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={snackbarOpen}
         autoHideDuration={3000}
-        onclose={() => setSnackbarOpen(false)}
+        onClose={() => setSnackbarOpen(false)}
         message={snackbarMessage}
         action={
           <>
