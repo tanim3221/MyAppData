@@ -52,7 +52,7 @@ function QualificationSection() {
                         <div className="divider"></div>
                         <div className="right-part">
                             <h4 className="item-title">{item.company}</h4>
-                            <p className='expDesc'>{stripHTML(item.description)}</p>
+                            <p className='expDesc'>{stripHTML(item.job_res)}</p>
                         </div>
                     </div>
                 ))}
@@ -71,7 +71,7 @@ function QualificationSection() {
                         <div className="divider"></div>
                         <div className="right-part">
                             <h4 className="item-title">{item.company}</h4>
-                            <p className='expDesc'>{stripHTML(item.description)}</p>
+                            <p className='expDesc'>{stripHTML(item.job_res)}</p>
                         </div>
                     </div>
                 ))}
