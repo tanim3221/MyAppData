@@ -217,14 +217,14 @@ function QualificationSection() {
                             </div>
                             <div className="white-space-50"></div>
                             <div className="block-title">
-                                <h3>Experience</h3>
+                                <h3>Professional Experience</h3>
                             </div>
                             <div className="timeline timeline-second-style clearfix" id="experienceTimeline">
                                 <ExperienceTimeline experienceData={experiences} />
                             </div>
                             <div className="white-space-50"></div>
                             <div className="block-title">
-                                <h3>Extracurricular Activities</h3>
+                                <h3>Volunteer Leadership & Involvement</h3>
                             </div>
                             <div className="timeline timeline-second-style clearfix" id="experienceTimeline">
                                 <ExtraTimeline extraData={extraCurr} />
@@ -233,7 +233,7 @@ function QualificationSection() {
                         <div className="col-xs-12 col-sm-5 professional_class">
                             <div className="white-space-custom"></div>
                             <div className="block-title">
-                                <h3>Finance & Accounting <span>Knowledges</span></h3>
+                                <h3><span>Finance & Accounting</span> Knowledges</h3>
                             </div>
                             <ul className="knowledges" id="skillsContainerFin">
                                 <Skills skillsData={skills} category='finance_accounting' />
@@ -241,7 +241,7 @@ function QualificationSection() {
                             </ul>
                             <div className="white-space-40"></div>
                             <div className="block-title">
-                                <h3>Coding <span>Skills</span></h3>
+                                <h3><span>Coding</span> Skills</h3>
                             </div>
                             <div className="skills-info skills-second-style" id="skillsContainerCode">
                                 <Skills skillsData={skills} category='coding' />
