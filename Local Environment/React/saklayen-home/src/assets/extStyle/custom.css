@@ -98,21 +98,17 @@
   padding: 15px;
 }
 
-.lm-animated-bg,.content-area {
-  z-index: 1 !important;
-}
-
 .menu_li_item {
   cursor: pointer;
 }
 
-.header-buttons, .header .copyrights a, .lmpixels-arrows-nav {
-  position: relative;
-  z-index: 2;
-}
-
 .cv_download_button {
   cursor: pointer;
+}
+
+.header-buttons, .header .copyrights a {
+  position: relative;
+  z-index: 2;
 }
 
 .lmpixels-arrows-nav:hover {
@@ -124,7 +120,7 @@
   right: 50% !important;
   padding: 0px !important;
   transform: translate(50%, 0) !important;
-  z-index: 10078 !important;
+  z-index: 99999 !important;
   bottom: 0 !important;
   display: inline-flex !important;
   justify-content: space-between !important;
@@ -525,6 +521,10 @@ div#shutDownHead {
 
 .lm-animated-bg{
   position: fixed!important;
+}
+
+.lm-animated-bg,.content-area {
+  z-index: 1 !important;
 }
 
 @media only screen and (min-width: 1300px) {
