@@ -28,7 +28,7 @@
 #shutImageHead img {
   height: auto;
   width: 100%;
-  background-color: unset!important;
+  background-color: unset !important;
   border-radius: unset;
   border: none;
 }
@@ -106,7 +106,8 @@
   cursor: pointer;
 }
 
-.header-buttons, .header .copyrights a {
+.header-buttons,
+.header .copyrights a {
   position: relative;
   z-index: 2;
 }
@@ -114,6 +115,7 @@
 .lmpixels-arrows-nav:hover {
   outline: 1px solid #5e2fd6;
 }
+
 .lmpixels-arrows-nav {
   cursor: pointer !important;
   position: fixed !important;
@@ -127,11 +129,11 @@
   align-items: center !important;
   flex-wrap: nowrap !important;
   border: none !important;
-  border-radius: 2rem 2rem 0 0!important;
+  border-radius: 2rem 2rem 0 0 !important;
   box-shadow: none !important;
   height: 4rem !important;
   flex-direction: column !important;
-  width: 3rem!important;
+  width: 3rem !important;
 }
 
 .lmpixels-arrows-nav div {
@@ -371,60 +373,67 @@
   width: 50%;
 }
 
-.skeletonProfile{
-  height: 186px!important;
-  border-radius: 3rem!important;
-  width: 150px!important;
-  background-color: rgb(255 255 255)!important;
+.skeletonProfile {
+  height: 186px !important;
+  border-radius: 3rem !important;
+  width: 150px !important;
+  background-color: rgb(255 255 255) !important;
 }
-.skeletonProfileMaintenace{
-  height: 100px!important;
-  border-radius: 50%!important;
-  width: 100px!important;
-  background-color: rgb(255 255 255)!important;
+
+.skeletonProfileMaintenace {
+  height: 100px !important;
+  border-radius: 50% !important;
+  width: 100px !important;
+  background-color: rgb(255 255 255) !important;
 }
-.skeletonName{
+
+.skeletonName {
   width: 16rem;
   border-radius: .5rem;
   margin: 0 auto;
-  height: 2.7rem!important;
-  background-color: rgb(255 255 255 / 50%)!important;
+  height: 2.7rem !important;
+  background-color: rgb(255 255 255 / 50%) !important;
 }
-.skeletonTag{
+
+.skeletonTag {
   width: 12rem;
   border-radius: .5rem;
   margin: 0 auto;
-  height: 1.9rem!important;
-  background-color: rgb(255 255 255 / 50%)!important;
+  height: 1.9rem !important;
+  background-color: rgb(255 255 255 / 50%) !important;
 }
-.spinnerBar{
-  display: flex!important;
-    height: 100%!important;
-    position: absolute!important;
-    left: 50%!important;
-    transform: translate(-50%, -8%)!important;
-    align-items: center!important;
+
+.spinnerBar {
+  display: flex !important;
+  height: 100% !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translate(-50%, -8%) !important;
+  align-items: center !important;
 }
-.spinnerBarMaintenace{
-  display: flex!important;
-    height: 100%!important;
-    position: absolute!important;
-    left: 50%!important;
-    transform: translate(-50%, 0%)!important;
-    align-items: center!important;
+
+.spinnerBarMaintenace {
+  display: flex !important;
+  height: 100% !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translate(-50%, 0%) !important;
+  align-items: center !important;
 }
-.spinnerBarLoading{
-  display: flex!important;
-    height: 100%!important;
-    position: absolute!important;
-    left: 50%!important;
-    transform: translate(-50%, 0%)!important;
-    align-items: center!important;
+
+.spinnerBarLoading {
+  display: flex !important;
+  height: 100% !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translate(-50%, 0%) !important;
+  align-items: center !important;
 }
 
 div#profilePhoto img {
   width: 150px;
 }
+
 div#profilePhoto {
   display: flex !important;
   justify-content: center !important;
@@ -458,12 +467,12 @@ div#profilePhoto {
   font-size: 50px !important;
 }
 
-.section-content{
+.section-content {
   overflow: auto;
-    height: 100vh!important;
+  height: 100vh !important;
 }
 
-.sp-subtitle{
+.sp-subtitle {
   height: 2rem;
 }
 
@@ -472,35 +481,42 @@ div#profilePhoto {
   position: relative;
 }
 
-.form-control, .form-control:focus, .has-error .form-control, .has-error .form-control:focus, input[type=password], input[type=search], input[type=text]{
-  border: none!important;
+.form-control,
+.form-control:focus,
+.has-error .form-control,
+.has-error .form-control:focus,
+input[type=password],
+input[type=search],
+input[type=text] {
+  border: none !important;
 }
 
 .form_contact input {
-  padding: 16.5px 14px!important;
+  padding: 16.5px 14px !important;
 }
 
 .MuiInputBase-formControl {
-  border-radius: 1rem!important;
+  border-radius: 1rem !important;
 }
 
 .portfolio-grid figure i {
-  top: 0!important;
-  right: 0!important;
+  top: 0 !important;
+  right: 0 !important;
 }
 
-.itemFilterPort{
+.itemFilterPort {
   cursor: pointer;
 }
 
-.contactMessage{
-  margin-top: 2rem!important;
+.contactMessage {
+  margin-top: 2rem !important;
 }
 
 li.menu_li_item.active span {
   color: #5e2fd6;
-  font-weight:500;
+  font-weight: 500;
 }
+
 /* li.menu_li_item.active {
   border-bottom: 2px solid #5e2fd6;
 } */
@@ -509,7 +525,7 @@ li.menu_li_item.active span {
   margin-bottom: 10rem;
 }
 
-.expDesc{
+.expDesc {
   margin-top: .5rem;
   line-height: 1.9;
 }
@@ -519,11 +535,12 @@ div#shutDownHead {
   top: 5rem;
 }
 
-.lm-animated-bg{
-  position: fixed!important;
+.lm-animated-bg {
+  position: fixed !important;
 }
 
-.lm-animated-bg,.content-area {
+.lm-animated-bg,
+.content-area {
   z-index: 1 !important;
 }
 
@@ -565,7 +582,7 @@ div#shutDownHead {
 
   li.menu_li_item.active span {
     color: #ffffff;
-    font-weight:500;
+    font-weight: 500;
   }
 
   div#profilePhoto {
@@ -589,38 +606,59 @@ div#shutDownHead {
     line-height: 21px;
     opacity: .7;
   }
+
   ul.main-menu li.menu_li_item.active .nav-anim {
-     opacity: 1!important;
+    opacity: 1 !important;
   }
 
 }
 
+@media only screen and (max-width: 560px) {
+
+  .lmpixels-arrows-nav:hover {
+    outline: none;
+  }
+  .lmpixels-arrows-nav {
+    bottom: 2rem !important;
+    border-radius: 2rem 2rem 5px 5px!important;
+    height: 5rem !important;
+    /* width: 3rem !important; */
+  }
+
+  .chevron {
+    /* width: 2rem;
+    height: 0.5rem; */
+  }
+}
 @media only screen and (max-width: 768px) {
   div#shutDownHead {
     position: absolute;
     top: 2rem;
   }
-  .skeletonName{
+
+  .skeletonName {
     width: 13rem;
     border-radius: .4rem;
-    height: 2rem!important;
-    background-color: rgb(255 255 255 / 50%)!important;
+    height: 2rem !important;
+    background-color: rgb(255 255 255 / 50%) !important;
   }
-  .skeletonTag{
+
+  .skeletonTag {
     width: 10rem;
     border-radius: .4rem;
-    height: 1.5rem!important;
-    background-color: rgb(255 255 255 / 50%)!important;
+    height: 1.5rem !important;
+    background-color: rgb(255 255 255 / 50%) !important;
   }
+
   .title-block h2 {
-    font-size: 32px!important;
-    line-height: 35px!important;
+    font-size: 32px !important;
+    line-height: 35px !important;
   }
- 
+
   li.menu_li_item.active {
     border-bottom: unset;
   }
-  
+
   .header-photo img {
     border-radius: 2rem !important;
   }
@@ -644,11 +682,11 @@ div#shutDownHead {
     min-height: 124px !important;
   }
 
-  .skeletonProfile{
-    height: 100px!important;
-    width: 100px!important;
+  .skeletonProfile {
+    height: 100px !important;
+    width: 100px !important;
     min-height: 124px !important;
-    border-radius: 2rem!important;
+    border-radius: 2rem !important;
   }
 
   .counterTimer {
@@ -679,6 +717,7 @@ div#shutDownHead {
     width: 100px !important;
 
   }
+
   ul.main-menu .nav-anim {
     border-bottom: 1px solid #f5f5f5;
     display: block;
@@ -688,4 +727,3 @@ div#shutDownHead {
     transition: all 0.3s ease-in-out;
   }
 }
-
