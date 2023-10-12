@@ -9,7 +9,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 
 import { userLogin } from '../auth/api';
 
-import { getProdDevUrl } from '../utils/CommonFunction';
+// import { getProdDevUrl } from '../utils/CommonFunction';
 
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -24,7 +24,7 @@ const BackgroundOverlay = styled('div')(({ theme }) => ({
   left: 0,
   width: '100%',
   height: '100%',
-  backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-login-01.jpg")`,
+  // backgroundImage: `url("${getProdDevUrl()}/assets/img/bg-login-01.jpg")`,
   backgroundSize: 'cover',
   zIndex: -1,
 }));
@@ -38,6 +38,7 @@ const ContentOverlay = styled('div')(({ theme }) => ({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '80%',
+  boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px',
 
   [theme.breakpoints.up('xs')]: {
     width: '85%',
@@ -74,12 +75,8 @@ const HeadStyle = styled('div')(() => ({
   fontSize: '4rem',
   fontWeight: 'bold',
   marginBottom: '3rem',
+  marginTop: '1rem',
   letterSpacing: '.5rem'
-}));
-
-// eslint-disable-next-line
-const ButtonStyle = styled('div')(() => ({
-  marginTop: '2rem',
 }));
 
 
@@ -103,6 +100,7 @@ function LoginForm({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          marginBottom: '2rem'
         }}
       >
         <Stack spacing={3}>
@@ -136,11 +134,9 @@ function LoginForm({
             ref={captchaRef}
           />
 
-          <ButtonStyle>
             <LoadingButton disabled={!isCaptchaSuccessful} fullWidth size="large" variant="contained" onClick={handleLogin}>
               Login
             </LoadingButton>
-          </ButtonStyle>
         </Stack>
       </Box>
     </Container>

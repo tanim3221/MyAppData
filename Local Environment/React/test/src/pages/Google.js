@@ -1,46 +1,175 @@
-import React, { useState } from 'react';
-import GoogleLogin from 'react-google-login';
-
+import './../App.css';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 function Google() {
-    const [loginData, setLoginData] = useState('');
+  const handleLoginSuccess = (credentialResponse) => {
+    console.log(credentialResponse);
+    // Handle successful login here...
+  };
 
-    const handleFailure = (errorData) => {
-        console.error('Login Failed:', errorData);
-    };
+  const handleLoginFailure = (error) => {
+    console.log('Login Failed:', error);
+    // Handle login failure here...
+  };
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>React Google Login</h1>
+        <div>
+          <GoogleOAuthProvider clientId="995598256383-fn7bphr60k9gevag4dp5oudcjtf2cjm1.apps.googleusercontent.com">
+            {/* <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+              useOneTap
+            />
+            <div className='spacer'></div> */}
 
-    const handleLogin = (googleData) => {
-        console.log('Login Data:', googleData);
-        setLoginData(googleData);
-    };
-
-    const handleLogout = () => {
-        console.log('Logout...');
-        setLoginData(null);
-    };
-
-    return (
-        <div className="App">
-            <header className="App-header">
-                <h1>React Google Login</h1>
-                <div>
-                    {loginData ? (
-                        <div>
-                            <h3>You Logged in as {loginData.profileObj.email}</h3>
-                            <button onClick={handleLogout}>Logout</button>
-                        </div>
-                    ) : (
-                        <GoogleLogin
-                            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                            buttonText='Login with Google'
-                            onSuccess={handleLogin}
-                            onFailure={handleFailure}
-                            cookiePolicy={'single_host_origin'}
-                        />
-                    )}
-                </div>
-            </header>
+            <GoogleLogin
+              shape="circle"
+              onSuccess={handleLoginSuccess}
+              onFailure={handleLoginFailure}
+              onError={handleLoginFailure}
+            />
+            {/* <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              shape="rectangular"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              shape="pill"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              shape="square"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              type="icon"
+              shape="square"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              type="icon"
+              shape="circle"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              size="small"
+              shape="square"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              theme="outline"
+              shape="circle"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              theme="filled_blue"
+              shape="circle"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              theme="filled_black"
+              shape="circle"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              theme="filled_black"
+              text="continue_with"
+              shape="circle"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              theme="filled_black"
+              text="signin_with"
+              shape="circle"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            <div className='spacer'></div>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              theme="filled_black"
+              text="signup_with"
+              shape="circle"
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            /> */}
+          </GoogleOAuthProvider>
         </div>
-    );
-}
 
+      </header>
+    </div>
+  );
+}
 export default Google;
