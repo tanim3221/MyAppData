@@ -3,13 +3,15 @@ Section 210 of Company Act 1994: Appointment and Remuneration of Auditors,
 - By the BOD within one months from the date of Reg of Company
 - Auditor shall hold office until the first AGM concluded
 - 210-6-B: If the BOD fails to excercise their power the company may appoint the first Auditor in the first AGM (Sec 89)
-
+- As per EOI auditor appoint
+- Consent of Auditor
+- Auditor Casual Vacancy ***
 
 Section 39 of Bank Company Act 1991: Audit,
 
 Section 24 of Financial Institution Act 1993: Appointment of Auditors and Responsibilities,
 
-Section 28 of Insurance Act 2010: Audit,
+Section 28, 29 of Insurance Act 2010: Audit,
 
 Section 31 of Financial Reporting Act 2015: Enlistment of Auditors
 
@@ -21,7 +23,7 @@ Regulation 15 of DSE Listing Regulation 2015: Auditing of Financial Statement
 
 Section 211 of Company Act 1994: Provision as to resoulation for appointing and removing auditors
 
-Section 212 of Company Act 1994: 
+Section 212 of Company Act 1994: Qualification and Disqualification of Auditor.
 
 Section 39-B of Bank Company Act 1991: Auditor to be decleared disqualified
 
