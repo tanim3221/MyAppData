@@ -1,4 +1,9 @@
 Section 210 of Company Act 1994: Appointment and Remuneration of Auditors,
+- First auditor appointment under sec 210-6
+- By the BOD within one months from the date of Reg of Company
+- Auditor shall hold office until the first AGM concluded
+- 210-6-B: If the BOD fails to excercise their power the company may appoint the first Auditor in the first AGM (Sec 89)
+
 
 Section 39 of Bank Company Act 1991: Audit,
 
