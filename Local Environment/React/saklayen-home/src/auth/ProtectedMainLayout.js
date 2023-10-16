@@ -6,6 +6,8 @@ import { checkMaintenance } from './api';
 import Home from '../pages/Home';
 import './../styles';
 import { useMaintenanceStatus } from './MaintenanceContext';
+import ShutdownPage from '../pages/Maintenance';
+import ErrorPage from '../pages/Page404';
 
 
 const ProtectedMainLayout = ({ children }) => {
@@ -48,9 +50,13 @@ const ProtectedMainLayout = ({ children }) => {
         </>
       );
     case 'maintenance':
-      return <Navigate to="/maintenance" />;
+      return (
+        <ShutdownPage/>
+      );
     default:
-      return <Navigate to="/not-found" />;
+      return (
+        <ErrorPage/>
+      )
   }
 };
 

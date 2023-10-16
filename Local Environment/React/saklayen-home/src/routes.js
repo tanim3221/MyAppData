@@ -22,10 +22,10 @@ function AppRoutes() {
         <Route path="qualifications" element={<QualificationSection />} />
         <Route path="portfolio" element={<Portfolio />} />
       </Route>
-      <Route path="not-found" element={<Page404 />} />
-      <Route path="maintenance" element={maintenanceStatus === 'maintenance' ? <ShutDownPage /> : <Navigate to="/home" />} />
-      {/* <Route path="maintenance" element={<ShutDownPage />} /> */}
-      <Route path="*" element={<Navigate to="/not-found" />} />
+      {/* <Route path="error" element={<Page404 />} /> */}
+      {/* <Route path="maintenance" element={maintenanceStatus === 'maintenance' ? <ShutDownPage /> : <Navigate to="/home" />} /> */}
+      <Route path="*" element={<Page404 />} />
+      {/* <Route path="*" element={<Navigate to="/error" />} /> */}
     </Routes>
   );
 }
