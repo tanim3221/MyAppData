@@ -1,4 +1,5 @@
 import os
+import time
 
 import certifi
 import mysql.connector
@@ -64,7 +65,7 @@ with open("reg_numbers.txt", "r") as file:
                 print(f"Failed to insert data for registration number: {reg_no}")
                 print(f"Response code: {response.status_code}")
                 print(f"Response content: {response.text}")
-
+            time.sleep(1)
     # Close the database connection
     cursor.close()
     db.close()
