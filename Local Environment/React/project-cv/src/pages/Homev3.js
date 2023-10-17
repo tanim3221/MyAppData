@@ -114,9 +114,10 @@ function DetailsInfoView({
       const ext = imageExtensions[currentExtIndex];
       const potentialUrl = `${process.env.REACT_APP_IMG_URL}/${id_no}/${id_no}.${ext}`;
       const imageExists = await checkIfImageExists(potentialUrl);
+      const check_available_img = searchSingle.imagepath === '' ? potentialUrl : searchSingle.imagepath;
 
       if (imageExists) {
-        setImageUrl(potentialUrl);
+        setImageUrl(check_available_img);
       } else {
         console.error('Image does not exist.');
       }
