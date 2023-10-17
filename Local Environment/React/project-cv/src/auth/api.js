@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getProdDevUrl } from '../utils/CommonFunction';
 
-const apiUrl = `${getProdDevUrl()}/api`;
+const apiUrl = `${getProdDevUrl()}/api/v3`;
 
 const api = axios.create({
   baseURL: apiUrl,

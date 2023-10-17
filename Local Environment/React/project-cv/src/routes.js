@@ -3,7 +3,7 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
-import Home from './pages/Home';
+import Home from './pages/Homev3';
 import History from './pages/History';
 import ProtectedMainLayout from './auth/ProtectedMainLayout';
 
