@@ -37,6 +37,7 @@ function DetailsInfoView({
   currentIndex,
   viewLoading,
   imagePath,
+  viewEduInfoLoading,
   setViewEduInfo,
   viewEduInfo,
   eduResult,
@@ -48,6 +49,7 @@ function DetailsInfoView({
   currentExtIndex,
   setImageUrl,
   setDetailsView,
+  setViewEduInfoLoading,
   optionSearch,
   imageUrl,
   isDesktop,
@@ -72,6 +74,7 @@ function DetailsInfoView({
     handleSearchView(optionSearch ? userkeyid : regNo);
     setCurrentIndex(newIndex);
     setSearchSingle({});
+    setViewEduInfo(false);
     setImageUrl(imagePath);
     setViewLoading(true);
   };
@@ -88,6 +91,7 @@ function DetailsInfoView({
     handleSearchView(optionSearch ? userkeyid : regNo);
     setCurrentIndex(newIndex);
     setSearchSingle({});
+    setViewEduInfo(false);
     setViewLoading(true);
     setImageUrl(imagePath);
   };
@@ -247,7 +251,7 @@ function DetailsInfoView({
                       color="success"
                       onClick={() => {
                         handleEducationHistory(item.regNo);
-                        setViewEduInfo(true);
+                        setViewEduInfoLoading(true);
                       }}
                     >
                       <School />
@@ -257,7 +261,7 @@ function DetailsInfoView({
                   <></>
                 )
               }
-              
+
               {get_photo === null && !optionSearch ? (
                 <div>
                   <IconButton style={{
@@ -366,7 +370,7 @@ function DetailsInfoView({
 
           {
             viewEduInfo ? (
-              <>
+              !viewEduInfoLoading ? (
                 <TableContainer component={Paper}>
                   <Table>
                     <TableHead>
@@ -379,22 +383,25 @@ function DetailsInfoView({
                     </TableHead>
                     <TableBody>
                       {eduResult.map((item, index) => (
-                        <>
-                          <TableRow key={index}>
-                            <TableCell>{item.examName}</TableCell>
-                            <TableCell>{item.boardUni}</TableCell>
-                            <TableCell>{item.passYear}</TableCell>
-                            <TableCell>{item.group_name}</TableCell>
-                          </TableRow>
-                        </>
+                        <TableRow key={index}>
+                          <TableCell>{item.examName}</TableCell>
+                          <TableCell>{item.boardUni}</TableCell>
+                          <TableCell>{item.passYear}</TableCell>
+                          <TableCell>{item.group_name}</TableCell>
+                        </TableRow>
                       ))}
                     </TableBody>
                   </Table>
                 </TableContainer>
-              </>
-            ) : (
-              <></>
-            )
+              ) : (
+                <>
+                  <Box sx={{ width: '100%', borderRadius: '1rem'}}>
+                    <Skeleton height={25} variant="rectangular"/>
+                    <Skeleton height={30} variant="rectangular"/>
+                  </Box>
+                </>
+              )
+            ) : null
           }
 
           {(optionSearch && item.regNo) || (!optionSearch && item.userkeyid) ? (
@@ -488,6 +495,7 @@ export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [optionSearch, setOptionSearch] = useState(false);
   const [viewEduInfo, setViewEduInfo] = useState(false);
+  const [viewEduInfoLoading, setViewEduInfoLoading] = useState(false);
 
   const handleChange = (e) => {
     setOptionSearch(e.target.checked);
@@ -588,6 +596,8 @@ export default function Home() {
     setDetailsView(false);
     setSearchSingle({});
     setEduResult([]);
+    setViewEduInfoLoading(false);
+    setViewEduInfo(false);
     setValueClick(false);
   }
 
@@ -606,6 +616,7 @@ export default function Home() {
     setSearchArray(false);
     setValueClick(false);
     setSearchLoading(false);
+    setViewEduInfoLoading(false);
     setImageUrl(null);
     setClearState(false);
   }
@@ -669,6 +680,8 @@ export default function Home() {
       .then((response) => {
         const result = response.result;
         setEduResult(result);
+        setViewEduInfoLoading(false);
+        setViewEduInfo(true);
       })
       .catch((error) => {
         console.error(error);
@@ -715,6 +728,8 @@ export default function Home() {
           <MemoizedDetailsInfoView
             eduResult={eduResult}
             setViewEduInfo={setViewEduInfo}
+            setViewEduInfoLoading={setViewEduInfoLoading}
+            viewEduInfoLoading={viewEduInfoLoading}
             viewEduInfo={viewEduInfo}
             searchSingle={searchSingle}
             setCurrentIndex={setCurrentIndex}
@@ -882,6 +897,8 @@ export default function Home() {
       }}>
         {valueClick ? (
           <MemoizedDetailsInfoView
+            setViewEduInfoLoading={setViewEduInfoLoading}
+            viewEduInfoLoading={viewEduInfoLoading}
             searchSingle={searchSingle}
             eduResult={eduResult}
             setViewEduInfo={setViewEduInfo}
