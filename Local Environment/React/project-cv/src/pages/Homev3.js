@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FixedSizeList as FixedList } from "react-window";
 import {
   Container,
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
   Box,
   Snackbar,
   Card,
@@ -36,6 +37,9 @@ function DetailsInfoView({
   currentIndex,
   viewLoading,
   imagePath,
+  setViewEduInfo,
+  viewEduInfo,
+  eduResult,
   setSearchSingle,
   setViewLoading,
   handleSearchView,
@@ -49,7 +53,8 @@ function DetailsInfoView({
   isDesktop,
   handleImgError,
   imageExtensions,
-  handleExtensionChange
+  handleExtensionChange,
+  handleEducationHistory
 }) {
 
   const item = searchSingle;
@@ -136,7 +141,7 @@ function DetailsInfoView({
   if (!viewLoading) {
     return (
       <div style={{
-        backgroundColor: 'none'
+        backgroundColor: 'none',
       }}>
 
         <Card
@@ -150,7 +155,7 @@ function DetailsInfoView({
             display: 'flex',
             alignItems: isDesktop ? 'flex-start' : '',
             flexDirection: isDesktop ? 'row' : 'column',
-            minHeight: '15rem',
+            minHeight: '10rem',
           }}>
             <div style={{
               marginRight: isDesktop ? '1rem' : '',
@@ -160,97 +165,238 @@ function DetailsInfoView({
               flexDirection: isDesktop ? 'row' : 'column',
             }}>
               <img
-                src={(get_photo === null) ? optionSearch ? item.srvhost+''+item.memberimg : imageUrl : `data:image/jpeg;base64,${get_photo}`}
+                src={(get_photo === null) ? optionSearch ? item.srvhost + '' + item.memberimg : imageUrl : `data:image/jpeg;base64,${get_photo}`}
                 alt={`Profile of ${optionSearch ? item?.first_name : item?.name}`}
-                style={{ borderRadius: '.7rem', width: optionSearch ? isDesktop ? '11rem' : '9rem' : '9rem', height: '100%', objectFit: 'cover' }}
+                style={{ borderRadius: '.5rem', width: optionSearch ? isDesktop ? '12rem' : '12rem' : '9rem', height: '100%', objectFit: 'cover' }}
                 onError={handleImgError}
               />
             </div>
-            <div>
+            <div style={{
+              width: '100%'
+            }}>
               {
                 optionSearch ? (
-                  <>
-                    <Typography variant="h5" component="div">
-                      {item?.userfullname}
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary">
-                      {item?.userposition}, {item?.userorgname}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>ACA Date: </strong> {item?.acadate}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>FCA Date: </strong> {item?.fcadate}
-                    </Typography>
-                    {item?.educationinfo=="" ? "" : (
-                      <Typography variant="body2" color="textSecondary">
-                      <strong>Graduation: </strong> {item?.educationinfo}
-                    </Typography>
-                    )}
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Membership Status: </strong> {item?.membershipstatus} ({item?.occupationalcategory})
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Mobile: </strong> {item?.cellphone1}, {item?.cellphone2}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Email: </strong> {item?.emailid1}, {item?.emailid2}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Address: </strong>{item?.useraddress}
-                    </Typography>
-                  </>
+                  <div>
+                    <TableContainer component={Paper}>
+                      <Table>
+                        <TableBody>
+                          <TableRow >
+                            <TableCell className={extStyles.tableTd_name}>{item?.userfullname}</TableCell>
+                          </TableRow>
+                          <TableRow >
+                            <TableCell className={extStyles.tableTd_title}>{item?.userposition}, {item?.userorgname}</TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </div>
                 ) : (
-                  <>
-                    <Typography variant="h6" component="div">
-                      {item.name} ({item.regNo}/{item.regYear})
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Article Period:</strong> {item.periodFrom} to {item.periodTo}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Father Name:</strong> {item.fName}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Mother Name:</strong> {item.mName}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Mobile:</strong> {item.cell}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Present Address:</strong> {item.preAdd}
-                    </Typography>
-                     <Typography variant="body2" color="textSecondary">
-                      <strong>Permanent Address:</strong> {item.perAdd}
-                    </Typography>
-                     <Typography variant="body2" color="textSecondary">
-                      <strong>Email:</strong> {item.email}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Firm Name:</strong> {item.firmName}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Principal Name:</strong> {item.prinName}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <strong>Birthday:</strong> {item.dob}
-                    </Typography>
-                  </>
+                  <div>
+                    <TableContainer component={Paper}>
+                      <Table>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell rowSpan={2} className={extStyles.tableTd_name}>{item.name} ({item.regNo}/{item.regYear})</TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+
+                      <Table>
+                        <TableBody>
+                          <TableRow >
+                            <TableCell className={extStyles.tableTh}>Mobile: </TableCell>
+                            <TableCell className={extStyles.tableTd}>{item.cell}</TableCell>
+                          </TableRow>
+
+
+                          <TableRow >
+                            <TableCell className={extStyles.tableTh}>Email: </TableCell>
+                            <TableCell className={extStyles.tableTd}>{item.email}</TableCell>
+                          </TableRow>
+
+                          <TableRow >
+                            <TableCell className={extStyles.tableTh}>Birthday: </TableCell>
+                            <TableCell className={extStyles.tableTd}>{item.dob}</TableCell>
+                          </TableRow>
+
+
+                          <TableRow >
+                            <TableCell className={extStyles.tableTh}>Father Name: </TableCell>
+                            <TableCell className={extStyles.tableTd}>{item.fName}</TableCell>
+                          </TableRow>
+
+
+                          <TableRow >
+                            <TableCell className={extStyles.tableTh}>Mother Name: </TableCell>
+                            <TableCell className={extStyles.tableTd}>{item.mName}</TableCell>
+                          </TableRow>
+
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </div>
                 )
               }
-              {get_photo === null ? (
-                <IconButton style={{
-                  position: 'absolute',
-                  right: '.5rem',
-                  bottom: '.4rem'
-                }} onClick={handleExtensionChange}>
-                  <Refresh />
-                </IconButton>
+              {
+                !optionSearch ? (
+                  <>
+                    <IconButton style={{
+                      float: 'right',
+                      marginTop: '1rem'
+                    }}
+                      color="success"
+                      onClick={() => {
+                        handleEducationHistory(item.regNo);
+                        setViewEduInfo(true);
+                      }}
+                    >
+                      <School />
+                    </IconButton>
+                  </>
+                ) : (
+                  <></>
+                )
+              }
+              
+              {get_photo === null && !optionSearch ? (
+                <div>
+                  <IconButton style={{
+                    float: optionSearch ? 'right' : 'left',
+                    marginTop: '1rem'
+                  }} onClick={handleExtensionChange}>
+                    <Refresh />
+                  </IconButton>
+                </div>
+
               ) : (
                 <></>
               )}
             </div>
           </CardContent>
+
+          <Divider sx={{}} />
+          <CardContent style={{
+            display: 'flex',
+            alignItems: isDesktop ? 'flex-start' : '',
+            flexDirection: isDesktop ? 'row' : 'column',
+            minHeight: '12rem',
+          }}>
+            {
+              optionSearch ? (
+                <div>
+
+                  <TableContainer component={Paper}>
+                    <Table>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Mobile</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item?.cellphone1}, {item?.cellphone2}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Email</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item?.emailid1}, {item?.emailid2}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>ACA Date</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item?.acadate}</TableCell>
+                        </TableRow>
+                        {item?.fcadate === "" ? "" : (
+                          <TableRow>
+                            <TableCell className={extStyles.tableTh}>FCA Date</TableCell>
+                            <TableCell className={extStyles.tableTd}>{item?.fcadate}</TableCell>
+                          </TableRow>
+                        )}
+                        {item?.educationinfo === "" ? "" : (
+                          <TableRow>
+                            <TableCell className={extStyles.tableTh}>Graduation</TableCell>
+                            <TableCell className={extStyles.tableTd}>{item?.educationinfo}</TableCell>
+                          </TableRow>
+                        )}
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Membership Status</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item?.membershipstatus} ({item?.occupationalcategory})</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Address</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item?.useraddress} </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
+              ) : (
+
+                <div>
+
+                  <TableContainer component={Paper}>
+                    <Table>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Article Period</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item.periodFrom} to {item.periodTo}</TableCell>
+                        </TableRow>
+                        {item?.preAdd === "" || item?.preAdd == null ? "" : (
+                          <TableRow>
+                            <TableCell className={extStyles.tableTh}>Present Address</TableCell>
+                            <TableCell className={extStyles.tableTd}>{item.preAdd}</TableCell>
+                          </TableRow>
+                        )}
+                        {item?.perAdd === "" || item?.perAdd == null ? "" : (
+                          <TableRow>
+                            <TableCell className={extStyles.tableTh}>Permanent Address</TableCell>
+                            <TableCell className={extStyles.tableTd}>{item.perAdd}</TableCell>
+                          </TableRow>
+                        )}
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Firm Name</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item.firmName}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Principal Name</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item.prinName} {item.prinEnrNo === '0' ? '' : '(' + item.prinEnrNo + ')'}</TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
+              )
+            }
+
+          </CardContent>
+
+          {
+            viewEduInfo ? (
+              <>
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Degree</TableCell>
+                        <TableCell>University/Board</TableCell>
+                        <TableCell>Pass Year</TableCell>
+                        <TableCell>Group</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {eduResult.map((item, index) => (
+                        <>
+                          <TableRow key={index}>
+                            <TableCell>{item.examName}</TableCell>
+                            <TableCell>{item.boardUni}</TableCell>
+                            <TableCell>{item.passYear}</TableCell>
+                            <TableCell>{item.group_name}</TableCell>
+                          </TableRow>
+                        </>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </>
+            ) : (
+              <></>
+            )
+          }
+
           {(optionSearch && item.regNo) || (!optionSearch && item.userkeyid) ? (
             <div>
               <Divider sx={{}} />
@@ -311,6 +457,7 @@ DetailsInfoView.propTypes = {
   isDesktop: PropTypes.bool.isRequired,
   handleImgError: PropTypes.func.isRequired,
   handleExtensionChange: PropTypes.func.isRequired,
+  handleEducationHistory: PropTypes.func.isRequired,
 };
 
 export const MemoizedDetailsInfoView = memo(DetailsInfoView);
@@ -329,6 +476,7 @@ export default function Home() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   // const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
+  const [eduResult, setEduResult] = useState([]);
   const [searchSingle, setSearchSingle] = useState({});
   const isDesktop = useResponsive('up', 'lg');
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -339,6 +487,7 @@ export default function Home() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [optionSearch, setOptionSearch] = useState(false);
+  const [viewEduInfo, setViewEduInfo] = useState(false);
 
   const handleChange = (e) => {
     setOptionSearch(e.target.checked);
@@ -346,6 +495,7 @@ export default function Home() {
     setSearchSingle({});
     setDetailsView(false);
     setSearchArray(false);
+    setViewEduInfo(false);
     setValueClick(false);
     setSearchLoading(false);
     setImageUrl(null);
@@ -437,6 +587,7 @@ export default function Home() {
   const handleClose = () => {
     setDetailsView(false);
     setSearchSingle({});
+    setEduResult([]);
     setValueClick(false);
   }
 
@@ -449,7 +600,9 @@ export default function Home() {
     searchInputRef.current.value = '';
     setSearchResult([]);
     setSearchSingle({});
+    setEduResult([]);
     setDetailsView(false);
+    setViewEduInfo(false);
     setSearchArray(false);
     setValueClick(false);
     setSearchLoading(false);
@@ -494,7 +647,7 @@ export default function Home() {
                   padding: '1rem',
                 }}>
                 <Typography variant="p" component="div">
-                  {optionSearch ? item.userfullname : item.name} {optionSearch ? '' : '('+item.regNo+')'}
+                  {optionSearch ? item.userfullname : item.name} {optionSearch ? '' : '(' + item.regNo + ')'}
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -503,6 +656,24 @@ export default function Home() {
       </div>
     );
   }, [searchResult, isDesktop, handleSearchView, imagePath, optionSearch]);
+
+
+  // eslint-disable-next-line
+  const handleEducationHistory = useCallback(debounce((regNo) => {
+    const requestData = {
+      search: regNo,
+      searchType: 'edu',
+      searchFrom: optionSearch
+    };
+    searchData(requestData)
+      .then((response) => {
+        const result = response.result;
+        setEduResult(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, 300), []);
 
   const handleExtensionChange = useCallback(() => {
     const nextExtIndex = (currentExtIndex + 1) % imageExtensions.length;
@@ -542,6 +713,9 @@ export default function Home() {
           }}
         >
           <MemoizedDetailsInfoView
+            eduResult={eduResult}
+            setViewEduInfo={setViewEduInfo}
+            viewEduInfo={viewEduInfo}
             searchSingle={searchSingle}
             setCurrentIndex={setCurrentIndex}
             setDetailsView={setDetailsView}
@@ -558,6 +732,7 @@ export default function Home() {
             handleImgError={handleImgError}
             optionSearch={optionSearch}
             handleExtensionChange={handleExtensionChange}
+            handleEducationHistory={handleEducationHistory}
             originalSearchResults={searchResult}
             currentIndex={currentIndex}
           />
@@ -708,6 +883,9 @@ export default function Home() {
         {valueClick ? (
           <MemoizedDetailsInfoView
             searchSingle={searchSingle}
+            eduResult={eduResult}
+            setViewEduInfo={setViewEduInfo}
+            viewEduInfo={viewEduInfo}
             setCurrentIndex={setCurrentIndex}
             viewLoading={viewLoading}
             setDetailsView={setDetailsView}
@@ -723,6 +901,7 @@ export default function Home() {
             optionSearch={optionSearch}
             handleImgError={handleImgError}
             handleExtensionChange={handleExtensionChange}
+            handleEducationHistory={handleEducationHistory}
             originalSearchResults={searchResult}
             currentIndex={currentIndex}
           />

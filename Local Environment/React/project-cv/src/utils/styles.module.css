@@ -12,6 +12,21 @@
     transform: translate(250%, 0);
 }
 
+.tableTd_title{
+  font-size: 1rem;
+}
+.tableTd_name{
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.tableTh{
+  font-weight: bold;
+}
+.tableTd, .tableTh, .tableTd_name, .tableTd_title{
+  padding: .1rem .5rem;
+}
+
 .spinnerarea_deatails{
   z-index: 9999;
   display: flex;
