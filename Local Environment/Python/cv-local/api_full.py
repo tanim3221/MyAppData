@@ -18,7 +18,7 @@ reg_no = input("Enter the registration number: ")
 payload = {"regNo": reg_no}
 
 # Authorization token
-auth_token = "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FrbGF5ZW4gIEFobWVkICIsInJvbGUiOiJTVFVERU5UIiwicmVnTm8iOiIzMzQzMCIsIm5iZiI6MTY5NzQ4NzQxMiwiZXhwIjoxNjk3NDkxMDEyLCJpYXQiOjE2OTc0ODc0MTJ9.vphaxpYCkw3OBiVcQBRiCaYkfSx5RxkTWsMQ5EIysBvQzfWqjq339lHyHpOOpBneYmYqLPDAMxiTvDSy1c1Eag"
+auth_token = "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FrbGF5ZW4gIEFobWVkICIsInJvbGUiOiJTVFVERU5UIiwicmVnTm8iOiIzMzQzMCIsIm5iZiI6MTY5NzUxMjU1OCwiZXhwIjoxNjk3NTE2MTU4LCJpYXQiOjE2OTc1MTI1NTh9.8e7EAVFAx75gTQHNA56h0wGttku-gYUTSQRhR0wLKhUby9rw--TWFX_Sav87FsPJH4wFDonqJifIAC9OL_KzIw"
 
 # Set the headers with the Authorization token
 headers = {
