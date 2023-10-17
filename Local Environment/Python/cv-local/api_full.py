@@ -1,3 +1,4 @@
+import json
 import os
 
 import requests
@@ -18,7 +19,8 @@ reg_no = input("Enter the registration number: ")
 payload = {"regNo": reg_no}
 
 # Authorization token
-auth_token = "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FrbGF5ZW4gIEFobWVkICIsInJvbGUiOiJTVFVERU5UIiwicmVnTm8iOiIzMzQzMCIsIm5iZiI6MTY5NzUxMjU1OCwiZXhwIjoxNjk3NTE2MTU4LCJpYXQiOjE2OTc1MTI1NTh9.8e7EAVFAx75gTQHNA56h0wGttku-gYUTSQRhR0wLKhUby9rw--TWFX_Sav87FsPJH4wFDonqJifIAC9OL_KzIw"
+token = open("auth_token.txt", "r")
+auth_token = token.read()
 
 # Set the headers with the Authorization token
 headers = {
@@ -32,7 +34,8 @@ response = requests.post(api_url, json=payload, headers=headers, verify=False)
 # Check the response status and display JSON response in the console
 if response.status_code == 200:
     api_data = response.json()
-    print(api_data)
+    # print(api_data)
+    print(json.dumps(api_data, indent=4))
     # You can also process the JSON data as needed
 else:
     print(f"Failed to send data for registration number: {reg_no}")
