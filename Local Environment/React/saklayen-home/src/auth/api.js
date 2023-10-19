@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getProdDevUrl } from '../tools/commonFunction';
+import CryptoJS from 'crypto-js';
 
 const apiUrl = `${getProdDevUrl()}/assets/api`;
 
@@ -7,13 +8,13 @@ const api = axios.create({
   baseURL: apiUrl,
 });
 
-// const postData = {
-//   token: loggedinToken,
-// };
+const date = new Date();
+const minutes = String(date.getMinutes()).padStart(2, '0');
+const sessionToken = CryptoJS.SHA512(minutes).toString();
 
 export const fetchData = async (tables) => {
   try {
-    const response = await api.post('/public', { tables, userType: 'enduser' });
+    const response = await api.post('/public', { tables, userType: 'enduser',verify: sessionToken });
     return response.data;
   } catch (error) {
     console.error('API request error:', error);
