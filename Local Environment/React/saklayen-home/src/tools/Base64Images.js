@@ -45,7 +45,7 @@ const useImageToBase64 = (imageUrl, mode, val = null) => {
 
     const convertImage = async () => {
       try {
-        const imgRender = `${getProdDevUrl()}/assets/api/img_base64.php`;
+        const imgRender = `${getProdDevUrl()}/assets/api/photo`;
         let response = await axios.post(imgRender, {
           url: imageUrl
         }, {

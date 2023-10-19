@@ -1,14 +1,14 @@
 
 import React, { useEffect } from 'react';
-import { Navigate, useLocation, Outlet } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
-import { checkMaintenance } from './api';
+import { checkMaintenance, tokenHash } from './api';
 import Home from '../pages/Home';
 import './../styles';
+import CryptoJS from 'crypto-js';
 import { useMaintenanceStatus } from './MaintenanceContext';
 import ShutdownPage from '../pages/Maintenance';
 import ErrorPage from '../pages/Page404';
-
 
 const ProtectedMainLayout = ({ children }) => {
   const { maintenanceStatus, setMaintenanceStatus } = useMaintenanceStatus();
@@ -16,6 +16,20 @@ const ProtectedMainLayout = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
+    const date = new Date();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seesion = Math.random().toString(36).substr(2, 10);
+    const hashToken = CryptoJS.MD5(minutes).toString();
+    const sessionToken = CryptoJS.SHA512(seesion).toString();
+
+    const requestData = {
+      token: sessionToken,
+      hash: hashToken,
+    };
+
+
+    tokenHash(requestData)
+      .then(response => { })
     const checkMaintenanceMode = async () => {
       try {
         const data = await checkMaintenance({ table: 'personalinfo' });
@@ -51,11 +65,11 @@ const ProtectedMainLayout = ({ children }) => {
       );
     case 'maintenance':
       return (
-        <ShutdownPage/>
+        <ShutdownPage />
       );
     default:
       return (
-        <ErrorPage/>
+        <ErrorPage />
       )
   }
 };

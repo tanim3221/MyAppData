@@ -13,7 +13,7 @@ const api = axios.create({
 
 export const fetchData = async (tables) => {
   try {
-    const response = await api.post('/home_api.php', { tables, userType: 'enduser' });
+    const response = await api.post('/public', { tables, userType: 'enduser' });
     return response.data;
   } catch (error) {
     console.error('API request error:', error);
@@ -23,7 +23,16 @@ export const fetchData = async (tables) => {
 
 export const postContactData = async (requestData) => {
   try {
-    const response = await api.post('/contact.php', requestData);
+    const response = await api.post('/message', requestData);
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
+export const tokenHash = async (requestData) => {
+  try {
+    const response = await api.post('/verify', requestData);
     return response.data;
   } catch (error) {
     console.error('API request error:', error);
@@ -33,7 +42,7 @@ export const postContactData = async (requestData) => {
 
 export const checkMaintenance = async (requestData) => {
   try {
-    const response = await api.post('/check_maintenance.php', requestData);
+    const response = await api.post('/activity', requestData);
     return response.data;
   } catch (error) {
     console.error('API request error:', error);
@@ -43,7 +52,7 @@ export const checkMaintenance = async (requestData) => {
 
 export const generateCv = async (requestData) => {
   try {
-    const response = await api.post('/generate_cv.php', requestData, {
+    const response = await api.post('/resume', requestData, {
       responseType: 'blob'
     });
     return response.data;
