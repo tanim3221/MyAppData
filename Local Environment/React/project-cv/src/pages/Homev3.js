@@ -124,7 +124,7 @@ function DetailsInfoView({
               minHeight: isDesktop ? '' : '180px',
             }}>
               <img
-                src={item.photo_inserted === '0' ? optionSearch ? item.memberimg === null ? imageUrl : item.srvhost + '' + item.memberimg : item.imagepath== null ? imageUrl : item.imagepath : `data:image/jpeg;base64,${item.photo}`}
+                src={item.photo_inserted === '0' ? optionSearch ? (item.memberimg === null ? imageUrl : item.srvhost + '' + item.memberimg) : (item.imagepath === null ? imageUrl : item.imagepath) : `data:image/jpeg;base64,${item.photo}`}
                 alt={`Profile of ${optionSearch ? item?.fName : item?.name}`}
                 style={{ borderRadius: '.5rem', width: optionSearch ? isDesktop ? '12rem' : '12rem' : '9rem', height: '100%', objectFit: 'cover' }}
                 onError={handleImgError}
