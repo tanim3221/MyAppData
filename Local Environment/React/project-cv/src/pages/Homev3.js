@@ -25,7 +25,7 @@ import {
   Skeleton,
   Divider
 } from '@mui/material';
-import { Search, Clear, Refresh, Close, ArrowBackIos, ArrowForwardIos, School, BusinessCenter } from '@mui/icons-material';
+import { Clear, Close, ArrowBackIos, ArrowForwardIos, School, BusinessCenter } from '@mui/icons-material';
 
 import useResponsive from '../utils/UseResponsive';
 import { searchData } from '../auth/api';
@@ -96,53 +96,6 @@ function DetailsInfoView({
     setImageUrl(imagePath);
   };
 
-  const checkIfImageExists = useCallback(async (url) => {
-    try {
-      const response = await fetch(url, {
-        mode: 'no-cors',
-      });
-      return response.status === 0;
-    } catch (error) {
-      return false;
-    }
-  }, []);
-
-  // const id_no = optionSearch ? searchSingle.userkeyid : searchSingle.regNo;
-  const id_no = optionSearch ? searchSingle?.userkeyid : searchSingle?.regNo;
-  const fetchImage = useCallback(async () => {
-    try {
-      const ext = imageExtensions[currentExtIndex];
-      const potentialUrl = `${process.env.REACT_APP_IMG_URL}/${id_no}/${id_no}.${ext}`;
-      const imageExists = await checkIfImageExists(potentialUrl);
-      const check_available_img = searchSingle.imagepath === null ? imageUrl : searchSingle.imagepath;
-
-      if (imageExists) {
-        setImageUrl(check_available_img);
-      } else {
-        console.error('Image does not exist.');
-      }
-    } catch (error) {
-      console.error('Error loading image:', error);
-    }
-  }, [currentExtIndex, checkIfImageExists, imageExtensions, setImageUrl, id_no]);
-
-  const debouncedFetchImage = useCallback(debounce(() => {
-    fetchImage();
-  }, 500), [fetchImage]); // 500ms delay
-
-  const get_photo_single = optionSearch ? searchSingle?.image_base64 : searchSingle?.photo;
-
-  useEffect(() => {
-
-    if (get_photo_single === null) {
-      debouncedFetchImage();
-    }
-    // Cleanup to cancel any pending debounced calls when component unmounts or on other significant changes.
-    return () => debouncedFetchImage.cancel();
-  }, [currentExtIndex, get_photo_single, debouncedFetchImage]);
-
-  const get_photo = optionSearch ? item?.image_base64 : item?.photo;
-
   if (!viewLoading) {
     return (
       <div style={{
@@ -168,10 +121,11 @@ function DetailsInfoView({
               display: 'flex',
               alignItems: isDesktop ? 'flex-start' : 'center',
               flexDirection: isDesktop ? 'row' : 'column',
+              minHeight: isDesktop ? '' : '180px',
             }}>
               <img
-                src={(get_photo === null) ? optionSearch ? item.srvhost + '' + item.memberimg : imageUrl : `data:image/jpeg;base64,${get_photo}`}
-                alt={`Profile of ${optionSearch ? item?.first_name : item?.name}`}
+                src={item.photo_inserted === '0' ? optionSearch ? item.memberimg === null ? imageUrl : item.srvhost + '' + item.memberimg : item.imagepath== null ? imageUrl : item.imagepath : `data:image/jpeg;base64,${item.photo}`}
+                alt={`Profile of ${optionSearch ? item?.fName : item?.name}`}
                 style={{ borderRadius: '.5rem', width: optionSearch ? isDesktop ? '12rem' : '12rem' : '9rem', height: '100%', objectFit: 'cover' }}
                 onError={handleImgError}
               />
@@ -262,20 +216,6 @@ function DetailsInfoView({
                   <></>
                 )
               }
-
-              {get_photo === null && !optionSearch ? (
-                <div>
-                  <IconButton style={{
-                    float: optionSearch ? 'right' : 'left',
-                    marginTop: '1rem'
-                  }} onClick={handleExtensionChange}>
-                    <Refresh />
-                  </IconButton>
-                </div>
-
-              ) : (
-                <></>
-              )}
             </div>
           </CardContent>
 
@@ -480,7 +420,7 @@ export default function Home() {
   const [searchArray, setSearchArray] = useState(false);
   const [detailsView, setDetailsView] = useState(false);
   const [viewLoading, setViewLoading] = useState(true);
-  const [clearState, setClearState] = useState(false);
+  // const [clearState, setClearState] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   // const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
@@ -508,7 +448,7 @@ export default function Home() {
     setValueClick(false);
     setSearchLoading(false);
     setImageUrl(null);
-    setClearState(false);
+    // setClearState(false);
   };
 
   useEffect(() => {
@@ -602,10 +542,10 @@ export default function Home() {
     setValueClick(false);
   }
 
-  const clearSearchValue = () => {
-    searchInputRef.current.value = '';
-    setClearState(true);
-  }
+  // const clearSearchValue = () => {
+  //   searchInputRef.current.value = '';
+  //   setClearState(true);
+  // }
 
   const removeSearchStates = () => {
     searchInputRef.current.value = '';
@@ -619,7 +559,7 @@ export default function Home() {
     setSearchLoading(false);
     setViewEduInfoLoading(false);
     setImageUrl(null);
-    setClearState(false);
+    // setClearState(false);
   }
 
   // const handleInputChange = (e) => {
