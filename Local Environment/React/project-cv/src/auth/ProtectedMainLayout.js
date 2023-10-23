@@ -1,29 +1,10 @@
-// import React from 'react';
-// import { Navigate, useLocation } from 'react-router-dom';
-// import MainLayout from '../../layouts/main';
-
-// // eslint-disable-next-line
-// const ProtectedMainLayout = ({ children }) => {
-
-//     const isAuthenticated = sessionStorage.getItem('authToken');
-//     const location = useLocation();
-
-//   if (!isAuthenticated) {
-//     sessionStorage.setItem("LoginMsg", "Please login to continue.");
-//     sessionStorage.setItem("intendedPath", location.pathname);
-//     return <Navigate to="/login" />;
-//   }
-//   return <MainLayout>{children}</MainLayout>;
-// };
-
-// export default ProtectedMainLayout;
-
 import React, { useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import {CircularProgress} from '@mui/material';
 import { tokenVerify } from './api';
 import MainLayout from '../layouts/MainLayout';
 import { useStateContext } from './StateProvider';
+import LoginPage from '../pages/LoginPage';
 
 // eslint-disable-next-line
 const ProtectedMainLayout = ({ children }) => {
@@ -59,20 +40,26 @@ const ProtectedMainLayout = ({ children }) => {
     // eslint-disable-next-line
   }, [loggedinToken, location.pathname]);
 
-  if (isTokenValid === null) {
-    // Display a circular loading indicator in the middle of the screen
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <CircularProgress />
-      </div>
-    );
+  switch(isTokenValid){
+    case true:
+      return(
+        <MainLayout>{children}</MainLayout>
+      )
+    case false:
+      return(
+        <LoginPage/>
+      )
+    case null:
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      );
+    default:
+      return(
+        <LoginPage/>
+      )
   }
-  if (isTokenValid) {
-    // Token is valid, render the main layout
-    return <MainLayout>{children}</MainLayout>;
-  }
-  // Token is not valid, navigate to login
-  return <Navigate to="/login" />;
 };
 
 export default ProtectedMainLayout;

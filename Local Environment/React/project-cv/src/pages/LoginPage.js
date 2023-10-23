@@ -31,14 +31,11 @@ const BackgroundOverlay = styled('div')(({ theme }) => ({
 
 const ContentOverlay = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
-  borderRadius: theme.spacing(3),
-  backgroundColor: 'rgba(255, 255, 255)',
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '80%',
-  boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px',
 
   [theme.breakpoints.up('xs')]: {
     width: '85%',
@@ -106,7 +103,7 @@ function LoginForm({
         <Stack spacing={3}>
           <TextField
             name="username"
-            label="User Name"
+            label="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
