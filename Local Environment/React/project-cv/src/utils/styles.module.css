@@ -20,6 +20,14 @@
   font-weight: 700;
 }
 
+.tableSp{
+  width: 10rem;
+  color: green;
+}
+.tableSpV{
+  color: green;
+}
+
 .tableTh{
   font-weight: bold;
 }

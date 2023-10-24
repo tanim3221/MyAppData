@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback, memo, useRef } from 'react';
 import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
 import { FixedSizeList as FixedList } from "react-window";
+import { differenceInCalendarDays } from 'date-fns';
+
 import {
   Container,
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
@@ -96,6 +98,27 @@ function DetailsInfoView({
     setImageUrl(imagePath);
   };
 
+  const acaDateCalc = (acaDate, articleDate) => {
+    const acaDateObj = new Date(acaDate);
+    const articleDateObj = new Date(articleDate);
+  
+    if (isNaN(acaDateObj) || isNaN(articleDateObj)) {
+      return 'Invalid dates';
+    }
+  
+    const differenceDays = differenceInCalendarDays(acaDateObj, articleDateObj);
+    if (isNaN(differenceDays)) {
+      return 'Invalid date difference';
+    }
+  
+    const years = Math.floor(differenceDays / 365);
+    const months = Math.floor((differenceDays % 365) / 30);
+    const days = differenceDays % 30;
+  
+    return `${years} years, ${months} months, and ${days} days`;
+  };
+  
+
   if (!viewLoading) {
     return (
       <div style={{
@@ -162,6 +185,7 @@ function DetailsInfoView({
 
                       <Table>
                         <TableBody>
+                       
                           <TableRow >
                             <TableCell className={extStyles.tableTh}>Mobile: </TableCell>
                             <TableCell className={extStyles.tableTd}>{item.cell}</TableCell>
@@ -233,17 +257,28 @@ function DetailsInfoView({
                   <TableContainer component={Paper}>
                     <Table>
                       <TableBody>
+                      {(optionSearch && item.regNo) || (!optionSearch && item.userkeyid) ? (
+                          <TableRow>
+                            <TableCell className={`${extStyles.tableTh} ${extStyles.tableSp}`}>Years to qualify CA</TableCell>
+                            <TableCell className={`${extStyles.tableTd} ${extStyles.tableSpV}`}>
+                               {acaDateCalc(item.acadate, item.periodFrom)} (approximate)
+                            </TableCell>
+                          </TableRow>
+                        ) : null }
                         <TableRow>
                           <TableCell className={extStyles.tableTh}>Mobile</TableCell>
                           <TableCell className={extStyles.tableTd}>{item?.cellphone1}, {item?.cellphone2}</TableCell>
                         </TableRow>
+                        
                         <TableRow>
                           <TableCell className={extStyles.tableTh}>Email</TableCell>
                           <TableCell className={extStyles.tableTd}>{item?.emailid1}, {item?.emailid2}</TableCell>
                         </TableRow>
                         <TableRow>
                           <TableCell className={extStyles.tableTh}>ACA Date</TableCell>
-                          <TableCell className={extStyles.tableTd}>{item?.acadate}</TableCell>
+                          <TableCell className={extStyles.tableTd}>
+                              {item?.acadate}
+                            </TableCell>
                         </TableRow>
                         {item?.fcadate === "" ? "" : (
                           <TableRow>
@@ -276,6 +311,14 @@ function DetailsInfoView({
                   <TableContainer component={Paper}>
                     <Table>
                       <TableBody>
+                      {(optionSearch && item.regNo) || (!optionSearch && item.userkeyid) ? (
+                          <TableRow>
+                            <TableCell className={`${extStyles.tableTh} ${extStyles.tableSp}`}>Years to qualify CA</TableCell>
+                            <TableCell className={`${extStyles.tableTd} ${extStyles.tableSpV}`}>
+                               {acaDateCalc(item.acadate, item.periodFrom)} (approximate)
+                            </TableCell>
+                          </TableRow>
+                        ) : null }
                         <TableRow>
                           <TableCell className={extStyles.tableTh}>Article Period</TableCell>
                           <TableCell className={extStyles.tableTd}>{item.periodFrom} to {item.periodTo}</TableCell>
