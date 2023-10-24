@@ -8,6 +8,7 @@ import './../styles';
 import { useMaintenanceStatus } from './MaintenanceContext';
 import ShutdownPage from '../pages/Maintenance';
 import ErrorPage from '../pages/Page404';
+import Visitor from '../tools/VisitorData';
 
 const ProtectedMainLayout = ({ children }) => {
   const { maintenanceStatus, setMaintenanceStatus } = useMaintenanceStatus();
@@ -38,6 +39,7 @@ const ProtectedMainLayout = ({ children }) => {
     case 'loading':
       return (
         <div className='spinnerBarLoading'>
+          <Visitor/>
           <CircularProgress style={{ color: '#5e2fd6' }} />
         </div>
       );

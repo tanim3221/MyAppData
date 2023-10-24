@@ -26,6 +26,33 @@ export const postContactData = async (requestData) => {
     throw error;
   }
 };
+
+export const fetchUserData = async () => {
+  const jsonURL = 'https://api.ipregistry.co?key=q1wuszo1zgdb6ekp';
+  try {
+    const response = await axios.get(jsonURL);
+    if (response.status === 200) {
+      return response.data;
+    }
+    throw new Error('Failed to fetch JSON data');
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const sendUserDataToAPI = async (userData) => {
+  try {
+    const response = await api.post('/visit', { userData });
+    if (response.status === 200) {
+      return response.data;
+    }
+    throw new Error('Failed to send data to PHP');
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 export const tokenHash = async (requestData) => {
   try {
     const response = await api.post('/verify', requestData);
