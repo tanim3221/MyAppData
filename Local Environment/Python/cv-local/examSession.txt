@@ -1,0 +1,30 @@
+{
+    "message": "List of session info",
+    "success": true,
+    "payload": [
+        {
+            "sessionId": 1,
+            "sessionName": "May-June",
+            "sessionDetailsName": "May-June",
+            "orderId": 5
+        },
+        {
+            "sessionId": 2,
+            "sessionName": "Nov-Dec",
+            "sessionDetailsName": "November-December",
+            "orderId": 11
+        },
+        {
+            "sessionId": 3,
+            "sessionName": "March-April",
+            "sessionDetailsName": "March-April",
+            "orderId": 3
+        },
+        {
+            "sessionId": 4,
+            "sessionName": "July-August",
+            "sessionDetailsName": "July-August",
+            "orderId": 7
+        }
+    ]
+}

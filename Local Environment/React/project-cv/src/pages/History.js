@@ -47,7 +47,7 @@ export default function History() {
                   margin: '.5rem 0rem'
                 }}  key={item.id}>
                   <Typography>
-                    [{item.date_search}] - <strong>{item.search_type == 'view' ? "[View] " : "[Search] "} </strong> {item.keywords}; <strong>[Found] </strong>{item.found};<strong> [User] </strong>{item.username}
+                    [{item.date_search}] - <strong>{item.search_type === 'view' ? "[View] " : "[Search] "} </strong> {item.keywords}; <strong>[Found] </strong>{item.found};<strong> [User] </strong>{item.username}
                   </Typography>
                   <Divider sx={{
                     margin: '.5rem 0rem'

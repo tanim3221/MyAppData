@@ -101,23 +101,23 @@ function DetailsInfoView({
   const acaDateCalc = (acaDate, articleDate) => {
     const acaDateObj = new Date(acaDate);
     const articleDateObj = new Date(articleDate);
-  
+
     if (isNaN(acaDateObj) || isNaN(articleDateObj)) {
       return 'Invalid dates';
     }
-  
+
     const differenceDays = differenceInCalendarDays(acaDateObj, articleDateObj);
     if (isNaN(differenceDays)) {
       return 'Invalid date difference';
     }
-  
+
     const years = Math.floor(differenceDays / 365);
     const months = Math.floor((differenceDays % 365) / 30);
     const days = differenceDays % 30;
-  
+
     return `${years} years, ${months} months, and ${days} days`;
   };
-  
+
 
   if (!viewLoading) {
     return (
@@ -168,6 +168,14 @@ function DetailsInfoView({
                           <TableRow >
                             <TableCell className={extStyles.tableTd_title}>{item?.userposition}, {item?.userorgname}</TableCell>
                           </TableRow>
+                          {(optionSearch && item.regNo) || (!optionSearch && item.userkeyid) ? (
+                          <TableRow>
+                            {/* <TableCell className={`${extStyles.tableTh} ${extStyles.tableSp}`}>Years to qualify CA</TableCell> */}
+                            <TableCell className={`${extStyles.tableTd} ${extStyles.tableSpV}`}>
+                            Qualifying as a Chartered Accountant took approximately  <b>{acaDateCalc(item.acadate, item.periodFrom)}</b>.
+                            </TableCell>
+                          </TableRow>
+                        ) : null}
                         </TableBody>
                       </Table>
                     </TableContainer>
@@ -185,7 +193,7 @@ function DetailsInfoView({
 
                       <Table>
                         <TableBody>
-                       
+
                           <TableRow >
                             <TableCell className={extStyles.tableTh}>Mobile: </TableCell>
                             <TableCell className={extStyles.tableTd}>{item.cell}</TableCell>
@@ -257,43 +265,67 @@ function DetailsInfoView({
                   <TableContainer component={Paper}>
                     <Table>
                       <TableBody>
-                      {(optionSearch && item.regNo) || (!optionSearch && item.userkeyid) ? (
-                          <TableRow>
-                            <TableCell className={`${extStyles.tableTh} ${extStyles.tableSp}`}>Years to qualify CA</TableCell>
-                            <TableCell className={`${extStyles.tableTd} ${extStyles.tableSpV}`}>
-                               {acaDateCalc(item.acadate, item.periodFrom)} (approximate)
-                            </TableCell>
-                          </TableRow>
-                        ) : null }
+                      {!item?.firmName ? "" : (
                         <TableRow>
-                          <TableCell className={extStyles.tableTh}>Mobile</TableCell>
-                          <TableCell className={extStyles.tableTd}>{item?.cellphone1}, {item?.cellphone2}</TableCell>
+                          <TableCell className={extStyles.tableTh}>Article Firm</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item?.firmName} ({item?.periodFrom} <b>to</b> {item?.periodTo})</TableCell>
                         </TableRow>
-                        
+                      )}
+                      {!item?.prinName ? "" : (
                         <TableRow>
-                          <TableCell className={extStyles.tableTh}>Email</TableCell>
-                          <TableCell className={extStyles.tableTd}>{item?.emailid1}, {item?.emailid2}</TableCell>
+                          <TableCell className={extStyles.tableTh}>Principal</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item?.prinName}</TableCell>
                         </TableRow>
+                        )}
                         <TableRow>
                           <TableCell className={extStyles.tableTh}>ACA Date</TableCell>
                           <TableCell className={extStyles.tableTd}>
-                              {item?.acadate}
-                            </TableCell>
+                            {item?.acadate}
+                          </TableCell>
                         </TableRow>
-                        {item?.fcadate === "" ? "" : (
+                        {!item?.fcadate ? "" : (
                           <TableRow>
                             <TableCell className={extStyles.tableTh}>FCA Date</TableCell>
                             <TableCell className={extStyles.tableTd}>{item?.fcadate}</TableCell>
                           </TableRow>
                         )}
-                        {item?.educationinfo === "" ? "" : (
+                        {!item?.fName ? "" : (
+
+                          <TableRow>
+                            <TableCell className={extStyles.tableTh}>Father</TableCell>
+                            <TableCell className={extStyles.tableTd}>{item?.fName}</TableCell>
+                          </TableRow>
+                        )}
+                        {!item?.mName ? "" : (
+                          <TableRow>
+                            <TableCell className={extStyles.tableTh}>Mother</TableCell>
+                            <TableCell className={extStyles.tableTd}>{item?.mName}</TableCell>
+                          </TableRow>
+                        )}
+                         {!item?.dob ? "" : (
+                          <TableRow>
+                            <TableCell className={extStyles.tableTh}>Birthday</TableCell>
+                            <TableCell className={extStyles.tableTd}>{item?.dob}</TableCell>
+                          </TableRow>
+                        )}
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Mobile</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item?.cellphone1}, {item?.cellphone2}</TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Email</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item?.emailid1}, {item?.emailid2}</TableCell>
+                        </TableRow>
+                        
+                        {!item?.educationinfo ? "" : (
                           <TableRow>
                             <TableCell className={extStyles.tableTh}>Graduation</TableCell>
                             <TableCell className={extStyles.tableTd}>{item?.educationinfo}</TableCell>
                           </TableRow>
                         )}
                         <TableRow>
-                          <TableCell className={extStyles.tableTh}>Membership Status</TableCell>
+                          <TableCell className={extStyles.tableTh}>Membership</TableCell>
                           <TableCell className={extStyles.tableTd}>{item?.membershipstatus} ({item?.occupationalcategory})</TableCell>
                         </TableRow>
                         <TableRow>
@@ -311,25 +343,37 @@ function DetailsInfoView({
                   <TableContainer component={Paper}>
                     <Table>
                       <TableBody>
-                      {(optionSearch && item.regNo) || (!optionSearch && item.userkeyid) ? (
+                        {(optionSearch && item.regNo) || (!optionSearch && item.userkeyid) ? (
                           <TableRow>
                             <TableCell className={`${extStyles.tableTh} ${extStyles.tableSp}`}>Years to qualify CA</TableCell>
                             <TableCell className={`${extStyles.tableTd} ${extStyles.tableSpV}`}>
-                               {acaDateCalc(item.acadate, item.periodFrom)} (approximate)
+                              {acaDateCalc(item.acadate, item.periodFrom)} (approximate)
                             </TableCell>
                           </TableRow>
-                        ) : null }
+                        ) : null}
+                      {!item?.acadate ? "" : (
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>ACA Date</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item.acadate}</TableCell>
+                        </TableRow>
+                        )}
+                        {!item?.userorgname ? "" : (
+                        <TableRow>
+                          <TableCell className={extStyles.tableTh}>Career</TableCell>
+                          <TableCell className={extStyles.tableTd}>{item.userposition}, {item.userorgname}</TableCell>
+                        </TableRow>
+                        )}
                         <TableRow>
                           <TableCell className={extStyles.tableTh}>Article Period</TableCell>
                           <TableCell className={extStyles.tableTd}>{item.periodFrom} to {item.periodTo}</TableCell>
                         </TableRow>
-                        {item?.preAdd === "" || item?.preAdd == null ? "" : (
+                        {!item?.preAdd ? "" : (
                           <TableRow>
                             <TableCell className={extStyles.tableTh}>Present Address</TableCell>
                             <TableCell className={extStyles.tableTd}>{item.preAdd}</TableCell>
                           </TableRow>
                         )}
-                        {item?.perAdd === "" || item?.perAdd == null ? "" : (
+                        {!item?.perAdd ? "" : (
                           <TableRow>
                             <TableCell className={extStyles.tableTh}>Permanent Address</TableCell>
                             <TableCell className={extStyles.tableTd}>{item.perAdd}</TableCell>
@@ -379,9 +423,9 @@ function DetailsInfoView({
                 </TableContainer>
               ) : (
                 <>
-                  <Box sx={{ width: '100%', borderRadius: '1rem'}}>
-                    <Skeleton height={25} variant="rectangular"/>
-                    <Skeleton height={30} variant="rectangular"/>
+                  <Box sx={{ width: '100%', borderRadius: '1rem' }}>
+                    <Skeleton height={25} variant="rectangular" />
+                    <Skeleton height={30} variant="rectangular" />
                   </Box>
                 </>
               )
@@ -391,7 +435,7 @@ function DetailsInfoView({
           {(optionSearch && item.regNo) || (!optionSearch && item.userkeyid) ? (
             <div>
               <Divider sx={{}} />
-              <div style={{ padding: '1rem' }}>
+              <div style={{ padding: '1rem', float: 'left' }}>
                 <strong>{optionSearch ? "Registration Number: " : "Enrollment Number: "}</strong>
                 {optionSearch ? item.regNo : item.userkeyid}
               </div>
