@@ -1,3 +1,36 @@
+Class 04:
+=========
+Sec 115, Particulars of Directors. form no 12
+Sec 150, Restriction on commencement of Business
+Sec 151 Return as to allotment
+Sec 155, Further issuer of capital, -- Rights issue rules 2006
+Sec 181, 
+Sec 181 (3)
+Sec 182
+Sec 182 (9)
+Sec 183
+Sec 183 (4)
+Sec 183 (6)
+Sec 184 Board Report , Condition no 6 CGC 2018
+Sec 184 (3)
+Sec 185
+Sec 186
+Sec 187
+Sec 189
+Sec 189 (3) Insurance Act 2010 Sec 27(2), Listing Regulation DSE - Reg 20
+Sec 190
+Sec 191
+Sec 195
+
+
+Audit Shall complete within 120 Days,
+Board Meeting--- From board meeting Min 14 - Max 21 Days Record Date, From record date AGM with in 45 days. Ending of FY AGM must within 6 Months.
+
+
+
+
+Class 05:
+----------
 Section 210 of Company Act 1994: Appointment and Remuneration of Auditors,
 - First auditor appointment under sec 210-6
 - By the BOD within one months from the date of Reg of Company
@@ -193,6 +226,8 @@ Regulation 33, Disclousure of PSI. Prohibition of Trading by the beneficial Owne
 Regulation 34, Decleration of Sponsor or directors of buying and sell. For buying and selling prior decleration to the Commission ( written intention) informed imidiately.
 
 
+Class 08:
+----------
 
 Corporate Governance Code 2018:
 ===============================
@@ -314,6 +349,190 @@ In one family not more than 10% share. Sec 14A*, 14B*, 26A, 27A
 Prior permission for director appointment from Bangladesh Bank. Self Decleration to Bangladesh for prior permission. (Sec 94 of Company Act), Other than bank and NBFI not necessary.
 
 
+Class 09:
+----------
+
+Company and Security Exchange 40 Marks.
+
+
+Financial Institution Act 1993:
+-------------------------------
+Sec 2B, Defenition
+Sec 4(3) To get registration NBFI
+Sec 7, Restriction on Opening Brach, Without taking prior approval of Bangladesh bank. Ratios for Urban and town, 2:1 Ratio. that given by bangladesh bank.
+License Cancel, Sec 08, Misinformation in decleartion may cancel the registration.
+Prohibition/restriction on payment of Dividend , Sec 10*
+Restriction on advance/loan and credit (Single party exposure), Sec 14
+Restriction on doign other business, Sec 15* Force sale Value.
+Restriction on Investment,
+Restriction on Immavable Property, Sec 17
+Maintenance of Liquid asset  (Annexure D) for Ratio
+Auditor Appointment Sec 24 (Company Act Sec-210)
+Steps to be taked by Bangladesh Bank, Sec 22
+Disqualification of Managing Director, Sec 25
+Director of NBFI, will not be director of Bank, NBFI, Insurance (Life-Non Life), Sec 25(3)
+Removal of Board, Sec 25
+Offences and Panalties, Sec 30-42*
+
+Name, Memorandum, can not be changeed wothout prior approval of BB. Sec 46
+DFIM 18, 26/Oct/2011
+DFIM 04, 30/Apr/2015
+
+Prodential Regulation for Financial Institution, from Bangladesh Bank
+
+Bangladesh Labour Act 2006:
+--------------------------
+Written new - Rules 2015, Ammendment 2018, Reshuffled in 2013
+
+Sec 2: Definition: 
+52, CBA
+01, Retirement
+04, Working Hour
+2 (9A) Subsivetance Allownace, (Khuraki Vata)
+10, Gratuity
+11, Restransment
+17, Discharge
+18, Goes Low
+22, Strike
+30, Dependent
+39, Dismissal
+2 (45) and Sec 120, Wages
+57, Lockout
+58, Layoff
+2(65), 150(8), 175, 4th Schedule - Worker
+2(62) Industrial Dispute
+Rule 02(J) - Managarial, administrative and supervisory staff
+
+|| Calculation of 01 Year, 06 Month and Wages in Certain cases - Sec 14
+|| Rights of Layoff workers for Compensation - Sec 16
+|| Master Roll for Layoff workers- Sec 17
+|| Laid off workers not be entitle to compensation in certain cases - Sec 18
+
+Sec 19, Sec 131, Sec 150, Sec 151, Sec 156 - Compensation for death ***
+
+Sec 2(11), Sec 20, Sec 21 - Re-employment of restrancement employer.
+
+|| Sec 22 - Discharge from Service
+|| Sec 23 - Punishment for misconduct and conviction
+|| Sec 24 - Procedures for punishment
+|| Sec 25 - Special provision relating to fine.
+
+|| Sec 26 -Tarmination of employment of workers and otherwise then by dismissal**
+|| Sec 27 -Tarmination of employment by workers**
+|| Sec 28(A) - Employer and worker relation in disaster or damage beyond control.***
+|| Sec 50 **
+
+Sec 29 (PF), Sec 264, Rule 237, Rule 258, Rule 263
+
+Sec 30 (Time for Final Payment)
+
+Sec 46 - Rights to maternity Benefit, Rule 37, Sec 48 - Amount of Maternity Benifit, Sec 49 - Payment of Maternity Benefit incase of death of woman, Sec 50 - Restriction on terminarion of employment of Women in certain cases. **
+
+Sec 104, Sec 10, Sec 115,  Sec 116, Sec 117, Sec 118, Rule 106, Rule 107, Rule 109, Rule 110 - Leave **
+
+Sec 2(62), Sec 209, Sec 210, Sec 211 - Industrial Dispute
+
+Sec 232, Sec 234, Sec 235, Sec 236 - WPPF
+
+
+
+Insurance Act 2010:
+====================
+
+Definition:
+Insurer 2(25)
+Insured 2(26)
+Double Insurance, Reinsurance, Coinsurance, Surrendar Value  Sec-88
+
+Sec 10, 11 Registration, Renewal
+Restriction doing Life and Non Life business, Sec 13
+Opening office, set up office or branch office, need prior approval from IDRA sec 14
+
+Capital and holding share, Sec 21
+Life - 30 Crore, Non Life - 40 Crore, Out of this subscribe 60% by the sponson and 40% Open for general.
+
+Deposit - Sec 23, Life 1.5 Crore and Non-Life 2.5 Crore
+
+Capital for cooperative Insurance - 2.5 Crore, Mututal Insurance 1.5 Crore, Sec 118
+Deposit 2.5 Crore and For mutual Insurfance 30 Lakh , Sec 119
+
+Authentication of Financial Statememt, Sec 27(2)* (Sec 189 of Company act 1994), Chairman and CEO and Two Director Authenticate the FS.
+
+|| Audit Sec 28, 
+|| Special Audit Sec 29 (IDRA, SEC)
+|| Investigation Sec 48
+
+Annual Return of Sec 37
+Power
+Solvancy Margin Sec 43
+
+Loans Advance and Financial Benefit - Sec 44 ***
+
+|| Restriction on payment of commission and salary to collect Business (Premium from Company)- Sec 58***
+|| Restriction on payment of Rebate and Discount- Sec 60***
+
+Restriction to be director to the same class of Bank and NBFI - Sec 75
+Board of Director - Sec 76
+Appoinment and removal of CEO - Sec 80 * (IDRA - Circular) - 3 Year Appointment, Proposed from the Board of Director, Approved bt IDRA.
+
+Appointment of Adviser and Administrator - Sec 95*** (Why Sit an administrator in a Insurance company by IDRA)
+
+APproval of agent (Need Approval from IDRA), borker and surveyar - Sec 124, 126, 127.
+
+|| Sec 130, Penalty and Punishment for non-complience ***
+|| Sec 134, Punishment for voilation of rules by person.***
+|| Sec 131, Penalty for MisStatement ***
+
+2020 Oct 04, Panel fixed Circular
+
+
+Non Life Management Expense Ceiling Circular 2009
+2012 CirCular - Qualification to be CEO Guideline
+
+
+Finacial Reporting Act 2015:
+===========================
+
+Constituted by the act FRC-Act 2015.
+
+Chairman appointment by Govt, Two Additional Secretary from Commerce, Finance Ministry
+Deputy Govornor from BB, Deputy Comptroller of auditor General of Bangladesh 
+Two member BSEC, NBR,
+Three President, FBCCI, ICAB, ICMAB
+One Professor from public university
+ED Member Secretary - Employee
+ED 4 - Statndard Setting, Enforcement, Audit Practice review, Monitoring (Any one is Member Seretary)
+Executive Director.
+
+Letter No, 47 - 9 March 2021
+Cir 52, 16 Aug, 2021
+Cir 2020 16 March - PIE related.
+-Revenue 5 Crore
+-Asset 3 Crore
+-without Equity Liability 1 Crore.
+
+Within in 6 months share money deposit -- capital a convert korte hobe.
+
+
+Difinition: Sec 2
+PIE 2-08
+Professional Accountant 2-18
+Professional Accountancy organization 2-19
+
+Structure of Councel Sec 5
+Sec 7
+Sec 8
+Sec 11
+Sec 12
+Sec 22
+Sec 23
+Sec 24
+Sec 25
+Sec 26
+Sec 31 **
+Sec 33 *
+Sec 36 ***
+Sec 48 **
 
 
 
