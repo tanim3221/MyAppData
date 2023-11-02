@@ -46,11 +46,54 @@ sec 89
 
 Director:
 =========
-Sec 90, Comapnay Act 1994
+Sec 90, Comapnay Act 1994, Private 2 director, Public 3 Directors.
 Corporate Governance Code 2018
-Sec 15, Banking Comapnay Act 1991, Will not be more than 20 with 3 Independent Director, Or less than 20, 2 Independent Director, From same family not more than 4 Director. No person shall hold consecutively not more than 9 years under Section 15AA.
-Sec 25 (3), Non Banking Finacial Institution Act 1993
+Sec 15, Banking Comapnay Act 1991, Will not be more than 20 with 3 Independent Director, Or less than 20, 2 Independent Director, From same family not more than 4 Director. No person shall hold consecutively not more than 9 years under Section 15AA. not more than 20% of paidup capital in one family.
+Sec 25 (3), Non Banking Finacial Institution Act 1993, 11 09 2002 - Directors 9 - 11
 Sec 76, Insurance Act 2010
+
+
+Class 03:
+=========
+Sec  76 of Ins 2010,
+Sec  91  Appoinment of Directors, Regulation 79- Rotation of Directors
+Regulation 85, 86
+Sec 92
+Sec 94: no minor, not unsound, not insolvent
+-- 94 1D,
+sec 105, sec 104, 130, 131 and Sec 18 (4)-Self Decleartion , bank company act 1991
+sec 103
+sec 107
+Sec 108, 
+sec 109, 110 , MD - Not more than 5 Years and same time not two pubic listed company.
+Sec 111, 
+Sec 23 of Banking Company Act 1991
+
+Sec 115 - PD (Sec 115),  Schedule 10 (Sec 36) - Form 12, Consent of Director (Sec 92), After AGM with 30 Days Return to RJSC - Sec 190, 
+Sec 210 , Appoint of Auditor
+
+- If director changes, within 14 days informed to Registerer.
+
+Prospectus (2L):  Invitation of purchase of share. Statememt.
+135 Sec. Matter to be stated. Issue offering and inviting to public to purchase the company share. Submit application to the BSEC to offer to the public.
+
+Prospect - IPO Rules 2015:
+-------------------------
+Rule 04: Submission of application and processing: Cut-off Price. FS mandatory with IFRS and ISA, by the panel auditor. In this precess, the issue Manager do some complience all Requirement of BSEC to bridge with issuer and authority. 
+## Issuer Company: AGM Regular. CGC-2018 Complient. No Accumulated loss. No director loan Defaulter. Minimum 3 year Operation. Face Value: At least 1 year Profit. if Book Building, 2 year profit. Positive Net operating cash flow per share as of. Retained earning not minus
+## Underwriter: who will guarantee to purchase the share. Minimum 35% of issue has been uderwritten by the underwriter as firm basis. Firm commitment to purchase the undersubscrition share by the underwriter. Min 35% commitment. 10% or 15 Crore, which one is higher, go to market. 30 crore paid up capital. Intend to draw from market Minimum 15 Crore paid up capital - Fixed Price.  all the sponsor or director all time jointly hold minimum 30% of paid-up capital. if not 30% holding, no right share, no bonus share, no transfer of share.
+Rule 05: Format and content of abbreiged version. Annex E, F
+Rule 03. application for consent and Requirement.
+Rule 07, Publication of prospectus and opening of subscription, can not publish prospectus without under 130
+Rule 15. Approval rejection and review.
+Rule 10. Lock-in
+No-Expert opinion in prospectus. *** 2 Bangla newspaper and 2 English newspaper. 
+No issuer shall utilized more than 1/3 of the fund of the IPO to repayment bank loan. "Proceeds Utilization Certification" to be certified by the Chartered Accountant.
+Pro-rata basis refund is excess subscription of capital from market.
+Sec 142 of CA-94: Document containng offer on share and debenture for sale to be deemed 
+Sec 145, Sec 146, Rule 16. Contravantion. 
+Sec 147
+Sec 138, Prospectus should be registered
 
 
 Class 04:
@@ -80,7 +123,6 @@ Sec 195
 
 Audit Shall complete within 120 Days,
 Board Meeting--- From board meeting Min 14 - Max 21 Days Record Date, From record date AGM with in 45 days. Ending of FY AGM must within 6 Months.
-
 
 
 
@@ -588,11 +630,3 @@ Sec 31 **
 Sec 33 *
 Sec 36 ***
 Sec 48 **
-
-
-
-
-
-
-
-
