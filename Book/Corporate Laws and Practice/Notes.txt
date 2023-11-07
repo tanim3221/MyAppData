@@ -1,3 +1,80 @@
+Class 01:
+========
+
+Sec 11 (A), for OPC, LTD, PLC 
+Private Ltd: Sec 2 (TA), restriction is transfer the share, Prohibition to invite the subscriber, members number is limited by 50. excluding employee of the company.
+- Prohibition of partnership exceeding certain number. 
+- If banking company, up to 10 members partnership. more than 10, Company 
+- other than banking company, up to 20 partnership. more than 20 , Company
+- Minimum 2 members need for private limited Company. Maximum 50 Members.
+- If it is pubic, minimum 7 person lagbe, Limited by share
+
+Having paid up capital or not. Private or pubic company or cheritable under section 25
+
+Section 6: Mamorandom of article limited by share. 
+- Mandatory: Name, registered Address, Objects, Liability limited by share. Minimum 01 share subscription with signed in memorandum.
+- Black and white, Written - printed
+- After submission, can not alter the Mamorandom, under section 10. Strictly prohibited
+
+But MOA changable under Section 12.
+
+* Name Clearance, Letter to RJSC for name Clearance. 
+-- Previously whether it is registered or not, have any conflict with other company name (similar name), 
+-- Similar name like gov org, can not get the name Clearance, 
+-- worldwide opearted business name can not be registered.
+
+* MOA (Sec 6) and AOA (Sec 17) - Schedule 01. (Schedule 07 for cheritable ORG)
+-- Must submit AOA with MOA.
+-- Articles measns, rules business for daily Operation. Day to day business Operation rules.
+-- Sec 18 Application of Schedule 01.
+
+By filling form No. 01, applicable submit for company registration with Proposed MOA and AOA. Application form for registering new company.
+
+* Name of the registered address (form 06) - Sec 77, or after getting incorporation within 21 days have to submit form 06, if not mention the registered addres in MOA.
+
+* When satified the RJSC, Give to company the incorporation certificates. Sec 25.
+-- incorporation certificates is the sufficient evidence of Complience.
+
+* BIN and Trade License
+* Opening a bank account 
+* Call Subscription of share from shareholder through banking channel. Sec 94 (1D) If within 6 months failed to paid the share money, members are vacated.
+After name clerance, if foreign subscriber can hold share , they need to paid amount equal to foreign currecy of Forign members to the non-operative bank account of company members  and need a certificate regarding cash deposited from foreign shareholder in foreign currecy and need to attached with company formation registration to comply.
+* RJSC give the certified copy of MOA and AOA. 
+
+* Sec 26. Members have right to get MOA AOA. If need certified MOA and AOA, need to application with requisite fees and company within 14 days give the copy therof. 
+
+Sec 25 A. If any Documents wrong/mismatched, after incorporation, mismatched must be retified and company regiatration not hampered.
+
+Sec 28 - Association not for profit /cheritable ORG. Sec 11A. Not mandatory to add extention of company Category. MOA AOA prepared as per Schedule 07.
+-- application to commerce Ministry and RJSC , COM Verification by one magistrade and special branch Police.
+-- Commerce ministry give a license for that after getting lisence RJSC give incorporation certificate.
+
+Sec 29, Having no capital, Limited by guarantee. Subscribers of the memorandum are the guarantor. Comapnay formation with that. no commerce ministry license required.
+SEC 28 and SEC 29 - Profit not distributable amongst Members. There is no invetment and capital.
+
+
+Schedule 01. *****
+Schedule 03. ***
+Schedule 06. (Sec 06) ***
+Schedule 07. (Sec 28-29) MOA and AOA of cheritable org - company limited by guarantee
+Schedule 10.  Form 12 - Sec 115 (Particulars to Directors-PD). Annual summary of share capital (Sec 36), List of shareholder, directors. After incorporation within 18 Months need to submit shareholding position. Yearly mandatory 
+RJSC Return: After AGM sec 190, need to submit to RJSC some Document.
+Form 09, Consent of Director. when submit the registration of the company. All of the subscribers are the first directors of the company. 
+
+Sec 24 - Effect of regiatration under sec 24, and having Perpetual Successsion, company will not be finished.
+
+You are the mmebers, required minimum 02 share Subscription. without membership within 60 days paidup capital amount must be paid. otherwise position of director will be vacated. Sec 97 (1),
+
+Share tranfer form 117. 
+-- Sec 38 Transfer of Share, 
+-- Sec 39 Certification of transfer. 
+
+Board Can reject/deny with regulation 20 of Schedule 01. 
+In RJSC, presence of transferor need to verify the Signature. Physical Verification is required.
+If foreigner, need to go nearest ambessy of bangladesh. 
+Physical verify of the Signature.
+
+
 Class 02:
 =========
 Sec 41: Inspection of Member Registar:
@@ -19,7 +96,7 @@ Requirement of Valid AGM:
 - Presence of chairman/director/secratary is not mandatory in the meeting, Regulation 55 
 - Place of meeting can be changed by the chairman with the presence of meeting and approved by the meeting after fullfill the quoram, Regulation 56
 ** Except meeting to fill up the casual vacancy without qoram no meeting is valid.
-** 81 (2) and 85 (3), if not possible to call or conduct AGM properly, the court can give direction.\
+** 81 (2) and 85 (3), if not possible to call or conduct AGM properly, the court can give direction.
 
 Sec 83
 Sec 84
@@ -602,8 +679,8 @@ ED 4 - Statndard Setting, Enforcement, Audit Practice review, Monitoring (Any on
 Executive Director.
 
 Letter No, 47 - 9 March 2021
-Cir 52, 16 Aug, 2021
-Cir 2020 16 March - PIE related.
+Circular 52, 16 Aug, 2021
+Circular 2020 16 March - PIE related.
 -Revenue 5 Crore
 -Asset 3 Crore
 -without Equity Liability 1 Crore.
@@ -615,7 +692,6 @@ Difinition: Sec 2
 PIE 2-08
 Professional Accountant 2-18
 Professional Accountancy organization 2-19
-
 Structure of Councel Sec 5
 Sec 7
 Sec 8
