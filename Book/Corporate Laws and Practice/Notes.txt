@@ -2,7 +2,7 @@ Class 01:
 ========
 Sec 11 (A), for OPC, LTD, PLC 
 Private Ltd: Sec 2 (TA), restriction is transfer the share, Prohibition to invite the subscriber, members number is limited by 50. excluding employee of the company.
-- Prohibition of partnership exceeding certain number. 
+- Prohibition of partnership exceeding certain number.  Sec 04
 - If banking company, up to 10 members partnership. more than 10, Company 
 - other than banking company, up to 20 partnership. more than 20 , Company
 - Minimum 2 members need for private limited Company. Maximum 50 Members.
@@ -29,14 +29,14 @@ But MOA changable under Section 12.
 
 By filling form No. 01, applicable submit for company registration with Proposed MOA and AOA. Application form for registering new company.
 
-* Name of the registered address (form 06) - Sec 77, or after getting incorporation within 21 days have to submit form 06, if not mention the registered addres in MOA.
+* Name of the registered address (form 06) - Sec 77, or after getting incorporation within 28 days have to submit form 06, if not mention the registered addres in MOA.
 
 * When satified the RJSC, Give to company the incorporation certificates. Sec 25.
 -- incorporation certificates is the sufficient evidence of Complience.
 
 * BIN and Trade License
 * Opening a bank account 
-* Call Subscription of share from shareholder through banking channel. Sec 94 (1D) If within 6 months failed to paid the share money, members are vacated.
+* Call Subscription of share from shareholder through banking channel. Sec 94 (1D) If within 180 Days failed to paid the share money, members are vacated.
 After name clerance, if foreign subscriber can hold share , they need to paid amount equal to foreign currecy of Forign members to the non-operative bank account of company members  and need a certificate regarding cash deposited from foreign shareholder in foreign currecy and need to attached with company formation registration to comply.
 * RJSC give the certified copy of MOA and AOA. 
 
@@ -57,7 +57,7 @@ Schedule 03. ***
 Schedule 06. (Sec 06) ***
 Schedule 07. (Sec 28-29) MOA and AOA of cheritable org - company limited by guarantee
 Schedule 10.  Form 12 - Sec 115 (Particulars to Directors-PD). Annual summary of share capital (Sec 36), List of shareholder, directors. After incorporation within 18 Months need to submit shareholding position. Yearly mandatory 
-RJSC Return: After AGM sec 190, need to submit to RJSC some Document.
+RJSC Return: After AGM sec 190, need to submit to RJSC some Document. within 30 days after AGM.
 Form 09, Consent of Director. when submit the registration of the company. All of the subscribers are the first directors of the company. 
 
 Sec 24 - Effect of regiatration under sec 24, and having Perpetual Successsion, company will not be finished.
@@ -90,7 +90,7 @@ sec 81
 Requirement of Valid AGM:
 1. Agenda Under Regulation 51, See AGM Notice
 2. Proper Notice - 21 days notice Under sec 85, 
-3. Quoram under sec 85 2(B) Regulation 52, Private 2 Members and Other Company 5 Members.
+3. Quoram under sec 85 2(B) Regulation 52, Private Not less than 6 -2 Members, more than 6-3 members and Other Company 5 Members.
 4. Chairmen presence is not mandatory, if chairman not presence in the meeting within the stipulated time, meeting will not be hampared, regulation 55
 - Presence of chairman/director/secratary is not mandatory in the meeting, Regulation 55 
 - Place of meeting can be changed by the chairman with the presence of meeting and approved by the meeting after fullfill the quoram, Regulation 56
@@ -124,7 +124,7 @@ Director:
 =========
 Sec 90, Comapnay Act 1994, Private 2 director, Public 3 Directors.
 Corporate Governance Code 2018
-Sec 15, Banking Comapnay Act 1991, Will not be more than 20 with 3 Independent Director, Or less than 20, 2 Independent Director, From same family not more than 4 Director. No person shall hold consecutively not more than 9 years under Section 15AA. not more than 20% of paidup capital in one family.
+Sec 15, Banking Comapnay Act 1991, Will not be more than 20 with 3 Independent Director, Or less than 20, 2 Independent Director, From same family not more than 3 Director. No person shall hold consecutively not more than 12 years under Section 15AA. not more than 20% of paidup capital in one family.
 Sec 25 (3), Non Banking Finacial Institution Act 1993, 11 09 2002 - Directors 9 - 11
 Sec 76, Insurance Act 2010
 
@@ -153,11 +153,26 @@ Sec 210 , Appoint of Auditor
 Prospectus (2L):  Invitation of purchase of share. Statememt.
 135 Sec. Matter to be stated. Issue offering and inviting to public to purchase the company share. Submit application to the BSEC to offer to the public.
 
-Prospect - IPO Rules 2015:
+Prospectus - IPO Rules 2015:
 -------------------------
 Rule 04: Submission of application and processing: Cut-off Price. FS mandatory with IFRS and ISA, by the panel auditor. In this precess, the issue Manager do some complience all Requirement of BSEC to bridge with issuer and authority. 
-## Issuer Company: AGM Regular. CGC-2018 Complient. No Accumulated loss. No director loan Defaulter. Minimum 3 year Operation. Face Value: At least 1 year Profit. if Book Building, 2 year profit. Positive Net operating cash flow per share as of. Retained earning not minus
-## Underwriter: who will guarantee to purchase the share. Minimum 35% of issue has been uderwritten by the underwriter as firm basis. Firm commitment to purchase the undersubscrition share by the underwriter. Min 35% commitment. 10% or 15 Crore, which one is higher, go to market. 30 crore paid up capital. Intend to draw from market Minimum 15 Crore paid up capital - Fixed Price.  all the sponsor or director all time jointly hold minimum 30% of paid-up capital. if not 30% holding, no right share, no bonus share, no transfer of share.
+## Issuer Company: AGM Regular. CGC-2018 Complient. No Accumulated loss. No director holding 10% or more share not loan Defaulter as per CIB report Bangladesh Bank. Minimum 3 year Operation. 
+
+Face Value: At least 1 year Profit.  Minimum 3 year Operation.
+Book Building:  2 year profit. Positive Net operating cash flow per share as of. Retained earning not minus
+
+## Underwriter: who will guarantee to purchase the share. 
+35% of issue has been uderwritten by the underwriter as firm basis. Firm commitment to purchase the undersubscrition share by the underwriter. 35% commitment.
+
+Book Building: Intend to draw from market Minimum 50 Crore paid up capital. Existing min share 30 crore 
+Fixed Price:. Intend 10% or 15 Crore, which one is higher, go to market. Existing min share 15 crore 
+
+all the sponsor or director all time jointly hold minimum 30% of paid-up capital. 
+if not 30% holding, 
+- no right share, 
+- no bonus share, 
+- no transfer of share.
+
 Rule 05: Format and content of abbreiged version. Annex E, F
 Rule 03. application for consent and Requirement.
 Rule 07, Publication of prospectus and opening of subscription, can not publish prospectus without under 130
