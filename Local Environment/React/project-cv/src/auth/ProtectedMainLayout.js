@@ -4,7 +4,7 @@ import {CircularProgress} from '@mui/material';
 import { tokenVerify } from './api';
 import MainLayout from '../layouts/MainLayout';
 import { useStateContext } from './StateProvider';
-import LoginPage from '../pages/LoginPage';
+import LoginPage from '../pages/LoginPagev2';
 
 // eslint-disable-next-line
 const ProtectedMainLayout = ({ children }) => {

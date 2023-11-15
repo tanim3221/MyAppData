@@ -80,6 +80,29 @@ export const userLogin = async (requestData) => {
     throw error;
   }
 };
+export const user_G_Login = async (requestData) => {
+  try {
+    const response = await api.post('/g_decode_token.php', requestData);
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
+
+// export const getDecodedOAuthJwtGoogle = async (token) => {
+//   // const CLIENT_ID_GOOGLE = process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
+
+//   try {
+//     const response = await api.get(
+//       `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`
+//     );
+
+//     return response.data;
+//   } catch (error) {
+//     return { status: 500, data: error };
+//   }
+// };
 
 export const tokenVerify = async (requestData) => {
   try {

@@ -16,7 +16,7 @@ function Google() {
         <h1>React Google Login</h1>
         <div>
           <GoogleOAuthProvider clientId="995598256383-fn7bphr60k9gevag4dp5oudcjtf2cjm1.apps.googleusercontent.com">
-            {/* <GoogleLogin
+            <GoogleLogin
               onSuccess={credentialResponse => {
                 console.log(credentialResponse);
               }}
@@ -25,7 +25,7 @@ function Google() {
               }}
               useOneTap
             />
-            <div className='spacer'></div> */}
+            <div className='spacer'></div>
 
             <GoogleLogin
               shape="circle"
@@ -33,7 +33,7 @@ function Google() {
               onFailure={handleLoginFailure}
               onError={handleLoginFailure}
             />
-            {/* <div className='spacer'></div>
+            <div className='spacer'></div>
             <GoogleLogin
               onSuccess={credentialResponse => {
                 console.log(credentialResponse);
@@ -164,7 +164,7 @@ function Google() {
               onError={() => {
                 console.log('Login Failed');
               }}
-            /> */}
+            />
           </GoogleOAuthProvider>
         </div>
 

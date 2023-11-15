@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
+import LoginPagev2 from './pages/LoginPagev2';
 import Page404 from './pages/Page404';
 import Home from './pages/Homev3';
 import History from './pages/History';
@@ -16,7 +16,7 @@ export default function Router() {
         <Route path="home" element={<Home/>} />
         <Route path="history" element={<History/>} />
       </Route>
-      <Route path="login" element={<LoginPage />} />
+      <Route path="login" element={<LoginPagev2 />} />
       <Route path="404" element={<Page404 />} />
       <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
