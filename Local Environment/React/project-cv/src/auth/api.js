@@ -20,7 +20,18 @@ export const searchData = async (requestData) => {
 export const getSearchLog = async (requestData) => {
   try {
     const loggedinToken = sessionStorage.getItem('authToken');
-    const response = await api.post('/search_log.php', { ...requestData, token: loggedinToken });
+    const response = await api.post('/log.php', { ...requestData, token: loggedinToken, type: 'search'});
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
+
+export const getLoginLog = async (requestData) => {
+  try {
+    const loggedinToken = sessionStorage.getItem('authToken');
+    const response = await api.post('/log.php', { ...requestData, token: loggedinToken, type: 'login'});
     return response.data;
   } catch (error) {
     console.error('API request error:', error);

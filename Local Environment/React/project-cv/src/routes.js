@@ -3,7 +3,8 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import LoginPagev2 from './pages/LoginPagev2';
 import Page404 from './pages/Page404';
-import Home from './pages/Homev3';
+import Search from './pages/HomeSearchv3';
+import Home from './pages/HomeGrid';
 import History from './pages/History';
 import ProtectedMainLayout from './auth/ProtectedMainLayout';
 
@@ -14,6 +15,7 @@ export default function Router() {
       <Route path="/" element={<ProtectedMainLayout />}>
         <Route index element={<Navigate to="/home" />} />
         <Route path="home" element={<Home/>} />
+        <Route path="search" element={<Search/>} />
         <Route path="history" element={<History/>} />
       </Route>
       <Route path="login" element={<LoginPagev2 />} />

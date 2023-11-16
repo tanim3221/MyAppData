@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 
 import { Box, Drawer, Typography, List, ListItemText,ListItemIcon, ListItemButton } from '@mui/material';
-import { Home, History } from '@mui/icons-material';
+import { Home, History, Search } from '@mui/icons-material';
 
 // Custom hooks and components
 import useResponsive from '../utils/UseResponsive';
@@ -19,6 +19,11 @@ const navConfig = [
     title: 'Home',
     path: '/home',
     icon: <Home />,
+  },
+  {
+    title: 'Search',
+    path: '/search',
+    icon: <Search />,
   },
 {
     title: 'History',

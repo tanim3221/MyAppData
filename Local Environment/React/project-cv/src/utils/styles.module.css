@@ -19,7 +19,22 @@
   font-size: 1.3rem;
   font-weight: 700;
 }
-
+.floatingbutton {
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  right: 2rem;
+  bottom: 2rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999999;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add box shadow */
+}
 .tableSp{
   width: 10rem;
   color: green;
@@ -67,6 +82,10 @@
 @media (max-width: 768px) {
     .some-class {
       left: 50%;
+    }
+    .floatingbutton {
+      width: 50px;
+      height: 50px;
     }
   }
   

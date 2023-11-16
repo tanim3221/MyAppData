@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';
 
 import Header from './Header';
 import Nav from './NavBar';
+import FloatingButton from '../utils/FloatingButton';
 
 
 const APP_BAR_MOBILE = 64;
@@ -31,13 +32,19 @@ const Main = styled('div')(({ theme }) => ({
 
 export default function MainLayout() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
+  
+  const handleButtonClick = () => {
+    navigate('/search');
+  };
   return (
     <StyledRoot>
       <Header onOpenNav={() => setOpen(true)} />
       <Nav openNav={open} onCloseNav={() => setOpen(false)} />
       <Main>
         <Outlet />
+        <FloatingButton onClick={handleButtonClick} />
       </Main>
     </StyledRoot>
   );

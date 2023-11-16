@@ -49,15 +49,12 @@ export default function Page404() {
         <Container>
           {/* <ContentOverlay> */}
             <Typography style={{marginBottom: '2rem'}} variant="h2">
-              NOT FOUND
+             ERROR 404
             </Typography>
             <Divider sx={{ marginBottom: '2rem' }} />
 
             <Typography>
               The requested page could not be found due to a 404 error. Please check the URL for typos or misspellings.
-            </Typography>
-            <Typography>
-            If the URL is correct, the page may have been moved or deleted. You can contact the website administrator for assistance.
             </Typography>
             <ButtonStyle style={{marginTop: '2rem'}}>
               <Button to="/" size="small" variant="contained" component={RouterLink}>
