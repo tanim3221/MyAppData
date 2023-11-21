@@ -1,0 +1,5 @@
+1. Obtain a list of investments and encashment made during the period.
+2. Confirm that all investments and encashment shown in the list are recorded in financial statements.
+3. Check authorization and supporting documents of selected sample investments and encashments made during the period.
+4. Confirm selected sample investments and encashments through receipt and payment in the bank statement.
+5. Recalculate and confirm reinvestment of interest earned on selected sample items.

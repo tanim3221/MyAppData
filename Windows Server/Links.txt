@@ -1,0 +1,27 @@
+Oracle VirtualBox
+===================================================
+https://www.virtualbox.org/wiki/Downloads
+
+Windows Server 2019 Evaluation
+===================================================
+https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2019
+
+Windows 10 Evaluation
+===================================================
+https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise
+
+Windows Server 2019 Standard x DataCenter
+====================================================
+https://docs.microsoft.com/en-us/windows-server/get-started-19/editions-comparison-19
+
+Windows 8.1
+=====================================================
+https://www.microsoft.com/en-us/software-download/windows8ISO
+
+
+Windows Admin Center
+===================================================
+aka.ms/WindowsAdminCenter
+
+https://docs.microsoft.com/en-us/windows-server/manage/windows-admin-center/understand/windows-admin-center
+

@@ -1,0 +1,4 @@
+1. Obtain a list of investments and encashments made during the period.
+2. Confirm applicable interest rates and tenures of the investments.
+3. Recalculate interest on renewal investment considering additional investments made, interest rate, and encashments during the period for sample selected items.
+4. Check recalculated amount with the amount shown in the financial statements.

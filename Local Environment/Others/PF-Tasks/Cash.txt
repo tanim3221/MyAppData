@@ -1,0 +1,9 @@
+1. Identify banks, financial institutions, or other third parties of which confirmation requests are appropriate.
+2. Prepare and send confirmation requests to the banks/financial institutions. Maintain control over the confirmation requests during this process (refer to guidance for details).
+3. Perform follow-up if no response has been received from the confirmations sent out, and send a second confirmation.
+4. Obtain confirmations reply.
+5. Compare the balances as per bank reconciliation, liability reconciliation (if applicable), and other financial statement information to the bank confirmation and determine whether balances have been recorded in the proper accounts. If applicable, recalculate foreign-currency balances using the spot rate of the relevant currencies at the balance-sheet date.
+6. Investigate and conclude on any variances (Refer to guidance for common techniques for testing of additive and deductive items).
+7. If confirmations are not received, compare the balances as per the bank reconciliation, liability reconciliation, and other financial statement information to the entity's banking portal or bank statements.
+8. For information used in the audit, consider the relevance and reliability of the information to be used as audit evidence, including information obtained from an external information source. For internally produced information this includes, as necessary in the circumstances, evaluating whether the information is sufficiently precise and detailed for the auditor’s purposes and obtaining audit evidence about the accuracy and completeness of the information.
+9. Conclude on the results of audit procedures and, if applicable, include any identified misstatements on the Summary of misstatements.

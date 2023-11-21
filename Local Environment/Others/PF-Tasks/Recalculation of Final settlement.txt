@@ -1,0 +1,4 @@
+1) Obtain the list of departed members along with their respective final settlement amounts.
+2) Obtain relevant supporting documents (related to departure) for sample departed members.
+3) Recalculate the final settlement amount of the sample departed members.
+4) Check recalculated final settlement amount with the fund sent to the bank accounts of sample departed members.

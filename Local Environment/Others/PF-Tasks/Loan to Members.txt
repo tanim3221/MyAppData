@@ -1,0 +1,4 @@
+1. Obtain a list of loans made to members during the period.
+2. Confirm applicable interest rates and tenures of the loans to members.
+3. Perform test of details (TOD) on selected sample loans disbursed and recovered amount to and from members.
+4. Recalculate the outstanding amount of the selected sample loans disbursed to and recovered from members.
