@@ -37,6 +37,16 @@ export const getAnalysis = async (requestData) => {
     throw error;
   }
 };
+export const getYears = async (requestData) => {
+  try {
+    const loggedinToken = sessionStorage.getItem('authToken');
+    const response = await api.post('/years_ca.php', { ...requestData, token: loggedinToken});
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};
 
 export const getLoginLog = async (requestData) => {
   try {
