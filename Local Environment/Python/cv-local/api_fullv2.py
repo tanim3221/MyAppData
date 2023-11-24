@@ -19,7 +19,8 @@ reg_no = input("Enter the registration number: ")
 payload = {"regNo": reg_no}
 
 # Authorization token
-auth_token = "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FrbGF5ZW4gIEFobWVkICIsInJvbGUiOiJTVFVERU5UIiwicmVnTm8iOiIzMzQzMCIsIm5iZiI6MTY5NzQ4MzYxNSwiZXhwIjoxNjk3NDg3MjE1LCJpYXQiOjE2OTc0ODM2MTV9.-zquDWwb48c0dURo-xbJN7Tl3VS-ZPv43jRtEGvHoMaXA0EhfTuKUTnodke5Du211nCM6x-up_65RzvnMXYR9w"
+token = open("auth_token.txt", "r")
+auth_token = token.read()
 
 # Set the headers with the Authorization token
 headers = {

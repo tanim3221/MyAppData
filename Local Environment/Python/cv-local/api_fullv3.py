@@ -56,7 +56,7 @@ for reg_no in range(start_reg_no, end_reg_no + 1):
 
             # Insert data into the "general_data" table
             insert_general_data = """
-            INSERT INTO general_data (regNo, regDate, regYear, periodFrom, periodTo, nationalId, name, nickname, fName, mName, preAdd,perAdd, ph, cell, email, dob, gender, nationality, fId, prinEnrNo, religion, fax, imagepath, requestedImagepath, bloodGr, entryuser, studType, imageapprovalpending, salutation, altMobNo, firmName, prinName, prinID, articleSname, genStuType)
+            INSERT INTO general_data1 (regNo, regDate, regYear, periodFrom, periodTo, nationalId, name, nickname, fName, mName, preAdd,perAdd, ph, cell, email, dob, gender, nationality, fId, prinEnrNo, religion, fax, imagepath, requestedImagepath, bloodGr, entryuser, studType, imageapprovalpending, salutation, altMobNo, firmName, prinName, prinID, articleSname, genStuType)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
 
@@ -109,7 +109,7 @@ for reg_no in range(start_reg_no, end_reg_no + 1):
 
             # Insert data into the "education_data" table
             insert_education_data = """
-            INSERT INTO education_data (regNo, examName, boardUni, passYear, resultDiv, resultGpa, resultProf, resultOutOfGpa, academicLevel, group_name, certificationLevel, institute, pasRegNo)
+            INSERT INTO education_data1 (regNo, examName, boardUni, passYear, resultDiv, resultGpa, resultProf, resultOutOfGpa, academicLevel, group_name, certificationLevel, institute, pasRegNo)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
 
