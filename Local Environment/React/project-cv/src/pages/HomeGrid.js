@@ -54,7 +54,8 @@ export default function Home() {
 
   const cardData = [
     { id: 1, title: 'Search', click: '/search', icon: <Search fontSize="large" />, count: <PersonSearch fontSize="large"/> },
-    { id: 4, title: 'Analysis', click: '/analysis', icon: <Business fontSize="large"/>, count: <Insights fontSize="large"/> },    
+    { id: 4, title: 'Firm Analysis', click: '/analysis', icon: <Business fontSize="large"/>, count: <Insights fontSize="large"/> },
+    { id: 5, title: 'Years to CA', click: '/years', icon: <School fontSize="large"/>, count: <Insights fontSize="large"/> },
     { id: 2, title: 'Search History', click: '/history', icon: <TravelExplore fontSize="large" />, count: searchLog },
     { id: 3, title: 'Login History', click: '', icon: <Policy fontSize="large"/>, count: loginLog },
   ];
