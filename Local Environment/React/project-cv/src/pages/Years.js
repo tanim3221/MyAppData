@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useCallback, memo, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Grid,
   CircularProgress,
   useMediaQuery,
-  Card, CardContent, Typography, Badge
+  Card, CardContent, Typography
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import useResponsive from '../utils/UseResponsive';
 import extStyles from '../utils/styles.module.css';
+// eslint-disable-next-line
 import { History, Search, Check, TravelExplore, Policy, Insights, School, Business, HourglassBottom } from '@mui/icons-material';
-import { getYears } from '../auth/api';
 
 
 
@@ -22,35 +22,16 @@ export default function Years() {
   const navigate = useNavigate();
   const isDesktop = useResponsive('up', 'lg');
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-  const [log, setLog] = useState([]);
-
-  const handleRequest = (years) => {
-    const requestData = {
-      range: encodeURIComponent(years),
-    };
-
-    getYears(requestData)
-      .then(responseData => {
-        setLog(responseData);
-        setSkeleton(false);
-        console.log(responseData);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        setSkeleton(false);
-      });
-  }
-
 
   const cardData = [
-    { id: 1, title: '3 to 4 Years', click: '/years/view', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
-    { id: 1, title: '4 to 5 Years', click: '/years/view', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
-    { id: 1, title: '5 to 6 Years', click: '/years/view', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
-    { id: 1, title: '6 to 7 Years', click: '/years/view', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
-    { id: 1, title: '7 to 8 Years', click: '/years/view', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
-    { id: 1, title: '8 to 9 Years', click: '/years/view', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
-    { id: 1, title: '9 to 10 Years', click: '/years/view', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
-    { id: 1, title: 'Above 10 Years', click: '/years/view', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
+    { id: 1, title: '3 to 4 Years', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
+    { id: 2, title: '4 to 5 Years', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
+    { id: 3, title: '5 to 6 Years', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
+    { id: 4, title: '6 to 7 Years', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
+    { id: 5, title: '7 to 8 Years', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
+    { id: 6, title: '8 to 9 Years', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
+    { id: 7, title: '9 to 10 Years', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
+    { id: 8, title: 'Above 10 Years', icon: <School fontSize="large" />, count: <HourglassBottom fontSize="large" /> },
   ];
 
   const handleNavigate = (url) => {
@@ -71,8 +52,7 @@ export default function Years() {
               <Grid item xs={12} sm={6} md={3} key={card.id}>
                 <Card style={{ height: '10rem', cursor: 'pointer' }}
                   onClick={() => {
-                    // handleNavigate(card.click);
-                    handleRequest(card.title)
+                    handleNavigate(encodeURIComponent(card.title));
                   }}>
                   <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                     <div style={{ marginBottom: 'auto' }}>

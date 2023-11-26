@@ -7,6 +7,7 @@ import Search from './pages/HomeSearchv3';
 import Home from './pages/HomeGrid';
 import Analysis from './pages/Analysis';
 import Years from './pages/Years';
+import YearsView from './pages/YearsView';
 import History from './pages/History';
 import ProtectedMainLayout from './auth/ProtectedMainLayout';
 
@@ -18,7 +19,9 @@ export default function Router() {
         <Route index element={<Navigate to="/home" />} />
         <Route path="home" element={<Home/>} />
         <Route path="search" element={<Search/>} />
-        <Route path="years" element={<Years/>} />
+        <Route path="years" element={<Years/>} >
+          <Route path=":yearsrange" element={<YearsView />} />
+        </Route>
         <Route path="analysis" element={<Analysis/>} />
         <Route path="history" element={<History/>} />
       </Route>
