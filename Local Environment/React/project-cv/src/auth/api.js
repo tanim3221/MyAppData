@@ -40,7 +40,7 @@ export const getAnalysis = async (requestData) => {
 export const getYears = async (requestData) => {
   try {
     const loggedinToken = sessionStorage.getItem('authToken');
-    const response = await api.post('/years_ca.php', { ...requestData, token: loggedinToken});
+    const response = await api.post('/years.php', { ...requestData, token: loggedinToken});
     return response.data;
   } catch (error) {
     console.error('API request error:', error);

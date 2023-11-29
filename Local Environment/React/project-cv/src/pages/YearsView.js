@@ -13,28 +13,32 @@ import extStyles from '../utils/styles.module.css';
 import { History, Search, Check, TravelExplore, Policy, Insights, School, Business, HourglassBottom } from '@mui/icons-material';
 import { getYears } from '../auth/api';
 
-
-
-export default function YearsView({yearsrange}) {
+export default function YearsView() {
 
   const [loading, setLoading] = useState(false);
   const [skeleton, setSkeleton] = useState(true);
   const isDesktop = useResponsive('up', 'lg');
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const [log, setLog] = useState([]);
-  // const { yearsrange } = useParams();
-  // console.log('Yearsrange:', useParams());
+  const { yearsrange } = useParams();
+  console.log('Yearsrange:', useParams());
 
 
   useEffect(() => {
     console.log('YearsView component mounted with yearsrange:', yearsrange);
     const requestData = {
       range: encodeURIComponent(yearsrange),
+      type: 'range',
     };
+    console.log(requestData);
+
     getYears(requestData)
       .then(responseData => {
         setLog(responseData);
         setSkeleton(false);
+
+        console.log(responseData);
+
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -54,7 +58,7 @@ export default function YearsView({yearsrange}) {
           <Grid container spacing={2}>
             {log.map((card) => (
               <Grid item xs={12} sm={6} md={3} key={card.userkeyid}>
-                  <Typography>{card.userkeyid}</Typography>
+                <Typography>{card.userkeyid}</Typography>
               </Grid>
             ))}
           </Grid>
