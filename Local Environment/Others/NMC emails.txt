@@ -4,6 +4,10 @@ Email: saklayen.nmc@gmail.com
 Name: Saklayen Ahmed
 Email: saklayen.nmc@outlook.com
 
+Name: NMC Office
+Email: ouroffice.nmc@gmail.com
+Password: #nmc2023
+
 Name: Sk Mehedi Reza Kamal
 Email: mehedireza.nmc@gmail.com
 Password: #nmc2023
@@ -23,5 +27,6 @@ Password: #nmc2023
 Name: Nazim Uddin Ahmed
 Email: nazimuddin.nmc@gmail.com
 Password: #nmc2023
+
 
 
