@@ -34,7 +34,7 @@ const BackgroundOverlay = styled('div')(({ theme }) => ({
 const ContentOverlay = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
   borderRadius: theme.spacing(3),
-  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  // backgroundColor: 'rgba(255, 255, 255, 0.9)',
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -249,7 +249,6 @@ export default function LoginPage() {
 
   return (
     <>
-      <BackgroundOverlay />
       <StyledRoot>
         <Container maxWidth="xs">
           <ContentOverlay>

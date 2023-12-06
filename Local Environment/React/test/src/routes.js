@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Google from './pages/Google';
 import Home from './pages/Homev2';
+import GitHub from './github/Login';
 import Decode from './pages/Decode';
 
 function AppRoutes() {
@@ -11,6 +12,7 @@ function AppRoutes() {
       <Route path="/home" element={<Home/>} /> 
       <Route path="/decode" element={<Decode/>} /> 
       <Route path="/google" element={<Google />} />
+      <Route path="/github" element={<GitHub />} />
     </Routes>
   );
 }
