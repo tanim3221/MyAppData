@@ -8,6 +8,9 @@ Name: NMC Office
 Email: ouroffice.nmc@gmail.com
 Password: #nmc2023
 
+Remote Desktop Email: ouroffice.nmc@gmail.com
+Access Code: 123456
+
 Name: Sk Mehedi Reza Kamal
 Email: mehedireza.nmc@gmail.com
 Password: #nmc2023
