@@ -1,19 +1,23 @@
 import smtplib as smtp
+import datetime as dt
+import random as rd
 
-my_email = "myicche@gmail.com"
-to_email = "astanim.3221@gmail.com"
-password = "vltwzqjiwczsiuaq"
+HOST = "smtp.gmail.com"
+MY_MAIL = "myicche@gmail.com"
+TO_MAIL = "astanim.3221@gmail.com"
+MY_PASSWORD = "vltwzqjiwczsiuaq"
 
-sub = "Test subject"
-body = "Hello,  Test message."
-
-with smtp.SMTP("smtp.gmail.com") as conn:
-    conn.starttls()
-    conn.login(
-        user=my_email,
-        password=password)
-    conn.sendmail(
-        from_addr=my_email, 
-        to_addrs=to_email, 
-        msg=f"Subject:{sub}\n\n {body}")
-
+now = dt.datetime.now()
+weekday = now.weekday()
+if weekday == 1:
+    with open("./quotes.txt") as quote_file:
+        all_quotes = quote_file.readlines()
+        quote = rd.choice(all_quotes)
+    print(quote)
+    with smtp.SMTP(HOST) as conn:
+        conn.starttls()
+        conn.login(MY_MAIL,MY_PASSWORD)
+        conn.sendmail(
+                from_addr=MY_MAIL, to_addrs=TO_MAIL, 
+                msg=f"Subject: Monday Motivation\n\n{quote}"
+            )
