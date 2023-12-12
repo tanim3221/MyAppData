@@ -8,6 +8,7 @@ class Data:
         self.param = {
             "amount": 10,
             "type": "boolean",
+            "category": 18,
         }
 
 
