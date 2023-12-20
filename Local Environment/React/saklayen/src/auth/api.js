@@ -113,3 +113,13 @@ export const tokenVerify = async (requestData) => {
     throw error;
   }
 };
+
+export const userGLogin = async (requestData) => {
+  try {
+    const response = await api.post('/g_decode_token.php', requestData);
+    return response.data;
+  } catch (error) {
+    console.error('API request error:', error);
+    throw error;
+  }
+};

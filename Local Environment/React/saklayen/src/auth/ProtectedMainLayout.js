@@ -23,6 +23,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import {CircularProgress} from '@mui/material';
 import { tokenVerify } from './api';
 import MainLayout from '../layouts/MainLayout';
+import LoginPage from '../pages/LoginPagev2';
 import { useStateContext } from './StateProvider';
 
 // eslint-disable-next-line
@@ -59,20 +60,38 @@ const ProtectedMainLayout = ({ children }) => {
     // eslint-disable-next-line
   }, [loggedinToken, location.pathname]);
 
-  if (isTokenValid === null) {
-    // Display a circular loading indicator in the middle of the screen
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <CircularProgress />
-      </div>
-    );
+  switch(isTokenValid){
+    case true:
+      return(
+        <MainLayout>{children}</MainLayout>
+      )
+    case false:
+      return(
+        <LoginPage/>
+      )
+    case null:
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      );
+    default:
+      return(
+        <LoginPage/>
+      )
   }
-  if (isTokenValid) {
-    // Token is valid, render the main layout
-    return <MainLayout>{children}</MainLayout>;
-  }
-  // Token is not valid, navigate to login
-  return <Navigate to="/login" />;
+
+  // if (isTokenValid === null) {
+  //   return (
+  //     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+  //       <CircularProgress />
+  //     </div>
+  //   );
+  // }
+  // if (isTokenValid) {
+  //   return <MainLayout>{children}</MainLayout>;
+  // }
+  // return <Navigate to="/login" />;
 };
 
 export default ProtectedMainLayout;
