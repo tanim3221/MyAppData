@@ -1,0 +1,12 @@
+{%extends 'book/base.html'%}
+{%from 'bootstrap5/form.html' import render_form%}
+{%block title%} Add new book {%endblock%}
+
+{%block content%}
+
+<div class=" container">
+    <h1>{{book.title}} ({{book.rating}})</h1>
+    {{render_form(form, novalidate=True)}}
+</div>
+
+{%endblock%}
