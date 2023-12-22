@@ -6,6 +6,11 @@ from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 import requests
 
+MOVIE_DB_URL = "https://api.themoviedb.org/3/search/movie"
+MOVIE_DB_API_KEY = "5b71f8f1566f7251aad227d548a98751"
+MOVIE_DB_INFO_URL = "https://api.themoviedb.org/3/movie"
+MOVIE_DB_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
@@ -35,24 +40,56 @@ class FindMovieForm(FlaskForm):
     title = StringField("Movie Title", validators=[DataRequired()])
     submit= SubmitField("Search")
 
-# new_movie = Movie(
-#     title="Phone Booth",
-#     year=2002,
-#     description="Publicist Stuart Shepard finds himself trapped in a phone booth, pinned down by an extortionist's sniper rifle. Unable to leave or receive outside help, Stuart's negotiation with the caller leads to a jaw-dropping climax.",
-#     rating=7.3,
-#     ranking=10,
-#     review="My favourite character was the caller.",
-#     img_url="https://image.tmdb.org/t/p/w500/tjrX2oWRCM3Tvarz38zlZM7Uc10.jpg"
-# )
+@app.route("/add", methods=["GET", "POST"])
+def add_movie():
+    form = FindMovieForm()
 
-# with app.app_context():
-#     db.session.add(new_movie)
-#     db.session.commit()
+    if form.validate_on_submit():
+        movie_title = form.title.data
+        params = {
+            "api_key": MOVIE_DB_API_KEY,
+            "query": movie_title
+        }
+        response = requests.get(MOVIE_DB_URL,params=params, verify=False)
+        data = response.json()["results"]
+        print(response)
+        return render_template("movie/select.html", options=data)
+    return render_template("movie/add.html",form=form)
+
+
+@app.route("/find")
+def find_movie():
+    movie_api_id = request.args.get("id")
+    params = {
+        "api_key": MOVIE_DB_API_KEY,
+        "language": "en-US"
+    }
+    if movie_api_id:
+        movie_api_url = f"{MOVIE_DB_INFO_URL}/{movie_api_id}"
+        response = requests.get(movie_api_url, params=params, verify=False)
+        data = response.json()        
+        new_movie = Movie(
+            title = data['title'],
+            year = data['release_date'],
+            rating = data['vote_average'],
+            description = data['overview'],
+            img_url = f"{MOVIE_DB_IMAGE_URL}{data['poster_path']}",
+        )
+        
+        db.session.add(new_movie)
+        db.session.commit()
+        
+        return redirect(url_for('edit', id=new_movie.id))
 
 @app.route("/")
 def home():
-    result = db.session.execute(db.select(Movie))
-    all_m = result.scalars()
+    result = db.session.execute(db.select(Movie).order_by(Movie.rating))
+    all_m = result.scalars().all()
+    
+    for i in range(len(all_m)):
+        all_m[i].ranking = len(all_m) - i
+        
+    db.session.commit()
     return render_template("movie/index.html", movies = all_m)
 
 @app.route("/edit", methods=["GET","POST"])
