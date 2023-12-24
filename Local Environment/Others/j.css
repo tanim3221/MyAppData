@@ -1,0 +1,17 @@
+.site-title a {
+    font-size: 15px;
+}
+
+.student-stories .conatainer{
+    padding: 0px;
+}
+
+.category-posts-internal {
+    text-align: left;
+    list-style: auto;
+    margin: 0;
+}
+
+.foundersection{
+    flex-direction: column;
+}
