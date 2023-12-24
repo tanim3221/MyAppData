@@ -36,10 +36,15 @@ def to_dict(self):
     
     # return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
+@app.route("/all")
+def get_all_cafe():
+    result = db.session.execute(db.select(Cafe).order_by(Cafe.name))
+    all_cafes = result.scalars().all()
+    return jsonify(cafes=[cafe.dict() for cafe in all_cafes])
 
 
 @app.route("/random")
-def random_cafe():
+def get_random_cafe():
     result = db.session.execute(db.select(Cafe))
     all_cafe = result.scalars().all()
     random_cafe =random.choice(all_cafe)
