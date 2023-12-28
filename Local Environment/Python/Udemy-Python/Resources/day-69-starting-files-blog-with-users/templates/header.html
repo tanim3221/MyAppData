@@ -8,14 +8,14 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Clean Blog - Start Bootstrap Theme</title>
+    <title>Angela's Blog</title>
     {% block styles %}
     <!-- Load Bootstrap-Flask CSS here -->
     {{ bootstrap.load_css() }}
     <link
       rel="icon"
       type="image/x-icon"
-      href="{{ url_for('static', filename='api_blog/assets/favicon.ico') }}"
+      href="{{ url_for('static', filename='assets/favicon.ico') }}"
     />
     <!-- Font Awesome icons (free version)-->
     <script
@@ -35,7 +35,7 @@
     />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link
-      href="{{ url_for('static', filename='api_blog/css/styles.css') }}"
+      href="{{ url_for('static', filename='css/styles.css') }}"
       rel="stylesheet"
     />
     {% endblock %}
@@ -66,30 +66,28 @@
                 >Home</a
               >
             </li>
-            {%if not current_user.is_authenticated: %}
+            <!-- TODO: Only show Login/Register if user is logged out. Otherwise show "Log Out" -->
             <li class="nav-item">
-            <a
+              <a
                 class="nav-link px-lg-3 py-3 py-lg-4"
-                href="{{url_for('login')}}"
+                href="{{ url_for('login') }}"
                 >Login</a
               >
             </li>
             <li class="nav-item">
-            <a
+              <a
                 class="nav-link px-lg-3 py-3 py-lg-4"
-                href="{{url_for('register')}}"
-                >Registration</a
+                href="{{ url_for('register') }}"
+                >Register</a
               >
             </li>
-            {%else:%}
             <li class="nav-item">
-            <a
+              <a
                 class="nav-link px-lg-3 py-3 py-lg-4"
-                href="{{url_for('logout')}}"
-                >Logout</a
+                href="{{ url_for('logout') }}"
+                >Log Out</a
               >
             </li>
-            {%endif%}
             <li class="nav-item">
               <a
                 class="nav-link px-lg-3 py-3 py-lg-4"
@@ -108,3 +106,5 @@
         </div>
       </div>
     </nav>
+  </body>
+</html>
