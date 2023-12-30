@@ -41,9 +41,6 @@
           <ul class="commentList">
             {%for comment in post.comments:%}
             <li>
-              <div class="commenterImage">
-                <img src="../static/assets/img/default-profile.jpg" />
-              </div>
               <div class="commentText">
                 {{comment.text|safe}}
                 <span class="date sub-text">{{comment.comment_author.name}}</span>

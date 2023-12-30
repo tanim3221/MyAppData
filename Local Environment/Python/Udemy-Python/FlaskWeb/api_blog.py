@@ -12,7 +12,7 @@ from functools import wraps
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 from flask_migrate import Migrate
-# from flask_gravatar import Gra
+# from flask_gravatar import Gravatar
 
 
 app = Flask(__name__)
@@ -23,6 +23,16 @@ Bootstrap5(app)
 
 login_mamager = LoginManager()
 login_mamager.init_app(app)
+
+
+# gravatar = Gravatar(app,
+#                     size=100,
+#                     rating='g',
+#                     default='retro',
+#                     force_default=False,
+#                     force_lower=False,
+#                     use_ssl=False,
+#                     base_url=None)
 
 # CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts_api_2.db'
