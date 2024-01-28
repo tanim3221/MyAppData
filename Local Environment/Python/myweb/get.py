@@ -3,7 +3,7 @@ import json
 import requests
 
 # Define the URL
-url = "http://localhost:8080/saklayen_api/assets/api/public"
+url = "https://api.saklayen.cf/assets/api/public"
 
 # Define the payload data
 payload = {
