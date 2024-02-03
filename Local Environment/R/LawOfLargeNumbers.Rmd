@@ -1,0 +1,69 @@
+---
+title: "Law of Large Numbers"
+author: "Patrick Dolinger"
+date: "01/03/2020"
+output:
+  html_notebook:
+    theme: united
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+    df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Definition per Probability Theory
+***In probability theory, the law of large numbers (LLN) is a theorem that describes the result of performing the same experiment a large number of times. According to the law, the average of the results obtained from a large number of trials should be close to the expected value, and will tend to become closer as more trials are performed.*** 
+
+##### [Wikipedia](https://en.wikipedia.org/wiki/Law_of_large_numbers)  
+
+### Create Variables for Observations
+- N represents the total number of observations, or in this example, coin flips.
+- o represents the number of observations to display to look at the results as they are run.
+- o should not exceed 100 for practical purposes.
+
+***Comment out set.seed() to achieve randomness on subsequent runs***
+
+```{r coin_flips}
+N <- 10000  
+o <- 10   
+set.seed(1963)  # added for the example - comment out for tests
+```
+
+### Create Variables for Iterations
+Now we will set 3 variables to simulate the coin flips.
+
+- x - stores the sample flips as a 0 or 1. The number of flips will me set by the value of N set previously.
+- s - stores a running total of the occurrences of a value of “1”.
+- r.avg - stores the running avg with each flip.
+
+```{r}
+x <- sample(0:1, N, replace = T)
+s <- cumsum(x)    
+r.avg <- s/(1:N)
+```
+
+### Store the Means
+Assign the running statistics gathered to the r.stats variable. Show the results (should limit to approx 100 observations in this list)
+```{r}
+r.stats <- round(cbind(x,s,r.avg), 3)[1:o,]
+print(r.stats)
+```
+
+### Graph the Results
+
+Create a plot chart to illustrate how the means of the sample approximately equals the population with large sample sizes.
+*scipen used to influence the x axis to use whole numbers for large observation counts*
+
+The plot uses line charts to reflect (1) the running averages of the coin flips and (2) the expected average of the population (.5).
+```{r}
+options(scipen = 10)  
+plot(r.avg, ylim=c(.30, .70), type = "l", xlab = "Observations"
+     ,ylab = "Probability", lwd = 2)
+lines(c(0,N), c(.50,.50),col="red", lwd = 2)
+```
+
+
