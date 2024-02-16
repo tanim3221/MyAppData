@@ -1,0 +1,28 @@
+Saklayen Ahmed  
+180/2, Mohakhali TB Gate, Dhaka-1212  
+Email: saklayen.3221@gmail.com; Mobile: +8801727268458  
+
+17 February 2024 
+
+Manager
+Talent Acquisition Team
+Wipro
+
+Dear sir,
+
+I am writing to express my interest in the MySQL DBA position at Wipro, as advertised. With a strong educational background encompassing Bachelor's and Master's degrees in Accounting and Information Systems, coupled with my progress towards Chartered Accountancy qualification, I bring a unique blend of skills that align well with the requirements of this role.
+
+During my academic pursuits, I developed a solid foundation in accounting principles and information systems management, which have equipped me with a structured and analytical approach to problem-solving. This, combined with my ongoing professional journey towards Chartered Accountancy, has honed my ability to handle complex challenges with precision and attention to detail.
+
+I am particularly drawn to this opportunity at Wipro because of my passion for database management and optimization. My experience with MySQL spans recent versions, and I have a proven track record of provisioning MySQL instances in both clustered and non-clustered configurations, ensuring optimal performance, security, and availability. Moreover, I possess expertise in MySQL's underlying storage engines, replication configurations, backup and restoration procedures, database migration, and version upgrades.
+
+In addition to my MySQL proficiency, I am adept at SQL statement writing and optimization, as well as MySQL's event scheduler functionality. I have experience in MySQL database auditing and Transparent Data Encryption (TDE), further enhancing database security measures. Moreover, I am familiar with various replication architectures, including Master-Slave, Master-Master, Chain Replication, Group Replication, and Galera Cluster.
+
+Furthermore, my exposure to diverse databases such as PostgreSQL, MongoDB, Oracle, MS-SQL, and AWS provides me with a broader perspective on database management, enabling me to adapt quickly to evolving technological landscapes.
+
+I am confident that my academic background, professional experience, and ongoing commitment to learning align seamlessly with the MySQL DBA role at Wipro. I am eager to bring my skills and expertise to your esteemed team and contribute to the continued success and growth of your organization.
+
+Thank you for considering my application. I look forward to the opportunity to discuss how my qualifications and experiences can benefit Wipro's database management initiatives in more detail.
+
+Warm regards,
+Saklayen Ahmed  
