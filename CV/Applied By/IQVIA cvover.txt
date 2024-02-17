@@ -1,0 +1,29 @@
+[Your Name]
+[Your Address]
+[City, State, Zip]
+[Your Email Address]
+[Your Phone Number]
+[Date]
+
+Hiring Manager
+IQVIA
+[Company Address]
+[City, State, Zip]
+
+Dear Hiring Manager,
+
+I am writing to express my interest in the Python Developer position at IQVIA, as advertised. With a Bachelor's and Master's degree in Accounting and Information Systems, complemented by my partly qualified Chartered Accountancy background, I bring a unique blend of analytical rigor and technical proficiency to the table. My hands-on experience with Python, SQL databases, and cloud services align closely with the key technologies and responsibilities outlined for this role.
+
+In previously, I have successfully developed APIs and data pipelines using Python best practices, ensuring system performance and scalability. I have a proven track record of producing efficient and high-quality Python code, as well as designing and implementing proof-of-concept solutions. Collaborating closely with data scientists, I have contributed to the development of microservices and pipelines critical for algorithm development.
+
+My experience extends to conducting thorough code reviews, implementing unit and integration tests, and maintaining comprehensive documentation throughout the development lifecycle. I am well-versed in version control and CI/CD best practices, and I thrive in a Linux environment. Additionally, my proficiency in distilling complex concepts and presenting them to non-technical stakeholders has been instrumental in fostering effective communication within cross-functional teams.
+
+Furthermore, I possess a strong passion for creative problem-solving, which has enabled me to tackle challenges with resilience and ingenuity. I am committed to continuously learning and adapting to new technologies and methodologies, ensuring that I stay at the forefront of industry trends.
+
+I am particularly excited about the opportunity to contribute to IQVIA's innovative projects and leverage my skills to drive impactful solutions in the healthcare industry. I am confident that my technical expertise, coupled with my background in accounting and information systems, will enable me to make meaningful contributions to your team.
+
+Thank you for considering my application. I am eager to further discuss how my qualifications align with the needs of IQVIA. Please find my resume attached for your review, and I look forward to the possibility of discussing this exciting opportunity with you.
+
+Warm regards,
+
+[Your Name]
