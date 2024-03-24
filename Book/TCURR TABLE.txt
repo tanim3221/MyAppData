@@ -1,0 +1,25 @@
+**𝑻𝒂𝒃𝒍𝒆𝒔 𝒊𝒏 𝑺𝑨𝑷 𝒕𝒉𝒂𝒕 𝒔𝒕𝒐𝒓𝒆 𝑪𝒖𝒓𝒓𝒆𝒏𝒄𝒚 𝑫𝒆𝒕𝒂𝒊𝒍𝒔**
+
+- > 𝑻𝑪𝑼𝑹𝑹 : 𝑮𝒆𝒏𝒆𝒓𝒂𝒍 𝑬𝒙𝒄𝒉𝒂𝒏𝒈𝒆 𝑹𝒂𝒕𝒆 𝑻𝒂𝒃𝒍𝒆
+
+What exchange rates are being used in order to convert the currency from one source to target are stored in this table. This table involves exchange rate type such as M for average rate, from currency to which currency the conversion is happening, exchange rate in decimal and the validity details.
+
+- >𝑻𝑪𝑼𝑹𝑪 : 𝑪𝒖𝒓𝒓𝒆𝒏𝒄𝒚 𝑪𝒐𝒅𝒆 𝑻𝒂𝒃𝒍𝒆
+
+This is the standard currency code table which consists of currency in its short form, what long text & short text it belongs to (textual description of the currency), its alternative key and its validity.
+
+- >𝑻𝑪𝑼𝑹𝑻 :  𝑪𝒖𝒓𝒓𝒆𝒏𝒄𝒚 𝑪𝒐𝒅𝒆 𝑵𝒂𝒎𝒆𝒔 𝑻𝒂𝒃𝒍𝒆
+
+This table contains nothing but the currency type such AED, AUD etc and what is its long description and short description such as for AUD its Australien Dollar and Austr. Dollar.
+
+- >𝑻𝑪𝑼𝑹𝑿 : 𝑫𝒆𝒄𝒊𝒎𝒂𝒍 𝑷𝒍𝒂𝒄𝒆𝒔 𝒊𝒏 𝑪𝒖𝒓𝒓𝒆𝒏𝒄𝒚 𝑻𝒂𝒃𝒍𝒆
+
+SAP stored currencies with fixed interpretation of two decimal places (data type). Some currencies such as Korean won etc does not work well with such settings. So, they need to get stored with more than two decimals and that entry will be stored in this table. It contains currency key and decimal place only.
+
+- >𝑻𝑪𝑼𝑹𝑽 : 𝑬𝒙𝒄𝒉𝒂𝒏𝒈𝒆 𝑹𝒂𝒕𝒆 𝑻𝒚𝒑𝒆 𝒇𝒐𝒓 𝑪𝒖𝒓𝒓𝒆𝒏𝒄𝒚 𝑻𝒓𝒂𝒏𝒔𝒍𝒂𝒕𝒊𝒐𝒏 𝑻𝒂𝒃𝒍𝒆.
+
+It consist of details about the exchange rate types which are available in the current SAP system. It have fields such as Exchange Rate Type, reference currency if any, and its usage. Ex M is the average exchange rate type with usage field as standard translation at average rate.
+
+- >𝑻𝑪𝑼𝑹𝑭 : 𝑪𝒐𝒏𝒗𝒆𝒓𝒔𝒊𝒐𝒏 𝑭𝒂𝒄𝒕𝒐𝒓 𝑻𝒂𝒃𝒍𝒆
+
+Before converting any amount, system will go the TCURF table and check the exchange rate type and alternative exchange rate type and using these two fields, the conversion proceeds to TCURR table. It contains fields for exchange rate type, from & to currency conversion, ratio from to to and alternate exchange rate type.
